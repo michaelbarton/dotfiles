@@ -27,6 +27,7 @@ set statusline=%<%f\ %h%m%r%=%-20.(line=%l,col=%c%V,totlin=%L%)\%h%m%r%=%-40(,%n
 
 " correct my common typos without me even noticing them:
 abbreviate teh the
+abbreviate hte the
 
 " GUI options
 if has("gui_running")
