@@ -45,3 +45,6 @@ endif
 
 " FuzzyFinderTextMate plugin key map
 map <leader>t :FuzzyFinderTextMate<CR>
+
+" Ack key map
+map <leader>r :Ack
