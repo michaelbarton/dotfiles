@@ -8,6 +8,10 @@ set foldnestmax=3         " Maximum level of folding is 3
 " Load matchit (% to bounce from do to end, etc.)
 runtime! macros/matchit.vim
 
+" Use grep instead of ack
+set grepprg=ack
+
+
 augroup myfiletypes
   " Clear old autocmds in group
   autocmd!
