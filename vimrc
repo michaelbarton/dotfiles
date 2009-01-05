@@ -29,9 +29,12 @@ set incsearch
 " Status line shown at the bottom of each window
 set statusline=%<%f\ %h%m%r%=%-20.(line=%l,col=%c%V,totlin=%L%)\%h%m%r%=%-40(,%n%Y%)\%P
 
-" correct my common typos without me even noticing them:
+" correct common typos
 abbreviate teh the
 abbreviate hte the
+abbreviate te the
+abbreviate thsi this
+abbreviate smae same
 
 " GUI options
 if has("gui_running")
