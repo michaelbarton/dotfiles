@@ -8,8 +8,18 @@ set foldnestmax=3         " Maximum level of folding is 3
 " Load matchit (% to bounce from do to end, etc.)
 runtime! macros/matchit.vim
 
+" Manage multiple buffers in background
+set hidden
+
+" Flash instead of beep
+set visualbell
+
 " Use grep instead of ack
 set grepprg=ack
+
+" Jump to marked line AND column
+nnoremap ' `
+nnoremap ` '
 
 
 augroup myfiletypes
