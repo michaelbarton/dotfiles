@@ -35,6 +35,7 @@ abbreviate hte the
 abbreviate te the
 abbreviate thsi this
 abbreviate smae same
+abbreviate ot to
 
 " GUI options
 if has("gui_running")
@@ -50,4 +51,4 @@ endif
 map <leader>t :FuzzyFinderTextMate<CR>
 
 " Ack key map
-map <leader>r :Ack
+map <leader>r :Ack<SPACE>
