@@ -11,6 +11,10 @@ set hi=1000
 " Load matchit (% to bounce from do to end, etc.)
 runtime! macros/matchit.vim
 
+" Use grep instead of ack
+set grepprg=ack
+
+
 augroup myfiletypes
   " Clear old autocmds in group
   autocmd!
@@ -30,6 +34,7 @@ set statusline=%<%f\ %h%m%r%=%-20.(line=%l,col=%c%V,totlin=%L%)\%h%m%r%=%-40(,%n
 
 " correct my common typos without me even noticing them:
 abbreviate teh the
+abbreviate hte the
 
 " GUI options
 if has("gui_running")
@@ -43,3 +48,6 @@ endif
 
 " FuzzyFinderTextMate plugin key map
 map <leader>t :FuzzyFinderTextMate<CR>
+
+" Ack key map
+map <leader>r :Ack
