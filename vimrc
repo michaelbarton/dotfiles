@@ -5,6 +5,9 @@ filetype plugin indent on " Enable filetype-specific indenting and plugins
 set foldmethod=syntax     " Code folding based on the filetype
 set foldnestmax=3         " Maximum level of folding is 3
 
+" Set large history size
+set hi=1000
+
 " Load matchit (% to bounce from do to end, etc.)
 runtime! macros/matchit.vim
 
