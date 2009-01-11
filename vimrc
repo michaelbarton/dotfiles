@@ -40,12 +40,15 @@ set incsearch
 set statusline=%<%f\ %h%m%r%=%-20.(line=%l,col=%c%V,totlin=%L%)\%h%m%r%=%-40(,%n%Y%)\%P
 
 " correct common typos
-abbreviate teh the
-abbreviate hte the
-abbreviate te the
-abbreviate thsi this
-abbreviate smae same
-abbreviate ot to
+iab teh the
+iab hte the
+iab te the
+iab thsi this
+iab smae same
+iab ot to
+iab fo of
+iab os so
+iab si is
 
 " GUI options
 if has("gui_running")
