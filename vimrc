@@ -42,6 +42,22 @@ set incsearch
 " Status line shown at the bottom of each window
 set statusline=%<%f\ %h%m%r%=%-20.(line=%l,col=%c%V,totlin=%L%)\%h%m%r%=%-40(,%n%Y%)\%P
 
+" GUI options
+if has("gui_running")
+    colorscheme railscasts
+    set lines=45
+    set columns=115
+    set noantialias
+else
+    " Any non-GUI options here
+endif
+
+" FuzzyFinderTextMate plugin key map
+map <leader>t :FuzzyFinderTextMate<CR>
+
+" Ack key map
+map <leader>r :Ack<SPACE>
+
 " correct common typos
 iab teh  the
 iab th   the
@@ -58,19 +74,3 @@ iab og   of
 iab os   so
 iab si   is
 iab wiht with
-
-" GUI options
-if has("gui_running")
-    colorscheme railscasts
-    set lines=45
-    set columns=115
-    set noantialias
-else
-    " Any non-GUI options here
-endif
-
-" FuzzyFinderTextMate plugin key map
-map <leader>t :FuzzyFinderTextMate<CR>
-
-" Ack key map
-map <leader>r :Ack<SPACE>
