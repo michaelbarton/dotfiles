@@ -48,6 +48,7 @@ if has("gui_running")
     set lines=45
     set columns=115
     set noantialias
+    set gfn=DejaVu\ Sans\ Mono:h16.00
 else
     " Any non-GUI options here
 endif
