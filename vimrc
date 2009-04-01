@@ -53,10 +53,6 @@ map <leader>t :FuzzyFinderTextMate<CR>
 " Ack key map
 map <leader>r :Ack<SPACE>
 
-" Automatically load and save tex views
-au BufWinLeave *.tex mkview
-au BufWinEnter *.tex silent loadview
-
 " correct common typos
 iab teh  the
 iab th   the
