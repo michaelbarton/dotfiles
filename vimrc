@@ -2,6 +2,11 @@ set nocompatible          " We're running Vim, not Vi!
 syntax on                 " Enable syntax highlighting
 filetype plugin indent on " Enable filetype-specific indenting and plugins
 
+" Color scheme
+colorscheme vividchalk
+highlight NonText guibg=#060606
+highlight Folded guibg=#0A0A0A guifg=#9090D0
+
 set foldmethod=syntax     " Code folding based on the filetype
 set foldnestmax=3         " Maximum level of folding is 3
 
@@ -42,22 +47,15 @@ set incsearch
 " Status line shown at the bottom of each window
 set statusline=%<%f\ %h%m%r%=%-20.(line=%l,col=%c%V,totlin=%L%)\%h%m%r%=%-40(,%n%Y%)\%P
 
-" GUI options
-if has("gui_running")
-    colorscheme railscasts
-    set lines=45
-    set columns=115
-    set noantialias
-    set gfn=DejaVu\ Sans\ Mono:h16.00
-else
-    " Any non-GUI options here
-endif
-
 " FuzzyFinderTextMate plugin key map
 map <leader>t :FuzzyFinderTextMate<CR>
 
 " Ack key map
 map <leader>r :Ack<SPACE>
+
+" Automatically load and save tex views
+au BufWinLeave *.tex mkview
+au BufWinEnter *.tex silent loadview
 
 " correct common typos
 iab teh  the
