@@ -1,0 +1,21 @@
+# UTF stuff
+setenv LC_CTYPE en_GB.UTF-8
+defutf8 on
+
+startup_message off
+deflogin on
+shell -bash
+
+autodetach on
+activity "%c activity -> %n%f %t"
+
+vbell on
+bell "%c bell -> %n%f %t^G"
+vbell_msg " *beep* "
+
+hardstatus alwayslastline "%{=b kW}[ %{= Y}$USER @ %H %{b W}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{b W}][%{= Y} %l %{b W}][%{= Y} %d/%m %{Y}%c %{b W}]"
+
+defflow auto
+defscrollback 10000
+
+termcapinfo xterm*|Eterm|mlterm|rxvt 'hs:ts=\E]0;:fs=\007:ds=\E]0;screen\007'
