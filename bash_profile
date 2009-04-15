@@ -1,3 +1,5 @@
+source ~/.bash_local
+
 export EDITOR=vim
 
 function parse_git_branch {
