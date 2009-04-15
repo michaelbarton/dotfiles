@@ -30,6 +30,16 @@ PS4='+ '
 }
 proml
 
+# Git shortcuts
+alias gl='git log --pretty=oneline'
+alias gc='git commit'
+alias ga='git add'
+alias gd='git diff'
+alias gs='git status'
+alias gsw='git checkout'
+alias gb='git branch'
+alias gsvn='git svn'
+
 # Long list
 alias ls='ls -l -G -t'
 
