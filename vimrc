@@ -10,6 +10,8 @@ highlight Folded guibg=#0A0A0A guifg=#9090D0
 set foldmethod=syntax     " Code folding based on the filetype
 set foldnestmax=3         " Maximum level of folding is 3
 
+let mapleader = ","
+
 " Set large history size
 set hi=1000
 
