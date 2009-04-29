@@ -34,10 +34,14 @@ proml
 alias gl='git log --pretty=oneline'
 alias gc='git commit'
 alias ga='git add'
+alias gap='git add --patch'
 alias gd='git diff'
 alias gs='git status'
 alias gsw='git checkout'
 alias gb='git branch'
+alias grm='git rm'
+alias gr='git rebase'
+alias gri='git rebase --interactive'
 alias gsvn='git svn'
 
 # Long list
