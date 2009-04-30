@@ -12,6 +12,11 @@ set foldnestmax=3         " Maximum level of folding is 3
 
 let mapleader = ","
 
+" Execute current file with F1
+:map <F1> <Esc>:w<CR>:!!<CR>
+" Execute R scripts as slave with F2
+:map <F2> <Esc>:w<CR>:!R --slave --file=%<CR>
+
 " Set large history size
 set hi=1000
 
@@ -54,6 +59,9 @@ map <leader>t :FuzzyFinderTextMate<CR>
 
 " Ack key map
 map <leader>r :Ack<SPACE>
+
+" Activate NERDTree
+map <leader>e :NERDTreeToggle<CR>
 
 " correct common typos
 iab teh  the
