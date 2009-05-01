@@ -59,7 +59,7 @@ alias R='R --quiet --vanilla'
 alias top='top -o rsize'
 
 # Three lines of context, and always add filename
-alias grep='grep --color=always'
+alias grep='grep --color=auto'
 
 export PATH=/opt/local/bin:/opt/local/sbin:~/.bash_scripts:/sw/bin:$PATH
 export PATH=/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:$PATH
