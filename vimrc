@@ -63,6 +63,9 @@ map <leader>r :Ack<SPACE>
 " Activate NERDTree
 map <leader>e :NERDTreeToggle<CR>
 
+" Set vimwiki path
+let g:vimwiki_list = [{'path': '~/.vimwiki/'}]
+
 " correct common typos
 iab teh  the
 iab th   the
