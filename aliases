@@ -1,0 +1,28 @@
+# Git shortcuts
+alias gl='git log --pretty=oneline'
+alias gc='git commit'
+alias ga='git add'
+alias gap='git add --patch'
+alias gd='git diff'
+alias gs='git status'
+alias gsw='git checkout'
+alias gb='git branch'
+alias grm='git rm'
+alias gr='git rebase'
+alias gri='git rebase --interactive'
+alias gsvn='git svn'
+
+# Long list
+alias ls='ls -l -G -t'
+
+# Vim instead of vi
+alias vi='vim'
+
+# Quiet R
+alias R='R --quiet --vanilla'
+
+# Sort process list by ram usage
+alias top='top -o rsize'
+
+# Three lines of context, and always add filename
+alias grep='grep --color=auto'
