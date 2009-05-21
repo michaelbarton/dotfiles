@@ -2,6 +2,8 @@ set nocompatible          " We're running Vim, not Vi!
 syntax on                 " Enable syntax highlighting
 filetype plugin indent on " Enable filetype-specific indenting and plugins
 
+set number
+
 " Color scheme
 colorscheme vividchalk
 highlight NonText guibg=#060606
