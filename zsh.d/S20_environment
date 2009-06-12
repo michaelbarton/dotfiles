@@ -1,0 +1,26 @@
+#!/bin/zsh
+
+if [ x"$HOME" = x ] ; then
+        export HOME=$(cd ~ ; pwd)
+fi
+
+if [ x"$HOSTNAME" = x ] ; then
+        export HOSTNAME=$(hostname)
+fi
+
+export EMAIL="mail@michaelbarton.me.uk"
+export FULLNAME="Michael Barton"
+
+EDITOR=vim
+PAGER='less'
+
+# history
+HISTFILE=$HOME/.zhistory
+HISTSIZE=1000
+SAVEHIST=1000
+
+# language
+LC_ALL='en_GB.UTF-8'
+LANG='en_GB.UTF-8'
+LC_CTYPE=C
+DISPLAY=:0
