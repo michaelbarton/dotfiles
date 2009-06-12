@@ -1,4 +1,4 @@
-source ~/.bash_local
+source ~/.local_config
 source ~/.bash_prompt
 source ~/.aliases
 
