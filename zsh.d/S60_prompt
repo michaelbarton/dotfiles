@@ -1,0 +1,35 @@
+    typeset -ga preexec_functions
+    typeset -ga precmd_functions
+    typeset -ga chpwd_functions
+
+    setopt prompt_subst
+
+    export __CURRENT_GIT_BRANCH=
+    export __CURRENT_GIT_VARS_INVALID=1
+
+    zsh_git_invalidate_vars() {
+            export __CURRENT_GIT_VARS_INVALID=1
+    }
+    zsh_git_compute_vars() {
+            export __CURRENT_GIT_BRANCH="$(parse_git_branch)"
+            export __CURRENT_GIT_VARS_INVALID=
+    }
+    parse_git_branch() {
+            git-branch --no-color 2> /dev/null \
+            | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1) -- /'
+    }
+    chpwd_functions+='zsh_git_chpwd_update_vars'
+    zsh_git_chpwd_update_vars() {
+            zsh_git_invalidate_vars
+    }
+    preexec_functions+='zsh_git_preexec_update_vars'
+    zsh_git_preexec_update_vars() {
+            case "$(history $HISTCMD)" in 
+                    *git*) zsh_git_invalidate_vars ;;
+            esac
+    }
+    get_git_prompt_info() {
+            test -n "$__CURRENT_GIT_VARS_INVALID" && zsh_git_compute_vars
+            echo $__CURRENT_GIT_BRANCH
+    }
+    PROMPT='%c$(get_git_prompt_info) %% '
