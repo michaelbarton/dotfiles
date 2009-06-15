@@ -66,7 +66,7 @@ map <leader>r :Ack<SPACE>
 map <leader>e :NERDTreeToggle<CR>
 
 " Set vimwiki path
-let g:vimwiki_list = [{'path': '~/.vimwiki/'}]
+let g:vimwiki_list = [{'path': '~/Dropbox/.vimwiki/'}]
 
 " correct common typos
 iab teh  the
