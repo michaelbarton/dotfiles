@@ -4,7 +4,7 @@ defutf8 on
 
 startup_message off
 deflogin on
-shell -bash
+shell -zsh
 
 autodetach on
 activity "%c activity -> %n%f %t"
