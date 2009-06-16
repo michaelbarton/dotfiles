@@ -1,8 +1,8 @@
 #!/bin/zsh
 
-if test -x =gdircolors; then
-    eval "`gdircolors`"
-    export LS_COLORS="*.ogm=01;35:${LS_COLORS}"
+ 
+if [ "$TERM" != "dumb" ]; then
+    eval `dircolors ~/.dir_colors`
     export ZLS_COLORS=$LS_COLORS
 fi
 

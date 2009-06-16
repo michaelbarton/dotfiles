@@ -17,8 +17,8 @@ alias gr='git rebase'
 alias gri='git rebase --interactive'
 alias gsvn='git svn'
 
-# Long list
-alias ls='ls -l -G -t'
+alias ls='ls --color=auto'
+alias lls='ls -l'
 
 # Vim instead of vi
 alias vi='vim'
