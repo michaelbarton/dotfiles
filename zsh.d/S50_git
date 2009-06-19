@@ -8,10 +8,12 @@ if [[ -x `which git` ]]; then
 		git status 2> /dev/null | grep "nothing to commit (working directory clean)"
 		echo $?
 	}
-	function gsrb () {
+	function gsdc () {
 		branch=$(git-branch-name) 
 		git checkout master
+		git rebase "${branch}"
 		git svn rebase
+		git svn dcommit
 		git checkout "${branch}"
 		git rebase master
 	}
