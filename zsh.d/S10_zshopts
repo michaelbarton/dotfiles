@@ -1,5 +1,6 @@
 #!/bin/zsh
 
+cdpath=( ~ ~/projects/09/ )
  
 if [ "$TERM" != "dumb" ]; then
     eval `dircolors ~/.dir_colors`
