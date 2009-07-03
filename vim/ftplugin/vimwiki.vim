@@ -202,3 +202,5 @@ nmap <silent><buffer> - :call vimwiki#RemoveHeaderLevel()<CR>
 " }}}
 
 " KEYBINDINGS }}}
+
+filetype indent off
