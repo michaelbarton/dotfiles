@@ -76,6 +76,8 @@ iab te   the
 iab thsi this
 iab htis this
 iab tis  this
+iab ths this
+iab htese these
 iab htat that
 iab smae same
 iab ot   to
@@ -84,3 +86,12 @@ iab og   of
 iab os   so
 iab si   is
 iab wiht with
+iab od of
+iab geneome genome
+iab whihc which
+iab involed involved
+iab uou you
+iab howeer however
+iab wth with
+iab thae the
+iab descibe describe
