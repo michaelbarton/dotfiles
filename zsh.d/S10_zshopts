@@ -16,41 +16,24 @@ zmodload -a zsh/zprof zprof
 zmodload -a zsh/complist complist
 zmodload -ap zsh/mapfile mapfile
 
-setopt APPEND_HISTORY
 unsetopt BG_NICE		# do NOT nice bg commands
-setopt CORRECT			# command CORRECTION
+
+setopt APPEND_HISTORY
 setopt EXTENDED_HISTORY		# puts timestamps in the history
 setopt HIST_ALLOW_CLOBBER
 setopt HIST_REDUCE_BLANKS
 setopt INC_APPEND_HISTORY SHARE_HISTORY
 setopt ALL_EXPORT
+setopt HIST_IGNORE_ALL_DUPS     # ignore all -- even non contiguous
 
-setopt MENUCOMPLETE
-# Set/unset  shell options
-setopt   notify globdots correct pushdtohome cdablevars autolist
-setopt   correctall autocd recexact longlistjobs
-setopt   autoresume histignoredups pushdsilent noclobber
-setopt   autopushd pushdminus extendedglob rcquotes mailwarning
-unsetopt bgnice autoparamslash
-autoload -U is-at-least
+setopt CORRECT	            # command CORRECTION
+setopt NO_MENU_COMPLETE     # no menu completion of commands
+setopt LIST_AMBIGUOUS       # unambiguous prefix completion is done silently
+setopt NO_LIST_BEEP         # don't beep for completion
+setopt LIST_PACKED          # different width for completion
+setopt NO_LIST_ROWS_FIRST   # sort by colums
+setopt LIST_TYPES
 
-# Autoload zsh modules when they are referenced
-zmodload -a zsh/stat stat
-zmodload -a zsh/zpty zpty
-zmodload -a zsh/zprof zprof
-zmodload -a zsh/complist complist
-zmodload -ap zsh/mapfile mapfile
-
-setopt APPEND_HISTORY
-unsetopt BG_NICE		# do NOT nice bg commands
-setopt CORRECT			# command CORRECTION
-setopt EXTENDED_HISTORY		# puts timestamps in the history
-setopt HIST_ALLOW_CLOBBER
-setopt HIST_REDUCE_BLANKS
-setopt INC_APPEND_HISTORY SHARE_HISTORY
-setopt ALL_EXPORT
-
-setopt MENUCOMPLETE
 # Set/unset  shell options
 setopt   notify globdots correct pushdtohome cdablevars autolist
 setopt   correctall autocd recexact longlistjobs
