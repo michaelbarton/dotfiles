@@ -2,6 +2,8 @@ set nocompatible          " We're running Vim, not Vi!
 syntax on                 " Enable syntax highlighting
 filetype plugin indent on " Enable filetype-specific indenting and plugins
 
+language en_GB.UTF-8
+
 set number
 
 " Color scheme
