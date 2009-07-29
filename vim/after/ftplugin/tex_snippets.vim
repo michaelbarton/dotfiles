@@ -15,6 +15,6 @@ exec "Snippet et \\emph{et. al} ".st.et
 exec "Snippet emph \\emph{".st."emph".et."} ".st.et
 
 " Section headings
-exec "Snippet sec \\section{".st."name".et."}\\label{sec:".st."name:substitute(@z,'.','\\l&','g')".et."<CR>".st.et
-exec "Snippet sub \\subsection{".st."name".et."}\\label{sub:".st."name:substitute(@z,'.','\\l&','g')".et."}<CR>".st.et
-exec "Snippet ssub \\subsubsection{".st."name".et."}\\label{ssub:".st."name:substitute(@z,'.','\\l&','g')".et."}<CR>".st.et
+exec "Snippet sec \\section{".st."name".et."}<CR>".st.et
+exec "Snippet sub \\subsection{".st."name".et."}<CR>".st.et
+exec "Snippet ssub \\subsubsection{".st."name".et."}<CR>".st.et
