@@ -61,6 +61,10 @@ set statusline=%<%f\ %h%m%r%=%-20.(line=%l,col=%c%V,totlin=%L%)\%h%m%r%=%-40(,%n
 " FuzzyFinderTextMate plugin key map
 map <leader>t :FuzzyFinderTextMate<CR>
 
+" Mini buffer explorer key map
+map <Leader>w :MiniBufExplorer<cr>
+map <Leader>W :CMiniBufExplorer<cr>
+
 " Ack key map
 map <leader>r :Ack<SPACE>
 
