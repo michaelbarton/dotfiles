@@ -6,8 +6,9 @@ let st = g:snip_start_tag
 let et = g:snip_end_tag
 let cd = g:snip_elem_delim
 
-" Floats
+" Environments
 exec "Snippet figure \\begin{figure}%{{{<CR>  \\centering<CR>  \\includegraphics*[width=10cm]{".st."file".et.".eps}<CR>  \\caption[".st."caption".et."]{".st."caption".et."}<CR>  \\label{figure:".st."label".et."}<CR>\\end{figure}%}}}<CR><CR>Figure\~\\ref{figure:".st."label".et."}<CR>".st.et
+exec "Snippet begin \\begin{".st."env".et."}%{{{<CR>\\end{".st."env".et."}%}}}<CR>".st.et
 
 " Misc in-line text snippets
 exec "Snippet cite \\cite{".st."ref".et."} ".st.et
