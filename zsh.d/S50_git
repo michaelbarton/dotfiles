@@ -8,13 +8,26 @@ if [[ -x `which git` ]]; then
 		git status 2> /dev/null | grep "nothing to commit (working directory clean)"
 		echo $?
 	}
+	# git: Fetch origin changes, rebase current branch changes onto master, push to origin
+	function grc () {
+		branch=$(git-branch-name) 
+		git fetch origin master && \
+		git rebase origin/master && \
+		git checkout master && \
+		git rebase "${branch}" && \
+		git push origin master && \
+		git checkout "${branch}" && \
+		git rebase master
+        }
+
+	# svn: Rebases current changes onto master, and pushes to repository
 	function gsdc () {
 		branch=$(git-branch-name) 
-		git checkout master
-		git rebase "${branch}"
-		git svn rebase
-		git svn dcommit
-		git checkout "${branch}"
+		git checkout master && \
+		git rebase "${branch}" && \
+		git svn rebase && \
+		git svn dcommit && \
+		git checkout "${branch}" && \
 		git rebase master
 	}
         function git-need-to-push() {
