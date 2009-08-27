@@ -9,9 +9,9 @@ if [[ -x `which git` ]]; then
 		echo $?
 	}
 	# git: Fetch origin changes, rebase current branch changes onto master, push to origin
-	function grc () {
+	function gsync () {
 		branch=$(git-branch-name) 
-		git fetch origin master && \
+		git pull --rebase origin master && \
 		git rebase origin/master && \
 		git checkout master && \
 		git rebase "${branch}" && \
