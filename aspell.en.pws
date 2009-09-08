@@ -1,4 +1,4 @@
-personal_ws-1.1 en 226
+personal_ws-1.1 en 227
 al
 ancova
 anova
@@ -113,6 +113,7 @@ indices
 Inositol
 isoenzymes
 Isoleucine
+JSON
 kilobase
 kluyveri
 kudriavzevii
@@ -190,6 +191,8 @@ redox
 resequencing
 RSS
 Saccharomyces
+screenshot
+screenshots
 ser
 serine
 silico
@@ -213,11 +216,13 @@ tryptophan
 turbidostat
 tyr
 Valine
+webserver
 Wellcome
 wiki
 Wikipedia
 wikis
 wordpress
 workflow
+YAML
 YPD
 Zymosterol
