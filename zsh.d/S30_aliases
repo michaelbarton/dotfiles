@@ -25,7 +25,7 @@ alias lls='ls -l'
 alias vi='vim'
 
 # Quiet R
-alias R='R --quiet --vanilla'
+alias R='R --quiet --no-save --no-restore' 
 
 # Sort process list by ram usage
 alias top='top -o rsize'
