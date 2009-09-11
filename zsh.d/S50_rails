@@ -1,0 +1,25 @@
+# autocompletion for ruby_test
+# works with tu/tf/ti aliases
+# see also ~/bin/ruby_test.rb
+_ruby_tests() {
+  if [[ -n $words[2] ]]; then
+    compadd `ruby_test -l ${words[2]}`
+  fi
+}
+compdef _ruby_tests ruby_test
+alias tu="ruby_test unit"
+alias tf="ruby_test functional"
+alias ti="ruby_test integration"
+
+# autocompletion for ruby_spec
+# works with spm/spv/spc aliases
+# see also ~/bin/ruby_spec.rb
+_ruby_specs() {
+  if [[ -n $words[2] ]]; then
+    compadd `ruby_spec -l ${words[2]}`
+  fi
+}
+compdef _ruby_specs ruby_spec
+alias spm="ruby_spec models"
+alias spv="ruby_spec views"
+alias spc="ruby_spec controllers"

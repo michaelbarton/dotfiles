@@ -8,6 +8,8 @@ if [ x"$HOSTNAME" = x ] ; then
         export HOSTNAME=$(hostname)
 fi
 
+export PATH=~/.dotfiles/bin:$PATH
+
 export EMAIL="mail@michaelbarton.me.uk"
 export FULLNAME="Michael Barton"
 
