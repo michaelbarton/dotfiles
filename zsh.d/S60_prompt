@@ -5,7 +5,8 @@ autoload colors
 colors
 
 reset="%{%b%s%u$reset_color%}"
-current_directory="{ %{$fg[cyan]%c$reset%} }"
+arrow="%{$fg_bold[red]%} ➜  "
+current_directory="%{$fg_bold[cyan]%c %}"
 end=" %%%% "
 
 function git-prompt() {
@@ -15,17 +16,21 @@ function git-prompt() {
     echo ""
   else
     if [[ $(git-dirty) = 1 ]]; then
-      dirty_color=$fg[red]
+      dirty_color=$fg_bold[red]
     else
       dirty_color=$fg[green]
     fi
     push=$(git-need-to-push)
-    echo "-( %{$dirty_color%}$branch%{$reset_color%} %{$push%})"
+    echo "%{$fg_bold[blue]% git:(%{$dirty_color%}$branch%{$reset_color%}%{$push%}%{$fg_bold[blue]% )"
   fi
 }
 
 PROMPT='\
 $reset\
+$arrow\
+$reset\
 $current_directory\
+$reset\
 $(git-prompt)\
+$reset\
 $end'
