@@ -4,7 +4,7 @@ autoload zmv
 alias mmv='noglob zmv -W'
 
 # Git shortcuts
-alias gl='git log --pretty=format:"%h - %s"'
+alias gl='git log --graph --pretty=format:"%Cred%h%Creset - %s %Cgreen(%cr)%Creset" --abbrev-commit --date=relative'
 alias gc='git commit'
 alias gca='git commit -a'
 alias ga='git add'
