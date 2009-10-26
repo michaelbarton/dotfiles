@@ -28,3 +28,4 @@
   send = push origin master
 [core]
   excludesfile = ~/.gitignore
+	autocrlf = input
