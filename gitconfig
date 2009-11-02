@@ -28,4 +28,6 @@
   send = push origin master
 [core]
   excludesfile = ~/.gitignore
-	autocrlf = input
+  autocrlf = input
+[github]
+  user = michaelbarton
