@@ -32,3 +32,5 @@ alias top='top -o rsize'
 
 # Three lines of context, and always add filename
 alias grep='grep --color=auto'
+
+alias sp='aspell -c'
