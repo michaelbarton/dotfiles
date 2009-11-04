@@ -1,1 +1,2 @@
-export JEWELER_OPTS="--gemcutter --shoulda"
+# Jeweler gem creation options
+export JEWELER_OPTS='--gemcutter --shoulda --yard --user-email $EMAIL'
