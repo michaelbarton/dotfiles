@@ -74,6 +74,11 @@ map <leader>e :NERDTreeToggle<CR>
 " Set vimwiki path
 let g:vimwiki_list = [{'path': '~/Dropbox/.vimwiki/'}]
 
+" Indent using the tab key
+set sts=4
+set et
+imap <S-Tab> <C-o><<
+
 " correct common typos
 iab teh  the
 iab th   the
