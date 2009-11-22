@@ -1,11 +1,6 @@
 #!/bin/zsh
 
 cdpath=( ~ ~/projects/current )
- 
-if [ "$TERM" != "dumb" ]; then
-    eval `dircolors ~/.dir_colors`
-    export ZLS_COLORS=$LS_COLORS
-fi
 
 autoload -U is-at-least
 
