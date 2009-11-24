@@ -1,7 +1,5 @@
 autoload -U compinit zrecompile
 
-source ~/.local_config
-
 zsh_cache=${HOME}/.zsh_cache
 mkdir -p $zsh_cache
 
