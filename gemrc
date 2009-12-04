@@ -6,4 +6,4 @@
 - http://gemcutter.org
 :backtrace: false
 :bulk_threshold: 1000
-:gemhome: ~/.gems
+:gemhome: /Users/mike/.gems
