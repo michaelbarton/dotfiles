@@ -1,0 +1,3 @@
+[submodule "irbfiles"]
+	path = irbfiles
+	url = git@github.com:michaelbarton/irbfiles.git
