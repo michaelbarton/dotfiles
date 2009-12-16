@@ -1,4 +1,4 @@
-personal_ws-1.1 en 229 
+personal_ws-1.1 en 235 
 ActiveRecord
 al
 ancova
@@ -31,6 +31,7 @@ blogs
 BMC
 castellii
 cerevisiae
+chelating
 chemoheterotrophic
 chemostat
 clustalw
@@ -70,6 +71,7 @@ exometabolome
 extremophile
 FBA
 fermentative
+fluorescens
 Folate
 GC
 GenBank
@@ -137,6 +139,7 @@ MOMA
 mRNA
 mRNAs
 multimeric
+mutualism
 MySQL
 NADH
 NADPH
@@ -183,6 +186,8 @@ proven
 pseudogenes
 Pseudomonas
 PubMed
+Pyoverdine
+pyoverdine
 pyrosequencing
 Pyruvate
 quantile
@@ -195,6 +200,7 @@ screenshot
 screenshots
 ser
 serine
+siderophore
 silico
 Spearman
 Spearman's
