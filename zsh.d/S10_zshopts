@@ -8,7 +8,6 @@ autoload -U is-at-least
 zmodload -a zsh/stat stat
 zmodload -a zsh/zpty zpty
 zmodload -a zsh/zprof zprof
-zmodload -a zsh/complist complist
 zmodload -ap zsh/mapfile mapfile
 
 unsetopt BG_NICE		# do NOT nice bg commands
