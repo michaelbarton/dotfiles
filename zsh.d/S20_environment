@@ -18,10 +18,18 @@ export GIT_COMMITTER_NAME=$FULLNAME
 export GIT_AUTHOR_EMAIL=$EMAIL
 export GIT_COMMITTER_EMAIL=$EMAIL
 
+export JAVA_HOME="/System/Library/Frameworks/JavaVM.framework/Home/"
+
 export MANWIDTH=80
 export EDITOR=vim
 export VISUAL=vim
 export PAGER='less'
+
+if [ -d  $HOME/.ec2 ] ; then
+  export EC2_HOME=~/.ec2
+  export EC2_PRIVATE_KEY="$(/bin/ls $EC2_HOME/pk-*.pem)"
+  export EC2_CERT="$(/bin/ls $EC2_HOME/cert-*.pem)"
+fi
 
 # history
 HISTFILE=$HOME/.zhistory
