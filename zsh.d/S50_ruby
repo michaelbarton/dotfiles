@@ -1,2 +1,5 @@
+export GEM_HOME='~/.gem'
+
 # Jeweler gem creation options
 export JEWELER_OPTS='--gemcutter --shoulda --yard --user-email $EMAIL'
+
