@@ -1,10 +1,11 @@
-personal_ws-1.1 en 254 
+personal_ws-1.1 en 260
 ActiveRecord
 aeruginosa
 al
 ancova
 anova
 API
+arb
 Archaea
 Archaeal
 archaeal
@@ -77,6 +78,7 @@ eukaryotes
 eukaryotic
 exometabolome
 extremophile
+fasta
 FBA
 fermentative
 fluorescens
@@ -148,6 +150,7 @@ millimoles
 mmol
 mmols
 MOMA
+mothur
 mRNA
 mRNAs
 multimeric
@@ -157,7 +160,6 @@ NADH
 NADPH
 NCBI
 NKU
-Novo
 novo
 oligonucleotide
 omic
@@ -166,6 +168,8 @@ ORF
 ortholog
 orthologous
 orthologs
+OTU
+OTUs
 PAML
 paradoxus
 paralog
@@ -207,6 +211,7 @@ pyoverdine
 pyrosequencing
 Pyruvate
 quantile
+rcoffee
 redox
 resequencing
 rRNA
@@ -218,6 +223,7 @@ ser
 serine
 siderophore
 silico
+silva
 SOLiD
 Spearman
 Spearman's
