@@ -20,6 +20,7 @@ alias gsvn='git svn'
 
 alias ls='ls -G'
 alias lls='ls -l'
+alias lst='ls -ltr'
 
 # Vim instead of vi
 alias vi='vim'
