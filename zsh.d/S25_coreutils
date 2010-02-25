@@ -1,5 +1,5 @@
 # Core utils
-BREW_HOME="`echo $HOME`/.local/Cellar"
+BREW_HOME="`echo $HOME`/.local/homebrew"
 if [ -d "$BREW_HOME" ]; then
         brew_prefix=`brew --prefix`
         alias base64="$brew_prefix/bin/gbase64"
