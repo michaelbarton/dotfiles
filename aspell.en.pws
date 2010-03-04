@@ -1,5 +1,6 @@
-personal_ws-1.1 en 266 
+personal_ws-1.1 en 278 
 ActiveRecord
+adaptated
 aeruginosa
 al
 ancova
@@ -78,11 +79,13 @@ eukaryotes
 eukaryotic
 exometabolome
 extremophile
+extremophiles
 fasta
 FBA
 fermentative
 fluorescens
 Folate
+functionalisation
 GC
 GenBank
 genomics
@@ -125,6 +128,7 @@ intraspecies
 isoenzymes
 Isoleucine
 JSON
+KEGG
 kilobase
 kluyveri
 kudriavzevii
@@ -144,7 +148,7 @@ metabolomes
 metabolomic
 Metagenomic
 metagenomic
-Metagenomics
+metagenomics
 microarray
 mikatae
 millimoles
@@ -165,6 +169,7 @@ novo
 oligonucleotide
 omic
 operon
+oppourtunisitic
 ORF
 ortholog
 orthologous
@@ -191,6 +196,7 @@ Phosphorylation
 photoautotrophic
 photoautotrophs
 PHP
+phylip
 phylogenetically
 phylogenetics
 phylogenies
@@ -216,11 +222,15 @@ pyoverdine
 pyrosequencing
 Pyruvate
 quantile
+RAxML
 rcoffee
+rDNA
+readseq
 redox
 resequencing
 ribosomal
 rRNA
+rRNAs
 RSS
 Saccharomyces
 screenshot
@@ -228,6 +238,7 @@ screenshots
 ser
 serine
 siderophore
+siderophores
 silico
 silva
 SOLiD
@@ -242,6 +253,7 @@ stoichiometry
 stutezri
 subtilis
 SVN
+synomous
 thr
 Threonine
 transcriptome
