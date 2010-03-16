@@ -1,4 +1,4 @@
-personal_ws-1.1 en 283 
+personal_ws-1.1 en 297 
 ActiveRecord
 adaptated
 aeruginosa
@@ -28,6 +28,7 @@ BioRuby
 biosynthesis
 biosynthetic
 biosynthetically
+blastx
 blog
 blogger
 bloggers
@@ -62,6 +63,7 @@ dendrograms
 dGMP
 diauxic
 dinucleotide
+discontiguous
 dispensability
 dN
 dnaml
@@ -144,6 +146,9 @@ Mannan
 MATLAB
 Mbp
 MCA
+megabase
+megabases
+megablast
 mesophile
 mesophiles
 metabolome
@@ -232,6 +237,10 @@ rcoffee
 rDNA
 readseq
 redox
+relaxase
+relaxases
+replicase
+replicases
 resequencing
 ribosomal
 rRNA
@@ -259,8 +268,12 @@ stutezri
 subtilis
 SVN
 synomous
+syringae
 thr
 Threonine
+topoisomerase
+topoisomerases
+tranfer
 transcriptome
 transcriptomic
 Trehalose
