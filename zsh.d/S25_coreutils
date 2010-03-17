@@ -1,6 +1,5 @@
 # Core utils
-BREW_HOME="`echo $HOME`/.local/homebrew"
-if [ -d "$BREW_HOME" ]; then
+if [ -d /usr/local/Cellar/coreutils ]; then
         brew_prefix=`brew --prefix`
         alias base64="$brew_prefix/bin/gbase64"
         alias basename="$brew_prefix/bin/gbasename"
