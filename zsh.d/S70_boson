@@ -1,3 +1,4 @@
 #!/bin/zsh
 
 alias md='boson markdown'
+alias pm='boson query'
