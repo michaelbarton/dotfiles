@@ -9,9 +9,6 @@ set number
 " Set temporary directory (don't litter local dir with swp/tmp files)
 set directory=/tmp/
 
-" Set to auto read when a file is changed from the outside
-set autoread
-
 " Explicitly set 256 color support
 set t_Co=256
 
