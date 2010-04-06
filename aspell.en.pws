@@ -1,4 +1,4 @@
-personal_ws-1.1 en 297 
+personal_ws-1.1 en 302 
 ActiveRecord
 adaptated
 aeruginosa
@@ -8,7 +8,6 @@ anova
 API
 arb
 Archaea
-Archaeal
 archaeal
 arg
 Arginine
@@ -20,7 +19,6 @@ bayanus
 BBSRC
 bioinformatician
 bioinformaticians
-Bioinformatics
 bioinformatics
 biomolecular
 BioPerl
@@ -133,6 +131,7 @@ intraspecies
 isoenzymes
 Isoleucine
 JSON
+KBp
 KEGG
 kilobase
 kilobases
@@ -169,6 +168,7 @@ mothur
 mRNA
 mRNAs
 multimeric
+Multivatiate
 mutualism
 MySQL
 NADH
@@ -178,6 +178,7 @@ NKU
 novo
 nucmer
 oligonucleotide
+oligonucleotides
 omic
 operon
 oppourtunisitic
@@ -267,9 +268,12 @@ stoichiometries
 stoichiometry
 stutezri
 subtilis
+SVD
 SVN
 synomous
 syringae
+tetranucleotide
+tetranucleotides
 thr
 Threonine
 topoisomerase
@@ -283,6 +287,7 @@ tRNAs
 trp
 tryptophan
 turbidostat
+typhi
 tyr
 Valine
 webserver
