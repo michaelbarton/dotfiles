@@ -1,4 +1,4 @@
-personal_ws-1.1 en 310
+personal_ws-1.1 en 313
 ActiveRecord
 adaptated
 aeruginosa
@@ -134,7 +134,9 @@ intraspecies
 isoenzymes
 Isoleucine
 JSON
+kb
 KBp
+Kbp
 KEGG
 kilobase
 kilobases
@@ -220,6 +222,7 @@ phylogenomic
 phylogenomics
 PLoS
 plugin
+png
 powerpoint
 practices
 priori
@@ -274,13 +277,13 @@ stoichiometries
 stoichiometry
 stutezri
 subtilis
-SVD
+svd
 SVN
 synomous
 syringae
+taxa
 tetranucleotide
 tetranucleotides
-taxa
 thr
 Threonine
 topoisomerase
