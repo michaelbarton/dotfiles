@@ -23,7 +23,6 @@
   ci = commit
   new = checkout -b
   del = branch -d
-  ci = commit
   get = pull origin master
   send = push origin master
 [core]
