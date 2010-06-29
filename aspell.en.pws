@@ -1,4 +1,4 @@
-personal_ws-1.1 en 313
+personal_ws-1.1 en 316
 ActiveRecord
 adaptated
 aeruginosa
@@ -48,6 +48,8 @@ codon
 codons
 coli
 Connotea
+contig
+Contigs
 Cornu
 CSS
 CSV
@@ -179,6 +181,7 @@ MySQL
 NADH
 NADPH
 NCBI
+newbler
 NKU
 novo
 nucmer
