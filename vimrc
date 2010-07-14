@@ -49,6 +49,10 @@ set grepprg=ack
 nnoremap ' `
 nnoremap ` '
 
+" Map capital letters to same version as lowercase
+cmap B<Space> buf<Space>
+cmap W<Return> w<Return>
+
 
 augroup myfiletypes
   " Clear old autocmds in group
