@@ -71,6 +71,9 @@ set incsearch
 " Status line shown at the bottom of each window
 set statusline=%<%f\ %h%m%r%=%-20.(line=%l,col=%c%V,totlin=%L%)\%h%m%r%=%-40(,%n%Y%)\%P
 
+" End typing and write the file
+imap XX <Esc>:w<CR>
+
 " FuzzyFinderTextMate plugin key map
 map <leader>t :FuzzyFinderTextMate<CR>
 
