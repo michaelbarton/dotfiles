@@ -1,4 +1,4 @@
-personal_ws-1.1 en 321
+personal_ws-1.1 en 325
 ActiveRecord
 adaptated
 aeruginosa
@@ -47,6 +47,7 @@ CMP
 codeml
 codon
 codons
+COGs
 coli
 Connotea
 contig
@@ -154,10 +155,12 @@ leucine
 Loess
 loess
 lys
+MAFFT
 Mannan
 MATLAB
 Mbp
 MCA
+mcl
 megabase
 megabases
 megablast
@@ -292,6 +295,7 @@ syringae
 taxa
 tetranucleotide
 tetranucleotides
+tfasty
 thr
 Threonine
 topoisomerase
