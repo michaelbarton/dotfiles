@@ -21,7 +21,7 @@ function git-prompt() {
       dirty_color=$fg[green]
     fi
     push=$(git-need-to-push)
-    echo "%{$fg_bold[blue]%} git:(%{$dirty_color%}$branch%{$reset_color%}%{$push%}%{$fg_bold[blue]%})"
+    echo "%{$fg_bold[blue]%} (%{$dirty_color%}$branch%{$reset_color%}%{$push%}%{$fg_bold[blue]%})"
   fi
 }
 
