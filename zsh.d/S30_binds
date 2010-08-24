@@ -1,5 +1,8 @@
 #!/bin/zsh
 
+# Search through history
+bindkey -v "^[[A" history-incremental-search-backward
+
 # History completion
 bindkey -v "^[[A" history-beginning-search-backward
 bindkey -v "^[[B" history-beginning-search-forward
