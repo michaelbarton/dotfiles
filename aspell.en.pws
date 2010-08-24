@@ -1,4 +1,4 @@
-personal_ws-1.1 en 325
+personal_ws-1.1 en 328
 ActiveRecord
 adaptated
 aeruginosa
@@ -268,6 +268,7 @@ rRNA
 rRNAs
 RSS
 Saccharomyces
+scaffolder
 screenshot
 screenshots
 ser
@@ -322,5 +323,7 @@ wordpress
 workflow
 ws
 YAML
+yaml
+yml
 YPD
 Zymosterol
