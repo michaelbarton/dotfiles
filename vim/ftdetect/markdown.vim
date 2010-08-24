@@ -1,1 +1,1 @@
-autocmd BufNewFile,BufReadPost *.markdown,*.md,*.mkd set filetype=mkd
+autocmd BufNewFile,BufReadPost *.markdown,*.md,*.mkd,*.ronn set filetype=mkd
