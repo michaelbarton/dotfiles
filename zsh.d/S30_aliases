@@ -3,6 +3,9 @@
 autoload zmv
 alias mmv='noglob zmv -W'
 
+# Make git github aware
+function git(){hub "$@"}
+
 # Git shortcuts
 alias gl='git log --graph --pretty=format:"%Cred%h%Creset - %s %Cgreen(%cr)%Creset" --abbrev-commit --date=relative'
 alias gc='git commit'
