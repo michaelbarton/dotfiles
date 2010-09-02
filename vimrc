@@ -49,10 +49,11 @@ set grepprg=ack
 nnoremap ' `
 nnoremap ` '
 
-" Map capital letters to same version as lowercase
+" Fix common typos at command line
 cmap B<Space> buf<Space>
+cmap Bd<Space> bd<Space>
 cmap W<Return> w<Return>
-
+cmap w1<Return> w!<Return>
 
 augroup myfiletypes
   " Clear old autocmds in group
