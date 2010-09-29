@@ -2,6 +2,9 @@ set nocompatible          " We're running Vim, not Vi!
 syntax on                 " Enable syntax highlighting
 filetype plugin indent on " Enable filetype-specific indenting and plugins
 
+" Don't try to use screen as a shell
+set shell=/bin/sh
+
 language en_GB.UTF-8
 
 set number
