@@ -1,4 +1,4 @@
-personal_ws-1.1 en 329
+personal_ws-1.1 en 334
 ActiveRecord
 adaptated
 aeruginosa
@@ -49,6 +49,7 @@ codon
 codons
 COGs
 coli
+commensal
 Connotea
 contig
 contigs
@@ -169,7 +170,6 @@ mesophiles
 metabolome
 metabolomes
 metabolomic
-Metagenomic
 metagenomic
 Metagenomics
 metagenomics
@@ -241,6 +241,7 @@ priori
 Prokaryotes
 prokaryotic
 proline
+promer
 proteome
 proteomes
 proteomic
@@ -250,7 +251,10 @@ pseudogenes
 Pseudomonads
 Pseudomonas
 PubMed
+PVD
+pyochelin
 pyoverdine
+pyoverdines
 pyrosequencing
 Pyruvate
 quantile
@@ -265,10 +269,12 @@ replicase
 replicases
 resequencing
 ribosomal
+Roraima
 rRNA
 rRNAs
 RSS
 Saccharomyces
+SBW
 scaffolder
 screenshot
 screenshots
@@ -323,7 +329,6 @@ wikis
 wordpress
 workflow
 ws
-YAML
 yaml
 yml
 YPD
