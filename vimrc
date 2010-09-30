@@ -28,8 +28,9 @@ set foldnestmax=4         " Maximum level of folding is 4
 
 let mapleader = ","
 
-" Execute current file with F1
-:map <F1> <Esc>:w<CR>:!!<CR>
+" Run make on current file
+:map <leader>q <Esc>:make<CR>
+
 " Execute R scripts as slave with F2
 :map <F2> <Esc>:w<CR>:!R --slave --file=%<CR>
 
