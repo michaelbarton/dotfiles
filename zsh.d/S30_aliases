@@ -3,6 +3,9 @@
 autoload zmv
 alias mmv='noglob zmv -W'
 
+# Shortcut to aspell that sorts dictionary afterwards
+function sp(){aspell -c "$@" && ~/.dotfiles/bin/sort_dictionary}
+
 # Make git github aware
 function git(){hub "$@"}
 
@@ -37,4 +40,3 @@ alias top='top -o rsize'
 # Three lines of context, and always add filename
 alias grep='grep --color=auto'
 
-alias sp='aspell -c'

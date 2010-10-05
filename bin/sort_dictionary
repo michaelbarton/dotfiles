@@ -1,0 +1,9 @@
+#!/bin/sh
+
+TMP=/tmp/aspell.en.pws.tmp
+ORIG=~/.dotfiles/aspell.en.pws
+HEADER=personal_ws
+
+grep $HEADER $ORIG | sed 's/ $//' > $TMP
+grep -v $HEADER $ORIG | sort -f >> $TMP
+mv $TMP $ORIG
