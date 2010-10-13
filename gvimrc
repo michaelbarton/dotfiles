@@ -5,7 +5,7 @@ set lines=50
 let &columns = g:halfsize
  
 " Font
-set guifont=Inconsolata:h16.00
+set guifont=Inconsolata:h17.00
  
 " No toolbar
 set guioptions-=T
