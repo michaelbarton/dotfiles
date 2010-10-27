@@ -3,6 +3,11 @@
 autoload zmv
 alias mmv='noglob zmv -W'
 
+# Avoid spelling corrections on certain commands
+alias mv='nocorrect mv'
+alias cp='nocorrect cp'
+alias mkdir='nocorrect mkdir'
+
 # Shortcut to aspell that sorts dictionary afterwards
 function sp(){aspell -c "$@" && ~/.dotfiles/bin/sort_dictionary}
 
