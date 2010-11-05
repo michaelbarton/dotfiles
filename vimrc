@@ -9,6 +9,9 @@ language en_GB.UTF-8
 
 set number
 
+call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
+
 " Set temporary directory (don't litter local dir with swp/tmp files)
 set directory=/tmp/
 
