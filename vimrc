@@ -1,93 +1,40 @@
 set nocompatible          " We're running Vim, not Vi!
 syntax on                 " Enable syntax highlighting
 filetype plugin indent on " Enable filetype-specific indenting and plugins
-
-" Don't try to use screen as a shell
-set shell=/bin/sh
-
-language en_GB.UTF-8
-
-set number
-
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
-
-" Set temporary directory (don't litter local dir with swp/tmp files)
-set directory=/tmp/
-
-" Explicitly set 256 color support
-set t_Co=256
-
-" Make backspace work in insert mode
-set backspace=indent,eol,start
-
-" Color scheme
-colorscheme molokai
-highlight NonText guibg=#060606
-highlight Folded guibg=#0A0A0A guifg=#9090D0
-
-set foldmethod=syntax     " Code folding based on the filetype
+set shell=/bin/sh         " Don't try to use screen as a shell
+language en_GB.UTF-8      " Specify language
+set number                " Line numbering
+set directory=/tmp/       " Set temporary directory for swp/tmp files
+set t_Co=256              " Explicitly set 256 color support
+colorscheme molokai       " Nice colors for sytax
 set foldnestmax=4         " Maximum level of folding is 4
+set foldmethod=syntax     " Code folding based on the filetype
+let mapleader = ","       " Map leader key to comma
+set hi=1000               " Set large history size
+set hidden                " Manage multiple buffers in background
+set visualbell            " Flash instead of beep
+set grepprg=ack           " Use grep instead of ack
 
-let mapleader = ","
+set ignorecase            " Ignore case in searching
+set smartcase             " ... unless searches contrain upper case letters
+set incsearch             " show the `best match so far' as searches are typed
+set hlsearch              " highlight matched searches
 
-" Run make on current file
-:map <leader>q <Esc>:make<CR>
-
-" Execute R scripts as slave with F2
-:map <F2> <Esc>:w<CR>:!R --slave --file=%<CR>
-
-" Set large history size
-set hi=1000
-
-" Load matchit (% to bounce from do to end, etc.)
-runtime! macros/matchit.vim
-
-" Manage multiple buffers in background
-set hidden
-
-" Flash instead of beep
-set visualbell
-
-" Use grep instead of ack
-set grepprg=ack
-
-" Jump to marked line AND column
-nnoremap ' `
-nnoremap ` '
-
-" Fix common typos at command line
-cmap B<Space> buf<Space>
-cmap Bd<Space> bd<Space>
-cmap W<Return> w<Return>
-cmap w1<Return> w!<Return>
-
-augroup myfiletypes
-  " Clear old autocmds in group
-  autocmd!
-  " autoindent with two spaces, always expand tabs
-  autocmd FileType ruby,eruby,yaml set ai sw=2 sts=2 et
-augroup END
-
-" make searches case-insensitive, unless they contain upper-case letters:
-set ignorecase
-set smartcase
-
-" show the `best match so far' as search strings are typed:
-set incsearch
+set backspace=indent,eol,start " Make backspace work in insert mode
 
 " Status line shown at the bottom of each window
 set statusline=%<%f\ %h%m%r%=%-20.(line=%l,col=%c%V,totlin=%L%)\%h%m%r%=%-40(,%n%Y%)\%P
 
+" Load pathogen bundles
+call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
+
+
 " End typing and write the file
-imap XX <Esc>:w<CR>
+imap XX <Esc>:w<CR> 
 
-" FuzzyFinderTextMate plugin key map
-map <leader>t :FuzzyFinderTextMate<CR>
-
-" Mini buffer explorer key map
-map <Leader>w :MiniBufExplorer<cr>
-map <Leader>W :CMiniBufExplorer<cr>
+" Run make on current file
+:map <leader>q <Esc>:make<CR>
 
 " Ack key map
 map <leader>r :Ack<SPACE>
@@ -95,15 +42,19 @@ map <leader>r :Ack<SPACE>
 " Activate NERDTree
 map <leader>e :NERDTreeToggle<CR>
 
-" Set vimwiki path
-let g:vimwiki_list = [{'path': '~/Dropbox/.vimwiki/'}]
 
-" Indent using the tab key
-set sts=4
-set et
-imap <S-Tab> <C-o><<
+" Jump to marked line AND column
+nnoremap ' `
+nnoremap ` '
 
-" correct common typos
+
+" command line typos
+cmap B<Space> buf<Space>
+cmap Bd<Space> bd<Space>
+cmap W<Return> w<Return>
+cmap w1<Return> w!<Return>
+
+" insert mode typos
 iab teh  the
 iab th   the
 iab hte  the
