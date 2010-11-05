@@ -6,19 +6,25 @@ language en_GB.UTF-8      " Specify language
 set number                " Line numbering
 set directory=/tmp/       " Set temporary directory for swp/tmp files
 set t_Co=256              " Explicitly set 256 color support
-colorscheme molokai       " Nice colors for sytax
 set foldnestmax=4         " Maximum level of folding is 4
 set foldmethod=syntax     " Code folding based on the filetype
-let mapleader = ","       " Map leader key to comma
 set hi=1000               " Set large history size
 set hidden                " Manage multiple buffers in background
 set visualbell            " Flash instead of beep
 set grepprg=ack           " Use grep instead of ack
+set nowrap                " Don't wrap lines around
+set autoindent            " Autoindent text
+set copyindent            " Copy indentation when indenting
+
+set list                  " Highlight whitespace characters
+set listchars=trail:.,extends:#
 
 set ignorecase            " Ignore case in searching
 set smartcase             " ... unless searches contrain upper case letters
 set incsearch             " show the `best match so far' as searches are typed
 set hlsearch              " highlight matched searches
+
+colorscheme molokai       " Nice colors for sytax
 
 set backspace=indent,eol,start " Make backspace work in insert mode
 
@@ -29,6 +35,30 @@ set statusline=%<%f\ %h%m%r%=%-20.(line=%l,col=%c%V,totlin=%L%)\%h%m%r%=%-40(,%n
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
+let mapleader = ","       " Map leader key to comma
+
+" Write current file as sudo
+cmap w!! w !sudo tee % >/dev/null
+
+" Use colon insead of semi colon for command mode
+" Saves pressing shift
+nnoremap ; :
+
+" Move between windows using control
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+" Unbind the arrow keys
+map <up> <nop>
+map <down> <nop>
+map <left> <nop>
+map <right> <nop>
+
+" Edit edit/reload the vimrc file
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
 " End typing and write the file
 imap XX <Esc>:w<CR> 
