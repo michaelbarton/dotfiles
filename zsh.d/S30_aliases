@@ -3,6 +3,17 @@
 autoload zmv
 alias mmv='noglob zmv -W'
 
+# Suffix based aliases
+alias -s tar.gz='tar xzf'
+alias -s tgz='tar xzf'
+alias -s tar.bz2='tar xjf'
+alias -s gz=gunzip
+alias -s bz2=bunzip2
+alias -s zip=unzip
+
+alias -s rb=ruby
+alias -s py=python
+
 # Avoid spelling corrections on certain commands
 alias mv='nocorrect mv'
 alias cp='nocorrect cp'

@@ -20,6 +20,10 @@ setopt INC_APPEND_HISTORY SHARE_HISTORY
 setopt ALL_EXPORT
 setopt HIST_IGNORE_ALL_DUPS     # ignore all -- even non contiguous
 
+# Case insensitive globbing
+setopt extendedglob
+unsetopt CASE_GLOB
+
 setopt CORRECT	            # command CORRECTION
 setopt NO_MENU_COMPLETE     # no menu completion of commands
 setopt LIST_AMBIGUOUS       # unambiguous prefix completion is done silently
