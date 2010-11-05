@@ -1,4 +1,4 @@
-personal_ws-1.1 en 346
+personal_ws-1.1 en 353
 AAI
 ActiveRecord
 adaptated
@@ -16,6 +16,7 @@ Arginine
 asn
 Asparagine
 Aspartate
+ATPase
 barcodes
 bayanus
 BBSRC
@@ -39,6 +40,7 @@ BMC
 bp
 castellii
 cerevisiae
+chaperone
 chelating
 chemoheterotrophic
 chemostat
@@ -78,6 +80,7 @@ dnaml
 Doudoroff
 dS
 dTMP
+efflux
 EMBL
 Entner
 epistatic
@@ -126,6 +129,7 @@ heteroscedastic
 heteroscedasticity
 heterozygote
 histidine
+homeostasis
 homolog
 homologs
 homopolymorphic
@@ -151,6 +155,7 @@ Kbp
 KEGG
 kilobase
 kilobases
+kinase
 kluyveri
 kudriavzevii
 leu
@@ -321,6 +326,8 @@ topoisomerases
 tranfer
 transcriptome
 transcriptomic
+translocating
+translocate
 Trehalose
 tRNA
 tRNAs
