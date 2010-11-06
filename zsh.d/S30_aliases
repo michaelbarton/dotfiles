@@ -51,9 +51,5 @@ alias vi='vim'
 # Quiet R
 alias R='R --quiet --no-save --no-restore' 
 
-# Sort process list by ram usage
-alias top='top -o rsize'
-
-# Three lines of context, and always add filename
+# Print grep results in color
 alias grep='grep --color=auto'
-
