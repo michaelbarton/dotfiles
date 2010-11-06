@@ -1,1 +1,1 @@
-autocmd BufNewFile,BufReadPost *.txt set linebreak
+autocmd BufNewFile,BufReadPost *.txt set filetype=txt
