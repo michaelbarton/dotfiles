@@ -1,2 +1,3 @@
 *.swp
+*.un~
 boson/config/index.marshal
