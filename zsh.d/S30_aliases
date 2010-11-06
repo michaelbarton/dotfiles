@@ -11,7 +11,7 @@ alias -s gz=gunzip
 alias -s bz2=bunzip2
 alias -s zip=unzip
 
-alias -s rb=ruby
+alias -s rb='ruby -rubygems'
 alias -s py=python
 
 # Avoid spelling corrections on certain commands
