@@ -14,6 +14,7 @@ set guioptions-=T
 set guioptions+=c
 
 colorscheme molokai       " GUI colorscheme
+set cursorline            " highlight the line the cursor is on
 
 " Vim 7.3 options
 set undofile              " Keep undo file of previous actions

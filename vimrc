@@ -66,7 +66,6 @@ set expandtab
 
 
 syntax on                 " Enable syntax highlighting
-set cursorline            " highlight the line the cursor is on
 set scrolloff=3           " keep 3 lines above and below the cursor
 
 set background=dark       " Terminal color scheme
