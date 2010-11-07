@@ -113,6 +113,8 @@ nnoremap k gk
 inoremap <Esc> <nop>
 inoremap jj <ESC>
 
+set wildignore+=.git " Files to ignore
+
 " Use colon insead of semi colon for command mode
 " Saves pressing shift
 nnoremap ; :
@@ -147,7 +149,15 @@ nnoremap <leader>a :LustyJuggler<CR>
 
 " Command T search
 nnoremap <leader>t :CommandT<CR>
+let g:CommandTMaxHeight = 10
 
+" Bubble text using unimpaired
+" single lines
+nmap <D-k> [e
+nmap <D-j> ]e
+" visual model selected lines
+vmap <D-k> [egv
+vmap <D-j> ]egv
 
 "
 " FOLDING
