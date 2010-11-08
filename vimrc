@@ -27,6 +27,13 @@ set backspace=indent,eol,start " Make backspace work in insert mode
 set list                  " Highlight whitespace characters
 set listchars=trail:.,extends:#
 
+if v:version >= 730
+  set undofile              " Keep undo file of previous actions
+  set undodir=/tmp
+  set relativenumber        " Relative line numbering
+  set colorcolumn=85        " Highlight when line reaches this length
+endif
+
 " }}}
 
 " SEARCHING {{{
@@ -66,8 +73,35 @@ set wrap
 set textwidth=79
 set formatoptions=qrn1
 
+set laststatus=2                " Always show status line
+set cmdheight=2                 " Status line is two rows high
 set statusline=%<%f\ %h%m%r%=%-20.(line=%l,col=%c%V,totlin=%L%)\%h%m%r%=%-40(,%n%Y%)\%P
 
+" }}}
+
+" GUI APPEARANCE {{{
+if has("gui_running")
+
+  " Window size
+  let g:halfsize = 86
+  let g:fullsize = 171
+  set lines=50
+  let &columns = g:halfsize
+
+  set guifont=Inconsolata:h17.00 " Font
+  set guioptions-=T              " No toolbar
+  set guioptions+=c              " Use console dialogs
+
+  set guioptions-=l              " No scroll bars on left or right
+  set guioptions-=L
+  set guioptions-=r
+  set guioptions-=R
+
+  colorscheme molokai            " GUI colorscheme
+
+  set cursorline                 " highlight the line the cursor is on
+
+endif
 " }}}
 
 " WINDOWS {{{
@@ -83,7 +117,21 @@ nnoremap <leader>wh <C-w>v<C-w>l
 nnoremap <leader>wj <ESC>:close<CR>
 " }}}
 
-" FILES AND MOVEMENT {{{
+" FILE NAVIGATION {{{
+
+set wildmenu                    " Tab completion for and files/buffers
+set wildmode=list:full          " Show a list for file tab completion
+set wildignore+=.git " Files to ignore
+
+" }}}
+
+" EDITING {{{
+
+set formatoptions-=o " don't start new lines w/ comment leader on pressing 'o'
+
+" Pull word under cursor into LHS of a substitute (for quick search and
+" replace)
+nmap <leader>z :%s#\<<C-r>=expand("<cword>")<CR>\>#
 
 " Unbind the arrow keys
 map <up> <nop>
@@ -99,8 +147,6 @@ nnoremap k gk
 inoremap <Esc> <nop>
 inoremap jj <ESC>
 
-set wildignore+=.git " Files to ignore
-
 " Use colon insead of semi colon for command mode
 " Saves pressing shift
 nnoremap ; :
@@ -111,7 +157,21 @@ nnoremap ` '
 
 " }}}
 
+" NERDTREE {{{
+
+let NERDTreeShowFiles=1           " Show hidden files
+let NERDTreeShowHidden=1
+let NERDTreeQuitOnOpen=1          " Quit on opening files from the tree
+let NERDTreeHighlightCursorline=1 " Highlight the selected entry in the tree
+let NERDTreeIgnore=['^\.git$' ]   " Don't display these kinds of files
+
+" }}}
+
 " IMPORTANT KEY MAPS {{{
+
+" Folding
+nnoremap <Space> za
+vnoremap <Space> za
 
 " Gundo
 nnoremap <leader>u :GundoToggle<CR>
@@ -126,7 +186,8 @@ nnoremap <leader>m <Esc>:make<CR>
 nnoremap <leader>r :Ack<SPACE>
 
 " NERDTree
-nnoremap <leader>e :NERDTreeToggle<CR>
+nmap <leader>e :NERDTreeClose<CR>:NERDTreeToggle<CR>
+nmap <leader>E :NERDTreeClose<CR>
 
 " buffers
 nnoremap <leader>a :LustyJuggler<CR>
@@ -147,6 +208,9 @@ vmap <D-j> ]egv
 
 " FOLDING {{{
 
+set foldenable
+set foldlevelstart=0      " Start with everything folded
+set foldcolumn=2          " Extra column to highlight folds
 set foldnestmax=4         " Maximum level of folding is 4
 set foldmethod=syntax     " Code folding based on the filetype
 
