@@ -1,19 +1,16 @@
-" Pathogen needs this
+" PATHOGEN {{{
 filetype on
 filetype off
-
-" Load pathogen bundles
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
-let mapleader = ","       " Map leader key to comma
+" }}}
 
-"
-" VARIOUS CONFIG
-"
+" GENERAL CONFIG {{{
 
-set modelines=0
 filetype plugin indent on " Enable filetype-specific indenting and plugins
+let mapleader = ","       " Map leader key to comma
+set modelines=0           " Modelines are a security risk
 set nocompatible          " We're running Vim, not Vi!
 set shell=/bin/sh         " Don't try to use screen as a shell
 language en_GB.UTF-8      " Specify language
@@ -30,11 +27,9 @@ set backspace=indent,eol,start " Make backspace work in insert mode
 set list                  " Highlight whitespace characters
 set listchars=trail:.,extends:#
 
+" }}}
 
-"
-" SEARCHING
-"
-
+" SEARCHING {{{
 
 set ignorecase            " Ignore case in searching
 set smartcase             " ... unless searches contrain upper case letters
@@ -48,22 +43,18 @@ nnoremap <leader><space> :noh<cr>
 nnoremap / /\v
 vnoremap / /\v
 
+" }}}
 
-"
-" TABS
-"
-
+" TABS {{{
 
 set tabstop=2             " Tab equals two spaces
 set shiftwidth=2
 set softtabstop=2
 set expandtab
 
+" }}}
 
-"
-" APPEARANCE
-"
-
+" APPEARANCE {{{
 
 syntax on                 " Enable syntax highlighting
 set scrolloff=3           " keep 3 lines above and below the cursor
@@ -77,11 +68,9 @@ set formatoptions=qrn1
 
 set statusline=%<%f\ %h%m%r%=%-20.(line=%l,col=%c%V,totlin=%L%)\%h%m%r%=%-40(,%n%Y%)\%P
 
+" }}}
 
-"
-" WINDOW NAVIGATION
-"
-
+" WINDOWS {{{
 
 " Move between windows using control
 map <C-h> <C-w>h
@@ -92,12 +81,9 @@ map <C-l> <C-w>l
 nnoremap <leader>wh <C-w>v<C-w>l
 " Close current window
 nnoremap <leader>wj <ESC>:close<CR>
+" }}}
 
-
-"
-" MOVEMENT
-"
-
+" FILES AND MOVEMENT {{{
 
 " Unbind the arrow keys
 map <up> <nop>
@@ -123,11 +109,9 @@ nnoremap ; :
 nnoremap ' `
 nnoremap ` '
 
+" }}}
 
-"
-" ACTION KEY MAPS
-"
-
+" IMPORTANT KEY MAPS {{{
 
 " Gundo
 nnoremap <leader>u :GundoToggle<CR>
@@ -159,10 +143,9 @@ nmap <D-j> ]e
 vmap <D-k> [egv
 vmap <D-j> ]egv
 
-"
-" FOLDING
-"
+" }}}
 
+" FOLDING {{{
 
 set foldnestmax=4         " Maximum level of folding is 4
 set foldmethod=syntax     " Code folding based on the filetype
@@ -184,12 +167,9 @@ function! MyFoldText()
     return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
 endfunction
 set foldtext=MyFoldText()
+" }}}
 
-
-"
-" MISC
-"
-
+" MISC {{{
 
 " Edit edit/reload the vimrc file
 nmap <silent> <leader>ve :e $MYVIMRC<CR>
@@ -199,12 +179,9 @@ au FocusLost * :wa " Write file when focus moves away from editor
 
 " Write current file as sudo
 cmap w!! w !sudo tee % >/dev/null<CR>
+" }}}
 
-
-"
-" MY COMMON TYPOS
-"
-
+" MY COMMON TYPOS {{{
 " Switch to abolish when this gets out of hand
 
 " command line
@@ -243,3 +220,4 @@ iab thae the
 iab descibe describe
 iab nad and
 iab adn and
+" }}}
