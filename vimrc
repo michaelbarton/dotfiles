@@ -27,7 +27,7 @@ set backspace=indent,eol,start " Make backspace work in insert mode
 set list                  " Highlight whitespace characters
 set listchars=trail:.,extends:#
 
-if v:version >= 730
+if v:version >= 703
   set undofile              " Keep undo file of previous actions
   set undodir=/tmp
   set relativenumber        " Relative line numbering
