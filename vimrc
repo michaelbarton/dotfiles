@@ -169,6 +169,9 @@ let NERDTreeIgnore=['^\.git$' ]   " Don't display these kinds of files
 
 " IMPORTANT KEY MAPS {{{
 
+" Write the file
+nmap <leader><leader> :w<CR>
+
 " Folding
 nnoremap <Space> za
 vnoremap <Space> za
