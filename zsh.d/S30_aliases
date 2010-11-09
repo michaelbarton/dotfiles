@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+alias dot='cd ~/.dotfiles'
+
 autoload zmv
 alias mmv='noglob zmv -W'
 
