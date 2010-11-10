@@ -165,7 +165,14 @@ let NERDTreeShowFiles=1           " Show hidden files
 let NERDTreeShowHidden=1
 let NERDTreeQuitOnOpen=1          " Quit on opening files from the tree
 let NERDTreeHighlightCursorline=1 " Highlight the selected entry in the tree
-let NERDTreeIgnore=['^\.git$' ]   " Don't display these kinds of files
+
+" Don't display these kinds of files
+let NERDTreeIgnore = []
+let NERDTreeIgnore += ['^\.git$']
+let NERDTreeIgnore += ['.rake_tasks']
+let NERDTreeIgnore += ['.DS_Store']
+let NERDTreeIgnore += ['.document']
+let NERDTreeIgnore += ['.yardoc']
 
 " }}}
 
