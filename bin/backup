@@ -1,4 +1,4 @@
 #!/bin/sh
 
-rsync -v -a ~/Music/iTunes/ /Volumes/passport/music/iTunes/
+rsync -v -a ~/Music/iTunes/iTunes\ Music /Volumes/passport/music/iTunes/
 rsync -v -a ~/Pictures/Photos/ /Volumes/passport/images/
