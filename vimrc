@@ -127,9 +127,9 @@ set wildignore+=.git " Files to ignore
 
 " EDITING {{{
 
-set formatoptions-=o " don't start new lines w/ comment leader on pressing 'o'
-set formatoptions+=t " auto format text as it's being edited
-set formatoptions+=c " only text wrap comments
+" set formatoptions-=o " don't start new lines w/ comment leader on pressing 'o'
+" set formatoptions+=t " auto format text as it's being edited
+" set formatoptions+=c " only text wrap comments
 
 " Pull word under cursor into LHS of a substitute (for quick search and
 " replace)
