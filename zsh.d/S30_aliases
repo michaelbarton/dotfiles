@@ -5,6 +5,12 @@ alias dot='cd ~/.dotfiles'
 autoload zmv
 alias mmv='noglob zmv -W'
 
+# Global aliases
+alias -g X='| xargs'
+alias -g XX='| xargs -I {}'
+alias -g X0='| xargs -0'
+alias -g XX0='| xargs -0 -I {}'
+
 # Suffix based aliases
 alias -s tar.gz='tar xzf'
 alias -s tgz='tar xzf'
