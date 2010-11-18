@@ -1,0 +1,3 @@
+#!/bin/sh
+TARGET=$*
+git remote add origin gitosis@gitserve:$TARGET.git
