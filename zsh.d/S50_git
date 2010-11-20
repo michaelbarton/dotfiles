@@ -12,13 +12,9 @@ function git-dirty() {
 # git: Fetch origin changes, rebase current branch changes onto master, push to origin
 function gsync () {
         branch=$(git-branch-name)
-        git pull --rebase origin master && \
-        git rebase origin/master && \
-        git checkout master && \
-        git rebase "${branch}" && \
-        git push origin master && \
-        git checkout "${branch}" && \
-        git rebase master
+        git pull --rebase origin "${branch}"                  && \
+        git submodule foreach git pull --rebase origin master && \
+        git push origin "${branch}"
 }
 
 # svn: Rebases current changes onto master, and pushes to repository
