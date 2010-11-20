@@ -196,7 +196,7 @@ nnoremap <leader>q :YRShow<CR>
 nnoremap <leader>m <Esc>:make<CR>
 
 " Ack 
-nnoremap <leader>r :Ack<SPACE>
+nnoremap <leader>t :Ack<SPACE>
 
 " NERDTree
 nmap <leader>e :NERDTreeClose<CR>:NERDTreeToggle<CR>
@@ -206,7 +206,7 @@ nmap <leader>E :NERDTreeClose<CR>
 nnoremap <leader>a :LustyJuggler<CR>
 
 " Command T search
-nnoremap <leader>t :CommandT<CR>
+nnoremap <leader>rr :CommandT<CR>
 let g:CommandTMaxHeight = 10
 
 " Bubble text using unimpaired
