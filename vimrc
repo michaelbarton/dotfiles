@@ -263,7 +263,7 @@ cmap w!! w !sudo tee % >/dev/null<CR>
 
 " command line
 cmap B<Space> buf<Space>
-cmap Bd<Space> bd<Space>
+cmap Bd<Return> bd<Return>
 cmap W<Return> w<Return>
 cmap X<Return> x<Return>
 cmap w1<Return> w!<Return>
