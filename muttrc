@@ -42,3 +42,5 @@ macro index,pager gi "=INBOX" "Go to inbox"
 macro index,pager ga "=[Gmail]/All Mail" "Go to all mail"
 macro index,pager gs "=[Gmail]/Starred" "Go to starred messages"
 macro index,pager gd "=[Gmail]/Drafts" "Go to drafts"
+
+set query_command="/usr/local/bin/lbdbq '%s'"
