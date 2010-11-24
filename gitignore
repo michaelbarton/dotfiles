@@ -2,3 +2,4 @@
 .DS_Store
 .rake_tasks
 tags
+Gemfile.lock
