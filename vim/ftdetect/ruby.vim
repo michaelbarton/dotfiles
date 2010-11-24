@@ -1,1 +1,1 @@
-autocmd BufNewFile,BufReadPost *.rb,*.ruby,Rakefile,*.task set filetype=ruby
+autocmd BufNewFile,BufReadPost *.rb,*.ruby,Gemfile,Rakefile,*.task set filetype=ruby
