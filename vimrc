@@ -174,6 +174,9 @@ let NERDTreeIgnore += ['.DS_Store']
 let NERDTreeIgnore += ['.document']
 let NERDTreeIgnore += ['.yardoc']
 let NERDTreeIgnore += ['.sass-cache']
+let NERDTreeIgnore += ['pkg']
+let NERDTreeIgnore += ['doc']
+let NERDTreeIgnore += ['Gemfile.lock']
 
 " }}}
 
