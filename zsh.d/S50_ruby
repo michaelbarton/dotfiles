@@ -1,7 +1,7 @@
 export GEM_HOME="`echo $HOME`/.gem"
 
 # Jeweler gem creation options
-export JEWELER_OPTS="--rspec --yard --user-email $EMAIL"
+export JEWELER_OPTS="--rspec --yard --cucumber --user-email $EMAIL"
 
 # Run autotest using rspec
 alias autospec='RSPEC=true autotest'
