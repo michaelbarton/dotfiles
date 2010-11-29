@@ -182,6 +182,9 @@ let NERDTreeIgnore += ['Gemfile.lock']
 
 " IMPORTANT KEY MAPS {{{
 
+" Reformat entire text width
+nmap <leader>b gggqG
+
 " Write the file
 nmap <leader><leader> :w<CR>
 
