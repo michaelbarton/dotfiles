@@ -1,23 +1,26 @@
 # Change the following six lines to match your Gmail account details
-set imap_user = "mail@michaelbarton.me.uk"
-set imap_pass = `get-pass gmail`
-set smtp_url = "smtp://$imap_user@smtp.gmail.com:587"
-set smtp_pass = "$imap_pass"
 set from = "mail@michaelbarton.me.uk"
 set realname = "Michael Barton"
+
+# Gmail folder settings
+set mbox_type = Maildir
+set folder = $HOME/.maildb
+set spoolfile = "+michaelbarton/INBOX"
+mailboxes ~/.maildb/michaelbarton/INBOX
+set postponed = "+michaelbarton/[Google Mail].Drafts"
+set record = "+michaelbarton/[Google Mail].Sent Mail"
+
+# SMTP settings
+set smtp_url = "smtp://$from@smtp.gmail.com:587"
+set smtp_pass = `get-pass gmail`
 
 # Change the following line to a different editor you prefer.
 set editor = "gvim -f"
 # Basic config, you can leave this as is
-set folder = "imaps://imap.gmail.com:993"
-set spoolfile = "+INBOX"
-set imap_check_subscribed
-set hostname = gmail.com
-set mail_check = 120
-set timeout = 300
-set imap_keepalive = 300
-set postponed = "+[GMail]/Drafts"
-set record = "+[GMail]/Sent Mail"
+#set imap_check_subscribed
+#set hostname = gmail.com
+set mail_check = 60
+set timeout = 120
 set header_cache=~/.mutt/cache/headers
 set message_cachedir=~/.mutt/cache/bodies
 set certificate_file=~/.mutt/certificates
@@ -36,11 +39,12 @@ auto_view text/html
 bind editor ^T complete
 #bind editor noop
 # Gmail-style keyboard shortcuts
+macro index \Cr "<tag-pattern>all<enter><tag-prefix><clear-flag>N<untag-pattern>all<enter>" "Mark all as read"
 macro index,pager y "unset trash\n " "Gmail archive message"
-macro index,pager d "set trash=\"imaps://imap.googlemail.com/[GMail]/Bin\"\n " "Gmail delete message"
+macro index,pager d "set trash=\"+michaelbarton/[Google Mail].Bin\"\n " "Gmail delete message"
 macro index,pager gi "=INBOX" "Go to inbox"
-macro index,pager ga "=[Gmail]/All Mail" "Go to all mail"
-macro index,pager gs "=[Gmail]/Starred" "Go to starred messages"
-macro index,pager gd "=[Gmail]/Drafts" "Go to drafts"
+macro index,pager ga "=[Google Mail].All Mail" "Go to all mail"
+macro index,pager gs "=[Google Mail].Starred" "Go to starred messages"
+macro index,pager gd "=[Google Mail].Drafts" "Go to drafts"
 
 set query_command="/usr/local/bin/lbdbq '%s'"
