@@ -1,0 +1,24 @@
+[general]
+metadata = ~/.offlineimap
+accounts = MICHAELBARTON
+maxsyncaccounts = 2
+pythonfile = ~/.offlineimap.py
+ui = Noninteractive.Quiet
+
+[Account MICHAELBARTON]
+localrepository = LocalGmail
+remoterepository = RemoteGmail
+autorefresh = 10
+quick = 5
+maxage = 3
+
+[Repository LocalGmail]
+type = Maildir
+localfolders = ~/.maildb/michaelbarton
+restoreatime = no
+
+[Repository RemoteGmail]
+type = Gmail
+remoteuser = mail@michaelbarton.me.uk
+remotepasseval = get_keychain_pass(account="gmail")
+realdelete = no
