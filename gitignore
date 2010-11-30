@@ -3,3 +3,4 @@
 .rake_tasks
 tags
 Gemfile.lock
+autotest
