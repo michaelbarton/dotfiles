@@ -35,13 +35,9 @@ ignore "DKIM-Signature:"
 hdr_order Date From To Cc
 alternative_order text/plain text/html *
 auto_view text/html
-#bind editor complete-query
 bind editor ^T complete
-#bind editor noop
+
 # Gmail-style keyboard shortcuts
-macro index \Cr "<tag-pattern>all<enter><tag-prefix><clear-flag>N<untag-pattern>all<enter>" "Mark all as read"
-macro index,pager y "unset trash\n " "Gmail archive message"
-macro index,pager d "set trash=\"+michaelbarton/[Google Mail].Bin\"\n " "Gmail delete message"
 macro index,pager gi "=INBOX" "Go to inbox"
 macro index,pager ga "=[Google Mail].All Mail" "Go to all mail"
 macro index,pager gs "=[Google Mail].Starred" "Go to starred messages"
