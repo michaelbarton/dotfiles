@@ -168,27 +168,6 @@ nnoremap ` '
 
 " }}}
 
-" NERDTREE {{{
-
-let NERDTreeShowFiles=1           " Show hidden files
-let NERDTreeShowHidden=1
-let NERDTreeQuitOnOpen=1          " Quit on opening files from the tree
-let NERDTreeHighlightCursorline=1 " Highlight the selected entry in the tree
-
-" Don't display these kinds of files
-let NERDTreeIgnore = []
-let NERDTreeIgnore += ['^\.git$']
-let NERDTreeIgnore += ['.rake_tasks']
-let NERDTreeIgnore += ['.DS_Store']
-let NERDTreeIgnore += ['.document']
-let NERDTreeIgnore += ['.yardoc']
-let NERDTreeIgnore += ['.sass-cache']
-let NERDTreeIgnore += ['pkg']
-let NERDTreeIgnore += ['doc']
-let NERDTreeIgnore += ['Gemfile.lock']
-
-" }}}
-
 " IMPORTANT KEY MAPS {{{
 
 " Reformat entire text width
@@ -259,6 +238,32 @@ function! MyFoldText()
     return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
 endfunction
 set foldtext=MyFoldText()
+" }}}
+
+" NERDTREE {{{
+
+let NERDTreeShowFiles=1           " Show hidden files
+let NERDTreeShowHidden=1
+let NERDTreeQuitOnOpen=1          " Quit on opening files from the tree
+let NERDTreeHighlightCursorline=1 " Highlight the selected entry in the tree
+
+" Don't display these kinds of files
+let NERDTreeIgnore = []
+let NERDTreeIgnore += ['^\.git$']
+let NERDTreeIgnore += ['.rake_tasks']
+let NERDTreeIgnore += ['.DS_Store']
+let NERDTreeIgnore += ['.document']
+let NERDTreeIgnore += ['.yardoc']
+let NERDTreeIgnore += ['.sass-cache']
+let NERDTreeIgnore += ['pkg']
+let NERDTreeIgnore += ['doc']
+let NERDTreeIgnore += ['Gemfile.lock']
+let NERDTreeIgnore += ['.rspec']
+let NERDTreeIgnore += ['cucumber.yml']
+let NERDTreeIgnore += ['LICENSE.txt']
+let NERDTreeIgnore += ['VERSION']
+let NERDTreeIgnore += ['.gitignore']
+
 " }}}
 
 " MISC {{{
