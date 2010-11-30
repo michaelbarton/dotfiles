@@ -86,7 +86,7 @@ if has("gui_running")
   let g:halfsize = 86
   let g:fullsize = 171
   set lines=50
-  let &columns = g:fullsize
+  let &columns = g:halfsize
 
   set guifont=Inconsolata:h17.00 " Font
   set guioptions-=T              " No toolbar
@@ -100,6 +100,15 @@ if has("gui_running")
   colorscheme molokai            " GUI colorscheme
 
   set cursorline                 " highlight the line the cursor is on
+
+  function! ToggleWindowSize()
+    if &columns == g:halfsize
+      let &columns = g:fullsize
+    else
+      let &columns = g:halfsize
+    end
+  endfunction
+  nmap <F1> :call ToggleWindowSize()<CR>
 
 endif
 " }}}
