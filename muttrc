@@ -1,7 +1,10 @@
-#{{{ Me
+#{{{ Sending messages
 
 set realname = "Michael Barton"
 set from = "mail@michaelbarton.me.uk"
+
+set edit_headers
+my_hdr X-URL: http://www.michaelbarton.me.uk
 
 #}}}
 
@@ -43,9 +46,7 @@ set query_command="/usr/local/bin/lbdbq '%s'"
 
 #}}}
 
-#{{{ Headers
-
-set edit_headers
+#{{{ Header settings
 
 # Ignore all headers
 ignore *
