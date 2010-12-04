@@ -1,24 +1,31 @@
-# Change the following six lines to match your Gmail account details
-set from = "mail@michaelbarton.me.uk"
-set realname = "Michael Barton"
+#{{{ Me
 
-# Gmail folder settings
-set mbox_type = Maildir
+set realname = "Michael Barton"
+set from = "mail@michaelbarton.me.uk"
+
+#}}}
+
+#{{{ Receive mail
+
 set folder = $HOME/.maildb
-set spoolfile = "+michaelbarton/INBOX"
 mailboxes ~/.maildb/michaelbarton/INBOX
 set postponed = "+michaelbarton/[Google Mail].Drafts"
-set record = "+michaelbarton/[Google Mail].Sent Mail"
+set record    = "+michaelbarton/[Google Mail].Sent Mail"
+set spoolfile = "+michaelbarton/INBOX"
+set mbox_type = Maildir
 
-# SMTP settings
+# }}}
+
+#{{{ Send mail
+
 set smtp_url = "smtp://$from@smtp.gmail.com:587"
 set smtp_pass = `get-pass gmail`
 
-# Change the following line to a different editor you prefer.
+# }}}
+
+#{{{ Misc
+
 set editor = "gvim -f"
-# Basic config, you can leave this as is
-#set imap_check_subscribed
-#set hostname = gmail.com
 set mail_check = 60
 set timeout = 120
 set header_cache=~/.mutt/cache/headers
@@ -29,25 +36,39 @@ set include
 set sort = 'threads'
 set sort_aux = 'reverse-last-date-received'
 set auto_tag = yes
-ignore "Authentication-Results:"
-ignore "DomainKey-Signature:"
-ignore "DKIM-Signature:"
-hdr_order Date From To Cc
 alternative_order text/plain text/html *
 auto_view text/html
 bind editor ^T complete
-
-# Gmail-style keyboard shortcuts
-macro index,pager gi "=INBOX" "Go to inbox"
-macro index,pager ga "=[Google Mail].All Mail" "Go to all mail"
-macro index,pager gs "=[Google Mail].Starred" "Go to starred messages"
-macro index,pager gd "=[Google Mail].Drafts" "Go to drafts"
-
 set query_command="/usr/local/bin/lbdbq '%s'"
 
-#####        #####
-##### Colors
-#####        #####
+#}}}
+
+#{{{ Headers
+
+set edit_headers
+
+# Ignore all headers
+ignore *
+
+# Then un-ignore the ones I want to see
+unignore From:
+unignore To:
+unignore Reply-To:
+unignore Mail-Followup-To:
+unignore Subject:
+unignore Date:
+unignore Organization:
+unignore Newsgroups:
+unignore CC:
+unignore BCC:
+unignore User-Agent:
+
+# Now order the visable header lines
+hdr_order Date: From: To: CC: BCC: Reply-To: Mail-Followup-To: Subject: Organization: User-Agent:
+
+#}}}
+
+#{{{ Colors
 
 color header cyan default .
 color header yellow default ^From
@@ -86,3 +107,5 @@ color index      yellow         default    "~N"
 color index      brightyellow   default    "~N ~p"
 color index      brightblue     default    "~T"    # Tagged
 color index      red            default    "~D"       # Delete
+
+# }}}
