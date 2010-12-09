@@ -30,7 +30,7 @@ set smtp_pass = `get-pass gmail`
 
 set editor = "gvim -f"
 set mail_check = 60
-set timeout = 120
+set timeout = 60
 set header_cache=~/.mutt/cache/headers
 set message_cachedir=~/.mutt/cache/bodies
 set certificate_file=~/.mutt/certificates
