@@ -171,7 +171,7 @@ nnoremap ` '
 " IMPORTANT KEY MAPS {{{
 
 " Reformat entire text width
-nmap <leader>b gggqG
+nmap <leader>b mpvipgq'p
 
 " Write the file
 nmap <leader><leader> :w<CR>
