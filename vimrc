@@ -264,6 +264,7 @@ let NERDTreeIgnore += ['LICENSE.txt']
 let NERDTreeIgnore += ['VERSION']
 let NERDTreeIgnore += ['.gitignore']
 let NERDTreeIgnore += ['autotest']
+let NERDTreeIgnore += ['tmp']
 
 " }}}
 
