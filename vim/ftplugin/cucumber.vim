@@ -121,4 +121,6 @@ function! CucumberComplete(findstart,base) abort
   return sort(steps)
 endfunction
 
+set foldmethod=indent
+
 " vim:set sts=2 sw=2:
