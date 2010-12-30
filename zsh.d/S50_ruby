@@ -8,3 +8,6 @@ alias autospec_setup='rspec --configure autotest'
 
 # Run cucumber tests with autospec
 alias autocuc='AUTOFEATURE=true autotest'
+
+# Autospec is depreciated in latest version of rspec
+alias autospec='autotest'
