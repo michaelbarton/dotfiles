@@ -8,8 +8,8 @@ ui = Noninteractive.Quiet
 [Account MICHAELBARTON]
 localrepository = LocalGmail
 remoterepository = RemoteGmail
-autorefresh = 10
-quick = 5
+#autorefresh = 10
+#quick = 5
 maxage = 3
 
 [Repository LocalGmail]
