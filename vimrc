@@ -14,7 +14,7 @@ set modelines=0           " Modelines are a security risk
 set nocompatible          " We're running Vim, not Vi!
 set shell=/bin/sh         " Don't try to use screen as a shell
 language en_GB.UTF-8      " Specify language
-set directory=/tmp/       " Set temporary directory for swp/tmp files
+set directory=$HOME/.vim/tmp " Set temporary directory for swp/tmp files
 set t_Co=256              " Explicitly set 256 color support
 set hi=1000               " Set large history size
 set hidden                " Manage multiple buffers in background
@@ -29,7 +29,7 @@ set listchars=trail:.,extends:#
 
 if v:version >= 703
   set undofile              " Keep undo file of previous actions
-  set undodir=/tmp
+  set undodir=$HOME/.vim/tmp
   set relativenumber        " Relative line numbering
   set colorcolumn=85        " Highlight when line reaches this length
 endif
