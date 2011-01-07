@@ -55,6 +55,8 @@ alias gsubyc='git submodule foreach git pull origin master'
 alias gr='git rebase'
 alias gri='git rebase --interactive'
 alias gsvn='git svn'
+alias gm='git merge --no-ff'
+alias gpo='git push origin'
 
 alias ls='ls -G'
 alias lls='ls -l'
