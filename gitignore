@@ -4,4 +4,5 @@
 tags
 Gemfile.lock
 autotest
+.autotest
 cucumber.yml
