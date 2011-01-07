@@ -1,6 +1,7 @@
 [user]
   email = mail@michaelbarton.me.uk
   name = Michael Barton
+  signingkey = 6057CB48
 [color]
   branch = auto
   diff = auto
