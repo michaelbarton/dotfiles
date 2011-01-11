@@ -3,7 +3,6 @@
 set realname = "Michael Barton"
 set from = "mail@michaelbarton.me.uk"
 
-set edit_headers
 my_hdr X-URL: http://www.michaelbarton.me.uk
 my_hdr X-GPG-Key-Server: http://pgp.mit.edu
 my_hdr X-GPG-Key-FingerPrint: 9619 957F 2D61 E0ED 1082  817D 2881 E238 6057 CB48
