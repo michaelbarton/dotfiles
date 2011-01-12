@@ -1,0 +1,3 @@
+#!/bin/sh
+TARGET=$*
+git clone gitosis@gitserve:$TARGET.git
