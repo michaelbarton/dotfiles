@@ -1,2 +1,1 @@
-autocmd BufNewFile,BufReadPost *.tex,*.latex,*.lyx set filetype=tex
-autocmd BufNewFile,BufReadPost *.tex,*.latex,*.lyx set foldmethod=marker
+autocmd BufNewFile,BufReadPost *.tex,*.latex,*.lyx set filetype=tex.txt
