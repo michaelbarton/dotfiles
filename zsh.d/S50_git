@@ -27,3 +27,21 @@ function gsdc () {
         git checkout "${branch}" && \
         git rebase master
 }
+
+# Track remote branch on origin
+function git-track () {
+  branch=$(git-branch-name)
+  git branch --set-upstream ${branch} origin/${branch}
+}
+
+# Create remote branch on origin and track
+function git-promote () {
+  branch=$(git-branch-name)
+  git push origin ${branch}
+  git-track
+}
+
+function git-demote () {
+  branch=$(git-branch-name)
+  git push origin :${branch}
+}
