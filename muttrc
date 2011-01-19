@@ -30,7 +30,7 @@ set smtp_pass = `get-pass gmail`
 
 #{{{ Misc
 
-set editor = "gvim -f"
+set editor = "vim -f"
 set mail_check = 60
 set timeout = 60
 set header_cache=~/.mutt/cache/headers
