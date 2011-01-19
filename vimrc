@@ -67,7 +67,7 @@ syntax on                 " Enable syntax highlighting
 set scrolloff=3           " keep 3 lines above and below the cursor
 
 set background=dark       " Terminal color scheme
-colorscheme delek
+colorscheme xoria256
 
 set wrap
 set textwidth=79
