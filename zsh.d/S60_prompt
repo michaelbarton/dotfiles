@@ -6,7 +6,7 @@ colors
 
 reset="%{%b%s%u$reset_color%}"
 current_directory="%{$fg_bold[cyan]%c%}"
-end="%{$fg_bold[red]%} ➜  "
+end="%{$fg_bold[red]%} : "
 
 function git-prompt() {
   branch=$(git-branch-name)
