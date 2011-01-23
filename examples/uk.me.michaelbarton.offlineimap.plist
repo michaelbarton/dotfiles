@@ -14,8 +14,6 @@
 		<string>-q</string>
 		<string>-u</string>
 		<string>Noninteractive.Quiet</string>
-		<string>-c</string>
-		<string>~/.offlineimap</string>
 	</array>
 	<key>RunAtLoad</key>
 	<true/>
