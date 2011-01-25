@@ -15,7 +15,6 @@ set nocompatible          " We're running Vim, not Vi!
 set shell=/bin/sh         " Don't try to use screen as a shell
 language en_GB.UTF-8      " Specify language
 set directory=$HOME/.vim/tmp " Set temporary directory for swp/tmp files
-set t_Co=256              " Explicitly set 256 color support
 set hi=1000               " Set large history size
 set hidden                " Manage multiple buffers in background
 set visualbell            " Flash instead of beep
@@ -61,15 +60,36 @@ set expandtab
 
 " }}}
 
+" FOLDING {{{
+
+set foldenable
+set foldlevelstart=0      " Start with everything folded
+set foldcolumn=2          " Extra column to highlight folds
+set foldnestmax=4         " Maximum level of folding is 4
+set foldmethod=syntax     " Code folding based on the filetype
+
+" Steve Losh fold text method
+function! MyFoldText()
+    let line = getline(v:foldstart)
+
+    let nucolwidth = &fdc + &number * &numberwidth
+    let windowwidth = winwidth(0) - nucolwidth - 3
+    let foldedlinecount = v:foldend - v:foldstart
+
+    " expand tabs into spaces
+    let onetab = strpart('          ', 0, &tabstop)
+    let line = substitute(line, '\t', onetab, 'g')
+
+    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
+    let fillcharcount = windowwidth - len(line) - len(foldedlinecount) - 4
+    return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
+endfunction
+" }}}
+"
 " APPEARANCE {{{
 
 syntax on                 " Enable syntax highlighting
 set scrolloff=3           " keep 3 lines above and below the cursor
-
-set background=dark       " Terminal color scheme
-colorscheme xoria256
-
-set cursorline                 " highlight the line the cursor is on
 
 set wrap
 set textwidth=79
@@ -81,8 +101,30 @@ set statusline=%<%f\ %h%m%r%=%-20.(line=%l,col=%c%V,totlin=%L%)\%h%m%r%=%-40(,%n
 
 " }}}
 
+" NON-FANCY APPEARANCE {{{
+
+colorscheme vividchalk
+
+" }}}
+
+" XTERM-256 APPEARANCE {{{
+if &term == "screen-256color"
+
+  set t_Co=256              " Explicitly set 256 color support
+  colorscheme molokai
+  set cursorline
+  set foldtext=MyFoldText()
+
+endif
+" }}}
+
 " GUI APPEARANCE {{{
 if has("gui_running")
+
+  set cursorline
+  colorscheme molokai
+  set t_Co=256              " Explicitly set 256 color support
+  set foldtext=MyFoldText()
 
   " Window size
   let g:halfsize = 86
@@ -98,8 +140,6 @@ if has("gui_running")
   set guioptions-=L
   set guioptions-=r
   set guioptions-=R
-
-  colorscheme molokai            " GUI colorscheme
 
   function! ToggleWindowSize()
     if &columns == g:halfsize
@@ -211,33 +251,6 @@ nmap <D-j> ]e
 vmap <D-k> [egv
 vmap <D-j> ]egv
 
-" }}}
-
-" FOLDING {{{
-
-set foldenable
-set foldlevelstart=0      " Start with everything folded
-set foldcolumn=2          " Extra column to highlight folds
-set foldnestmax=4         " Maximum level of folding is 4
-set foldmethod=syntax     " Code folding based on the filetype
-
-" Steve Losh fold text method
-function! MyFoldText()
-    let line = getline(v:foldstart)
-
-    let nucolwidth = &fdc + &number * &numberwidth
-    let windowwidth = winwidth(0) - nucolwidth - 3
-    let foldedlinecount = v:foldend - v:foldstart
-
-    " expand tabs into spaces
-    let onetab = strpart('          ', 0, &tabstop)
-    let line = substitute(line, '\t', onetab, 'g')
-
-    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
-    let fillcharcount = windowwidth - len(line) - len(foldedlinecount) - 4
-    return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
-endfunction
-set foldtext=MyFoldText()
 " }}}
 
 " NERDTREE {{{
