@@ -69,6 +69,8 @@ set scrolloff=3           " keep 3 lines above and below the cursor
 set background=dark       " Terminal color scheme
 colorscheme xoria256
 
+set cursorline                 " highlight the line the cursor is on
+
 set wrap
 set textwidth=79
 set formatoptions=qrn1
@@ -98,8 +100,6 @@ if has("gui_running")
   set guioptions-=R
 
   colorscheme molokai            " GUI colorscheme
-
-  set cursorline                 " highlight the line the cursor is on
 
   function! ToggleWindowSize()
     if &columns == g:halfsize
