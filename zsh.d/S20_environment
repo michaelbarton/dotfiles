@@ -12,6 +12,10 @@ if [ -x "$HOME/.local" ] ; then
   source "$HOME/.local"
 fi
 
+if [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] ; then
+  source $HOME/.tmuxinator/scripts/tmuxinator
+fi
+
 export PATH=.:~/.bin:~/.gem/bin:/usr/local/bin:$PATH
 
 export EMAIL="mail@michaelbarton.me.uk"
