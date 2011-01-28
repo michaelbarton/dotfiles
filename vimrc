@@ -251,6 +251,18 @@ nmap <D-j> ]e
 vmap <D-k> [egv
 vmap <D-j> ]egv
 
+
+" Turn format options on and off
+function! ToggleFormatOptions()
+  if &formatoptions == ""
+    let &formatoptions = g:OldFormatOptions
+  else
+    let g:OldFormatOptions = &formatoptions
+    let &formatoptions = ""
+  end
+endfunction
+nmap <leader>f :call ToggleFormatOptions()<CR>
+
 " }}}
 
 " NERDTREE {{{
