@@ -1,4 +1,4 @@
-personal_ws-1.1 en 363
+personal_ws-1.1 en 368
 AAI
 ActiveRecord
 adaptated
@@ -18,6 +18,7 @@ Asparagine
 Aspartate
 ATPase
 barcodes
+bashrc
 bayanus
 BBSRC
 bioinformatician
@@ -54,6 +55,7 @@ COGs
 coli
 commensal
 Complementation
+complementation
 Connotea
 contig
 contigs
@@ -211,6 +213,7 @@ Nunn
 oligonucleotide
 oligonucleotides
 omic
+online
 operon
 oppourtunisitic
 ORF
@@ -219,6 +222,7 @@ ortholog
 orthologous
 orthologs
 Orthology
+OSX
 OTU
 OTUs
 PAML
@@ -295,6 +299,7 @@ rRNAs
 RSpec
 RSS
 RubyGems
+rubygems
 Saccharomyces
 SBW
 scaffolded
