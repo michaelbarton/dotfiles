@@ -1,4 +1,4 @@
-personal_ws-1.1 en 376
+personal_ws-1.1 en 377
 AAI
 ActiveRecord
 adaptated
@@ -152,6 +152,7 @@ Inositol
 intraspecies
 isoenzymes
 Isoleucine
+JavaScript
 jgi
 JGI's
 JSON
@@ -310,6 +311,7 @@ screenshots
 ser
 serine
 SGD
+Shoulda
 siderophore
 siderophores
 silico
@@ -329,7 +331,6 @@ svd
 SVN
 synomous
 synteny
-Synteny
 synthase
 synthases
 syringae
