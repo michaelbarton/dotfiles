@@ -1,4 +1,4 @@
-personal_ws-1.1 en 368
+personal_ws-1.1 en 376
 AAI
 ActiveRecord
 adaptated
@@ -46,6 +46,7 @@ chelating
 chemoheterotrophic
 chemostat
 circos
+CLI
 clustalw
 CMP
 codeml
@@ -327,9 +328,12 @@ subtilis
 svd
 SVN
 synomous
+synteny
+Synteny
 synthase
 synthases
 syringae
+tandemly
 taxa
 tetranucleotide
 tetranucleotides
@@ -354,16 +358,20 @@ tyr
 Valine
 versa
 versionable
+vitro
 vivo
 webserver
 Wellcome
+whitespace
 wiki
 Wikipedia
 wikis
 wordpress
 workflow
+workflows
 ws
 yaml
 yml
 YPD
+Zsh
 Zymosterol
