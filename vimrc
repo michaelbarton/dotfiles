@@ -213,6 +213,9 @@ nnoremap ` '
 " Reformat entire text width
 nmap <leader>b gwip
 
+" Split current line at current position and start editing
+nmap <leader>ss mar<CR>:call append(line('.')-1, '')<CR>'aA<Space>
+
 " Write the file
 nmap <leader><leader> :w<CR>
 
