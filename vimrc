@@ -184,6 +184,9 @@ set wildignore+=.git " Files to ignore
 " replace)
 nmap <leader>z :%s#\<<C-r>=expand("<cword>")<CR>\>#
 
+" Don't add spaces when joining lines
+set nojoinspaces
+
 " Unbind the arrow keys
 map <up> <nop>
 map <down> <nop>
