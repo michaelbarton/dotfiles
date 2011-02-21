@@ -26,6 +26,7 @@
   del = branch -d
   get = pull origin master
   send = push origin master
+  cp = cherry-pick
 [core]
   excludesfile = /Users/mike/.gitignore
   autocrlf = input
