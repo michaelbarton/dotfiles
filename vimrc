@@ -211,7 +211,7 @@ nnoremap ` '
 
 " }}}
 
-" IMPORTANT KEY MAPS {{{
+" KEY MAPS {{{
 
 " Reformat entire text width
 nmap <leader>b gwip
@@ -257,6 +257,10 @@ nmap <D-j> ]e
 vmap <D-k> [egv
 vmap <D-j> ]egv
 
+" Git editing using fugitive
+nnoremap <leader>z :Gstatus<CR>
+nnoremap <leader>x :Gwrite<CR>
+nnoremap <leader>c :Gcommit<CR>
 
 " Turn format options on and off
 function! ToggleFormatOptions()
