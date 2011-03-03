@@ -3,3 +3,4 @@
 boson/config/index.marshal
 doc/tags
 vim/tmp
+.netrwhist
