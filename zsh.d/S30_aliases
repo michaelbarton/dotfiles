@@ -40,7 +40,7 @@ function git(){hub "$@"}
 
 alias gc='git commit'
 alias gca='git commit -a'
-alias ga='git add -u'
+alias ga='git add'
 alias gap='git add --patch'
 alias grm='git rm'
 
