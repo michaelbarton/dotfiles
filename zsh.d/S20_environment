@@ -34,6 +34,8 @@ export MANWIDTH=80
 export EDITOR=vim
 export VISUAL=vim
 export PAGER='less'
+export LESS='-R -M --shift 5'
+export LESSOPEN="|/usr/local/bin/lesspipe.sh %s"
 
 if [ -d  $HOME/.ec2 ] ; then
   export EC2_HOME=~/.ec2
