@@ -30,5 +30,3 @@
 [core]
   excludesfile = /Users/mike/.gitignore
   autocrlf = input
-[github]
-  user = michaelbarton
