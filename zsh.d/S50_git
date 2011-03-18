@@ -45,3 +45,10 @@ function git-demote () {
   branch=$(git-branch-name)
   git push origin :${branch}
 }
+
+# Clone specified repo and switch to develop branch
+function gime () {
+  git clone $1
+  cd $1
+  git checkout -b develop origin/develop
+}
