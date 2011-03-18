@@ -12,10 +12,6 @@ if [ -x "$HOME/.local" ] ; then
   source "$HOME/.local"
 fi
 
-if [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] ; then
-  source $HOME/.tmuxinator/scripts/tmuxinator
-fi
-
 export GEM_HOME="`echo $HOME`/.gem"
 
 export PATH=.:~/.bin:$GEM_HOME/bin:/usr/local/bin:$PATH
