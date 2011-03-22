@@ -1,7 +1,5 @@
 #!/bin/zsh
 
-cdpath=( ~ ~/projects/current )
-
 autoload -U is-at-least
 
 # Autoload zsh modules when they are referenced
