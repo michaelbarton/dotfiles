@@ -262,6 +262,10 @@ nnoremap <leader>z :Gstatus<CR>
 nnoremap <leader>x :Gwrite<CR>
 nnoremap <leader>c :Gcommit<CR>
 
+" Toggle paste option
+nnoremap <leader>p :set paste<CR>
+nnoremap <leader>P :set nopaste<CR>
+
 " Turn format options on and off
 function! ToggleFormatOptions()
   if &formatoptions == ""
