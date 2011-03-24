@@ -48,7 +48,14 @@ function git-demote () {
 
 # Clone specified repo and switch to develop branch
 function gime () {
-  git clone -p $1
-  cd $1
+  repo=$1
+  if [ -z "$2" ]
+  then
+     dest=$1
+  else
+     dest=$2
+  fi
+  git clone -p ${repo} ${dest}
+  cd ${dest}
   git checkout -b develop origin/develop
 }
