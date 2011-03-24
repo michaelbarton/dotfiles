@@ -20,9 +20,30 @@
   changed = green
   untracked = cyan
 [alias]
-  st = status
-  ci = commit
-  aliases = git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /'
+  s    = status -sb
+  l    = log --decorate --graph --pretty = format:"%Cred%h%Creset - %s %Cgreen(%cr)%Creset" --abbrev-commit --date = relative
+
+  c    = commit
+  ca   = commit -a
+
+  a    = add
+  ap   = add --patch
+  rm   = rm
+
+  d    = diff
+  ds   = diff --staged
+  dt   = diff --word-diff
+  lst  = diff HEAD^..HEAD
+
+  sw   = checkout
+  b    = branch
+  bd   = branch -d
+
+  r    = rebase
+  ri   = rebase --interactive
+  m    = merge --no-ff
+
+  alias = git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /'
   recent = !git --no-pager log --remotes -n 1 --remotes --pretty=format:"%H%n"
   name = !git for-each-ref --format='%(refname:short)' `git symbolic-ref HEAD`
   track = !BRCH=$(git name) && git branch --set-upstream $BRCH origin/$BRCH
