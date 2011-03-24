@@ -27,6 +27,7 @@
   get = pull origin master
   send = push origin master
   cp = cherry-pick
+  recent = !git --no-pager log --remotes -n 1 --remotes --pretty=format:"%H%n"
 [core]
   excludesfile = /Users/mike/.gitignore
   autocrlf = input
