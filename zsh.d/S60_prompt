@@ -9,7 +9,7 @@ current_directory="%{$fg_bold[cyan]%c%}"
 end="%{$fg_bold[red]%} : "
 
 function git-prompt() {
-  branch=$(git-branch-name)
+  branch=$(git name)
   
   if [[ -z $branch ]]; then
     echo ""

@@ -25,6 +25,9 @@
   aliases = git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /'
   recent = !git --no-pager log --remotes -n 1 --remotes --pretty=format:"%H%n"
   name = !git for-each-ref --format='%(refname:short)' `git symbolic-ref HEAD`
+  track = !BRCH=$(git name) && git branch --set-upstream $BRCH origin/$BRCH
+  promote = !BRCH=$(git name) && git push origin $BRCH && git track
+  demote = !BRCH=$(git name) && git push origin :$BRCH
 [core]
   excludesfile = /Users/mike/.gitignore
   autocrlf = input

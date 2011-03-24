@@ -1,49 +1,8 @@
 #!/bin/zsh
 
-function git-branch-name() {
-  git rev-parse --abbrev-ref HEAD 2>| /dev/null
-}
-
 function git-dirty() {
   git update-index -q --refresh; git diff-index --quiet --cached HEAD --ignore-submodules -- && git diff-files --quiet --ignore-submodules
   echo $?
-}
-
-# git: Fetch origin changes, rebase current branch changes onto master, push to origin
-function gsync () {
-        branch=$(git-branch-name)
-        git pull --rebase origin "${branch}"                  && \
-        git submodule foreach git pull --rebase origin master && \
-        git push origin "${branch}"
-}
-
-# svn: Rebases current changes onto master, and pushes to repository
-function gsdc () {
-        branch=$(git-branch-name)
-        git checkout master && \
-        git rebase "${branch}" && \
-        git svn rebase && \
-        git svn dcommit && \
-        git checkout "${branch}" && \
-        git rebase master
-}
-
-# Track remote branch on origin
-function git-track () {
-  branch=$(git-branch-name)
-  git branch --set-upstream ${branch} origin/${branch}
-}
-
-# Create remote branch on origin and track
-function git-promote () {
-  branch=$(git-branch-name)
-  git push origin ${branch}
-  git-track
-}
-
-function git-demote () {
-  branch=$(git-branch-name)
-  git push origin :${branch}
 }
 
 # Clone specified repo and switch to develop branch
