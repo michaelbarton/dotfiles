@@ -1,4 +1,4 @@
-personal_ws-1.1 en 387
+personal_ws-1.1 en 390
 AAI
 ActiveRecord
 adaptated
@@ -13,6 +13,7 @@ Archaea
 archaeal
 arg
 Arginine
+ASM
 asn
 Asparagine
 Aspartate
@@ -111,6 +112,7 @@ functionalisation
 GC
 Gemfile
 GenBank
+genomer
 genomics
 geochemically
 geomicrobiology
@@ -153,6 +155,7 @@ Illumina
 img
 indels
 indices
+Inkscape
 Inositol
 intraspecies
 isoenzymes
