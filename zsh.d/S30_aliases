@@ -15,12 +15,12 @@ alias -g X0='| xargs -0'
 alias -g XX0='| xargs -0 -I {}'
 
 # Suffix based aliases
-alias -s tar.gz='tar xzf'
-alias -s tgz='tar xzf'
-alias -s tar.bz2='tar xjf'
 alias -s gz=gunzip
 alias -s bz2=bunzip2
 alias -s zip=unzip
+alias -s tar.gz='tar xzf'
+alias -s tgz='tar xzf'
+alias -s tar.bz2='tar xjf'
 
 alias -s rb='ruby -rubygems'
 alias -s py=python
