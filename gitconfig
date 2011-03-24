@@ -22,11 +22,6 @@
 [alias]
   st = status
   ci = commit
-  new = checkout -b
-  del = branch -d
-  get = pull origin master
-  send = push origin master
-  cp = cherry-pick
   aliases = git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /'
   recent = !git --no-pager log --remotes -n 1 --remotes --pretty=format:"%H%n"
 [core]
