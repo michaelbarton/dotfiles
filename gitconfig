@@ -37,6 +37,7 @@
   lst  = diff HEAD^..HEAD
 
   sw   = checkout
+  swb  = checkout -b
   b    = branch
   bd   = branch -d
 
@@ -47,6 +48,8 @@
   p    = push
 
   hub  = !sh -c 'hub clone -p $1 $2' -
+
+  undo = reset HEAD~1
 
   aliases = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /'
   recent = !git --no-pager log --remotes -n 1 --remotes --pretty=format:"%H%n"
