@@ -51,6 +51,7 @@
   track = !BRCH=$(git name) && git branch --set-upstream $BRCH origin/$BRCH
   promote = !BRCH=$(git name) && git push origin $BRCH && git track
   demote = !BRCH=$(git name) && git push origin :$BRCH
+  which = branch -a --contains
 
 [core]
   excludesfile = /Users/mike/.gitignore

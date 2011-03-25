@@ -5,7 +5,7 @@ function git-dirty() {
   echo $?
 }
 
-# Clone specified repo and switch to develop branch
+# Clone specified repo and switch to latest commit branch
 function gime () {
   repo=$1
   if [ -z "$2" ]
@@ -16,5 +16,9 @@ function gime () {
   fi
   git clone -p ${repo} ${dest}
   cd ${dest}
-  git checkout -b develop origin/develop
+
+  commit=`git recent`
+  remote=`git which ${commit} | tr -d ' '`
+  branch=`echo ${remote} | cut -d / -f 3,4`
+  git checkout -b ${branch} ${remote}
 }
