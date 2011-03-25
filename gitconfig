@@ -44,6 +44,8 @@
   ri   = rebase --interactive
   m    = merge --no-ff
 
+  p    = push
+
   hub  = !sh -c 'hub clone -p $1 $2' -
 
   aliases = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /'
