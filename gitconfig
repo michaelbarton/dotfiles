@@ -25,6 +25,7 @@
 
   c    = commit
   ca   = commit -a
+  cc   = commit --amend
 
   a    = add
   ap   = add --patch
