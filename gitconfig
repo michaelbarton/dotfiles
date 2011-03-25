@@ -21,7 +21,7 @@
   untracked = cyan
 [alias]
   s    = status -sb
-  l    = log --decorate --graph --pretty = format:"%Cred%h%Creset - %s %Cgreen(%cr)%Creset" --abbrev-commit --date = relative
+  l    = log --decorate --graph --pretty=format:\"%Cred%h%Creset - %s %Cgreen(%cr)%Creset\" --abbrev-commit --date=relative
 
   c    = commit
   ca   = commit -a
