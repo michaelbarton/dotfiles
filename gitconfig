@@ -38,6 +38,7 @@
 
   sw   = checkout
   swb  = checkout -b
+  pd   = checkout -
   b    = branch
   bd   = branch -d
 
