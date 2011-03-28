@@ -21,4 +21,6 @@ function gime () {
   remote=`git which ${commit} | tr -d ' '`
   branch=`echo ${remote} | cut -d / -f 3,4`
   git checkout -b ${branch} ${remote}
+
+  cp ~/.dotfiles/examples/autotest .autotest
 }
