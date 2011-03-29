@@ -1,1 +1,2 @@
+require 'autotest/bundler'
 require 'autotest/fsevent'
