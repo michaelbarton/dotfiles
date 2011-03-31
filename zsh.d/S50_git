@@ -17,6 +17,8 @@ function gime () {
   git clone -p ${repo} ${dest}
   cd ${dest}
 
+  git checkout -b develop origin/develop
+
   commit=`git recent`
   remote=`git which ${commit} | tr -d ' '`
   branch=`echo ${remote} | cut -d / -f 3,4`
