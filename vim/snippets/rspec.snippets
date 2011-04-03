@@ -16,6 +16,8 @@ snippet it
 	it "should ${1:description}" do
 		${2}
 	end
+snippet its
+	its(${1:attribute}){ should ${2} }
 snippet sheq
 	${1:target}.should == ${2}
 snippet shbe
