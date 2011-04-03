@@ -25,4 +25,5 @@ function gime () {
   git checkout -b ${branch} ${remote}
 
   cp ~/.dotfiles/examples/autotest .autotest
+  cp ~/.dotfiles/examples/rspec .rspec
 }
