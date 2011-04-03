@@ -6,3 +6,4 @@ Gemfile.lock
 autotest
 .autotest
 cucumber.yml
+.rspec
