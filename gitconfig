@@ -64,3 +64,5 @@
   excludesfile = /Users/mike/.gitignore
   autocrlf = input
   whitespace = trailing-space,space-before-tab
+[diff]
+  renames = copies
