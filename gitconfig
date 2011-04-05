@@ -69,3 +69,6 @@
   renames = copies
 [branch]
   autosetupmerge = true
+[rerere]
+  enabled = true
+  autoupdate = true
