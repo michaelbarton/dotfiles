@@ -67,3 +67,5 @@
   whitespace = trailing-space,space-before-tab
 [diff]
   renames = copies
+[branch]
+  autosetupmerge = true
