@@ -1,6 +1,6 @@
 #!/bin/sh
 
-TMP=/tmp/aspell.en.pws.tmp
+TMP=~/aspell.en.pws.tmp
 ORIG=~/.dotfiles/aspell.en.pws
 HEADER=personal_ws
 
