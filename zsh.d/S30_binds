@@ -6,3 +6,6 @@ bindkey -v "^R" history-incremental-search-backward
 # History completion
 bindkey -v "^[[A" history-beginning-search-backward
 bindkey -v "^[[B" history-beginning-search-forward
+
+# Editor current line in editor
+bindkey -M vicmd v edit-command-line
