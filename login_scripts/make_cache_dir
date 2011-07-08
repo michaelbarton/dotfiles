@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# Setup working directory cache
+if [ ! -d "/tmp/cache" ] ; then
+  mkdir "/tmp/cache"
+fi
+
+# Link to home directory
+if [ ! -d "/Users/mike/cache" ] ; then
+  ln -s "/tmp/cache" "/Users/mike/cache"
+fi

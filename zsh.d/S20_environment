@@ -12,15 +12,6 @@ if [ -x "$HOME/.local" ] ; then
   source "$HOME/.local"
 fi
 
-# Setup working directory cache
-if [ ! -d "/tmp/cache" ] ; then
-  mkdir "/tmp/cache"
-fi
-
-if [ ! -d "$HOME/cache" ] ; then
-  ln -s "/tmp/cache" "$HOME/cache"
-fi
-
 cdpath=( ~ ~/cache )
 
 export GEM_HOME="`echo $HOME`/.gem"
