@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-LOGIN = File.expand_path(File.dirname(__FILE__) + '/../login_scripts')
+LOGIN = "#{`echo $HOME`.strip}/.dotfiles/login_scripts"
 
 Dir[LOGIN + '/*'].each do |binary|
   `sudo defaults write com.apple.loginwindow LoginHook #{binary}`

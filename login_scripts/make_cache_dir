@@ -3,6 +3,7 @@
 # Setup working directory cache
 if [ ! -d "/tmp/cache" ] ; then
   mkdir "/tmp/cache"
+  chmod 777 "/tmp/cache"
 fi
 
 # Link to home directory
