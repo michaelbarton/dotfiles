@@ -48,6 +48,9 @@
   m    = merge --no-ff
 
   p    = push
+  pm   = push --mirror
+
+  t    = tag -u mail@michaelbarton.me.uk
 
   hub  = !sh -c 'hub clone -p $1 $2' -
 
