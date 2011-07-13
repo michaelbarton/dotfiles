@@ -21,10 +21,16 @@ set visualbell            " Flash instead of beep
 set grepprg=ack           " Use grep instead of ack
 set autoindent            " Autoindent text
 set copyindent            " Copy indentation when indenting
+set nojoinspaces          " Don't add spaces when joining lines
 set backspace=indent,eol,start " Make backspace work in insert mode
+
+set shortmess+=I          " Do not display vim start-up text
 
 set list                  " Highlight whitespace characters
 set listchars=trail:.,extends:#
+
+
+
 
 if v:version >= 703
   set undofile              " Keep undo file of previous actions
@@ -183,9 +189,6 @@ set wildignore+=.git " Files to ignore
 " Pull word under cursor into LHS of a substitute (for quick search and
 " replace)
 nmap <leader>z :%s#\<<C-r>=expand("<cword>")<CR>\>#
-
-" Don't add spaces when joining lines
-set nojoinspaces
 
 " Unbind the arrow keys
 map <up> <nop>
