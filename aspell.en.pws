@@ -1,4 +1,4 @@
-personal_ws-1.1 en 395
+personal_ws-1.1 en 401
 AAI
 ActiveRecord
 adaptated
@@ -187,6 +187,7 @@ lys
 MAFFT
 Mannan
 MATLAB
+MBp
 Mbp
 MCA
 mcl
@@ -247,6 +248,7 @@ PCR
 pdf
 Pentose
 peptone
+phaseolicola
 phe
 phenotypic
 Phosphatidate
