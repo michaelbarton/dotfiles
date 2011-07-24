@@ -29,15 +29,14 @@ set shortmess+=I          " Do not display vim start-up text
 set list                  " Highlight whitespace characters
 set listchars=trail:.,extends:#
 
-
-
-
 if v:version >= 703
   set undofile              " Keep undo file of previous actions
   set undodir=$HOME/.vim/tmp
   set relativenumber        " Relative line numbering
   set colorcolumn=85        " Highlight when line reaches this length
 endif
+
+let g:yankring_persist = 0  " Don't persist yankring data
 
 " }}}
 
