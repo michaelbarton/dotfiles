@@ -7,3 +7,4 @@ autotest
 .autotest
 cucumber.yml
 .rspec
+tmp
