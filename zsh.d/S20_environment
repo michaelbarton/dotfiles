@@ -12,6 +12,8 @@ if [ -x "$HOME/.local" ] ; then
   source "$HOME/.local"
 fi
 
+[[ -s "/Users/mike/.rvm/scripts/rvm" ]] && source "/Users/mike/.rvm/scripts/rvm"
+
 cdpath=( ~ ~/cache )
 
 export GEM_HOME="`echo $HOME`/.gem"
