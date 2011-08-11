@@ -307,6 +307,7 @@ let NERDTreeIgnore += ['^.gitignore$']
 let NERDTreeIgnore += ['^\.autotest$']
 let NERDTreeIgnore += ['^autotest$']
 let NERDTreeIgnore += ['^tmp$']
+let NERDTreeIgnore += ['^\.travis.yml']
 
 " }}}
 
