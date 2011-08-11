@@ -363,4 +363,5 @@ iab descibe describe
 iab nad and
 iab adn and
 iab statment statement
+iab acorss across
 " }}}
