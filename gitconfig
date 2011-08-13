@@ -49,6 +49,7 @@
 
   p    = push
   pm   = push --mirror
+  pt   = push --tags
 
   t    = tag -u mail@michaelbarton.me.uk
 
