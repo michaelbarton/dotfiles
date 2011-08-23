@@ -12,6 +12,8 @@ if [ -x "$HOME/.local" ] ; then
   source "$HOME/.local"
 fi
 
+fpath=($fpath $HOME/.zsh-git/functions)
+
 cdpath=( ~ ~/cache )
 
 export GEM_HOME="`echo $HOME`/.gem"
