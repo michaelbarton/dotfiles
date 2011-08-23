@@ -4,33 +4,44 @@ setopt prompt_subst
 autoload colors
 colors
 
+autoload -Uz promptinit; promptinit
+autoload -U zgitinit; zgitinit
+
 reset="%{%b%s%u$reset_color%}"
 current_directory="%{$fg_bold[cyan]%c%}"
 end="%{$fg_bold[red]%} : "
 
-function git-prompt() {
+function status() { "$@"; echo $? }
 
-  if [ -d .git ]; then
-    branch=$(git name)
-    if [[ -z $branch ]]; then
-      echo ""
-    else
-      if [[ $(git-dirty) = 1 ]]; then
-        dirty_color=$fg_bold[red]
-      else
-        dirty_color=$fg[green]
-      fi
-      echo "%{$fg_bold[blue]%} (%{$dirty_color%}$branch%{$reset_color%}%{$fg_bold[blue]%})"
-    fi
-  fi;
 
+# See https://github.com/jcorbin/zsh-git/issues/7
+function git_prompt() {
+  zgit_isgit || return
+  local msg
+
+  if zgit_inworktree; then
+    local fmt
+    zstyle -s ':promptinfo:' git-status fmt
+    [[ -z ${fmt} ]] && fmt='%(i.-.+)%(w.-.*)%(m.!.-)%(t.?.-)'
+
+    zformat -f msg ${fmt} \
+       i:$(status zgit_isindexclean) \
+       w:$(status zgit_isworktreeclean) \
+       m:$(status zgit_hasunmerged) \
+       t:$(status zgit_hasuntracked)
+  fi
+
+  echo -n " %{$fg_bold[red]%}($reset%{$fg_bold[blue]%}$(zgit_branch)$reset:${msg}%{$fg_bold[red]%})$reset"
+}
+
+function git_branch() {
 }
 
 PROMPT='\
 $reset\
 $current_directory\
 $reset\
-$(git-prompt)\
+$(git_prompt)\
 $reset\
 $end\
 $reset\
