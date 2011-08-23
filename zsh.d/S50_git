@@ -1,10 +1,5 @@
 #!/bin/zsh
 
-function git-dirty() {
-  git update-index -q --refresh; git diff-index --quiet --cached HEAD --ignore-submodules -- && git diff-files --quiet --ignore-submodules
-  echo $?
-}
-
 # Clone specified repo and switch to latest commit branch
 function gime () {
   repo=$1
