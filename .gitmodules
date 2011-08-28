@@ -1,6 +1,6 @@
 [submodule "irbfiles"]
 	path = irbfiles
-	url = git@github.com:michaelbarton/irbfiles.git
+	url = git://github.com/michaelbarton/irbfiles.git
 [submodule "vim/bundle/align"]
 	path = vim/bundle/align
 	url = git://github.com/tsaleh/vim-align.git
