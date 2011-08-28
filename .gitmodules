@@ -15,7 +15,7 @@
 	url = git://github.com/chrismetcalf/vim-yankring.git
 [submodule "vim/bundle/scratch"]
 	path = vim/bundle/scratch
-	url = https://github.com/jkramer/vim-scratch.git
+	url = git://github.com/jkramer/vim-scratch.git
 [submodule "vim/bundle/gundo"]
 	path = vim/bundle/gundo
 	url = git://github.com/sjl/gundo.vim.git
@@ -39,10 +39,10 @@
 	url = git://github.com/tpope/vim-cucumber.git
 [submodule "solarized"]
 	path = solarized
-	url = https://github.com/altercation/solarized.git
+	url = git://github.com/altercation/solarized.git
 [submodule "vim/bundle/solarized"]
 	path = vim/bundle/solarized
-	url = https://github.com/altercation/vim-colors-solarized.git
+	url = git://github.com/altercation/vim-colors-solarized.git
 [submodule "zsh-git"]
 	path = zsh-git
 	url = git://github.com/jcorbin/zsh-git.git
