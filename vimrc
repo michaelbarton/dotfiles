@@ -1,12 +1,11 @@
-" PATHOGEN {{{
+"{{{ PATHOGEN
 filetype on
 filetype off
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
 " }}}
-
-" GENERAL CONFIG {{{
+"{{{ GENERAL CONFIG
 
 filetype plugin indent on " Enable filetype-specific indenting and plugins
 let mapleader = ","       " Map leader key to comma
@@ -39,8 +38,7 @@ endif
 let g:yankring_persist = 0  " Don't persist yankring data
 
 " }}}
-
-" SEARCHING {{{
+"{{{ SEARCHING
 
 set ignorecase            " Ignore case in searching
 set smartcase             " ... unless searches contrain upper case letters
@@ -55,8 +53,7 @@ nnoremap / /\v
 vnoremap / /\v
 
 " }}}
-
-" TABS {{{
+"{{{ TABS
 
 set tabstop=2             " Tab equals two spaces
 set shiftwidth=2
@@ -64,8 +61,7 @@ set softtabstop=2
 set expandtab
 
 " }}}
-
-" FOLDING {{{
+"{{{ FOLDING
 
 set foldenable
 set foldlevelstart=0      " Start with everything folded
@@ -90,8 +86,7 @@ function! MyFoldText()
     return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
 endfunction
 " }}}
-"
-" APPEARANCE {{{
+"{{{ APPEARANCE
 
 syntax on                 " Enable syntax highlighting
 set scrolloff=3           " keep 3 lines above and below the cursor
@@ -104,14 +99,12 @@ set cmdheight=2                 " Status line is two rows high
 set statusline=%<%f\ %h%m%r%=%-20.(line=%l,col=%c%V,totlin=%L%)\%h%m%r%=%-40(,%n%Y%)\%P
 
 " }}}
-
-" NON-FANCY APPEARANCE {{{
+"{{{ NON-FANCY APPEARANCE
 
 colorscheme vividchalk
 
 " }}}
-
-" XTERM-256 APPEARANCE {{{
+"{{{ XTERM-256 APPEARANCE
 if &term == "screen-256color"
 
   set t_Co=256              " Explicitly set 256 color support
@@ -121,8 +114,7 @@ if &term == "screen-256color"
 
 endif
 " }}}
-
-" GUI APPEARANCE {{{
+"{{{ GUI APPEARANCE
 if has("gui_running")
 
   set cursorline
@@ -156,8 +148,7 @@ if has("gui_running")
 
 endif
 " }}}
-
-" WINDOWS {{{
+"{{{ WINDOWS
 
 " Move between windows using control
 map <C-h> <C-w>h
@@ -169,16 +160,14 @@ nnoremap <leader>wh <C-w>v<C-w>l
 " Close current window
 nnoremap <leader>wj <ESC>:close<CR>
 " }}}
-
-" FILE NAVIGATION {{{
+"{{{ FILE NAVIGATION
 
 set wildmenu                    " Tab completion for and files/buffers
 set wildmode=list:full          " Show a list for file tab completion
 set wildignore+=.git " Files to ignore
 
 " }}}
-
-" EDITING {{{
+"{{{ EDITING
 
 set formatoptions+=q " Format comments
 set formatoptions+=r " Insert comment leader when opening a new line
@@ -210,8 +199,7 @@ nnoremap ' `
 nnoremap ` '
 
 " }}}
-
-" KEY MAPS {{{
+"{{{ KEY MAPS
 
 " Reformat entire text width
 nmap <leader>b gwip
@@ -271,8 +259,7 @@ endfunction
 nmap <leader>f :call ToggleFormatOptions()<CR>
 
 " }}}
-
-" NERDTREE {{{
+"{{{ NERDTREE
 
 let NERDTreeShowFiles=1           " Show hidden files
 let NERDTreeShowHidden=1
@@ -302,8 +289,7 @@ let NERDTreeIgnore += ['^\.travis.yml']
 let NERDTreeIgnore += ['.aux', '.bbl', '.blg', '.dvi', '.log', '.pdf']
 
 " }}}
-
-" MISC {{{
+"{{{ MISC
 
 " Edit edit/reload the vimrc file
 nmap <silent> <leader>ve :e $MYVIMRC<CR>
@@ -314,8 +300,7 @@ au FocusLost * :wa " Write file when focus moves away from editor
 " Write current file as sudo
 cmap w!! w !sudo tee % >/dev/null<CR>
 " }}}
-
-" MY COMMON TYPOS {{{
+"{{{ MY COMMON TYPOS
 " Switch to abolish when this gets out of hand
 
 " command line
