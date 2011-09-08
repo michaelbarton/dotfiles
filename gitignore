@@ -8,3 +8,11 @@ autotest
 cucumber.yml
 .rspec
 tmp
+
+# LaTeX generated files
+*.aux
+*.bbl
+*.blg
+*.dvi
+*.log
+*.pdf
