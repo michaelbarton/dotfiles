@@ -180,7 +180,8 @@ set wildignore+=.git " Files to ignore
 
 " EDITING {{{
 
-set formatoptions=qrn1
+set formatoptions+=q " Format comments
+set formatoptions+=r " Insert comment leader when opening a new line
 
 " Custom RE for detecting lists
 set formatlistpat="^\s*\d\+[\]:.)}\t ]\s*"
