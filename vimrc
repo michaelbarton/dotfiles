@@ -183,9 +183,6 @@ set wildignore+=.git " Files to ignore
 set formatoptions+=q " Format comments
 set formatoptions+=r " Insert comment leader when opening a new line
 
-" Custom RE for detecting lists
-set formatlistpat="^\s*\d\+[\]:.)}\t ]\s*"
-
 " Pull word under cursor into LHS of a substitute (for quick search and
 " replace)
 nmap <leader>z :%s#\<<C-r>=expand("<cword>")<CR>\>#
