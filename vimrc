@@ -98,7 +98,6 @@ set scrolloff=3           " keep 3 lines above and below the cursor
 
 set wrap
 set textwidth=79
-set formatoptions=qrn1
 
 set laststatus=2                " Always show status line
 set cmdheight=2                 " Status line is two rows high
@@ -181,9 +180,10 @@ set wildignore+=.git " Files to ignore
 
 " EDITING {{{
 
-" set formatoptions-=o " don't start new lines w/ comment leader on pressing 'o'
-" set formatoptions+=t " auto format text as it's being edited
-" set formatoptions+=c " only text wrap comments
+set formatoptions=qrn1
+
+" Custom RE for detecting lists
+set formatlistpat="^\s*\d\+[\]:.)}\t ]\s*"
 
 " Pull word under cursor into LHS of a substitute (for quick search and
 " replace)
