@@ -302,6 +302,7 @@ let NERDTreeIgnore += ['^\.autotest$']
 let NERDTreeIgnore += ['^autotest$']
 let NERDTreeIgnore += ['^tmp$']
 let NERDTreeIgnore += ['^\.travis.yml']
+let NERDTreeIgnore += ['.aux', '.bbl', '.blg', '.dvi', '.log', '.pdf']
 
 " }}}
 
