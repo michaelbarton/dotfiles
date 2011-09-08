@@ -244,13 +244,6 @@ nnoremap <leader>t :Ack<SPACE>
 nmap <leader>e :NERDTreeClose<CR>:NERDTreeToggle<CR>
 nmap <leader>E :NERDTreeClose<CR>
 
-" buffers
-nnoremap <leader>a :LustyJuggler<CR>
-
-" Command T search
-nnoremap <leader>rr :CommandT<CR>
-let g:CommandTMaxHeight = 10
-
 " Bubble text using unimpaired
 " single lines
 nmap <D-k> [e
