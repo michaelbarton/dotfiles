@@ -38,6 +38,31 @@ endif
 let g:yankring_persist = 0  " Don't persist yankring data
 
 " }}}
+"{{{ MOVEMENT
+
+" Unbind the arrow keys
+map <up> <nop>
+map <down> <nop>
+map <left> <nop>
+map <right> <nop>
+
+" Move over wrapped lines as expected
+nnoremap j gj
+nnoremap k gk
+
+" Faster Esc
+inoremap <Esc> <nop>
+inoremap jj <ESC>
+
+" Jump to marked line AND column
+nnoremap ' `
+nnoremap ` '
+
+" Use colon insead of semi colon for command mode
+" Saves pressing shift
+nnoremap ; :
+
+" }}}
 "{{{ SEARCHING
 
 set ignorecase            " Ignore case in searching
@@ -175,28 +200,6 @@ set formatoptions+=r " Insert comment leader when opening a new line
 " Pull word under cursor into LHS of a substitute (for quick search and
 " replace)
 nmap <leader>z :%s#\<<C-r>=expand("<cword>")<CR>\>#
-
-" Unbind the arrow keys
-map <up> <nop>
-map <down> <nop>
-map <left> <nop>
-map <right> <nop>
-
-" Move over wrapped lines as expected
-nnoremap j gj
-nnoremap k gk
-
-" Faster Esc
-inoremap <Esc> <nop>
-inoremap jj <ESC>
-
-" Use colon insead of semi colon for command mode
-" Saves pressing shift
-nnoremap ; :
-
-" Jump to marked line AND column
-nnoremap ' `
-nnoremap ` '
 
 " }}}
 "{{{ KEY MAPS
