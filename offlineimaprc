@@ -10,7 +10,7 @@ localrepository = LocalGmail
 remoterepository = RemoteGmail
 #autorefresh = 10
 #quick = 5
-maxage = 7
+maxage = 30
 
 [Repository LocalGmail]
 type = Maildir
