@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+cd ~/.dotfiles
+git submodule init
+git submodule update
+
+# Link dotfiles
+ls ~/.dotfiles/ | xargs -I '{}' ln -s ~/.dotfiles/{} ~/.{}
+
+# Install homebrew apps
+brew update
+< ~/.dotfiles/brews | xargs -I '{}' brew install {}
+
+#Configure use brew installed macvim for vim
+ln -s /usr/local/bin/mvim /usr/local/bin/vim
+ln -s /usr/local/bin/mvim /usr/local/bin/vi
+
+# Create vim temporary directory
+mkdir ~/.vim/tmp
