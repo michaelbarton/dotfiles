@@ -42,11 +42,6 @@ export PAGER='less'
 export LESS='-R -M --shift 5'
 export LESSOPEN="|/usr/local/bin/lesspipe.sh %s"
 
-if [ -d  $HOME/.ec2 ] ; then
-  export EC2_HOME=~/.ec2
-  export EC2_PRIVATE_KEY="$(/bin/ls $EC2_HOME/pk-*.pem)"
-  export EC2_CERT="$(/bin/ls $EC2_HOME/cert-*.pem)"
-fi
 
 # history
 HISTFILE=$HOME/.zhistory
