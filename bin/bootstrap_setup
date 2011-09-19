@@ -20,6 +20,9 @@ mkdir ~/.vim/tmp
 
 # setup ruby environment
 git clone git://github.com/sstephenson/rbenv.git ~/.rbenv
+ruby-build 1.9.2-p290 ~/.rbenv/versions/1.9.2-p290
+~/.rbenv/bin/rbenv global 1.9.2-p290
+~/.rbenv/bin/rbenv rehash
 
 # Manual requirements
 # Set terminal emulation to iterm-256-color

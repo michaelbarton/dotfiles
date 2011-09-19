@@ -21,8 +21,7 @@ export GEM_HOME="`echo $HOME`/.gem"
 export PATH=~/.bin:$GEM_HOME/bin:/usr/local/bin:$PATH
 
 # rbenv paths
-export PATH="$HOME/.rbenv/bin:$PATH"
-export PATH="$HOME/.rbenv/shims:$PATH"
+export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"
 
 export EMAIL="mail@michaelbarton.me.uk"
 export FULLNAME="Michael Barton"
