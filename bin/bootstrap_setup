@@ -18,6 +18,9 @@ ln -s /usr/local/bin/mvim /usr/local/bin/vi
 # Create vim temporary directory
 mkdir ~/.vim/tmp
 
+# setup ruby environment
+git clone git://github.com/sstephenson/rbenv.git ~/.rbenv
+
 # Manual requirements
 # Set terminal emulation to iterm-256-color
 #   In Preferences -> Profiles -> Terminal
