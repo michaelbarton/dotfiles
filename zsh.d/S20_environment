@@ -1,8 +1,5 @@
 #!/bin/zsh
 
-# Turn off terminal beep
-set +B
-
 if [ x"$HOME" = x ] ; then
         export HOME=$(cd ~ ; pwd)
 fi
