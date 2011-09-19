@@ -5,3 +5,4 @@ mutt
 coreutils
 macvim
 wget
+ruby-build
