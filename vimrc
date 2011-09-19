@@ -133,7 +133,10 @@ colorscheme vividchalk
 if &term == "screen-256color"
 
   set t_Co=256              " Explicitly set 256 color support
-  colorscheme molokai
+  set background=dark
+  let g:solarized_termcolors=256
+  colorscheme solarized
+
   set cursorline
   set foldtext=MyFoldText()
 
