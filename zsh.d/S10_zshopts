@@ -13,13 +13,7 @@ zmodload -ap zsh/mapfile mapfile
 
 unsetopt BG_NICE		# do NOT nice bg commands
 
-setopt APPEND_HISTORY
-setopt EXTENDED_HISTORY		# puts timestamps in the history
-setopt HIST_ALLOW_CLOBBER
-setopt HIST_REDUCE_BLANKS
-setopt INC_APPEND_HISTORY SHARE_HISTORY
 setopt ALL_EXPORT
-setopt HIST_IGNORE_ALL_DUPS     # ignore all -- even non contiguous
 
 # Case insensitive globbing
 setopt extendedglob

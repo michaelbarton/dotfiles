@@ -42,12 +42,6 @@ export PAGER='less'
 export LESS='-R -M --shift 5'
 export LESSOPEN="|/usr/local/bin/lesspipe.sh %s"
 
-
-# history
-HISTFILE=$HOME/.zhistory
-HISTSIZE=1000
-SAVEHIST=1000
-
 # language
 LC_ALL='en_GB.UTF-8'
 LANG='en_GB.UTF-8'
