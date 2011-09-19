@@ -43,3 +43,6 @@
 [submodule "zsh-git"]
 	path = zsh-git
 	url = git://github.com/jcorbin/zsh-git.git
+[submodule "dircolors-solarized"]
+	path = dircolors-solarized
+	url = git://github.com/seebi/dircolors-solarized.git
