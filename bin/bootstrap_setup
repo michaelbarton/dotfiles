@@ -18,6 +18,12 @@ ln -s /usr/local/bin/mvim /usr/local/bin/vi
 # Create vim temporary directory
 mkdir ~/.vim/tmp
 
+# Remove system installed ruby gems
+sudo gem update --system
+sudo gem update
+sudo rm -rf /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/gems/1.8
+sudo gem clean
+
 # setup ruby environment
 git clone git://github.com/sstephenson/rbenv.git ~/.rbenv
 ruby-build 1.9.2-p290 ~/.rbenv/versions/1.9.2-p290
