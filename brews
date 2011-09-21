@@ -2,6 +2,7 @@ git
 hub
 tmux
 mutt
+offline-imap
 coreutils
 macvim
 wget
