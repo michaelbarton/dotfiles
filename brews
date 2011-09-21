@@ -3,6 +3,7 @@ hub
 tmux
 mutt
 offline-imap
+gpg
 coreutils
 macvim
 wget
