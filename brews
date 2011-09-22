@@ -8,6 +8,7 @@ coreutils
 macvim
 wget
 lesspipe
+pbzip2
 R
 ruby-build
 blast
