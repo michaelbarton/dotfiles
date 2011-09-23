@@ -5,4 +5,4 @@ set softtabstop=2
 
 " Set ruby as compiler for make
 set autowrite
-set makeprg=ruby\ -rubygems\ %
+set makeprg=ruby\ -rubygems\ -rpp\ %
