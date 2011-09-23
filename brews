@@ -9,6 +9,7 @@ macvim
 wget
 lesspipe
 pbzip2
+pigz
 unrar
 R
 ruby-build
