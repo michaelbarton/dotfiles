@@ -18,6 +18,10 @@ ln -s /usr/local/bin/mvim /usr/local/bin/vi
 # Create vim temporary directory
 mkdir ~/.vim/tmp
 
+# Create mutt directory
+mkdir ~/.mutt
+mkdir ~/.mutt/cache
+
 # Remove system installed ruby gems
 sudo gem update --system
 sudo gem update
