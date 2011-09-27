@@ -2,6 +2,7 @@ git
 hub
 tmux
 mutt
+openssl
 offline-imap
 gpg
 coreutils

@@ -23,7 +23,7 @@ set mbox_type = Maildir
 
 #{{{ Send mail
 
-set smtp_url = "smtp://$from@smtp.gmail.com:587"
+set smtp_url = "smtps://$from@smtp.gmail.com:465"
 set smtp_pass = `get-pass gmail`
 
 # }}}
