@@ -145,9 +145,12 @@ endif
 "{{{ GUI APPEARANCE
 if has("gui_running")
 
-  set cursorline
-  colorscheme molokai
   set t_Co=256              " Explicitly set 256 color support
+  set background=dark
+  let g:solarized_termcolors=256
+  colorscheme solarized
+
+  set cursorline
   set foldtext=MyFoldText()
 
   " Window size
@@ -156,7 +159,7 @@ if has("gui_running")
   set lines=50
   let &columns = g:halfsize
 
-  set guifont=Inconsolata:h17.00 " Font
+  set guifont=Inconsolata:h15.00 " Font
   set guioptions-=T              " No toolbar
   set guioptions+=c              " Use console dialogs
 
