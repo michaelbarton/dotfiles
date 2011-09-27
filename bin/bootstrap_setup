@@ -21,6 +21,7 @@ mkdir ~/.vim/tmp
 # Create mutt directory
 mkdir ~/.mutt
 mkdir ~/.mutt/cache
+ln -s ~/.dotfiles/solarized/mutt-colors-solarized/mutt-colors-solarized-dark-256.muttrc ~/.mutt/colors
 
 # Remove system installed ruby gems
 sudo gem update --system

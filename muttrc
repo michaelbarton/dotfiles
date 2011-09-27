@@ -95,43 +95,7 @@ set pgp_good_sign="^gpg: Good signature from"
 
 #{{{ Colors
 
-color header cyan default .
-color header yellow default ^From
-color header yellow default ^Subject
-color body yellow default [_a-z\.\$A-Z0-9-]+@[a-zA-Z0-9\./\-]+
-color body yellow default (http|ftp)://[_a-zA-Z0-9\?\=\&\@\%\#\:\,\./~\-]+
-color quoted green default
-color quoted1 cyan default
-color quoted2 magenta default
-color signature cyan black
-color attachment magenta default
-color tree white default
-color indicator black yellow
-color status blue black
-color tilde blue default
-color normal white default
-
-color index      white         default "~p"
-color index      green   default "! ~p"
-
-color header     yellow         default    "importance: "
-color header     blue           default    "importance: normal"
-color header     brightred      default    "importance: high"
-color index      brightyellow    default    "~h 'importance: high'"
-color header     yellow         default    "precedence: "
-color header     blue           default    "priority: "
-color header     brightred      default    "priority: high"
-color header     red            default    "priority: urgent"
-color index      brightyellow    default    "~h 'priority: high'"
-color index      brightyellow    default    "~h 'priority: urgent'"
-color header     blue           default    "priority: normal"
-color header     brightred      default    "x-priority: "
-color header     yellow         default    "X-MSMail-Priority: "
-color index      brightred      default    "~F"
-color index      yellow         default    "~N"
-color index      brightyellow   default    "~N ~p"
-color index      brightblue     default    "~T"    # Tagged
-color index      red            default    "~D"       # Delete
+source ~/.mutt/colors
 
 # }}}
 
