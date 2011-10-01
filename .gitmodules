@@ -46,3 +46,6 @@
 [submodule "dircolors-solarized"]
 	path = dircolors-solarized
 	url = git://github.com/seebi/dircolors-solarized.git
+[submodule "vim/bundle/autoclose"]
+	path = vim/bundle/autoclose
+	url = https://github.com/vim-scripts/AutoClose.git
