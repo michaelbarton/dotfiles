@@ -210,6 +210,9 @@ nmap <leader>z :%s#\<<C-r>=expand("<cword>")<CR>\>#
 " }}}
 "{{{ KEY MAPS
 
+" Underline current line
+nnoremap <leader>i yyp<c-v>$r-
+
 " Reformat entire text width
 nmap <leader>b gwip
 
