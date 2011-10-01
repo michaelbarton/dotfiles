@@ -210,6 +210,11 @@ nmap <leader>z :%s#\<<C-r>=expand("<cword>")<CR>\>#
 " }}}
 "{{{ KEY MAPS
 
+" Comment
+noremap <leader>vv :TComment<CR>
+
+let g:EasyMotion_leader_key = '<leader>f'
+
 " Underline current line
 nnoremap <leader>i yyp<c-v>$r-
 
