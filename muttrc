@@ -46,6 +46,8 @@ auto_view text/html
 bind editor ^T complete
 set query_command="/usr/local/bin/lbdbq '%s'"
 set pager_index_lines= 10
+set nostrict_threads
+
 
 #}}}
 
