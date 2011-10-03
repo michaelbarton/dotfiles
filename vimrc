@@ -270,6 +270,22 @@ endfunction
 nmap <leader>f :call ToggleFormatOptions()<CR>
 
 " }}}
+"{{{ FUNCTION KEY MAPS
+
+nnoremap <F1>  :e $MYVIMRC<CR>
+nnoremap <F2>  <nop>
+nnoremap <F3>  <nop>
+nnoremap <F4>  <nop>
+nnoremap <F5>  <nop>
+nnoremap <F6>  <nop>
+nnoremap <F7>  <nop>
+nnoremap <F8>  <nop>
+nnoremap <F9>  <nop>
+nnoremap <F10> <nop>
+nnoremap <F11> <nop>
+nnoremap <F12> <nop>
+
+" }}}
 "{{{ NERDTREE
 
 let NERDTreeShowFiles=1           " Show hidden files
@@ -301,10 +317,6 @@ let NERDTreeIgnore += ['.aux', '.bbl', '.blg', '.dvi', '.log', '.pdf']
 
 " }}}
 "{{{ MISC
-
-" Edit edit/reload the vimrc file
-nmap <silent> <leader>ve :e $MYVIMRC<CR>
-nmap <silent> <leader>vs :w<CR>:so $MYVIMRC<CR>
 
 au FocusLost * :wa " Write file when focus moves away from editor
 
