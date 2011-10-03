@@ -270,9 +270,23 @@ endfunction
 nmap <leader>f :call ToggleFormatOptions()<CR>
 
 " }}}
+"{{{ NUMBER KEY MAPS
+
+nnoremap <leader>1 :e $MYVIMRC<CR>
+nnoremap <leader>2 :NERDTree ~/.dotfiles/<CR>
+nnoremap <leader>3 :NERDTree ~/Dropbox/nv/<CR>/goals<CR>:noh<CR>
+nnoremap <leader>4 <nop>
+nnoremap <leader>5 <nop>
+nnoremap <leader>6 <nop>
+nnoremap <leader>7 <nop>
+nnoremap <leader>8 <nop>
+nnoremap <leader>9 <nop>
+nnoremap <leader>0 <nop>
+
+" }}}
 "{{{ FUNCTION KEY MAPS
 
-nnoremap <F1>  :e $MYVIMRC<CR>
+nnoremap <F1>  <nop>
 nnoremap <F2>  <nop>
 nnoremap <F3>  <nop>
 nnoremap <F4>  <nop>
