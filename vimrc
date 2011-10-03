@@ -238,7 +238,7 @@ nnoremap <leader>u :GundoToggle<CR>
 nnoremap <leader>q :YRShow<CR>
 
 " Make
-nnoremap <leader>m <Esc>:make<CR>
+nmap <leader>m <Esc>:make<CR>
 
 " Ack 
 nnoremap <leader>t :Ack<SPACE>
