@@ -255,6 +255,9 @@ nnoremap <leader>c :Gcommit<CR>
 nnoremap <leader>p :set paste<CR>
 nnoremap <leader>P :set nopaste<CR>
 
+" Write current file as sudo
+cmap w!! w !sudo tee % >/dev/null<CR>
+
 " Turn format options on and off
 function! ToggleFormatOptions()
   if &formatoptions == ""
@@ -305,8 +308,6 @@ nmap <silent> <leader>vs :w<CR>:so $MYVIMRC<CR>
 
 au FocusLost * :wa " Write file when focus moves away from editor
 
-" Write current file as sudo
-cmap w!! w !sudo tee % >/dev/null<CR>
 " }}}
 "{{{ MY COMMON TYPOS
 " Switch to abolish when this gets out of hand
