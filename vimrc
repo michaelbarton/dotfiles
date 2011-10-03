@@ -168,15 +168,6 @@ if has("gui_running")
   set guioptions-=r
   set guioptions-=R
 
-  function! ToggleWindowSize()
-    if &columns == g:halfsize
-      let &columns = g:fullsize
-    else
-      let &columns = g:halfsize
-    end
-  endfunction
-  nmap <F1> :call ToggleWindowSize()<CR>
-
 endif
 " }}}
 "{{{ WINDOWS
