@@ -35,6 +35,9 @@ ruby-build 1.9.2-p290 ~/.rbenv/versions/1.9.2-p290
 ~/.rbenv/bin/rbenv global 1.9.2-p290
 ~/.rbenv/bin/rbenv rehash
 
+# setup boson
+ln -s ~/.dotfiles/irbfiles/boson ~/.boson
+
 # Manual requirements
 # Set terminal emulation to iterm-256-color
 #   In Preferences -> Profiles -> Terminal
