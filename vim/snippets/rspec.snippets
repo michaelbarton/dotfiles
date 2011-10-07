@@ -30,3 +30,11 @@ snippet sheq
 	${1:target}.should == ${2}
 snippet shbe
 	${1:target}.should be_${2:result}
+snippet sub
+	subject(:${1:each}) do
+		${2}
+	end
+snippet let
+	let(:${1:each}) do
+		${2}
+	end
