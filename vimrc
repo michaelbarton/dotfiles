@@ -168,6 +168,9 @@ if has("gui_running")
   set guioptions-=r
   set guioptions-=R
 
+  " Full screen options
+  set fuoptions=background:Normal
+
 endif
 " }}}
 "{{{ WINDOWS
