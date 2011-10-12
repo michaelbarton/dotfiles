@@ -20,6 +20,7 @@ set visualbell            " Flash instead of beep
 set grepprg=ack           " Use grep instead of ack
 set autoindent            " Autoindent text
 set copyindent            " Copy indentation when indenting
+set cryptmethod=blowfish
 set nojoinspaces          " Don't add spaces when joining lines
 set backspace=indent,eol,start " Make backspace work in insert mode
 
@@ -204,13 +205,27 @@ nmap <leader>z :%s#\<<C-r>=expand("<cword>")<CR>\>#
 " }}}
 "{{{ KEY MAPS
 
+" Underline current line
+function! Underline()
+  yank
+  put
+  s/./-/
+endfunction
+nnoremap <leader>i :call Underline()<CR>
+
+" Insert underlined date
+function! InsertDate()
+  set formatoptions-=a
+  r!date "+\%A \%B \%d, \%Y"
+  call Underline()
+  set formatoptions+=a
+endfunction
+noremap <leader>d :call InsertDate()<CR>
+
 " Comment
 noremap <leader>vv :TComment<CR>
 
 let g:EasyMotion_leader_key = '<leader>f'
-
-" Underline current line
-nnoremap <leader>i yyp<c-v>$r-
 
 " Reformat entire text width
 nmap <leader>b gwip
@@ -238,8 +253,7 @@ nmap <leader>m <Esc>:make<CR>
 nnoremap <leader>t :Ack<SPACE>
 
 " NERDTree
-nmap <leader>e :NERDTreeClose<CR>:NERDTreeToggle<CR>
-nmap <leader>E :NERDTreeClose<CR>
+nmap <leader>e :NERDTreeToggle<CR>
 
 " Bubble text using unimpaired
 " single lines
