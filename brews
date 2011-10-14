@@ -1,7 +1,7 @@
 git
 hub
 tmux
-mutt
+mutt --enable-debug --sidebar-patch --pgp-verbose-mime-patch
 urlview
 openssl
 offline-imap

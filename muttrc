@@ -92,6 +92,7 @@ set pgp_sign_as=0x6057CB48
 set pgp_replyencrypt=yes
 set pgp_timeout=1800
 set pgp_good_sign="^gpg: Good signature from"
+set pgp_mime_signature_filename="signature.asc"
 
 #}}}
 
