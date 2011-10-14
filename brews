@@ -10,7 +10,7 @@ coreutils
 macvim
 wget
 lesspipe
-lynx
+w3m
 pbzip2
 pigz
 unrar
