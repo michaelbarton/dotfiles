@@ -4,6 +4,7 @@ accounts = MICHAELBARTON
 maxsyncaccounts = 2
 pythonfile = ~/.offlineimap.py
 ui = Noninteractive.Quiet
+postsynchook = ~/.bin/filter_mail
 
 [Account MICHAELBARTON]
 localrepository = LocalGmail
