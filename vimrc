@@ -203,7 +203,7 @@ set formatoptions+=r " Insert comment leader when opening a new line
 nmap <leader>z :%s#\<<C-r>=expand("<cword>")<CR>\>#
 
 " }}}
-"{{{ KEY MAPS
+"{{{ FUNCTIONS
 
 " Underline current line
 function! Underline()
@@ -211,7 +211,6 @@ function! Underline()
   put
   s/./-/
 endfunction
-nnoremap <leader>i :call Underline()<CR>
 
 " Insert underlined date
 function! InsertDate()
@@ -220,7 +219,16 @@ function! InsertDate()
   call Underline()
   set formatoptions+=a
 endfunction
-noremap <leader>d :call InsertDate()<CR>
+
+"}}}
+"{{{ KEY MAPS
+
+
+nnoremap <leader>F :set fullscreen<CR>
+
+nnoremap <leader>i :call Underline()<CR>
+
+nnoremap <leader>d :call InsertDate()<CR>
 
 " Comment
 noremap <leader>vv :TComment<CR>
