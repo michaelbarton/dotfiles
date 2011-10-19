@@ -223,6 +223,7 @@ endfunction
 "}}}
 "{{{ KEY MAPS
 
+nnoremap <leader><CR> :CommandT<CR>
 
 nnoremap <leader>F :set fullscreen<CR>
 
