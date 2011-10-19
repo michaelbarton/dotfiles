@@ -41,12 +41,6 @@ let g:yankring_persist = 0  " Don't persist yankring data
 " }}}
 "{{{ MOVEMENT
 
-" Unbind the arrow keys
-map <up> <nop>
-map <down> <nop>
-map <left> <nop>
-map <right> <nop>
-
 " Move over wrapped lines as expected
 nnoremap j gj
 nnoremap k gk
@@ -175,16 +169,11 @@ if has("gui_running")
 endif
 " }}}
 "{{{ WINDOWS
-
 " Move between windows using control
 map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
-" Open new horizontal split window
-nnoremap <leader>wh <C-w>v<C-w>l
-" Close current window
-nnoremap <leader>wj <ESC>:close<CR>
 " }}}
 "{{{ FILE NAVIGATION
 
@@ -197,10 +186,6 @@ set wildignore+=.git " Files to ignore
 
 set formatoptions+=q " Format comments
 set formatoptions+=r " Insert comment leader when opening a new line
-
-" Pull word under cursor into LHS of a substitute (for quick search and
-" replace)
-nmap <leader>z :%s#\<<C-r>=expand("<cword>")<CR>\>#
 
 " }}}
 "{{{ FUNCTIONS
@@ -220,70 +205,6 @@ function! InsertDate()
   set formatoptions+=a
 endfunction
 
-"}}}
-"{{{ KEY MAPS
-
-nnoremap <leader><CR> :CommandT<CR>
-
-nnoremap <leader>F :set fullscreen<CR>
-
-nnoremap <leader>i :call Underline()<CR>
-
-nnoremap <leader>d :call InsertDate()<CR>
-
-" Comment
-noremap <leader>vv :TComment<CR>
-
-let g:EasyMotion_leader_key = '<leader>f'
-
-" Reformat entire text width
-nmap <leader>b gwip
-
-" Split current line at current position and start editing
-nmap <leader>ss mar<CR>:call append(line('.')-1, '')<CR>'aA<Space>
-
-" Write the file
-nmap <leader><leader> :w<CR>
-
-" Folding
-nnoremap <Space> za
-vnoremap <Space> za
-
-" Gundo
-nnoremap <leader>u :GundoToggle<CR>
-
-" Yank ring
-nnoremap <leader>q :YRShow<CR>
-
-" Make
-nmap <leader>m <Esc>:make<CR>
-
-" Ack 
-nnoremap <leader>t :Ack<SPACE>
-
-" NERDTree
-nmap <leader>e :NERDTreeToggle<CR>
-
-" Bubble text using unimpaired
-" single lines
-nmap <D-k> [e
-nmap <D-j> ]e
-" visual model selected lines
-vmap <D-k> [egv
-vmap <D-j> ]egv
-
-" Git editing using fugitive
-nnoremap <leader>z :Gstatus<CR>
-nnoremap <leader>x :Gwrite<CR>
-nnoremap <leader>c :Gcommit<CR>
-
-" Toggle paste option
-nnoremap <leader>p :set paste<CR>
-nnoremap <leader>P :set nopaste<CR>
-
-" Write current file as sudo
-cmap w!! w !sudo tee % >/dev/null<CR>
-
 " Turn format options on and off
 function! ToggleFormatOptions()
   if &formatoptions == ""
@@ -293,21 +214,70 @@ function! ToggleFormatOptions()
     let &formatoptions = ""
   end
 endfunction
-nmap <leader>f :call ToggleFormatOptions()<CR>
+
+"}}}
+"{{{ KEY MAPS
+
+" {{{ ARROW KEYS   - UNBOUND
+map <up>    <nop>
+map <down>  <nop>
+map <left>  <nop>
+map <right> <nop>
+" }}}
+" {{{ UPPER LEFT   - EDITING
+nnoremap <leader>q :YRShow<CR>
+nnoremap <leader>w :TComment<CR>
+nnoremap <leader>e :set paste<CR>
+nnoremap <leader>E :set nopaste<CR>
+nnoremap <leader>r :GundoToggle<CR>
+nnoremap <leader>t :call ToggleFormatOptions()<CR>
+" }}}
+" {{{ HOME LEFT    - FILE/BUFFER NAVIGATION
+nnoremap <leader>a :CommandT<CR>
+nnoremap <leader>s :NERDTreeToggle<CR>
+nnoremap <leader>d :CommandTBuffer<CR>
+nnoremap <leader>f :Ack<SPACE>
+nnoremap <leader>g <nop>
+let g:EasyMotion_leader_key = '<leader>f'
+" }}}
+" {{{ LOWER LEFT   - GIT
+nnoremap <leader>z :Gstatus<CR>
+nnoremap <leader>x :Gwrite<CR>
+nnoremap <leader>c :Gcommit<CR>
+nnoremap <leader>v <nop>
+" }}}
+" {{{ UPPER RIGHT  - MINOR EDIT SHORTCUTS
+nnoremap <leader>p :call Underline()<CR>
+nnoremap <leader>o :call InsertDate()<CR>
+nnoremap <leader>i :%s#\<<C-r>=expand("<cword>")<CR>\># " Search/replace word
+nnoremap <leader>u <nop>
+" }}}
+" {{{ HOME RIGHT
+nnoremap <leader>; <nop>
+nnoremap <leader>l <nop>
+nnoremap <leader>k <nop>
+nnoremap <leader>j <nop>
+" }}}
+" {{{ LOWER RIGHT  - FILE ACTIONS
+nnoremap <leader>/ <Esc>:w!! w !sudo tee % >/dev/null<CR>
+nnoremap <leader>. <nop>
+nnoremap <leader><leader> <Esc>:w<CR>
+nnoremap <leader>m <Esc>:make<CR>
+" }}}
 
 " }}}
 "{{{ NUMBER KEY MAPS
 
 nnoremap <leader>1 :e $MYVIMRC<CR>
-nnoremap <leader>2 :NERDTree ~/.dotfiles/<CR>
-nnoremap <leader>3 :NERDTree ~/Dropbox/nv/<CR>/goals<CR>:noh<CR>
+nnoremap <leader>2 :CommandT ~/.dotfiles/<CR>
+nnoremap <leader>3 :CommandT ~/Dropbox/nv/<CR>
 nnoremap <leader>4 <nop>
 nnoremap <leader>5 <nop>
 nnoremap <leader>6 <nop>
 nnoremap <leader>7 <nop>
 nnoremap <leader>8 <nop>
-nnoremap <leader>9 <nop>
-nnoremap <leader>0 <nop>
+nnoremap <leader>9 :CommandT spec<CR>
+nnoremap <leader>0 :CommandT lib<CR>
 
 " }}}
 "{{{ FUNCTION KEY MAPS
