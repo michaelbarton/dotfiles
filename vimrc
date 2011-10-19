@@ -271,7 +271,7 @@ nnoremap <leader>m <Esc>:make<CR>
 nnoremap <leader>1 :e $MYVIMRC<CR>
 nnoremap <leader>2 :CommandT ~/.dotfiles/<CR>
 nnoremap <leader>3 :CommandT ~/Dropbox/nv/<CR>
-nnoremap <leader>4 <nop>
+nnoremap <leader>4 :CommandT ~/.bioinformatics-zen/content/markup/<CR>
 nnoremap <leader>5 <nop>
 nnoremap <leader>6 <nop>
 nnoremap <leader>7 <nop>
