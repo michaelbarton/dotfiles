@@ -7,6 +7,7 @@ call pathogen#helptags()
 " }}}
 "{{{ GENERAL CONFIG
 
+mapclear
 filetype plugin indent on " Enable filetype-specific indenting and plugins
 let mapleader = ","       " Map leader key to comma
 set modelines=0           " Modelines are a security risk
@@ -217,7 +218,6 @@ endfunction
 
 "}}}
 "{{{ KEY MAPS
-
 " {{{ ARROW KEYS   - UNBOUND
 map <up>    <nop>
 map <down>  <nop>
@@ -237,8 +237,7 @@ nnoremap <leader>a :CommandT<CR>
 nnoremap <leader>s :NERDTreeToggle<CR>
 nnoremap <leader>d :CommandTBuffer<CR>
 nnoremap <leader>f :Ack<SPACE>
-nnoremap <leader>g <nop>
-let g:EasyMotion_leader_key = '<leader>f'
+nnoremap <leader>g :b#<CR> " Alternate buffer/file
 " }}}
 " {{{ LOWER LEFT   - GIT
 nnoremap <leader>z :Gstatus<CR>
@@ -250,7 +249,7 @@ nnoremap <leader>v <nop>
 nnoremap <leader>p :call Underline()<CR>
 nnoremap <leader>o :call InsertDate()<CR>
 nnoremap <leader>i :%s#\<<C-r>=expand("<cword>")<CR>\># " Search/replace word
-nnoremap <leader>u <nop>
+let g:EasyMotion_leader_key = '<leader>u'
 " }}}
 " {{{ HOME RIGHT
 nnoremap <leader>; <nop>
