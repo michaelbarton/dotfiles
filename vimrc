@@ -281,7 +281,7 @@ nnoremap <leader>0 :CommandT lib<CR>
 " }}}
 "{{{ FUNCTION KEY MAPS
 
-nnoremap <F1>  <nop>
+nnoremap <F1>  :edit `post `<left>
 nnoremap <F2>  <nop>
 nnoremap <F3>  <nop>
 nnoremap <F4>  <nop>
