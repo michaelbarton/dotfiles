@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+require 'pathname'
+require 'yaml'
+
+category, *title = ARGV
+
+blog = Pathname.new(ENV['HOME'] + '/.bioinformatics-zen/content/markup')
+
+dir = blog + category
+File.mkdir(dir.realpath) unless File.exists? dir.realpath
+
+post = dir + (title.map{|i| i.downcase }.join('_') + ".markdown")
+File.open(post,'w') do |out|
+  out << YAML.dump({
+    'kind'       => 'article',
+    'title'      => ARGV.join(' '),
+    'created_at' => Time.now.utc.to_s})
+  out << '---'
+end
+
+puts post.realpath
