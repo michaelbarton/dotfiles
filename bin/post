@@ -13,7 +13,7 @@ post = dir + (title.map{|i| i.downcase }.join('_') + ".markdown")
 File.open(post,'w') do |out|
   out << YAML.dump({
     'kind'       => 'article',
-    'title'      => ARGV.join(' '),
+    'title'      => title.join(' '),
     'created_at' => Time.now.utc.to_s})
   out << '---'
 end
