@@ -3,7 +3,8 @@
 # Vim in full screen mode
 alias dvim='gvim +"call ToggleWindowSize()"'
 
-alias dot='cd ~/.dotfiles'
+alias dot='~/.dotfiles'
+alias zen='~/.bioinformatics-zen'
 
 autoload zmv
 alias mmv='noglob zmv -W'
