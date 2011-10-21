@@ -16,6 +16,10 @@ snippet it
 	it "should ${1:description}" do
 		${2}
 	end
+snippet let
+	let (:${1:description}) do
+		${2}
+	end
 snippet its
 	its(${1:attribute}){ should ${2} }
 snippet sheq
