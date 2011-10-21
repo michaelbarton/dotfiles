@@ -14,6 +14,7 @@ File.open(post,'w') do |out|
   out << YAML.dump({
     'kind'       => 'article',
     'title'      => title.join(' '),
+    'category'   => category,
     'created_at' => Time.now.utc.to_s})
   out << '---'
 end
