@@ -45,9 +45,6 @@ LANG='en_GB.UTF-8'
 LC_CTYPE=C
 DISPLAY=:0
 
-# Set ls colors
-eval `/usr/local/bin/gdircolors ~/.dotfiles/dircolors-solarized/dircolors.256dark`
-
 # this makes man pages look nicer...
 export LESS_TERMCAP_mb=$'\E[01;31m'
 export LESS_TERMCAP_md=$'\E[01;31m'
