@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-autoload -U is-at-least
+autoload -U is-at-least add-zsh-hook
 
 autoload -U edit-command-line
 zle -N edit-command-line
