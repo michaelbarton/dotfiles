@@ -3,7 +3,6 @@
 :verbose: true
 :update_sources: true
 :sources: 
-- http://gemcutter.org
-- http://gems.opscode.com
+- http://rubygems.org/
 :backtrace: false
 :bulk_threshold: 1000
