@@ -16,6 +16,8 @@ brew linkapps
 # Configure use brew installed macvim for vim
 ln -s /usr/local/bin/mvim /usr/local/bin/vim
 ln -s /usr/local/bin/mvim /usr/local/bin/vi
+ls -tr /usr/local/Cellar/macvim/ | head -n 1 \
+  | xargs -I '{}' ln -s /usr/local/Cellar/macvim/{}/MacVim.app ~/Applications
 
 # Create vim temporary directory
 mkdir ~/.vim/tmp
