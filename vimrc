@@ -126,7 +126,7 @@ colorscheme vividchalk
 
 " }}}
 "{{{ XTERM-256 APPEARANCE
-if &term == "screen-256color"
+if &term == "xterm-256color"
 
   set t_Co=256              " Explicitly set 256 color support
   set background=dark
