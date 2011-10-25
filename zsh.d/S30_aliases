@@ -50,5 +50,8 @@ alias vi='vim'
 # Quiet R
 alias R='R --quiet --no-save --no-restore' 
 
+# Quiet octave
+alias octave='octave --quiet'
+
 # Print grep results in color
 alias grep='grep --color=auto'
