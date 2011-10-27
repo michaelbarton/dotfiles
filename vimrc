@@ -37,7 +37,7 @@ if v:version >= 703
   set colorcolumn=85        " Highlight when line reaches this length
 endif
 
-let g:yankring_persist = 0  " Don't persist yankring data
+let g:yankring_persist = 1  " Persist yankring data
 
 " }}}
 "{{{ MOVEMENT
