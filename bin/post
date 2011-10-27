@@ -7,7 +7,7 @@ category, *title = ARGV
 blog = Pathname.new(ENV['HOME'] + '/.bioinformatics-zen/content/markup')
 
 dir = blog + category
-File.mkdir(dir.realpath) unless File.exists? dir.realpath
+Dir.mkdir(dir.realdirpath) unless File.exists? dir.realdirpath
 
 post = dir + (title.map{|i| i.downcase }.join('_') + ".markdown")
 File.open(post,'w') do |out|
