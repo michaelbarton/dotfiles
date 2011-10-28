@@ -268,11 +268,11 @@ nnoremap <leader>m <Esc>:make<CR>
 "{{{ NUMBER KEY MAPS
 
 nnoremap <leader>1 :e $MYVIMRC<CR>
-nnoremap <leader>2 :CommandT ~/.dotfiles/<CR>
-nnoremap <leader>3 :CommandT ~/Dropbox/nv/<CR>
-nnoremap <leader>4 :CommandT ~/.bioinformatics-zen/content/markup/<CR>
-nnoremap <leader>5 <nop>
-nnoremap <leader>6 <nop>
+nnoremap <leader>2 :e ~/Dropbox/nv/reflection.txt<CR>
+nnoremap <leader>3 :e ~/Dropbox/nv/goals.txt<CR>
+nnoremap <leader>4 :CommandT ~/.dotfiles/<CR>
+nnoremap <leader>5 :CommandT ~/Dropbox/nv/<CR>
+nnoremap <leader>6 :CommandT ~/.bioinformatics-zen/content/markup/<CR>
 nnoremap <leader>7 <nop>
 nnoremap <leader>8 <nop>
 nnoremap <leader>9 :CommandT spec<CR>
