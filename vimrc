@@ -142,9 +142,7 @@ endif
 if has("gui_running")
 
   set t_Co=256              " Explicitly set 256 color support
-  set background=dark
-  let g:solarized_termcolors=256
-  colorscheme solarized
+  colorscheme molokai
 
   set cursorline
   set foldtext=MyFoldText()
