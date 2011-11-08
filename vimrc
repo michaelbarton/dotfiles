@@ -246,7 +246,7 @@ nnoremap <leader>v <nop>
 " {{{ UPPER RIGHT  - MINOR EDIT SHORTCUTS
 nnoremap <leader>p :call Underline()<CR>
 nnoremap <leader>o :call InsertDate()<CR>
-nnoremap <leader>i :%s#\<<C-r>=expand("<cword>")<CR>\># " Search/replace word
+nnoremap <leader>i :%s#\<<C-r>=expand("<cword>")<CR>\>##<left>
 let g:EasyMotion_leader_key = '<leader>u'
 " }}}
 " {{{ HOME RIGHT
