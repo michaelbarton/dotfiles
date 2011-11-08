@@ -104,9 +104,9 @@ source ~/.mutt/colors
 
 #{{{ Keymaps
 #
-macro index,pager gi "<change-folder>=michaelbarton/INBOX<enter>" "Go to inbox"
-macro index,pager ga '<change-folder>=michaelbarton/[Google<quote-char> Mail].All<quote-char> Mail<enter>' "Go to all mail"
-macro index,pager gd '<change-folder>=michaelbarton/[Google<quote-char> Mail].Drafts<enter>' "Go to drafts"
+macro index,pager <space>i "<change-folder>=michaelbarton/INBOX<enter>" "Go to inbox"
+macro index,pager <space>a '<change-folder>=michaelbarton/[Google<quote-char> Mail].All<quote-char> Mail<enter>' "Go to all mail"
+macro index,pager <space>d '<change-folder>=michaelbarton/[Google<quote-char> Mail].Drafts<enter>' "Go to drafts"
 
 #}}}
 
