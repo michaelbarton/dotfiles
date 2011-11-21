@@ -37,6 +37,7 @@ sudo gem clean
 
 # setup ruby environment
 brew install ruby
+< gems | xargs gem install
 
 # setup boson
 ln -s ~/.dotfiles/irbfiles/boson ~/.boson
