@@ -3,6 +3,7 @@ hub
 tmux
 mutt --enable-debug --sidebar-patch --pgp-verbose-mime-patch --slang
 par
+aspell --lang=en
 urlview
 openssl
 offline-imap
