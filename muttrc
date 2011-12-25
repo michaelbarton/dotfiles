@@ -5,8 +5,7 @@ set from = "mail@michaelbarton.me.uk"
 
 my_hdr X-URL: http://www.michaelbarton.me.uk
 my_hdr X-GPG-Key-Server: http://pgp.mit.edu
-my_hdr X-GPG-Key-FingerPrint: 9619 957F 2D61 E0ED 1082  817D 2881 E238 6057 CB48
-my_hdr X-GPG-Public_Key: http://pgp.mit.edu:11371/pks/lookup?op=get&search=0x2881E2386057CB48
+my_hdr X-GPG-Key-FingerPrint: 71A7 C4E0 16A9 39A7 E9E2 2939 CD95 D182 C151 5DA6
 
 #}}}
 
@@ -80,15 +79,15 @@ set pgp_verify_command="gpg --no-verbose --batch --output - --verify %s %f"
 set pgp_decrypt_command="gpg --passphrase-fd 0 --no-verbose --batch --output - %f"
 set pgp_sign_command="gpg --no-verbose --batch --output - --passphrase-fd 0 --armor --detach-sign --textmode %?a?-u %a? %f"
 set pgp_clearsign_command="gpg --no-verbose --batch --output - --passphrase-fd 0 --armor --textmode --clearsign %?a?-u %a? %f"
-set pgp_encrypt_only_command="pgpewrap gpg --batch --quiet --no-verbose --output - --encrypt --textmode --armor --always-trust --encrypt-to 6057CB48 -- -r %r -- %f"
-set pgp_encrypt_sign_command="pgpewrap gpg --passphrase-fd 0 --batch --quiet --no-verbose --textmode --output - --encrypt --sign %?a?-u %a? --armor --always-trust --encrypt-to 0x6057CB48 -- -r %r -- %f"
+set pgp_encrypt_only_command="pgpewrap gpg --batch --quiet --no-verbose --output - --encrypt --textmode --armor --always-trust --encrypt-to C1515DA6 -- -r %r -- %f"
+set pgp_encrypt_sign_command="pgpewrap gpg --passphrase-fd 0 --batch --quiet --no-verbose --textmode --output - --encrypt --sign %?a?-u %a? --armor --always-trust --encrypt-to 0xC1515DA6 -- -r %r -- %f"
 set pgp_import_command="gpg --no-verbose --import -v %f"
 set pgp_export_command="gpg --no-verbose --export --armor %r"
 set pgp_verify_key_command="gpg --no-verbose --batch --fingerprint --check-sigs %r"
 set pgp_list_pubring_command="gpg --no-verbose --batch --with-colons --list-keys %r" 
 set pgp_list_secring_command="gpg --no-verbose --batch --with-colons --list-secret-keys %r" 
 set pgp_autosign=yes
-set pgp_sign_as=0x6057CB48
+set pgp_sign_as=0xC1515DA6
 set pgp_replyencrypt=yes
 set pgp_timeout=1800
 set pgp_good_sign="^gpg: Good signature from"
