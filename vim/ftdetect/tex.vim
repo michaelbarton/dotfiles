@@ -1,1 +1,1 @@
-autocmd BufNewFile,BufReadPost *.tex,*.latex,*.lyx set filetype=tex.txt
+autocmd BufNewFile,BufReadPost *.tex,*.latex,*.lyx set filetype=tex
