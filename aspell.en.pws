@@ -1,4 +1,4 @@
-personal_ws-1.1 en 408
+personal_ws-1.1 en 412
 AAI
 ActiveRecord
 adaptated
@@ -117,7 +117,9 @@ GC
 Gemfile
 GenBank
 genomer
+genomic
 genomics
+geochemical
 geochemically
 geomicrobiology
 GFF
@@ -277,6 +279,8 @@ phylogenomic
 phylogenomics
 pili
 Pilus
+plasmid
+plasmids
 PLoS
 plugin
 png
