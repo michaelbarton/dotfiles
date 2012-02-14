@@ -16,6 +16,7 @@ tmp
 *.dvi
 *.log
 *.pdf
+*.fdb_latexmk
 
 # man pages
 *.[1-9]
