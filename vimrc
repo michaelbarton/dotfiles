@@ -327,6 +327,9 @@ let NERDTreeIgnore += ['.aux', '.bbl', '.blg', '.dvi', '.log', '.pdf']
 
 au FocusLost * :wa " Write file when focus moves away from editor
 
+let g:vimwiki_list      = [{'path': '~/Dropbox/wiki/'}]
+let g:vimwiki_folding = 1
+
 " }}}
 "{{{ MY COMMON TYPOS
 " Switch to abolish when this gets out of hand
