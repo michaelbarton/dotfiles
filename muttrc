@@ -105,6 +105,7 @@ source ~/.mutt/colors
 #
 macro index,pager <space>i "<change-folder>=michaelbarton/INBOX<enter>" "Go to inbox"
 macro index,pager <space>a '<change-folder>=michaelbarton/[Google<quote-char> Mail].All<quote-char> Mail<enter>' "Go to all mail"
+macro index,pager <space>s '<change-folder>=michaelbarton/[Google<quote-char> Mail].Sent<quote-char> Mail<enter>' "Go to sent mail"
 macro index,pager <space>d '<change-folder>=michaelbarton/[Google<quote-char> Mail].Drafts<enter>' "Go to drafts"
 
 #}}}
