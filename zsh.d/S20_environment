@@ -1,7 +1,5 @@
 #!/bin/zsh
 
-export TERM=screen-256color
-
 if [ x"$HOME" = x ] ; then
         export HOME=$(cd ~ ; pwd)
 fi
