@@ -112,16 +112,17 @@ macro index,pager <space>d '<change-folder>=michaelbarton/[Google<quote-char> Ma
 
 #{{{ Aliases
 
-alias nick Nick Bassett <nickzbass@gmail.com>
+alias bioruby BioRuby Mailing List <bioruby@lists.open-bio.org>
 alias eamon Eamon Dubaissi <eamon.dubaissi@hotmail.co.uk>
 alias hazel Hazel Barton <bartonh@uakron.edu>
-alias kieren Kieren Lythgow <k.t.lythgow@soton.ac.uk>
-alias bioruby BioRuby Mailing List <bioruby@lists.open-bio.org>
-alias mp Michael Petronio <petroniom1234@gmail.com>
-alias mj Michael Johnston <mdj31@zips.uakron.edu>
 alias jess Jessica Miller <jessica.miller@thomsonreuters.com>
-alias meki Lemeki Betomakita <betomakita@gmail.com>
+alias kieren Kieren Lythgow <k.t.lythgow@soton.ac.uk>
 alias max Maximilian Häußler <maximilianh@gmail.com>
+alias meki Lemeki Betomakita <betomakita@gmail.com>
+alias melissa Melissa Wilks <mkw29@zips.uakron.edu>
+alias mj Michael Johnston <mdj31@zips.uakron.edu>
+alias mp Michael Petronio <petroniom1234@gmail.com>
+alias nick Nick Bassett <nickzbass@gmail.com>
 alias picture Elaine Barton <elaine.barton@kodakpulse.com>
 
 #}}}
