@@ -1,0 +1,2 @@
+#!/bin/sh
+cat ~/Dropbox/wiki/Monthly\ tasks.wiki >> ~/Dropbox/wiki/Personal.wiki
