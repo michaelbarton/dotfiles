@@ -86,13 +86,13 @@ set pgp_export_command="gpg --no-verbose --export --armor %r"
 set pgp_verify_key_command="gpg --no-verbose --batch --fingerprint --check-sigs %r"
 set pgp_list_pubring_command="gpg --no-verbose --batch --with-colons --list-keys %r" 
 set pgp_list_secring_command="gpg --no-verbose --batch --with-colons --list-secret-keys %r" 
-set pgp_autosign=yes
-set pgp_sign_as=0xC1515DA6
-set pgp_replyencrypt=yes
 set pgp_timeout=1800
 set pgp_good_sign="^gpg: Good signature from"
 set pgp_mime_signature_filename="signature.asc"
 
+set pgp_sign_as=0xC1515DA6
+set pgp_autosign=yes
+set pgp_replyencrypt=yes
 #}}}
 
 #{{{ Colors
@@ -124,5 +124,7 @@ alias mj Michael Johnston <mdj31@zips.uakron.edu>
 alias mp Michael Petronio <petroniom1234@gmail.com>
 alias nick Nick Bassett <nickzbass@gmail.com>
 alias picture Elaine Barton <elaine.barton@kodakpulse.com>
+alias luis Luis Cabrera <lac42@zips.uakron.edu>
+alias mihail Mihail Hadzhitodorov <mihail.hadzhitodorov@gmail.com>
 
 #}}}
