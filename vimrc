@@ -100,9 +100,9 @@ nnoremap <leader>. <nop>
 nnoremap <leader>m <nop>
 " }}}
 " }}}
-"{{{ LEADER NUMBER KEY MAPS
+"{{{ LEADER NUMBER KEY MAPS - COMMON OPERATIONS
 
-nnoremap <leader>1 :e $MYVIMRC<CR>
+nnoremap <leader>1 <ESC>:source $MYVIMRC<CR> " Re-source the vimrc file
 nnoremap <leader>2 <nop>
 nnoremap <leader>3 <nop>
 nnoremap <leader>4 <nop>
@@ -114,9 +114,9 @@ nnoremap <leader>9 <nop>
 nnoremap <leader>0 <nop>
 
 " }}}
-"{{{ LEADER FUNCTION KEY MAPS
+"{{{ FUNCTION KEY MAPS - COMMON LOCATIONS
 
-nnoremap <F1>  <nop>
+nnoremap <F1>  :e $MYVIMRC<CR> " Edit the .vimrc file
 nnoremap <F2>  <nop>
 nnoremap <F3>  <nop>
 nnoremap <F4>  <nop>
