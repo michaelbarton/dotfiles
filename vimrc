@@ -51,6 +51,9 @@ endif
 " Faster Esc
 inoremap jj <ESC>
 
+" Double leader writes the file
+nnoremap <leader><leader> <Esc>:w<CR>
+
 "{{{ ARROW KEY MAPS
 map <up>    <nop>
 map <down>  <nop>
@@ -93,7 +96,7 @@ nnoremap <leader>j <nop>
 " {{{ LOWER RIGHT
 nnoremap <leader>/ <nop>
 nnoremap <leader>. <nop>
-nnoremap <leader>, <nop>
+" nnoremap <leader>, <nop> " Commented out because this is the leader key
 nnoremap <leader>m <nop>
 " }}}
 " }}}
