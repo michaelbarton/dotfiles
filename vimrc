@@ -66,13 +66,14 @@ if v:version >= 703
 endif
 
 " }}}
+" {{{ GENERAL KEY MAPS
 
 " Faster Esc
 inoremap jj <ESC>
 
 " Double leader writes the file
 nnoremap <leader><leader> <Esc>:w<CR>
-
+" }}}
 "{{{ ARROW KEY MAPS
 map <up>    <nop>
 map <down>  <nop>
