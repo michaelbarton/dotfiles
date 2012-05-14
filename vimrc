@@ -1,3 +1,19 @@
+"{{{ VIM BUNDLES
+
+" Vim, not Vi!
+set nocompatible
+
+" Required to setup Vundle
+filetype off
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" let Vundle manage Vundle
+Bundle 'gmarik/vundle'
+
+" Bundles
+"}}}
 "{{{ GENERAL CONFIG
 
 " Filetype-specific indenting and plugins
@@ -8,9 +24,6 @@ let mapleader = ","
 
 " Modelines are a security risk
 set modelines=0
-
-" Vim, not Vi!
-set nocompatible
 
 " Don't try to use screen/tmux as a shell
 set shell=/bin/sh
