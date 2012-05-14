@@ -12,7 +12,11 @@ call vundle#rc()
 " let Vundle manage Vundle
 Bundle 'gmarik/vundle'
 
-" Bundles
+" reload.vim
+" This plugin allows vim scripts to be reloaded in the current vim session. I
+" use this to edit and update all the vim files, rather than just the .vimrc.
+" The command :ReloadScript is bound to <leader><space> to simulate "making"
+" the current vim file.
 Bundle 'xolox/vim-reload'
 
 "}}}
