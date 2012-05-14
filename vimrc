@@ -12,16 +12,18 @@ call vundle#rc()
 " let Vundle manage Vundle
 Bundle 'gmarik/vundle'
 
-" reload.vim
 " This plugin allows vim scripts to be reloaded in the current vim session. I
 " use this to edit and update all the vim files, rather than just the .vimrc.
 " The command :ReloadScript is bound to <leader><space> to simulate "making"
 " the current vim file.
 Bundle 'xolox/vim-reload'
 
-" solarized.vim
 " Nice colorscheme for vim
 Bundle 'altercation/vim-colors-solarized'
+
+" Personal wiki plugin. I prefer this one because it's simple and uses plain
+" text files.
+Bundle 'vim-scripts/vimwiki'
 
 "}}}
 "{{{ GENERAL CONFIG
@@ -147,8 +149,8 @@ nnoremap <leader>0 <nop>
 " }}}
 "{{{ FUNCTION KEY MAPS - COMMON LOCATIONS
 
-nnoremap <F1>  :e $MYVIMRC<CR> " Edit the .vimrc file
-nnoremap <F2>  <nop>
+nnoremap <F1>  :e $MYVIMRC<CR>                  " My .vimrc file
+nnoremap <F2>  :e ~/Dropbox/wiki/index.wiki<CR> " Index page for my personal wiki
 nnoremap <F3>  <nop>
 nnoremap <F4>  <nop>
 nnoremap <F5>  <nop>
