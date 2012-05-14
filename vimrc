@@ -19,6 +19,10 @@ Bundle 'gmarik/vundle'
 " the current vim file.
 Bundle 'xolox/vim-reload'
 
+" solarized.vim
+" Nice colorscheme for vim
+Bundle 'altercation/vim-colors-solarized'
+
 "}}}
 "{{{ GENERAL CONFIG
 
@@ -65,6 +69,13 @@ if v:version >= 703
   set colorcolumn=85        " Highlight when line reaches this length
 endif
 
+" }}}
+" {{{ APPEARANCE
+syntax enable
+set t_Co=256              " Explicitly set 256 color support
+set background=dark
+let g:solarized_termcolors=256
+colorscheme solarized
 " }}}
 " {{{ GENERAL KEY MAPS
 
