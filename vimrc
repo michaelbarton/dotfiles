@@ -13,6 +13,8 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " Bundles
+Bundle 'xolox/vim-reload'
+
 "}}}
 "{{{ GENERAL CONFIG
 
