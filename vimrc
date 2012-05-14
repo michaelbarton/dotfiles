@@ -106,7 +106,7 @@ nnoremap <leader>a <nop>
 nnoremap <leader>s <nop>
 nnoremap <leader>d <nop>
 nnoremap <leader>f <nop>
-nnoremap <leader>g <nop>
+nnoremap <leader>g :b#<CR>    " Switch to the last used buffer
 " }}}
 " {{{ LOWER LEFT
 nnoremap <leader>z <nop>
