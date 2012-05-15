@@ -86,7 +86,7 @@ let &columns = 90 " Number of columns in window
 " }}}
 " {{{ GUI
 
-set guifont=Inconsolata:h16.00
+set guifont=Inconsolata:h17.00
 set guioptions-=T " Remove toolbar
 set guioptions+=c " Use console dialogs
 
