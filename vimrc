@@ -77,6 +77,18 @@ set t_Co=256              " Explicitly set 256 color support
 set background=dark
 let g:solarized_termcolors=256
 colorscheme solarized
+
+let &columns = 90 " Number of columns in window
+
+" }}}
+" {{{ GUI
+
+set guifont=Inconsolata:h16.00
+set guioptions-=T " Remove toolbar
+set guioptions+=c " Use console dialogs
+
+set guioptions-=lLrR " Remove scroll bars
+
 " }}}
 " {{{ GENERAL KEY MAPS
 
