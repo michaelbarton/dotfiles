@@ -80,6 +80,9 @@ colorscheme solarized
 
 let &columns = 90 " Number of columns in window
 
+" Add number column on left-hand side
+:set number
+
 " }}}
 " {{{ GUI
 
