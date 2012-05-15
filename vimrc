@@ -71,6 +71,12 @@ if v:version >= 703
 endif
 
 " }}}
+" {{{ MOVEMENT
+
+" Centre cursor line in middle of screen
+set scrolloff=1000
+
+" }}}
 " {{{ APPEARANCE
 syntax enable
 set t_Co=256              " Explicitly set 256 color support
