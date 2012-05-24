@@ -90,8 +90,6 @@ set background=dark
 let g:solarized_termcolors=256
 colorscheme solarized
 
-let &columns = 90 " Number of columns in window
-
 " Add number column on left-hand side
 :set number
 
@@ -103,6 +101,10 @@ set guioptions-=T " Remove toolbar
 set guioptions+=c " Use console dialogs
 
 set guioptions-=lLrR " Remove scroll bars
+
+if has('gui_running')
+let &columns = 90 " Number of columns in window
+endif
 
 " }}}
 " {{{ GENERAL KEY MAPS
