@@ -27,6 +27,9 @@ Bundle 'vim-scripts/vimwiki'
 " Faster file searching
 Bundle 'kien/ctrlp.vim'
 
+" Indent, syntax and detect files for clojure
+Bundle 'vim-scripts/VimClojure'
+
 "}}}
 "{{{ GENERAL CONFIG
 
