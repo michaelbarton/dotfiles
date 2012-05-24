@@ -24,6 +24,9 @@ Bundle 'altercation/vim-colors-solarized'
 " text files.
 Bundle 'vim-scripts/vimwiki'
 
+" Faster file searching
+Bundle 'kien/ctrlp.vim'
+
 "}}}
 "{{{ GENERAL CONFIG
 
