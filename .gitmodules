@@ -7,6 +7,9 @@
 [submodule "dircolors-solarized"]
 	path = dircolors-solarized
 	url = git://github.com/seebi/dircolors-solarized.git
-[submodule "/Users/mike/.vim/bundle/vundle"]
-	path = /Users/mike/.vim/bundle/vundle
+[submodule "vim/bundle/vundle"]
+	path = vim/bundle/vundle
 	url = https://github.com/gmarik/vundle.git
+[submodule "solarized"]
+	path = solarized
+	url = git://github.com/altercation/solarized.git
