@@ -79,8 +79,8 @@ endif
 " }}}
 " {{{ MOVEMENT
 
-" Centre cursor line in middle of screen
-set scrolloff=1000
+" Ten rows at top and bottom of screen
+set scrolloff=10
 
 " }}}
 " {{{ APPEARANCE
