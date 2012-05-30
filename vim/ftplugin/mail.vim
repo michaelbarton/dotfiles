@@ -1,5 +1,9 @@
-setlocal spell spelllang=en_gb
-set formatoptions+=ta " auto format text as it's being edited
-set tw=60
+setlocal formatoptions+=ta
+setlocal textwidth=79
+setlocal autoindent
 
-%!par -eqw60
+setlocal spelllang=en_gb
+setlocal spell
+
+" Reformat file contents when it's opened for editting
+%!par -rTbgqR B\=.,?_A_a Q\=_s\>\|

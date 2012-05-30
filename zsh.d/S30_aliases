@@ -4,7 +4,7 @@
 alias dvim='gvim +"call ToggleWindowSize()"'
 
 alias dot='~/.dotfiles'
-alias zen='~/.bioinformatics-zen'
+alias zen='~/.zen'
 
 autoload zmv
 alias mmv='noglob zmv -W'

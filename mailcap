@@ -1,1 +1,2 @@
 text/html; w3m -T text/html -dump %s; copiousoutput
+application/pdf; pdftotext %s - | par s0p0; copiousoutput
