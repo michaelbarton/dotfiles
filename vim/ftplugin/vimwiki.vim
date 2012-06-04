@@ -1,3 +1,5 @@
+let g:vimwiki_folding = 1
+
 setlocal formatoptions+=ta
 setlocal textwidth=79
 setlocal autoindent
