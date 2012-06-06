@@ -94,6 +94,11 @@ colorscheme solarized
 :set number
 
 " }}}
+" {{{ FILETYPES
+
+au BufNewFile,BufRead *.fasta,*.fa,*.fna,*.faa setf fasta
+
+" }}}
 " {{{ GUI
 
 set guifont=Inconsolata:h17.00
