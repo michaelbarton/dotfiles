@@ -80,7 +80,7 @@ endif
 " {{{ MOVEMENT
 
 " Ten rows at top and bottom of screen
-set scrolloff=10
+set scrolloff=7
 
 " }}}
 " {{{ APPEARANCE
