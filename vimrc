@@ -94,7 +94,17 @@ colorscheme solarized
 :set number
 
 " }}}
-" {{{ FILETYPES
+" {{{ FUNCTIONS
+
+" Insert date
+function! InsertDate()
+  set formatoptions-=a
+  r!date "+\%A \%B \%d, \%Y"
+  set formatoptions+=a
+endfunction
+
+"}}}
+"{{{ FILETYPES
 
 au BufNewFile,BufRead *.fasta,*.fa,*.fna,*.faa setf fasta
 
