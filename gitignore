@@ -8,6 +8,7 @@ autotest
 cucumber.yml
 .rspec
 tmp
+.netrwhist
 
 # LaTeX generated files
 *.aux
