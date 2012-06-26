@@ -107,6 +107,7 @@ endfunction
 "{{{ FILETYPES
 
 au BufNewFile,BufRead *.fasta,*.fa,*.fna,*.faa setf fasta
+au BufNewFile,BufRead *.tex.pre setf tex
 
 " }}}
 " {{{ GUI
