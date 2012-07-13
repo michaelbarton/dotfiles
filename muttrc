@@ -112,20 +112,30 @@ macro index,pager <space>d '<change-folder>=michaelbarton/[Google<quote-char> Ma
 
 #{{{ Aliases
 
-alias bioruby BioRuby Mailing List <bioruby@lists.open-bio.org>
-alias eamon Eamon Dubaissi <eamon.dubaissi@hotmail.co.uk>
+# Family
+alias mum Elaine Barton <elaine.barton@talk21.com>
 alias hazel Hazel Barton <bartonh@uakron.edu>
-alias jess Jessica Miller <jessica.miller@thomsonreuters.com>
+alias helen Helen Barton <owl2@hotmail.co.uk>
+alias dad Derek Barton <delboyy@talk21.com>
+alias picture Elaine Barton <elaine.barton@kodakpulse.com>
+
+# Work
+alias melissa Melissa Wilks <mkw29@zips.uakron.edu>
+alias mike Michael Johnston <mdj31@zips.uakron.edu>
+alias kelsey Michael Johnston <kan22@zips.uakron.edu>
+alias mihail Mihail Hadzhitodorov <mihail.hadzhitodorov@gmail.com>
+alias luis Luis Cabrera <lac42@zips.uakron.edu>
+
+# England
 alias kieren Kieren Lythgow <k.t.lythgow@soton.ac.uk>
 alias max Maximilian Häußler <maximilianh@gmail.com>
-alias meki Lemeki Betomakita <betomakita@gmail.com>
-alias melissa Melissa Wilks <mkw29@zips.uakron.edu>
-alias mj Michael Johnston <mdj31@zips.uakron.edu>
-alias mp Michael Petronio <petroniom1234@gmail.com>
 alias nick Nick Bassett <nickzbass@gmail.com>
-alias picture Elaine Barton <elaine.barton@kodakpulse.com>
-alias luis Luis Cabrera <lac42@zips.uakron.edu>
-alias mihail Mihail Hadzhitodorov <mihail.hadzhitodorov@gmail.com>
+alias eamon Eamon Dubaissi <eamon.dubaissi@hotmail.co.uk>
 
+# Kentucky
+alias meki Lemeki Betomakita <betomakita@gmail.com>
+alias jess Jessica Miller <jessica.miller@thomsonreuters.com>
+alias mp Michael Petronio <petroniom1234@gmail.com>
+
+alias bioruby BioRuby Mailing List <bioruby@lists.open-bio.org>
 #}}}
-alias mum Elaine Barton <elaine.barton@talk21.com>
