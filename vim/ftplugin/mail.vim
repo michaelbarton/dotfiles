@@ -9,6 +9,9 @@ setlocal spell
 %!par -rTbgqR B\=.,?_A_a Q\=_s\>\|
 
 syntax enable
+set background=dark
+let g:solarized_termcolors=256
+colorscheme solarized
 
 syn match TmlDoubleWords /\c\<\(\S\+\)\_s\+\1\ze\_s/ 
 hi def link TmlDoubleWords ToDo 
