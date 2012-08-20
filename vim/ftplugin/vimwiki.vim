@@ -6,7 +6,7 @@ setlocal formatoptions+=ta
 setlocal textwidth=79
 setlocal autoindent
 
-setlocal spelllang=en
+setlocal spelllang=en_gb
 setlocal spell
 
 " Set for bulletted, etc. lists
