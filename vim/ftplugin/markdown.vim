@@ -12,3 +12,6 @@ setlocal tabstop=2
 setlocal expandtab
 
 syntax enable
+set background=dark
+let g:solarized_termcolors=256
+colorscheme solarized
