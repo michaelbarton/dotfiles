@@ -1,4 +1,6 @@
-let g:vimwiki_folding = 1
+" Enabling wimwiki folding results in extremely slow performance with
+" auto-formatting enabled.
+let g:vimwiki_folding = 0
 
 setlocal formatoptions+=ta
 setlocal textwidth=79
