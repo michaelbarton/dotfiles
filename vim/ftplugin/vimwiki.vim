@@ -6,6 +6,10 @@ setlocal formatoptions+=ta
 setlocal textwidth=79
 setlocal autoindent
 
+setlocal shiftwidth=2
+setlocal tabstop=2
+setlocal expandtab
+
 setlocal spelllang=en_gb
 setlocal spell
 
