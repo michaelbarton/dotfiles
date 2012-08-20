@@ -12,6 +12,3 @@ setlocal expandtab
 
 setlocal spelllang=en_gb
 setlocal spell
-
-" Set for bulletted, etc. lists
-setlocal formatlistpat=^\\s*\\d\\+\\.\\s\\+\\\|^[-*+]\\s\\+
