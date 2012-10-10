@@ -1,4 +1,4 @@
-personal_ws-1.1 en 437
+personal_ws-1.1 en 439
 AAI
 ActiveRecord
 adaptated
@@ -246,6 +246,7 @@ NKU
 novo
 NRPS
 nucleotide
+nucleotides
 nucmer
 Nunn
 oligonucleotide
@@ -435,4 +436,5 @@ yaml
 yml
 YPD
 Zsh
+zsh
 Zymosterol
