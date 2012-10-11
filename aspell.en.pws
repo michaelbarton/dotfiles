@@ -1,4 +1,4 @@
-personal_ws-1.1 en 439
+personal_ws-1.1 en 446
 AAI
 ActiveRecord
 adaptated
@@ -34,6 +34,7 @@ BioStar
 biosynthesis
 biosynthetic
 biosynthetically
+biotic
 blastx
 blog
 blogger
@@ -48,6 +49,7 @@ cerevisiae
 cetera
 chaperone
 chelating
+chemoheterotroph
 chemoheterotrophic
 chemostat
 circos
@@ -111,6 +113,7 @@ eukaryotic
 exometabolome
 extremophile
 extremophiles
+facultive
 fasta
 FBA
 fermentative
@@ -230,6 +233,7 @@ mmol
 mmols
 modularised
 MOMA
+monoploid
 mothur
 mRNA
 mRNAs
@@ -271,6 +275,7 @@ paradoxus
 parallelisation
 paralog
 paralogs
+Pathogenicity
 PCR
 pdf
 Pentose
@@ -301,6 +306,7 @@ pili
 Pilus
 plasmid
 plasmids
+Ploidy
 PLoS
 plugin
 png
@@ -342,6 +348,7 @@ relaxase
 relaxases
 replicase
 replicases
+Replicons
 Reproducibility
 reproducibility
 resequencing

@@ -30,6 +30,8 @@ Bundle 'kien/ctrlp.vim'
 " Indent, syntax and detect files for clojure
 Bundle 'vim-scripts/VimClojure'
 
+" Indent, syntax and detect files for clojure
+Bundle 'vim-scripts/Align'
 "}}}
 "{{{ GENERAL CONFIG
 
