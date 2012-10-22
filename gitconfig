@@ -51,7 +51,7 @@
   pm   = push --mirror
   pt   = push --tags
 
-  t    = tag -u mail@michaelbarton.me.uk
+  t    = tag -u mail@michaelbarton.me.uk -s
 
   hub  = !sh -c 'hub clone -p $1 $2' -
 
