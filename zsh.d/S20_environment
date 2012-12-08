@@ -14,7 +14,9 @@ fi
 
 fpath=($fpath $HOME/.zsh-git/functions)
 
+# Use ~/cache as default working directory
 cdpath=( ~/cache )
+cd ~/cache
 
 export GEM_HOME="`echo $HOME`/.gem"
 
