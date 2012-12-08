@@ -142,7 +142,7 @@ map <right> <nop>
 " }}}
 "{{{ LEADER KEY MAPS
 " {{{ UPPER LEFT
-nnoremap <leader>q <nop>
+nnoremap <leader>q :r!date<CR>
 nnoremap <leader>w <nop>
 nnoremap <leader>e <nop>
 nnoremap <leader>E <nop>
