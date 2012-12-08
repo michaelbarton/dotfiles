@@ -29,6 +29,8 @@ function! GetWikiFold(lnum)
 		return '>1'
 	elseif getline(a:lnum) =~? '\v^\=\=\s.+'
 		return '>2'
+	elseif getline(a:lnum) =~? '\v^\=\=\=\s.+'
+		return '>3'
 	else
 		return LastTitleLevel(a:lnum-1)
 	endif
@@ -39,6 +41,8 @@ function! LastTitleLevel(lnum)
 		return '1'
 	elseif getline(a:lnum) =~? '\v^\=\=\s.+'
 		return '2'
+	elseif getline(a:lnum) =~? '\v^\=\=\=\s.+'
+		return '3'
 	elseif a:lnum == 1
 		return '0'
 	else
