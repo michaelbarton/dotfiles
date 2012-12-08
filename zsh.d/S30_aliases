@@ -5,6 +5,7 @@ alias dvim='gvim +"call ToggleWindowSize()"'
 
 alias dot='~/.dotfiles'
 alias zen='~/.zen'
+alias cache='~/cache'
 
 autoload zmv
 alias mmv='noglob zmv -W'
