@@ -196,10 +196,10 @@ nnoremap <leader>0 <nop>
 " }}}
 "{{{ FUNCTION KEY MAPS - COMMON LOCATIONS
 
-nnoremap <F1>  :e $MYVIMRC<CR>                       " My .vimrc file
-nnoremap <F2>  :e ~/Dropbox/wiki/MIT.wiki<CR>        " Goals page
-nnoremap <F3>  :e ~/Dropbox/wiki/index.wiki<CR>      " Index page for wiki
-nnoremap <F4>  :e ~/Dropbox/wiki/Reflection.wiki<CR>
+nnoremap <F1>  :e $MYVIMRC<CR>                                " My .vimrc file
+nnoremap <F2>  :e ~/Dropbox/personal/wiki/MIT.wiki<CR>        " Goals page
+nnoremap <F3>  :e ~/Dropbox/personal/wiki/index.wiki<CR>      " Index page for wiki
+nnoremap <F4>  :e ~/Dropbox/personal/wiki/Reflection.wiki<CR>
 nnoremap <F5>  <nop>
 nnoremap <F6>  <nop>
 nnoremap <F7>  <nop>
