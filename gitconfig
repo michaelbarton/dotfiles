@@ -24,8 +24,8 @@
   s    = status -sb
   l    = log --decorate --graph --pretty=format:\"%Cred%h%Creset - %s %Cgreen(%cr)%Creset\" --abbrev-commit --date=relative
 
-  c    = commit
-  ca   = commit -a
+  c    = commit --sign
+  ca   = commit -a --sign
   cc   = commit --amend
 
   a    = add
