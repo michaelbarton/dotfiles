@@ -32,6 +32,9 @@ Bundle 'vim-scripts/VimClojure'
 
 " Indent, syntax and detect files for clojure
 Bundle 'vim-scripts/Align'
+
+" Indent, syntax and detect files for clojure
+Bundle 'vim-scripts/paredit.vim'
 "}}}
 "{{{ GENERAL CONFIG
 
@@ -111,6 +114,7 @@ endfunction
 au BufNewFile,BufRead *.fasta,*.fa,*.fna,*.faa setf fasta
 au BufNewFile,BufRead *.tex.pre setf tex
 au BufNewFile,BufRead *.txt setf txt
+au BufNewFile,BufRead *.rdoc setf rdoc
 
 " }}}
 " {{{ GUI
