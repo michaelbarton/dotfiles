@@ -167,6 +167,7 @@ nnoremap <leader>c <nop>
 nnoremap <leader>v <nop>
 " }}}
 " {{{ UPPER RIGHT
+nnoremap <leader>u <nop>
 nnoremap <leader>p <nop>
 nnoremap <leader>o <nop>
 nnoremap <leader>i <nop>
