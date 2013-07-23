@@ -120,6 +120,7 @@ endfunction
 "}}}
 "{{{ FILETYPES
 
+au BufNewFile,BufRead Vagrantfile setf ruby
 au BufNewFile,BufRead *.fasta,*.fa,*.fna,*.faa setf fasta
 au BufNewFile,BufRead *.tex.pre setf tex
 au BufNewFile,BufRead *.txt setf txt
