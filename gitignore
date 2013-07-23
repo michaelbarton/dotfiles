@@ -1,13 +1,17 @@
 *.swp
+Icon*
 .DS_Store
-.rake_tasks
 tags
+tmp
+*.jar
+
+# Ruby files
+.rake_tasks
 Gemfile.lock
 autotest
 .autotest
 cucumber.yml
 .rspec
-tmp
 .netrwhist
 
 # LaTeX generated files
@@ -22,5 +26,18 @@ tmp
 # man pages
 *.[1-9]
 *.[1-9].html
+
+# bioinformatics file
+*.fasta
+*.fna
+*.fastq
+*.fnq
+*.sra
+
+# data files
+*.tab
+*.png
+*.uploaded
+*.xz
 
 .dropbox
