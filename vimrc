@@ -35,6 +35,10 @@ Bundle 'vim-scripts/Align'
 
 " Indent, syntax and detect files for clojure
 Bundle 'vim-scripts/paredit.vim'
+
+" Fast movement around file
+Bundle 'Lokaltog/vim-easymotion'
+
 "}}}
 "{{{ GENERAL CONFIG
 
@@ -83,6 +87,8 @@ endif
 
 " }}}
 " {{{ MOVEMENT
+
+let g:EasyMotion_leader_key = '<Space>'
 
 " Ten rows at top and bottom of screen
 set scrolloff=7
