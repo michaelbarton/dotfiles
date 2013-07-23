@@ -142,6 +142,12 @@ endif
 " }}}
 " {{{ GENERAL KEY MAPS
 
+" Train myself not to use the home row keys to move around
+map h <nop>
+map j <nop>
+map k <nop>
+map l <nop>
+
 " Faster Esc
 inoremap jj <ESC>
 
