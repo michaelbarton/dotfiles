@@ -24,8 +24,8 @@
   s    = status -sb
   l    = log --decorate --graph --pretty=format:\"%Cred%h%Creset - %s %Cgreen(%cr)%Creset\" --abbrev-commit --date=relative
 
-  c    = commit --gpg-sign --sign
-  ca   = commit -a --gpg-sign --sign
+  c    = commit --sign
+  ca   = commit -a --sign
   cc   = commit --amend
 
   a    = add
@@ -45,7 +45,7 @@
 
   r    = rebase
   ri   = rebase --interactive
-  m    = merge --no-ff
+  m    = merge --no-ff --gpg-sign
 
   p    = push
   pm   = push --mirror
