@@ -90,6 +90,9 @@ endif
 
 let g:EasyMotion_leader_key = '<Space>'
 
+" Highlight search matches
+set hlsearch
+
 " Ten rows at top and bottom of screen
 set scrolloff=7
 
@@ -163,7 +166,7 @@ nnoremap <leader>t <nop>
 nnoremap <leader>a <nop>
 nnoremap <leader>s <nop>
 nnoremap <leader>d <nop>
-nnoremap <leader>f <nop>
+nnoremap <leader>f :nohlsearch<CR>
 nnoremap <leader>g :b#<CR>    " Switch to the last used buffer
 " }}}
 " {{{ LOWER LEFT
