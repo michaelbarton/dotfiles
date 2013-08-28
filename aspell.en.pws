@@ -1,4 +1,4 @@
-personal_ws-1.1 en 466
+personal_ws-1.1 en 470
 AAI
 absorbance
 ActiveRecord
@@ -23,6 +23,7 @@ asn
 Asparagine
 Aspartate
 ATPase
+barcode
 barcodes
 bashrc
 bayanus
@@ -46,6 +47,7 @@ bloggers
 blogging
 blogs
 BMC
+bowtie
 bp
 castellii
 catabolic
@@ -94,6 +96,8 @@ dehydrogenases
 dendrogram
 dendrograms
 Denormalisation
+deplexed
+deplexing
 dGMP
 diauxic
 dinucleotide
