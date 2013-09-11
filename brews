@@ -1,4 +1,3 @@
-git
 hub
 tmux
 mutt --enable-debug --sidebar-patch --pgp-verbose-mime-patch --slang
@@ -9,7 +8,6 @@ openssl
 offline-imap
 gpg
 coreutils
-macvim
 wget
 lesspipe
 w3m
@@ -17,6 +15,5 @@ pbzip2
 pigz
 unrar
 R
-ruby-build
 blast
 xpdf
