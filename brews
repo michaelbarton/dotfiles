@@ -15,5 +15,6 @@ pbzip2
 pigz
 unrar
 R
-blast
 xpdf
+parallel
+reattach-to-user-namespace
