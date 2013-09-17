@@ -1,0 +1,3 @@
+#!/bin/bash
+
+cat ~/.uge_queue | tr -s ' '
