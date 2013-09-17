@@ -39,6 +39,9 @@ Bundle 'vim-scripts/paredit.vim'
 " Fast movement around file
 Bundle 'Lokaltog/vim-easymotion'
 
+" Nice status bar
+Bundle 'bling/vim-airline'
+
 "}}}
 "{{{ GENERAL CONFIG
 
@@ -105,7 +108,10 @@ let g:solarized_termcolors=256
 colorscheme solarized
 
 " Add number column on left-hand side
-:set number
+set number
+
+" Ensure that the status bar appears
+set laststatus=2
 
 " }}}
 " {{{ FUNCTIONS
