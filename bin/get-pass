@@ -1,4 +1,5 @@
 #!/bin/sh
 security 2>&1 >/dev/null find-generic-password -ga $1 \
-| tee \
-| sed -E 's/(password: )?"//g'
+  | tee \
+  | sed -E 's/(password: )?"//g' \
+  | tr -d '\n'

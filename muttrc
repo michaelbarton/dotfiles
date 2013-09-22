@@ -46,9 +46,8 @@ folder-hook $HOME/.maildb/jgi/ "\
   set postponed = +[Gmail].Drafts \
       record    = +[Gmail].'Sent Mail' \
       from      = '$from <mbarton@lbl.gov>' \
+      smtp_pass = `get-pass jgi.gmail | sed 's/\$/\\$/'` \
       smtp_url  = smtps://mbarton@lbl.gov@smtp.gmail.com:465" \
-
-#set smtp_pass = `get-pass jgi.gmail`
 
 #{{{1 Header settings
 
