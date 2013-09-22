@@ -1,34 +1,11 @@
-#{{{ Sending messages
+#{{{1 General options
 
 set realname = "Michael Barton"
-set from = "mail@michaelbarton.me.uk"
-
-my_hdr X-URL: http://www.michaelbarton.me.uk
-my_hdr X-GPG-Key-Server: http://pgp.mit.edu
-my_hdr X-GPG-Key-FingerPrint: 83DB A528 0ABC 1DE7 990C  7D3F 4C73 2763 6EB5 17B0
-
-#}}}
-
-#{{{ Receive mail
-
-set folder = $HOME/.maildb
-mailboxes ~/.maildb/michaelbarton/INBOX
-set postponed = "+michaelbarton/[Google Mail].Drafts"
-set record    = "+michaelbarton/[Google Mail].Sent Mail"
-set spoolfile = "+michaelbarton/INBOX"
 set mbox_type = Maildir
 
-# }}}
+my_hdr X-URL: http://www.michaelbarton.me.uk
 
-#{{{ Send mail
-
-set smtp_url = "smtps://$from@smtp.gmail.com:465"
-set smtp_pass = `get-pass gmail`
-
-# }}}
-
-#{{{ Misc
-
+set fast_reply=yes
 set editor = "vim -f"
 set mail_check = 60
 set timeout = 60
@@ -48,9 +25,30 @@ set pager_index_lines= 10
 set implicit_autoview = yes
 set nostrict_threads
 
-#}}}
+#{{{1 Personal email account
 
-#{{{ Header settings
+set folder = $HOME/.maildb/michaelbarton/
+set spoolfile = "+Inbox"
+folder-hook $HOME/.maildb/michaelbarton/ "\
+  set postponed = +'[Google Mail].Drafts' \
+      record    = +'[Google Mail].Sent Mail' \
+      from      = '$from <mail@michaelbarton.me.uk>' \
+      smtp_url  = smtps://mail@michaelbarton.me.uk@smtp.gmail.com:465" \
+
+
+#{{{1 JGI email account
+
+set folder = $HOME/.maildb/jgi/
+set spoolfile = "+Inbox"
+folder-hook $HOME/.maildb/jgi/ "\
+  set postponed = +[Gmail].Drafts \
+      record    = +[Gmail].'Sent Mail' \
+      from      = '$from <mbarton@lbl.gov>' \
+      smtp_url  = smtps://mbarton@lbl.gov@smtp.gmail.com:465" \
+
+#set smtp_pass = `get-pass jgi.gmail`
+
+#{{{1 Header settings
 
 # Ignore all headers
 ignore *
@@ -70,47 +68,18 @@ unignore User-Agent:
 # Now order the visable header lines
 hdr_order Date: From: To: CC: BCC: Reply-To: Subject: Organization: User-Agent:
 
-#}}}
-
-#{{{ GPG
-
-set pgp_decode_command="gpg %?p?--passphrase-fd 0? --no-verbose --batch --output - %f"
-set pgp_verify_command="gpg --no-verbose --batch --output - --verify %s %f"
-set pgp_decrypt_command="gpg --passphrase-fd 0 --no-verbose --batch --output - %f"
-set pgp_sign_command="gpg --no-verbose --batch --output - --passphrase-fd 0 --armor --detach-sign --textmode %?a?-u %a? %f"
-set pgp_clearsign_command="gpg --no-verbose --batch --output - --passphrase-fd 0 --armor --textmode --clearsign %?a?-u %a? %f"
-set pgp_encrypt_only_command="pgpewrap gpg --batch --quiet --no-verbose --output - --encrypt --textmode --armor --always-trust --encrypt-to 6EB517B0 -- -r %r -- %f"
-set pgp_encrypt_sign_command="pgpewrap gpg --passphrase-fd 0 --batch --quiet --no-verbose --textmode --output - --encrypt --sign %?a?-u %a? --armor --always-trust --encrypt-to 0xC1515DA6 -- -r %r -- %f"
-set pgp_import_command="gpg --no-verbose --import -v %f"
-set pgp_export_command="gpg --no-verbose --export --armor %r"
-set pgp_verify_key_command="gpg --no-verbose --batch --fingerprint --check-sigs %r"
-set pgp_list_pubring_command="gpg --no-verbose --batch --with-colons --list-keys %r" 
-set pgp_list_secring_command="gpg --no-verbose --batch --with-colons --list-secret-keys %r" 
-set pgp_timeout=1800
-set pgp_good_sign="^gpg: Good signature from"
-set pgp_mime_signature_filename="signature.asc"
-
-set pgp_sign_as=0x6EB517B0
-set pgp_autosign=yes
-set pgp_replyencrypt=yes
-#}}}
-
-#{{{ Colors
+#{{{1 Colors
 
 source ~/.mutt/colors
 
-# }}}
+#{{{1 Keymaps
 
-#{{{ Keymaps
-#
-macro index,pager <space>i "<change-folder>=michaelbarton/INBOX<enter>" "Go to inbox"
-macro index,pager <space>a '<change-folder>=michaelbarton/[Google<quote-char> Mail].All<quote-char> Mail<enter>' "Go to all mail"
-macro index,pager <space>s '<change-folder>=michaelbarton/[Google<quote-char> Mail].Sent<quote-char> Mail<enter>' "Go to sent mail"
-macro index,pager <space>d '<change-folder>=michaelbarton/[Google<quote-char> Mail].Drafts<enter>' "Go to drafts"
+macro index,pager <space>i "<change-folder>=INBOX<enter>" "Go to inbox"
+macro index,pager <space>a '<change-folder>=[Gmail].All<quote-char> Mail<enter>' "Go to all mail"
+macro index,pager <space>s '<change-folder>=[Gmail].Sent<quote-char> Mail<enter>' "Go to sent mail"
+macro index,pager <space>d '<change-folder>=[Gmail].Drafts<enter>' "Go to drafts"
 
-#}}}
-
-#{{{ Aliases
+#{{{1 Aliases
 
 # Family
 alias mum Elaine Barton <elaine.barton@talk21.com>
