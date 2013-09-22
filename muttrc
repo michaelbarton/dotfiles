@@ -25,6 +25,8 @@ set pager_index_lines= 10
 set implicit_autoview = yes
 set nostrict_threads
 
+source "~/Dropbox/personal/address.muttrc"
+
 #{{{1 Personal email account
 
 set folder = $HOME/.maildb/michaelbarton/
@@ -79,41 +81,3 @@ macro index,pager <space>a '<change-folder>=[Gmail].All<quote-char> Mail<enter>'
 macro index,pager <space>s '<change-folder>=[Gmail].Sent<quote-char> Mail<enter>' "Go to sent mail"
 macro index,pager <space>d '<change-folder>=[Gmail].Drafts<enter>' "Go to drafts"
 
-#{{{1 Aliases
-
-# Family
-alias mum Elaine Barton <elaine.barton@talk21.com>
-alias hazel Hazel Barton <bartonh@uakron.edu>
-alias helen Helen Barton <owl2@hotmail.co.uk>
-alias dad Derek Barton <delboyy151@yahoo.co.uk>
-alias picture Elaine Barton <elaine.barton@kodakpulse.com>
-
-# Work
-alias melissa Melissa Wilks <mkw29@zips.uakron.edu>
-alias mike Michael Johnston <mdj31@zips.uakron.edu>
-alias kelsey Kelsey Njus <kan22@zips.uakron.edu>
-alias hannah Hannah Reynolds <hannah.t.reynolds@gmail.com>
-
-# Akron
-alias samantha Samantha Almendras <samantha_almendras@yahoo.com>
-alias jason Jason Jesus Diaz <jdiaz@aultcare.com>
-alias jermaine Jermaine Brand <orrinarkin@yahoo.com>
-alias rafa Rafael Maia <rm72@zips.uakron.edu>
-alias tony Anthony Craig <craig6@uakron.edu>
-alias mathias Mathias Ellegiers <mathias.ellegiers@gmail.com>
-
-# England
-alias kieren Kieren Lythgow <kieren_lythgow@hotmail.com>
-alias max Maximilian Häußler <maximilianh@gmail.com>
-alias nick Nick Bassett <nickzbass@gmail.com>
-alias eamon Eamon Dubaissi <eamon.dubaissi@hotmail.co.uk>
-
-# Kentucky
-alias meki Lemeki Betomakita <betomakita@gmail.com>
-alias jess Jessica Miller <jessica.miller@thomsonreuters.com>
-alias mp Michael Petronio <petroniom1234@gmail.com>
-
-# Lists
-alias bioruby BioRuby Mailing List <bioruby@lists.open-bio.org>
-alias lab Barton Research Group <barton-lab-nku@googlegroups.com>
-#}}}
