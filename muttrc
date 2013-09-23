@@ -34,7 +34,7 @@ set spoolfile = "+Inbox"
 folder-hook $HOME/.maildb/michaelbarton/ "\
   set postponed = +'[Google Mail].Drafts' \
       record    = +'[Google Mail].Sent Mail' \
-      from      = '$from <mail@michaelbarton.me.uk>' \
+      from      = '$realname <mail@michaelbarton.me.uk>' \
       smtp_url  = smtps://mail@michaelbarton.me.uk@smtp.gmail.com:465" \
 
 
@@ -45,7 +45,7 @@ set spoolfile = "+Inbox"
 folder-hook $HOME/.maildb/jgi/ "\
   set postponed = +[Gmail].Drafts \
       record    = +[Gmail].'Sent Mail' \
-      from      = '$from <mbarton@lbl.gov>' \
+      from      = '$realname <mbarton@lbl.gov>' \
       smtp_pass = `get-pass jgi.gmail | sed 's/\$/\\$/'` \
       smtp_url  = smtps://mbarton@lbl.gov@smtp.gmail.com:465" \
 
