@@ -1,4 +1,3 @@
-setlocal formatoptions+=ta
 setlocal textwidth=79
 setlocal autoindent
 
