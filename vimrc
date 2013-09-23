@@ -15,6 +15,7 @@ Bundle 'gmarik/vundle'
 " This plugin automatically reloads changed vim scripts in the current vim
 " session. I like this because it makes it simple to add changes to
 " vim/ftplugin/*.vim files and have the changes appear immediately.
+Bundle 'xolox/vim-misc'
 Bundle 'xolox/vim-reload'
 
 " Nice colorscheme for vim
@@ -39,7 +40,6 @@ Bundle 'vim-scripts/paredit.vim'
 " Fast movement around file
 Bundle 'Lokaltog/vim-easymotion'
 
-" Nice status bar
 Bundle 'bling/vim-airline'
 
 "}}}
@@ -99,6 +99,9 @@ set hlsearch
 " Ten rows at top and bottom of screen
 set scrolloff=7
 
+" Set backspace to work in all situations
+set backspace=indent,eol,start
+
 " }}}
 " {{{ APPEARANCE
 syntax enable
@@ -110,8 +113,11 @@ colorscheme solarized
 " Add number column on left-hand side
 set number
 
-" Ensure that the status bar appears
+" Make the status bar appear
 set laststatus=2
+
+" higlight trailing whitespace with a dot
+set list listchars=trail:·
 
 " }}}
 " {{{ FUNCTIONS
@@ -131,6 +137,12 @@ au BufNewFile,BufRead *.fasta,*.fa,*.fna,*.faa setf fasta
 au BufNewFile,BufRead *.tex.pre setf tex
 au BufNewFile,BufRead *.txt setf txt
 au BufNewFile,BufRead *.rdoc setf rdoc
+
+" Edit gpg files securely
+au BufNewFile,BufReadPre *.gpg :set secure vimi= noswap noback nowriteback hist=0 binary
+au BufReadPost *.gpg :%!gpg -d 2>/dev/null
+au BufWritePre *.gpg :%!gpg -e -r 'mail@michaelbarton.me.uk' 2>/dev/null
+au BufWritePost *.gpg u
 
 " }}}
 " {{{ GUI
@@ -159,6 +171,9 @@ inoremap jj <ESC>
 
 " Double leader writes the file
 nnoremap <leader><leader> <Esc>:w<CR>
+
+inoremap qq http://issues.jgi-psf.org/browse/SEQQC-
+
 " }}}
 "{{{ ARROW KEY MAPS
 map <up>    <nop>
