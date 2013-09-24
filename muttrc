@@ -35,6 +35,7 @@ folder-hook $HOME/.maildb/michaelbarton/ "\
   set postponed = +'[Google Mail].Drafts' \
       record    = +'[Google Mail].Sent Mail' \
       from      = '$realname <mail@michaelbarton.me.uk>' \
+      smtp_pass = `get-pass personal.gmail | sed 's/\$/\\$/'` \
       smtp_url  = smtps://mail@michaelbarton.me.uk@smtp.gmail.com:465" \
 
 
