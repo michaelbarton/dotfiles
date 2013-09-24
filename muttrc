@@ -76,8 +76,9 @@ source ~/.mutt/colors
 
 #{{{1 Keymaps
 
-macro index,pager <space>i "<change-folder>=INBOX<enter>" "Go to inbox"
 macro index,pager <space>a '<change-folder>=[Gmail].All<quote-char> Mail<enter>' "Go to all mail"
 macro index,pager <space>s '<change-folder>=[Gmail].Sent<quote-char> Mail<enter>' "Go to sent mail"
 macro index,pager <space>d '<change-folder>=[Gmail].Drafts<enter>' "Go to drafts"
 
+macro index,pager <space>q "<change-folder>~/.maildb/jgi/INBOX<enter>" "Go to jgi mail"
+macro index,pager <space>w "<change-folder>~/.maildb/michaelbarton/INBOX<enter>" "Go to personal mail"
