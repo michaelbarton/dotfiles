@@ -1,6 +1,6 @@
 hub
 tmux
-mutt --enable-debug --sidebar-patch --pgp-verbose-mime-patch --slang
+mutt --with-debug --with-sidebar-patch --with-pgp-verbose-mime-patch --with-slang
 par
 aspell --lang=en
 urlview
@@ -12,9 +12,10 @@ wget
 lesspipe
 w3m
 pbzip2
-pigz
 unrar
 R
 xpdf
 parallel
 reattach-to-user-namespace
+curl-ca-bundle
+leiningen
