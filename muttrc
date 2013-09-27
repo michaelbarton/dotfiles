@@ -11,7 +11,7 @@ set mail_check = 60
 set timeout = 60
 set header_cache=~/.mutt/cache/headers
 set message_cachedir=~/.mutt/cache/bodies
-set certificate_file=~/.mutt/certificates
+set certificate_file=/usr/local/share/ca-bundle.crt # Requires curl-ca-bundle
 set move = no
 set include
 set sort = 'threads'
@@ -82,3 +82,4 @@ macro index,pager <space>d '<change-folder>=[Gmail].Drafts<enter>' "Go to drafts
 
 macro index,pager <space>q "<change-folder>~/.maildb/jgi/INBOX<enter>" "Go to jgi mail"
 macro index,pager <space>w "<change-folder>~/.maildb/michaelbarton/INBOX<enter>" "Go to personal mail"
+
