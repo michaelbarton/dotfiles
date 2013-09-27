@@ -20,7 +20,8 @@ cd ~/cache
 
 export GEM_HOME="`echo $HOME`/.gem"
 
-export PATH=~/.bin:~/.jgi_bin:~/.jira_cli:$GEM_HOME/bin:/usr/local/bin:$PATH
+export PATH=$GEM_HOME/bin:/usr/local/bin:$PATH
+export PATH=~/.bin:~/.jgi_bin:~/.jira_cli:$PATH
 
 export EMAIL="mail@michaelbarton.me.uk"
 export FULLNAME="Michael Barton"
