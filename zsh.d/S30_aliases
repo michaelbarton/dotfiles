@@ -58,16 +58,3 @@ alias octave='octave --quiet'
 alias grep='grep --color=auto'
 
 alias sc='starcluster'
-
-# JGI jira
-alias j='jira --user=MBarton --password=`get-pass jgi.jira` --server=http://issues.jgi-psf.org/'
-function jc(){
-  if [ -z "$1" ]                           # Is parameter #1 zero length?
-  then
-    echo "JIRA issue required"
-  else
-    file=`mktemp`
-    $EDITOR --nofork $file
-    j --action=addComment --issue=$1 --file=$file
-  fi
-}
