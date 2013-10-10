@@ -48,6 +48,9 @@ Bundle 'bling/vim-airline'
 " Filetype-specific indenting and plugins
 filetype plugin indent on
 
+scriptencoding utf-8
+set encoding=utf-8
+
 " Map leader key to comma
 let mapleader = ","
 
