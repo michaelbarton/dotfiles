@@ -1,12 +1,5 @@
 #!/bin/zsh
 
-# Vim in full screen mode
-alias dvim='gvim +"call ToggleWindowSize()"'
-
-alias dot='~/.dotfiles'
-alias zen='~/.zen'
-alias cache='~/cache'
-
 autoload zmv
 alias mmv='noglob zmv -W'
 
@@ -31,30 +24,3 @@ alias -s py=python
 alias mv='nocorrect mv'
 alias cp='nocorrect cp'
 alias mkdir='nocorrect mkdir'
-
-# Shortcut to aspell that sorts dictionary afterwards
-function sp(){aspell -c "$@" && ~/.dotfiles/bin/sort_dictionary}
-
-# Make git github aware
-function git(){hub "$@"}
-
-# Git shortcut
-alias g='git'
-
-alias lls='/usr/local/bin/gls -l --color=auto'
-alias lst='/usr/local/bin/gls -ltr --color=auto'
-alias ls='/usr/local/bin/gls --color=auto'
-
-# Vim instead of vi
-alias vi='vim'
-
-# Quiet R
-alias R='R --quiet --no-save --no-restore'
-
-# Quiet octave
-alias octave='octave --quiet'
-
-# Print grep results in color
-alias grep='grep --color=auto'
-
-alias sc='starcluster'
