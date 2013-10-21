@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+
+PYTHON_PACKAGES=/Users/mbarton/Library/Python/2.7/bin
+
+PATH=$PATH:$PYTHON_PACKAGES
