@@ -19,3 +19,4 @@ parallel
 reattach-to-user-namespace
 curl-ca-bundle
 leiningen
+inkscape
