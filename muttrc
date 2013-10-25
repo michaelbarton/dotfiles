@@ -76,10 +76,12 @@ source ~/.mutt/colors
 
 #{{{1 Keymaps
 
-macro index,pager <space>a '<change-folder>=[Gmail].All<quote-char> Mail<enter>' "Go to all mail"
-macro index,pager <space>s '<change-folder>=[Gmail].Sent<quote-char> Mail<enter>' "Go to sent mail"
-macro index,pager <space>d '<change-folder>=[Gmail].Drafts<enter>' "Go to drafts"
-
 macro index,pager <space>q "<change-folder>~/.maildb/jgi/INBOX<enter>" "Go to jgi mail"
-macro index,pager <space>w "<change-folder>~/.maildb/michaelbarton/INBOX<enter>" "Go to personal mail"
+macro index,pager <space>w '<change-folder>~/.maildb/jgi/[Gmail].All<quote-char> Mail<enter>' "Go to all mail"
+macro index,pager <space>e '<change-folder>~/.maildb/jgi/[Gmail].Sent<quote-char> Mail<enter>' "Go to sent mail"
+macro index,pager <space>r '<change-folder>~/.maildb/jgi/[Gmail].Drafts<enter>' "Go to drafts"
 
+macro index,pager <space>a "<change-folder>~/.maildb/michaelbarton/INBOX<enter>" "Go to michaelbarton mail"
+macro index,pager <space>s '<change-folder>~/.maildb/michaelbarton/[Google<quote-char> Mail].All<quote-char> Mail<enter>' "Go to all mail"
+macro index,pager <space>d '<change-folder>~/.maildb/michaelbarton/[Google<quote-char> Mail].Sent<quote-char> Mail<enter>' "Go to sent mail"
+macro index,pager <space>f '<change-folder>~/.maildb/michaelbarton/[Google<quote-char> Mail].Drafts<enter>' "Go to drafts"
