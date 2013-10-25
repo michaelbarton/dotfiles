@@ -245,7 +245,7 @@ nnoremap <F1>  :e $MYVIMRC<CR>                                " My .vimrc file
 nnoremap <F2>  :e ~/Dropbox/personal/wiki/Futures.wiki<CR>    " My TODO page
 nnoremap <F3>  :e ~/Dropbox/personal/wiki/index.wiki<CR>      " Index page for wiki
 nnoremap <F4>  :e ~/Dropbox/personal/wiki/Reflection.wiki<CR>
-nnoremap <F5>  <nop>
+nnoremap <F5>  :e ~/Dropbox/personal/wiki/Daily\ Todo.wiki<CR>
 nnoremap <F6>  <nop>
 nnoremap <F7>  <nop>
 nnoremap <F8>  <nop>
