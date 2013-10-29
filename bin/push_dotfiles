@@ -1,0 +1,4 @@
+#!/bin/bash
+
+export SSH_AUTH_SOCK=`find /tmp/launch-*/Listeners -user $1 -type s | head -1`
+cd ~/.dotfiles && git push origin master 2> ~/.logs/push_dotfiles.log
