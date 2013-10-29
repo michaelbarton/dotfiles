@@ -119,6 +119,10 @@ set number
 " Make the status bar appear
 set laststatus=2
 
+" Highlight the cursor position
+set cursorline
+
+
 " higlight trailing whitespace with a dot
 set list listchars=trail:·
 
