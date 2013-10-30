@@ -16,9 +16,9 @@ function git(){hub "$@"}
 # Git shortcut
 alias g='git'
 
-function lls(){ls -l --color=auto}
-function lst(){ls -ltr --color=auto}
-function ls(){ls --color=auto}
+function lls(){ls -l --color=auto $@}
+function lst(){ls -ltr --color=auto $@}
+function ls(){ls --color=auto $@}
 
 # Vim instead of vi
 alias vi='vim'
