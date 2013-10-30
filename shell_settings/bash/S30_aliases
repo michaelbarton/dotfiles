@@ -16,6 +16,7 @@ function git(){hub "$@"}
 # Git shortcut
 alias g='git'
 
+# These have to be functions because ls is aliased to coreutils gls
 function lls(){ls -l --color=auto $@}
 function lst(){ls -ltr --color=auto $@}
 function ls(){ls --color=auto $@}
