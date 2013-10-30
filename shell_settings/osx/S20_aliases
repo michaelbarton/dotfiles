@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 alias zen='~/.zen'
 alias cache='~/cache'
@@ -8,8 +8,3 @@ function sp(){aspell -c "$@" && ~/.dotfiles/bin/sort_dictionary}
 
 # Make git github aware
 function git(){hub "$@"}
-
-# These have to be functions because ls is aliased to coreutils gls
-function lls(){ls -l --color=auto $@}
-function lst(){ls -ltr --color=auto $@}
-function ls(){ls --color=auto $@}
