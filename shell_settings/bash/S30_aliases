@@ -1,17 +1,14 @@
 #!/bin/bash
 
-# Vim in full screen mode
-alias dvim='gvim +"call ToggleWindowSize()"'
-
-alias dot='~/.dotfiles'
+alias dot='cd ~/.dotfiles'
 
 # Git shortcut
 alias g='git'
 
 # These have to be functions because ls is aliased to coreutils gls
-function lls(){ls -l --color=auto $@}
-function lst(){ls -ltr --color=auto $@}
-function ls(){ls --color=auto $@}
+function lls {ls -l --color=auto $@}
+function lst {ls -ltr --color=auto $@}
+function ls {ls --color=auto $@}
 
 # Vim instead of vi
 alias vi='vim'
