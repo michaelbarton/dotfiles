@@ -1,7 +1,8 @@
-#!/bin/bash
+#!/bin/zsh
 
-alias zen='~/.zen'
-alias cache='~/cache'
+alias zen='cd ~/.zen'
+alias cache='cd ~/cache'
+alias cellar='cd /usr/local/Cellar'
 
 # Shortcut to aspell that sorts dictionary afterwards
 function sp(){aspell -c "$@" && ~/.dotfiles/bin/sort_dictionary}

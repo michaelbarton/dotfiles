@@ -1,4 +1,4 @@
 #!/bin/bash
 
 export SSH_AUTH_SOCK=`find /tmp/launch-*/Listeners -user $2 -type s | head -1`
-ssh $1 "/usr/common/usg/bin/qs | grep $2" > ~/.uge_queue 2> ~/.fetch_uge.log
+ssh $1 "/usr/common/usg/bin/qs | grep $2" > ~/.uge_queue 2> ~/.logs/fetch_uge.log

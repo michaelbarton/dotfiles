@@ -3,7 +3,7 @@
 alias SS=SEQQC-
 
 # JGI jira
-alias j='jira --user=MBarton --password=`get-pass jgi.jira` --server=http://issues.jgi-psf.org/'
+alias j='jira --user=mbarton --password=`get-pass jgi.jira` --server=https://issues.jgi-psf.org/'
 
 function jc(){
   if [ -z "$1" ]                           # Is parameter #1 zero length?
