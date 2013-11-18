@@ -1,2 +1,0 @@
-#!/bin/sh
-cat ~/Dropbox/wiki/Monthly.wiki >> ~/Dropbox/wiki/Personal.wiki
