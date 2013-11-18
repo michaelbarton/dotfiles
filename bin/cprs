@@ -1,7 +1,0 @@
-#!/bin/sh
-
-if [ -f $1 ] ; then
-  pbzip2 --best $1
-else
-  echo "'$1' is not a valid file"
-fi
