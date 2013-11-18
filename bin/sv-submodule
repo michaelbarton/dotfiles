@@ -1,4 +1,0 @@
-#!/bin/sh
-MODULE=$1
-DIR=$2
-git submodule add gitosis@gitserve:$MODULE.git $DIR
