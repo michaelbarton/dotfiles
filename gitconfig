@@ -78,3 +78,5 @@
   autoupdate = true
 [github]
   user = michaelbarton
+[push]
+	default = matching
