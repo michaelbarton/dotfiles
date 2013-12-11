@@ -84,3 +84,7 @@ Add the generated fingerprint to the offlinemaprc file if required.
     mkdir ~/.mutt ln -s
     ~/.dotfiles/solarized/mutt-colors-solarized/mutt-colors-solarized-dark-256.muttrc
     ~/.mutt/colors
+
+## iterm2
+
+Set terminal type as xterm-256color for best colors.
