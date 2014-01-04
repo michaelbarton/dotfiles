@@ -9,7 +9,7 @@ setlocal spell
 %!par -w75 -rTbgqR B\=.,?_A_a Q\=_s\>\|
 
 syntax enable
-set background=dark
+setlocal background=dark
 let g:solarized_termcolors=256
 colorscheme solarized
 
