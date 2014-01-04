@@ -1,4 +1,4 @@
-personal_ws-1.1 en 471
+personal_ws-1.1 en 477
 AAI
 absorbance
 ActiveRecord
@@ -211,6 +211,9 @@ kilobase
 kilobases
 kinase
 kluyveri
+Kmer
+kmer
+kmers
 kudriavzevii
 Kwalify
 LaTeX
@@ -240,6 +243,7 @@ metabolome
 metabolomes
 metabolomic
 metadata
+metagenome
 metagenomic
 Metagenomics
 metagenomics
@@ -422,6 +426,8 @@ synthases
 syringae
 tandemly
 taxa
+tetramer
+tetramers
 tetranucleotide
 tetranucleotides
 tfasty
