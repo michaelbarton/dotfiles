@@ -6,6 +6,6 @@ setlocal formatoptions+=ta
 " Maintain indenting of paragraphs in the text
 setlocal autoindent
 
-set background=dark
+setlocal background=dark
 let g:solarized_termcolors=256
 colorscheme solarized

@@ -9,7 +9,7 @@ setlocal spelllang=en_gb
 setlocal spell
 
 syntax enable
-set background=dark
+setlocal background=dark
 let g:solarized_termcolors=256
 colorscheme solarized
 

@@ -1,0 +1,26 @@
+#!/bin/bash
+set -e
+
+TXT=`mktemp -t todo.XXXXXX.txt`
+PS=`mktemp -t todo.XXXXXX.ps`
+PDF=~/Desktop/sheets.pdf
+
+DIR=~/Dropbox/personal/wiki
+DAILY="$DIR/Daily Todo.wiki"
+EVEN="$DIR/Evening Todo.wiki"
+WKD="$DIR/Weekend Todo.wiki"
+
+for i in `seq 1 5`; do
+    cat "$DAILY" >> $TXT
+done
+
+for i in `seq 1 5`; do
+    cat "$EVEN" >> $TXT
+done
+
+for i in `seq 1 1`; do
+    cat "$WKD" >> $TXT
+done
+
+enscript $TXT -B -o $PS -f Courier@13.5
+pstopdf $PS -o $PDF
