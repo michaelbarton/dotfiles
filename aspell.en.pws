@@ -1,4 +1,4 @@
-personal_ws-1.1 en 477
+personal_ws-1.1 en 481
 AAI
 absorbance
 ActiveRecord
@@ -7,6 +7,7 @@ aeruginosa
 agglomerative
 al
 aldolase
+amino
 amplicon
 amplicons
 ancova
@@ -52,6 +53,8 @@ bp
 castellii
 catabolic
 catabolism
+centroid
+centroids
 cerevisiae
 cetera
 chaperone
@@ -299,7 +302,8 @@ paradoxus
 parallelisation
 paralog
 paralogs
-Pathogenicity
+parameterised
+pathogenicity
 PCR
 pdf
 Pentose
@@ -366,6 +370,7 @@ pyoverdines
 pyrosequencing
 Pyruvate
 quantile
+quantisation
 rakefile
 rakefiles
 RAxML
