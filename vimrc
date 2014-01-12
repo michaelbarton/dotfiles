@@ -42,6 +42,9 @@ Bundle 'Lokaltog/vim-easymotion'
 
 Bundle 'bling/vim-airline'
 
+" Interactive repl for vim
+Bundle 'tpope/vim-fireplace'
+
 "}}}
 "{{{ GENERAL CONFIG
 
