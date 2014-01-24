@@ -1,0 +1,6 @@
+#!/bin/bash
+
+FILE=`/usr/local/bin/gmktemp --suffix=.pdf`
+EVERNOTE=/Applications/Evernote.app
+
+pdfjam $1 $2 -o $FILE && open -a $EVERNOTE $FILE
