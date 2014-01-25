@@ -15,26 +15,26 @@ for i in `seq 1 5`; do
     cat "$DAILY" >> $TXT
 done
 
-sed -n '1,10p' "$WEEK" >> $TXT
+sed -n '1,12p' "$WEEK" >> $TXT
 cat "$EVEN" >> $TXT
 
-sed -n '21,30p' "$WEEK" >> $TXT
+sed -n '13,24p' "$WEEK" >> $TXT
 cat "$EVEN" >> $TXT
 
-sed -n '31,40p' "$WEEK" >> $TXT
+sed -n '25,36p' "$WEEK" >> $TXT
 cat "$EVEN" >> $TXT
 
-sed -n '41,50p' "$WEEK" >> $TXT
+sed -n '37,48p' "$WEEK" >> $TXT
 cat "$EVEN" >> $TXT
 
-sed -n '51,60p' "$WEEK" >> $TXT
+sed -n '49,60p' "$WEEK" >> $TXT
 cat "$EVEN" >> $TXT
 
-sed -n '61,70p' "$WEEK" >> $TXT
+sed -n '61,72p' "$WEEK" >> $TXT
 cat "$EVEN" >> $TXT
 
-sed -n '71,80p' "$WEEK" >> $TXT
-
+sed -n '73,84p' "$WEEK" >> $TXT
+cat "$EVEN" >> $TXT
 
 enscript $TXT -B -o $PS -f Courier@13.5
 pstopdf $PS -o $PDF
