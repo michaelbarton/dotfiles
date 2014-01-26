@@ -9,19 +9,32 @@ OUT=~/Desktop/sheets.pdf
 DIR=~/Dropbox/personal/wiki
 DAILY="$DIR/Daily Todo.wiki"
 EVEN="$DIR/Evening Todo.wiki"
-WKD="$DIR/Weekend Todo.wiki"
+WEEK="$DIR/Week Days Todo.wiki"
 
 for i in `seq 1 5`; do
     cat "$DAILY" >> $TXT
 done
 
-for i in `seq 1 5`; do
-    cat "$EVEN" >> $TXT
-done
+sed -n '1,12p' "$WEEK" >> $TXT
+cat "$EVEN" >> $TXT
 
-for i in `seq 1 1`; do
-    cat "$WKD" >> $TXT
-done
+sed -n '13,24p' "$WEEK" >> $TXT
+cat "$EVEN" >> $TXT
+
+sed -n '25,36p' "$WEEK" >> $TXT
+cat "$EVEN" >> $TXT
+
+sed -n '37,48p' "$WEEK" >> $TXT
+cat "$EVEN" >> $TXT
+
+sed -n '49,60p' "$WEEK" >> $TXT
+cat "$EVEN" >> $TXT
+
+sed -n '61,72p' "$WEEK" >> $TXT
+cat "$EVEN" >> $TXT
+
+sed -n '73,84p' "$WEEK" >> $TXT
+cat "$EVEN" >> $TXT
 
 enscript $TXT -B -o $PS -f Courier@13.5
 pstopdf $PS -o $PDF

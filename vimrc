@@ -255,7 +255,7 @@ nnoremap <F4>  :e ~/Dropbox/personal/wiki/Reflection.wiki<CR>
 nnoremap <F5>  :e ~/Dropbox/personal/wiki/Daily\ Todo.wiki<CR>
 nnoremap <F6>  :e ~/Dropbox/personal/wiki/Evening\ Todo.wiki<CR>
 nnoremap <F7>  :e ~/Dropbox/personal/wiki/Weekend\ Todo.wiki<CR>
-nnoremap <F8>  :e ~/Dropbox/personal/wiki/Monthly\ Todo.wiki<CR>
+nnoremap <F8>  :e ~/Dropbox/personal/wiki/Week\ Days\ Todo.wiki<CR>
 nnoremap <F9>  <nop>
 nnoremap <F10> <nop>
 nnoremap <F11> <nop>
