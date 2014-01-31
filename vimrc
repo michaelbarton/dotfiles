@@ -81,7 +81,7 @@ set grepprg=ack
 " Don't add spaces when joining lines
 set nojoinspaces
 
-" Much stronger file encryption
+" Stronger file encryption
 set cryptmethod=blowfish
 
 " Do not display vim start-up text
