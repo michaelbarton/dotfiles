@@ -212,9 +212,10 @@ nnoremap <leader>s <nop>
 nnoremap <leader>d <nop>
 nnoremap <leader>f :nohlsearch<CR>
 nnoremap <leader>g :b#<CR>    " Switch to the last used buffer
-" }}}
-" {{{ LOWER LEFT
-nnoremap <leader>z <nop>
+" }}} {{{ LOWER LEFT
+
+" Pull current word into S&R
+nnoremap <leader>z :%s#\<<C-r>=expand("<cword>")<CR>\>#
 nnoremap <leader>x <nop>
 nnoremap <leader>c <nop>
 nnoremap <leader>v <nop>
