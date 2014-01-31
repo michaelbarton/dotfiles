@@ -87,6 +87,9 @@ set cryptmethod=blowfish
 " Do not display vim start-up text
 set shortmess+=I
 
+" Use system clipboard
+set clipboard=unnamed
+
 if v:version >= 703
   " Keep undo file of previous actions
   set undofile
