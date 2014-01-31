@@ -54,6 +54,9 @@ filetype plugin indent on
 scriptencoding utf-8
 set encoding=utf-8
 
+" I don't use swap files
+set noswapfile
+
 " Map leader key to comma
 let mapleader = ","
 
