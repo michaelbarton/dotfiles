@@ -54,6 +54,9 @@ filetype plugin indent on
 scriptencoding utf-8
 set encoding=utf-8
 
+" I don't use swap files
+set noswapfile
+
 " Map leader key to comma
 let mapleader = ","
 
@@ -81,11 +84,14 @@ set grepprg=ack
 " Don't add spaces when joining lines
 set nojoinspaces
 
-" Much stronger file encryption
+" Stronger file encryption
 set cryptmethod=blowfish
 
 " Do not display vim start-up text
 set shortmess+=I
+
+" Use system clipboard
+set clipboard=unnamed
 
 if v:version >= 703
   " Keep undo file of previous actions
@@ -206,9 +212,10 @@ nnoremap <leader>s <nop>
 nnoremap <leader>d <nop>
 nnoremap <leader>f :nohlsearch<CR>
 nnoremap <leader>g :b#<CR>    " Switch to the last used buffer
-" }}}
-" {{{ LOWER LEFT
-nnoremap <leader>z <nop>
+" }}} {{{ LOWER LEFT
+
+" Pull current word into S&R
+nnoremap <leader>z :%s#\<<C-r>=expand("<cword>")<CR>\>#
 nnoremap <leader>x <nop>
 nnoremap <leader>c <nop>
 nnoremap <leader>v <nop>
@@ -232,30 +239,30 @@ nnoremap <leader>. <nop>
 nnoremap <leader>m <nop>
 " }}}
 " }}}
-"{{{ LEADER NUMBER KEY MAPS - COMMON OPERATIONS
+"{{{ LEADER NUMBER KEY MAPS - COMMON LOCATIONS
 
-nnoremap <leader>1 <ESC>:source $MYVIMRC<CR> " Re-source the vimrc file
-nnoremap <leader>2 <nop>
-nnoremap <leader>3 <nop>
-nnoremap <leader>4 <nop>
-nnoremap <leader>5 <nop>
-nnoremap <leader>6 <nop>
-nnoremap <leader>7 <nop>
+nnoremap <leader>1 :e $MYVIMRC<CR>                                " My .vimrc file
+nnoremap <leader>2 :e ~/Dropbox/personal/wiki/Futures.wiki<CR>    " My TODO page
+nnoremap <leader>3 :e ~/Dropbox/personal/wiki/index.wiki<CR>      " Index page for wiki
+nnoremap <leader>4 :e ~/Dropbox/personal/wiki/Reflection.wiki<CR>
+nnoremap <leader>5 :e ~/Dropbox/personal/wiki/Daily\ Todo.wiki<CR>
+nnoremap <leader>6 :e ~/Dropbox/personal/wiki/Evening\ Todo.wiki<CR>
+nnoremap <leader>7 :e ~/Dropbox/personal/wiki/Week\ Days\ Todo.wiki<CR>
 nnoremap <leader>8 <nop>
 nnoremap <leader>9 <nop>
 nnoremap <leader>0 <nop>
 
 " }}}
-"{{{ FUNCTION KEY MAPS - COMMON LOCATIONS
+"{{{ FUNCTION KEY MAPS - COMMON ACTIONS
 
-nnoremap <F1>  :e $MYVIMRC<CR>                                " My .vimrc file
-nnoremap <F2>  :e ~/Dropbox/personal/wiki/Futures.wiki<CR>    " My TODO page
-nnoremap <F3>  :e ~/Dropbox/personal/wiki/index.wiki<CR>      " Index page for wiki
-nnoremap <F4>  :e ~/Dropbox/personal/wiki/Reflection.wiki<CR>
-nnoremap <F5>  :e ~/Dropbox/personal/wiki/Daily\ Todo.wiki<CR>
-nnoremap <F6>  :e ~/Dropbox/personal/wiki/Evening\ Todo.wiki<CR>
-nnoremap <F7>  :e ~/Dropbox/personal/wiki/Weekend\ Todo.wiki<CR>
-nnoremap <F8>  :e ~/Dropbox/personal/wiki/Week\ Days\ Todo.wiki<CR>
+nnoremap <F1>  <ESC>:source $MYVIMRC<CR> " Re-source the vimrc file
+set pastetoggle=<F2>
+nnoremap <F3>  <nop>
+nnoremap <F4>  <nop>
+nnoremap <F5>  <nop>
+nnoremap <F6>  <nop>
+nnoremap <F7>  <nop>
+nnoremap <F8>  <nop>
 nnoremap <F9>  <nop>
 nnoremap <F10> <nop>
 nnoremap <F11> <nop>
