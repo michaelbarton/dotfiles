@@ -1,7 +1,6 @@
 autoload -U compinit zrecompile
 
 zsh_cache=${HOME}/.zsh_cache
-mkdir -p $zsh_cache
 
 if [ $UID -eq 0 ]; then
         compinit
