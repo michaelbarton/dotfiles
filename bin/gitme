@@ -1,0 +1,18 @@
+#!/bin/bash -l
+
+set -e
+
+NAME=$1
+if [ -z $NAME ]; then
+    echo "Please supply a repository name."
+    exit 1
+fi
+
+REPO=`grep "$NAME	" ~/.repositories | cut -f 2`
+if [ -z $REPO ]; then
+    echo "No repository found: $NAME."
+    exit 1
+fi
+
+echo $NAME
+git clone $REPO $NAME
