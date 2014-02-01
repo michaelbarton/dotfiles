@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Debug</key>
+	<true/>
+	<key>KeepAlive</key>
+	<false/>
+	<key>Label</key>
+	<string>uk.me.michaelbarton.offlineimap</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/usr/local/bin/offlineimap</string>
+		<string>-q</string>
+		<string>-u</string>
+		<string>Noninteractive.Quiet</string>
+	</array>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>StartInterval</key>
+	<integer>120</integer>
+</dict>
+</plist>
