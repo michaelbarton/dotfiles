@@ -13,6 +13,9 @@ function lst {
   ls -ltr --color=auto $@
 }
 
+
+alias vim='vim -w ~/.vim/log "$@"'
+
 # Vim instead of vi
 alias vi='vim'
 
