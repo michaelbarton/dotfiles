@@ -1,9 +1,0 @@
----
-  -
-    fields:
-      - to
-      - cc
-    emails:
-      - wolfhound-team@googlegroups.com
-      - wolfhounds@yahoogroups.com
-    folder: sport.wolfhounds
