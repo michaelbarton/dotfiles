@@ -1,5 +1,4 @@
 #!/bin/bash
 
 mkdir -p /tmp/cache
-rm -f $HOME/cache
 ln -s /tmp/cache $HOME
