@@ -1,0 +1,5 @@
+#!/bin/bash
+
+dst=$1
+src=`/usr/local/bin/gmktemp --directory`
+ln -s $src $HOME/$dst
