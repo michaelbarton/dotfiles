@@ -7,11 +7,11 @@
 	<key>KeepAlive</key>
 	<false/>
 	<key>Label</key>
-	<string>uk.me.michaelbarton.make_cache</string>
+	<string>uk.me.michaelbarton.make_downloads</string>
 	<key>ProgramArguments</key>
 	<array>
 		<string>/Users/mbarton/.bin/tmp_home_dir</string>
-		<string>cache</string>
+		<string>Downloads</string>
 	</array>
 	<key>RunAtLoad</key>
 	<true/>
