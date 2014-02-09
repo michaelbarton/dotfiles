@@ -138,8 +138,9 @@ set list listchars=trail:·
 " }}}
 " {{{ FUNCTIONS
 
+
 " Insert ISO-8601 date
-function! IsoDate()
+function! Iso8601Date()
   set formatoptions-=a
   r!date "+\%FT\%TZ"
   set formatoptions+=a
@@ -199,7 +200,7 @@ map <right> <nop>
 " }}}
 "{{{ LEADER KEY MAPS
 " {{{ UPPER LEFT
-nnoremap <leader>q :r!date<CR>
+nnoremap <leader>q :call Iso8601Date()<CR>A : 
 nnoremap <leader>w <nop>
 nnoremap <leader>e <nop>
 nnoremap <leader>E <nop>
