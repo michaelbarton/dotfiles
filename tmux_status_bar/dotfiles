@@ -4,15 +4,14 @@ cd ~/.dotfiles
 ahead=`git rev-list origin..HEAD`
 behind=`git rev-list HEAD..origin`
 
-
-if [ ! -z $ahead ]; then
+if [ ! -z "$ahead" ]; then
   msg="AHEAD"
 fi
 
-if [ ! -z $behind ]; then
+if [ ! -z "$behind" ]; then
   msg="$msg BEHIND"
 fi
 
-if [ ! -z $msg ]; then
+if [ ! -z "$msg" ]; then
   echo "Dotfiles $msg |"
 fi
