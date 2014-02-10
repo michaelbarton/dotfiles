@@ -153,6 +153,7 @@ au BufNewFile,BufRead *.fasta,*.fa,*.fna,*.faa setf fasta
 au BufNewFile,BufRead *.tex.pre setf tex
 au BufNewFile,BufRead *.txt setf txt
 au BufNewFile,BufRead *.rdoc setf rdoc
+au BufNewFile,BufRead *.log setf log
 
 " Edit gpg files securely
 au BufNewFile,BufReadPre *.gpg :set secure vimi= noswap noback nowriteback hist=0 binary
