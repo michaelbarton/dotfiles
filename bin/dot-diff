@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cd ~/.dotfiles
+ahead=`git rev-list origin..HEAD | wc -l | tr -d ' '`
+behind=`git rev-list HEAD..origin | wc -l | tr -d ' '`
+echo "$ahead/$behind"
