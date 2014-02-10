@@ -7,17 +7,13 @@
 	<key>KeepAlive</key>
 	<false/>
 	<key>Label</key>
-	<string>uk.me.michaelbarton.offlineimap</string>
+	<string>uk.me.michaelbarton.make_cache</string>
 	<key>ProgramArguments</key>
 	<array>
-		<string>/usr/local/bin/offlineimap</string>
-		<string>-q</string>
-		<string>-u</string>
-		<string>Noninteractive.Quiet</string>
+		<string>/Users/mbarton/.bin/tmp_home_dir</string>
+		<string>cache</string>
 	</array>
 	<key>RunAtLoad</key>
 	<true/>
-	<key>StartInterval</key>
-	<integer>120</integer>
 </dict>
 </plist>

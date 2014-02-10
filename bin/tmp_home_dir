@@ -1,0 +1,9 @@
+#!/bin/bash
+
+dst=$HOME/$1
+src=`/usr/local/bin/gmktemp --directory`
+
+if  [ ! -e $dst ]; then
+    rm $dst
+fi
+ln -s $src $dst
