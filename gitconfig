@@ -62,6 +62,7 @@
   promote = !BRCH=$(git name) && git push origin $BRCH && git branch --set-upstream-to=origin/$BRCH
   demote = !BRCH=$(git name) && git push origin :$BRCH
   which = branch -a --contains
+  me = !gitme
 
   last-commit = !git --no-pager log --max-count 1 --remotes --pretty=format:"%H%n"
   last-branch = for-each-ref --count 1 --sort=-committerdate refs/remotes/ --format='%(refname:short)'
