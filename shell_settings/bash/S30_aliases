@@ -30,3 +30,9 @@ alias octave='octave --quiet'
 
 # Print grep results in color
 alias grep='grep --color=auto'
+
+# Tmux
+
+function kw {
+  tmux kill-window -t $1
+}

@@ -154,6 +154,7 @@ au BufNewFile,BufRead *.fasta,*.fa,*.fna,*.faa setf fasta
 au BufNewFile,BufRead *.tex.pre setf tex
 au BufNewFile,BufRead *.txt setf txt
 au BufNewFile,BufRead *.rdoc setf rdoc
+au BufNewFile,BufRead *.log setf log
 
 " Edit gpg files securely
 au BufNewFile,BufReadPre *.gpg :set secure vimi= noswap noback nowriteback hist=0 binary
@@ -242,7 +243,7 @@ nnoremap <leader>m <nop>
 " }}}
 "{{{ LEADER NUMBER KEY MAPS - COMMON LOCATIONS
 
-nnoremap <leader>1 :e ~/Dropbox/personal/wiki/log.wiki<CR>
+nnoremap <leader>1 :e ~/Dropbox/personal/daily.log<CR>
 nnoremap <leader>2 :e ~/Dropbox/personal/wiki/Futures.wiki<CR>    " My TODO page
 nnoremap <leader>3 :e ~/Dropbox/personal/wiki/index.wiki<CR>      " Index page for wiki
 nnoremap <leader>4 :e ~/Dropbox/personal/wiki/Reflection.wiki<CR>
@@ -251,7 +252,7 @@ nnoremap <leader>6 :e ~/Dropbox/personal/wiki/Evening\ Todo.wiki<CR>
 nnoremap <leader>7 :e ~/Dropbox/personal/wiki/Week\ Days\ Todo.wiki<CR>
 nnoremap <leader>8 <nop>
 nnoremap <leader>9 <nop>
-nnoremap <leader>0 :e $MYVIMRC<CR>                                        " My .vimrc file
+nnoremap <leader>0 :e $MYVIMRC<CR>                                " My .vimrc file
 
 " }}}
 "{{{ FUNCTION KEY MAPS - COMMON ACTIONS
