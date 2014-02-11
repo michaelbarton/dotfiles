@@ -1,0 +1,21 @@
+#!/bin/bash
+set -e
+
+if [ -z "$LOG" ]; then
+  echo "No \$LOG environment variable set."
+  exit 1
+fi
+
+set -e
+
+TMP=`gmktemp`.txt
+TIME=`date '+%Y-%m-%dT%k:%M:%S%z'`
+touch $TMP
+$EDITOR $TMP
+
+if [ ! -s $TMP ]; then
+  echo "No action taken for empty log entry"
+  exit 1
+fi
+
+echo "$TIME : `cat $TMP | tr '\n' ' ' | sed 's/ \$//'`" >> $LOG
