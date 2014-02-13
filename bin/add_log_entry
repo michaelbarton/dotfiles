@@ -11,7 +11,7 @@ set -e
 TMP=`gmktemp`.txt
 TIME=`date '+%Y-%m-%dT%k:%M:%S%z'`
 touch $TMP
-$EDITOR $TMP
+vim -c "set ft=txt" --nofork $TMP
 
 if [ ! -s $TMP ]; then
   echo "No action taken for empty log entry"
