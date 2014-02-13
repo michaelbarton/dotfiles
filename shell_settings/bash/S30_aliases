@@ -1,5 +1,8 @@
 #!/bin/bash
 
+alias af='./script/autofeature'
+alias at='./script/autotest'
+
 alias dot='cd ~/.dotfiles'
 
 # Git shortcut

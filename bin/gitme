@@ -16,11 +16,13 @@ fi
 
 tmux new-window -n $NAME
 tmux split-window -h
-tmux split-window -v
-tmux send-keys -t 1 " git clone $REPO $NAME" "C-m"
-tmux send-keys -t 1 " cd $NAME" "C-m"
-tmux send-keys -t 1 " git sw \`git last-branch | sed 's/origin\///'\`" "C-m"
-tmux send-keys -t 1 " test -e ./script/bootstrap && ./script/bootstrap" "C-m"
+tmux split-window -v -t 0
 
-tmux send-keys -t 0 " sleep 5 && cd $NAME && $EDITOR" "C-m"
+tmux send-keys -t 0 " git clone $REPO $NAME" "C-m"
+tmux send-keys -t 0 " cd $NAME" "C-m"
+tmux send-keys -t 0 " git sw \`git last-branch | sed 's/origin\///'\`" "C-m"
+tmux send-keys -t 0 " test -e ./script/bootstrap && ./script/bootstrap" "C-m"
+tmux send-keys -t 0 " test -e ./script/autotest && ./script/autotest" "C-m"
+
+tmux send-keys -t 1 " sleep 5 && cd $NAME && $EDITOR" "C-m"
 tmux send-keys -t 2 " sleep 5 && cd $NAME" "C-m"

@@ -1,6 +1,7 @@
 #!/bin/bash
 
 cd ~/.dotfiles
+git fetch
 ahead=`git rev-list origin..HEAD`
 behind=`git rev-list HEAD..origin`
 
