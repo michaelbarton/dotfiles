@@ -5,13 +5,9 @@ ahead=`git rev-list origin..HEAD`
 behind=`git rev-list HEAD..origin`
 
 if [ ! -z "$ahead" ]; then
-  msg="AHEAD"
+ echo "AHEAD:`echo $ahead | wc -l | tr -d ' '`"
 fi
 
 if [ ! -z "$behind" ]; then
-  msg="$msg BEHIND"
-fi
-
-if [ ! -z "$msg" ]; then
-  echo "Dotfiles $msg |"
+ echo "BEHIND:`echo $behind | wc -l | tr -d ' '`"
 fi
