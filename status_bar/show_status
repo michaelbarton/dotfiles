@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+
+if ARGV.length != 2
+  STDERR.puts "Two arguments required."
+  exit 1
+end
+
+name_of_status, script = ARGV
+
+result = `#{script}`
+if $?.exitstatus != 0
+  STDERR.puts "Error executing script.\n#{result}"
+  exit 1
+end
+
+output = result.split("\n").join(', ').strip
+
+unless output.empty?
+  puts "| #{name_of_status} #{output} "
+end
+exit 0

@@ -1,7 +1,4 @@
 rake
 bundler
-earthquake
 autotest-standalone
 autotest-fsevent
-boson
-lunchy
