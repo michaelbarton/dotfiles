@@ -8,6 +8,9 @@ alias dot='cd ~/.dotfiles'
 # Git shortcut
 alias g='git'
 
+# Personal log
+alias log='add_log_entry'
+
 # These have to be functions because ls is aliased to coreutils gls
 function lls {
   ls -l --color=auto $@
