@@ -12,7 +12,7 @@ function jc(){
   else
     file=`mktemp`
     vim -c "set ft=txt" --nofork $file
-    j --action=addComment --issue=$1 --file=$file
+    j --action=addComment --issue=$1 --file=$file &
   fi
 }
 
