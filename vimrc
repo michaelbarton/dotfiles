@@ -45,6 +45,9 @@ Bundle 'bling/vim-airline'
 " Interactive repl for vim
 Bundle 'tpope/vim-fireplace'
 
+" Plugin for taskpaper
+Bundle 'davidoc/taskpaper.vim'
+
 "}}}
 "{{{ GENERAL CONFIG
 
