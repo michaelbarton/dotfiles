@@ -133,7 +133,7 @@ set cursorline
 
 
 " higlight trailing whitespace with a dot
-set list listchars=trail:·
+set list listchars=trail:·,tab:»·
 
 " }}}
 " {{{ FUNCTIONS
