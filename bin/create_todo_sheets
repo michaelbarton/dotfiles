@@ -8,12 +8,15 @@ OUT=~/Desktop/sheets.pdf
 
 DIR=~/Dropbox/personal/wiki
 DAILY="$DIR/Daily Todo.wiki"
+END="$DIR/Friday Todo.wiki"
 EVEN="$DIR/Evening Todo.wiki"
 WEEK="$DIR/Week Days Todo.wiki"
 
 for i in `seq 1 5`; do
     cat "$DAILY" >> $TXT
 done
+
+cat "$END" >> $TXT
 
 sed -n '1,12p' "$WEEK" >> $TXT
 cat "$EVEN" >> $TXT

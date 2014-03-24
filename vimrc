@@ -250,7 +250,7 @@ nnoremap <leader>4 :e ~/Dropbox/personal/wiki/Reflection.wiki<CR>
 nnoremap <leader>5 :e ~/Dropbox/personal/wiki/Daily\ Todo.wiki<CR>
 nnoremap <leader>6 :e ~/Dropbox/personal/wiki/Evening\ Todo.wiki<CR>
 nnoremap <leader>7 :e ~/Dropbox/personal/wiki/Week\ Days\ Todo.wiki<CR>
-nnoremap <leader>8 <nop>
+nnoremap <leader>8 :e ~/Dropbox/personal/wiki/Friday\ Todo.wiki<CR>
 nnoremap <leader>9 <nop>
 nnoremap <leader>0 :e $MYVIMRC<CR>                                " My .vimrc file
 
