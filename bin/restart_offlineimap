@@ -1,0 +1,4 @@
+#!/bin/bash
+
+launchctl stop uk.me.michaelbarton.offlineimap
+launchctl start uk.me.michaelbarton.offlineimap
