@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e
+
+if [ -z "$1" ]; then
+    echo "JIRA issue ID required" 1>&2
+    exit 1
+fi
+
+FILE=`/usr/local/bin/gmktemp`
+vim -c "set ft=txt" --nofork $FILE
+
+if [[ -z `cat $FILE` ]]; then
+    echo "Aborting on empty comment message." 1>&2
+    exit 1
+fi
+
+JIRA="jira --user=mbarton --password=`get-pass jgi.jira` --server=https://issues.jgi-psf.org/"
+$JIRA --action=addComment --issue=$1 --file=$FILE

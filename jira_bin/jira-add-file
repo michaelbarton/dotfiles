@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -e
+
+if [ -z "$1" ]; then
+    echo "JIRA issue ID required" 1>&2
+    exit 1
+fi
+
+if [ -z "$2" ]; then
+    echo "File argument required." 1>&2
+    exit 1
+fi
+
+JIRA="jira --user=mbarton --password=`get-pass jgi.jira` --server=https://issues.jgi-psf.org/"
+$JIRA --action=addAttachment --issue=$1 --file=$2
