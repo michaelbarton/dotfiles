@@ -45,8 +45,8 @@ Bundle 'bling/vim-airline'
 " Interactive repl for vim
 Bundle 'tpope/vim-fireplace'
 
-" Plugin for taskpaper
-Bundle 'davidoc/taskpaper.vim'
+" Tab completion plugin
+Bundle 'Valloric/YouCompleteMe'
 
 "}}}
 "{{{ GENERAL CONFIG
