@@ -7,7 +7,7 @@ BREWS="hub tmux par urlview openssl offline-imap gpg coreutils wget lesspipe w3m
 $INSTALL git
 brew update
 
-$INSTALL mutt --with-debug --with-slang --enable-hcache --with-tokyocabinet
+$INSTALL mutt --with-debug --with-s-lang
 
 $INSTALL aspell --lang=en
 
