@@ -5,7 +5,6 @@ set mbox_type = Maildir
 
 my_hdr X-URL: http://www.michaelbarton.me.uk
 
-set fast_reply=yes
 set editor = "vim -f"
 set mail_check = 60
 set timeout = 60
@@ -14,8 +13,6 @@ set message_cachedir=~/.mutt/cache/bodies
 set certificate_file=/usr/local/share/ca-bundle.crt # Requires curl-ca-bundle
 set move = no
 set include
-set sort = 'threads'
-set sort_aux = 'reverse-last-date-received'
 set auto_tag = yes
 alternative_order text/plain text/html *
 auto_view text/html
@@ -23,9 +20,24 @@ bind editor ^T complete
 set query_command="/usr/local/bin/lbdbq '%s'"
 set pager_index_lines= 10
 set implicit_autoview = yes
-set nostrict_threads
+
 
 source "~/Dropbox/personal/address.muttrc"
+
+#{{{1 Mailbox appearance
+
+set sort_aux = 'reverse-last-date-received'
+set index_format = "[%Z]  %D  %-20.20F  %s"
+set date_format = "%m/%d"
+set nostrict_threads
+set sort = 'threads'
+
+#{{{1 Composing emails
+
+set forward_format = "Fwd: %s"
+set fast_reply=yes
+set forward_decode                   # decode when forwarding
+set reply_to                         # reply to Reply to: field
 
 #{{{1 Personal email account
 
@@ -50,7 +62,7 @@ folder-hook $HOME/.maildb/jgi/ "\
       smtp_pass = `get-pass jgi.gmail | sed 's/\$/\\$/'` \
       smtp_url  = smtps://mbarton@lbl.gov@smtp.gmail.com:465" \
 
-#{{{1 Header settings
+#{{{1 Displayed headers
 
 # Ignore all headers
 ignore *

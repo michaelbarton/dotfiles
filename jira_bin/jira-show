@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -o errexit
+set -o nounset
+
+if [ -z "$1" ]; then
+    echo "JIRA issue ID required" 1>&2
+    exit 1
+fi
+
+FILE=`/usr/local/bin/gmktemp`
+
+JIRA="jira --user=mbarton --password=`get-pass jgi.jira` --server=https://issues.jgi-psf.org/"
+$JIRA --action=getCommentList --issue=$1 | csvfix sort -f 1:D | grep -v '"Id","Author"' > ${FILE}
+
+csvfix template -tf ~/.jira_bin/template.tpl ${FILE} | par '80gqr' | less
+echo ${FILE}
