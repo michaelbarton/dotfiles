@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Debug</key>
+	<true/>
+	<key>KeepAlive</key>
+	<false/>
+	<key>Label</key>
+	<string>uk.me.michaelbarton.journal_notification</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/usr/local/bin/terminal-notifier</string>
+		<string>-message</string>
+		<string>Update work log</string>
+		<string>-title</string>
+		<string>Reminder</string>
+	</array>
+	<key>RunAtLoad</key>
+	<false/>
+	<key>StartCalendarInterval</key>
+	<dict>
+		<key>Minute</key>
+		<integer>00</integer>
+	</dict>
+</dict>
+</plist>
