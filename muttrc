@@ -97,3 +97,6 @@ macro index,pager <space>a "<change-folder>~/.maildb/michaelbarton/INBOX<enter>"
 macro index,pager <space>s '<change-folder>~/.maildb/michaelbarton/[Google<quote-char> Mail].All<quote-char> Mail<enter>' "Go to all mail"
 macro index,pager <space>d '<change-folder>~/.maildb/michaelbarton/[Google<quote-char> Mail].Sent<quote-char> Mail<enter>' "Go to sent mail"
 macro index,pager <space>f '<change-folder>~/.maildb/michaelbarton/[Google<quote-char> Mail].Drafts<enter>' "Go to drafts"
+
+# Search
+macro index S "<enter-command>unset wait_key<enter><shell-escape>mutt-notmuch-py ~/.maildb/jgi/temporary/search<enter><change-folder-readonly>+temporary/search<enter>" "search mail (using notmuch)"
