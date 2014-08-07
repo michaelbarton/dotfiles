@@ -12,6 +12,7 @@ localrepository = jgi-local
 remoterepository = jgi-remote
 status_backend = sqlite
 maxage = 30
+postsynchook = notmuch new
 
 [Account Personal]
 localrepository = personal-local
