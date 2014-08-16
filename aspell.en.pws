@@ -1,4 +1,4 @@
-personal_ws-1.1 en 484
+personal_ws-1.1 en 490
 AAI
 absorbance
 ActiveRecord
@@ -30,6 +30,8 @@ barcodes
 bashrc
 bayanus
 BBSRC
+benchmarked
+benchmarking
 bioinformatician
 bioinformaticians
 bioinformatics
@@ -133,6 +135,7 @@ extremophile
 extremophiles
 facultive
 fasta
+fastq
 FBA
 fermentative
 fluorescens
@@ -165,6 +168,7 @@ glycolysis
 glycolytic
 GMP
 Google
+gzipped
 hadoop
 haploinsufficiency
 haploinsufficient
@@ -347,6 +351,7 @@ powerpoint
 practices
 Precedings
 priori
+Procfile
 programmatically
 Prokaryotes
 prokaryotic
@@ -378,6 +383,7 @@ rakefiles
 RAxML
 rcoffee
 rDNA
+readonly
 readseq
 redox
 relaxase
