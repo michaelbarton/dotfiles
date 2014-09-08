@@ -47,7 +47,7 @@ folder-hook $HOME/.maildb/michaelbarton/ "\
   set postponed = +'[Google Mail].Drafts' \
       record    = +'[Google Mail].Sent Mail' \
       from      = '$realname <mail@michaelbarton.me.uk>' \
-      smtp_pass = `get-pass personal.gmail | sed 's/\$/\\$/'` \
+      smtp_pass = `get-pass personal.gmail | sed 's/\$/\\$/g' | sed 's/ /\\ /g'` \
       smtp_url  = smtps://mail@michaelbarton.me.uk@smtp.gmail.com:465" \
 
 
@@ -59,7 +59,7 @@ folder-hook $HOME/.maildb/jgi/ "\
   set postponed = +[Gmail].Drafts \
       record    = +[Gmail].'Sent Mail' \
       from      = '$realname <mbarton@lbl.gov>' \
-      smtp_pass = `get-pass jgi.gmail | sed 's/\$/\\$/'` \
+      smtp_pass = `get-pass jgi.gmail  | sed 's/\$/\\$/g' | sed 's/ /\\ /g'` \
       smtp_url  = smtps://mbarton@lbl.gov@smtp.gmail.com:465" \
 
 #{{{1 Displayed headers
