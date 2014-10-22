@@ -2,7 +2,7 @@
 
 INSTALL="brew install"
 
-BREWS="hub tmux par urlview openssl offline-imap gpg coreutils wget lesspipe w3m pbzip2 unrar xpdf parallel reattach-to-user-namespace curl-ca-bundle leiningen psgrep ack latex-mk pdfjam"
+BREWS="hub tmux par urlview openssl offline-imap gpg coreutils wget lesspipe w3m pbzip2 unrar xpdf parallel reattach-to-user-namespace curl-ca-bundle leiningen psgrep ack latex-mk pdfjam msmtp"
 
 $INSTALL git
 brew update
