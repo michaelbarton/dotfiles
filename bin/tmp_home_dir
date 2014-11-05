@@ -1,9 +1,12 @@
 #!/bin/bash
 
-dst=$HOME/$1
-src=`/usr/local/bin/gmktemp --directory`
+set -o nounset
+set -o errexit
 
-if  [ ! -e $dst ]; then
-    rm $dst
+DST=$HOME/$1
+SRC=$(/usr/local/bin/gmktemp --directory)
+
+if [[ -d ${DST} ]]; then
+    rm ${DST}
 fi
-ln -s $src $dst
+ln -s ${SRC} ${DST}
