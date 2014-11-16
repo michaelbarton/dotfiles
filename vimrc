@@ -48,6 +48,9 @@ Bundle 'tpope/vim-fireplace'
 " Tab completion plugin
 Bundle 'Valloric/YouCompleteMe'
 
+" Syntax highlighting for Dockerfiles
+Bundle "ekalinin/Dockerfile.vim"
+
 "}}}
 "{{{ GENERAL CONFIG
 
