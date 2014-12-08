@@ -1,11 +1,25 @@
 #!/bin/bash
 
-INSTALL="brew install"
+set -o errexit
+set -o nounset
+set -o xtrace
 
-BREWS="hub tmux par urlview openssl offline-imap gpg coreutils wget lesspipe w3m pbzip2 unrar xpdf parallel reattach-to-user-namespace curl-ca-bundle leiningen psgrep ack latex-mk pdfjam msmtp"
+BREW_FILE="${HOME}/.dotfiles/data/brews"
 
-$INSTALL git
+MISSING=$(comm -1 -3 <(brew list) ${BREW_FILE})
+INSTALLED=$(comm -1 -2 <(brew list) ${BREW_FILE} | tr '\n' ' ')
+
 brew update
+
+if [[ ! -z ${MISSING} ]]; then
+    brew install ${MISSING}
+fi
+
+if [[ ! -z ${INSTALLED} ]]; then
+    brew upgrade ${INSTALLED}
+fi
+
+exit
 
 $INSTALL mutt --with-debug --with-s-lang
 
