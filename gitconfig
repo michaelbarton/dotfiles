@@ -84,3 +84,5 @@
   user = michaelbarton
 [push]
 	default = matching
+[ghi]
+	token = !security find-internet-password -a michaelbarton -s github.com -l 'ghi token' -w
