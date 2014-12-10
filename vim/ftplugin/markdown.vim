@@ -10,11 +10,3 @@ setlocal autoindent
 setlocal shiftwidth=2
 setlocal tabstop=2
 setlocal expandtab
-
-syntax enable
-setlocal background=dark
-let g:solarized_termcolors=256
-colorscheme solarized
-
-syn match TmlDoubleWords /\c\<\(\S\+\)\_s\+\1\ze\_s/
-hi def link TmlDoubleWords ToDo
