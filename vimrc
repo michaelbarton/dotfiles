@@ -123,9 +123,6 @@ set backspace=indent,eol,start
 " }}}
 " {{{ APPEARANCE
 syntax enable
-set t_Co=256              " Explicitly set 256 color support
-set background=dark
-let g:solarized_termcolors=256
 colorscheme solarized
 
 " Add number column on left-hand side
@@ -140,6 +137,11 @@ set cursorline
 
 " higlight trailing whitespace with a dot
 set list listchars=trail:·,tab:»·
+
+" }}}
+" {{{ AUTOCOMMANDS
+
+au BufEnter * set background=dark
 
 " }}}
 " {{{ FUNCTIONS
