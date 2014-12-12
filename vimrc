@@ -181,9 +181,13 @@ endif
 
 " Train myself not to use the home row keys to move around
 map h <nop>
-map j <nop>
-map k <nop>
 map l <nop>
+
+" Up motion
+map k <Plug>(easymotion-b)
+
+" Down motion
+map j <Plug>(easymotion-w)
 
 " Faster Esc
 inoremap jj <ESC>
