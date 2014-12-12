@@ -202,6 +202,9 @@ nnoremap <leader><leader> <Esc>:w<CR>
 
 inoremap qq http://issues.jgi-psf.org/browse/SEQQC-
 
+" Prevent from entering Ex mode
+nnoremap Q <nop>
+
 " }}}
 "{{{ ARROW KEY MAPS
 map <up>    <nop>
