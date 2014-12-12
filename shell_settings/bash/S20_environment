@@ -3,7 +3,7 @@
 USER_BIN=${HOME}/.bin
 LOCAL_BIN=/usr/local/bin
 
-export PATH=${PATH}:${USER_BIN}:${LOCAL_BIN}
+export PATH=${LOCAL_BIN}:${PATH}:${USER_BIN}
 
 export MANWIDTH=80
 export EDITOR=vim
