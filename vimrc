@@ -52,6 +52,9 @@ Bundle 'Valloric/YouCompleteMe'
 " Syntax highlighting for Dockerfiles
 Bundle "ekalinin/Dockerfile.vim"
 
+" Seemless navigation between vim and tmux windows
+Bundle 'christoomey/vim-tmux-navigator'
+
 "}}}
 "{{{ GENERAL CONFIG
 
