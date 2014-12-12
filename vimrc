@@ -31,15 +31,16 @@ Bundle 'kien/ctrlp.vim'
 " Indent, syntax and detect files for clojure
 Bundle 'vim-scripts/VimClojure'
 
-" Indent, syntax and detect files for clojure
+" Useful for aligning columns of text
 Bundle 'vim-scripts/Align'
 
-" Indent, syntax and detect files for clojure
+" Good for matching parentheses in lisps
 Bundle 'vim-scripts/paredit.vim'
 
 " Fast movement around file
 Bundle 'Lokaltog/vim-easymotion'
 
+" Default status line for vim
 Bundle 'bling/vim-airline'
 
 " Interactive repl for vim
