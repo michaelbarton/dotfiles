@@ -1,10 +1,12 @@
 ack
 coreutils
+csvfix
 git
 gnupg
 latex-mk
 lesspipe
 msmtp
+notmuch
 offline-imap
 openssl
 par
