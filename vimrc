@@ -160,18 +160,8 @@ endfunction
 
 set wildignore=*.pyc
 
-au BufNewFile,BufRead Vagrantfile setf ruby
-au BufNewFile,BufRead *.fasta,*.fa,*.fna,*.faa setf fasta
-au BufNewFile,BufRead *.tex.pre setf tex
-au BufNewFile,BufRead *.txt setf txt
-au BufNewFile,BufRead *.rdoc setf rdoc
-au BufNewFile,BufRead *.log setf log
-
-" Edit gpg files securely
-au BufNewFile,BufReadPre *.gpg :set secure vimi= noswap noback nowriteback hist=0 binary
-au BufReadPost *.gpg :%!gpg -d 2>/dev/null
-au BufWritePre *.gpg :%!gpg -e -r 'mail@michaelbarton.me.uk' 2>/dev/null
-au BufWritePost *.gpg u
+au BufNewFile,BufRead GHI_ISSUE set filetype=markdown
+au BufNewFile,BufRead Vagrantfile set filetype=ruby
 
 " }}}
 " {{{ GUI
