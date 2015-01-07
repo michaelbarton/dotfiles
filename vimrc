@@ -29,7 +29,8 @@ Bundle 'vim-scripts/vimwiki'
 Bundle 'kien/ctrlp.vim'
 
 " Indent, syntax and detect files for clojure
-Bundle 'vim-scripts/VimClojure'
+Bundle 'guns/vim-clojure-static'
+Bundle 'kien/rainbow_parentheses.vim'
 
 " Useful for aligning columns of text
 Bundle 'vim-scripts/Align'
@@ -43,7 +44,7 @@ Bundle 'Lokaltog/vim-easymotion'
 " Default status line for vim
 Bundle 'bling/vim-airline'
 
-" Interactive repl for vim
+" Interactive clojure repl for vim
 Bundle 'tpope/vim-fireplace'
 
 " Tab completion plugin
