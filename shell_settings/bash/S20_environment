@@ -3,7 +3,10 @@
 USER_BIN=${HOME}/.bin
 LOCAL_BIN=/usr/local/bin
 
-export PATH=${LOCAL_BIN}:${PATH}:${USER_BIN}
+export GEM_HOME=~/.gem
+
+export PATH=${LOCAL_BIN}:${PATH}:${USER_BIN}:${GEM_HOME}/bin
+
 
 export MANWIDTH=80
 export EDITOR=vim
