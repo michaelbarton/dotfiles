@@ -16,7 +16,7 @@ fi
 
 tmux new-window -n $NAME
 tmux split-window -h
-tmux split-window -v -t 0
+tmux split-window -v -t $NAME
 
 tmux send-keys -t 2 " git clone $REPO $NAME" "C-m"
 tmux send-keys -t 2 " cd $NAME" "C-m"

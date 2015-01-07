@@ -12,13 +12,8 @@ alias g='git'
 alias log='add_log_entry'
 
 # These have to be functions because ls is aliased to coreutils gls
-function lls {
-  ls -l --color=auto $@
-}
-function lst {
-  ls -ltr --color=auto $@
-}
-
+alias lls='ls -l --color=auto'
+alias lst='ls -ltr --color=auto'
 
 alias vim='vim -w ~/.vim/log "$@"'
 
@@ -36,6 +31,7 @@ alias grep='grep --color=auto'
 
 # Tmux
 
-function kw {
-  tmux kill-window -t $1
-}
+function tkw { tmux kill-window -t $1 }
+function tks { tmux kill-session -t $1 && tmux list-session}
+function tss { tmux switch-client -t $1 }
+function tls { tmux list-session }

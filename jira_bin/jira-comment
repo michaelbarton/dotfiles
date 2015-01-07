@@ -7,8 +7,8 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
-FILE=`/usr/local/bin/gmktemp`
-vim -c "set ft=txt" --nofork $FILE
+FILE=${1}.mkd
+vim -c "set ft=markdown" --nofork $FILE
 
 if [[ -z `cat $FILE` ]]; then
     echo "Aborting on empty comment message." 1>&2

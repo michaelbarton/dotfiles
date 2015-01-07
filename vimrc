@@ -31,15 +31,16 @@ Bundle 'kien/ctrlp.vim'
 " Indent, syntax and detect files for clojure
 Bundle 'vim-scripts/VimClojure'
 
-" Indent, syntax and detect files for clojure
+" Useful for aligning columns of text
 Bundle 'vim-scripts/Align'
 
-" Indent, syntax and detect files for clojure
+" Good for matching parentheses in lisps
 Bundle 'vim-scripts/paredit.vim'
 
 " Fast movement around file
 Bundle 'Lokaltog/vim-easymotion'
 
+" Default status line for vim
 Bundle 'bling/vim-airline'
 
 " Interactive repl for vim
@@ -47,6 +48,12 @@ Bundle 'tpope/vim-fireplace'
 
 " Tab completion plugin
 Bundle 'Valloric/YouCompleteMe'
+
+" Syntax highlighting for Dockerfiles
+Bundle "ekalinin/Dockerfile.vim"
+
+" Seemless navigation between vim and tmux windows
+Bundle 'christoomey/vim-tmux-navigator'
 
 "}}}
 "{{{ GENERAL CONFIG
@@ -120,9 +127,6 @@ set backspace=indent,eol,start
 " }}}
 " {{{ APPEARANCE
 syntax enable
-set t_Co=256              " Explicitly set 256 color support
-set background=dark
-let g:solarized_termcolors=256
 colorscheme solarized
 
 " Add number column on left-hand side
@@ -137,6 +141,11 @@ set cursorline
 
 " higlight trailing whitespace with a dot
 set list listchars=trail:·,tab:»·
+
+" }}}
+" {{{ AUTOCOMMANDS
+
+au BufEnter * set background=dark
 
 " }}}
 " {{{ FUNCTIONS
@@ -154,18 +163,8 @@ endfunction
 
 set wildignore=*.pyc
 
-au BufNewFile,BufRead Vagrantfile setf ruby
-au BufNewFile,BufRead *.fasta,*.fa,*.fna,*.faa setf fasta
-au BufNewFile,BufRead *.tex.pre setf tex
-au BufNewFile,BufRead *.txt setf txt
-au BufNewFile,BufRead *.rdoc setf rdoc
-au BufNewFile,BufRead *.log setf log
-
-" Edit gpg files securely
-au BufNewFile,BufReadPre *.gpg :set secure vimi= noswap noback nowriteback hist=0 binary
-au BufReadPost *.gpg :%!gpg -d 2>/dev/null
-au BufWritePre *.gpg :%!gpg -e -r 'mail@michaelbarton.me.uk' 2>/dev/null
-au BufWritePost *.gpg u
+au BufNewFile,BufRead GHI_* set filetype=markdown
+au BufNewFile,BufRead Vagrantfile set filetype=ruby
 
 " }}}
 " {{{ GUI
@@ -185,9 +184,13 @@ endif
 
 " Train myself not to use the home row keys to move around
 map h <nop>
-map j <nop>
-map k <nop>
 map l <nop>
+
+" Up motion
+map k <Plug>(easymotion-b)
+
+" Down motion
+map j <Plug>(easymotion-w)
 
 " Faster Esc
 inoremap jj <ESC>
@@ -196,6 +199,9 @@ inoremap jj <ESC>
 nnoremap <leader><leader> <Esc>:w<CR>
 
 inoremap qq http://issues.jgi-psf.org/browse/SEQQC-
+
+" Prevent from entering Ex mode
+nnoremap Q <nop>
 
 " }}}
 "{{{ ARROW KEY MAPS
