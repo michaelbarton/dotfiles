@@ -6,7 +6,7 @@ set -o errexit
 DST=$HOME/$1
 SRC=$(/usr/local/bin/gmktemp --directory)
 
-if [[ ! -d ${DST} ]]; then
+if [[ -e ${DST} ]]; then
     rm ${DST}
 fi
 ln -s ${SRC} ${DST}
