@@ -13,6 +13,7 @@ par
 parallel
 pbzip2
 pdfjam
+pngcrush
 psgrep
 reattach-to-user-namespace
 tmux
