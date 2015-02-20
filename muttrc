@@ -25,7 +25,7 @@ source "~/Dropbox/personal/address.muttrc"
 
 #{{{1 Mailbox appearance
 
-set sort_aux = 'reverse-last-date-received'
+set sort_aux = 'last-date-received'
 set index_format = "[%Z]  %D  %-20.20F  %s"
 set date_format = "%m/%d"
 set nostrict_threads
