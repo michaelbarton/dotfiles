@@ -78,5 +78,5 @@ macro index S "<enter-command>unset wait_key<enter><shell-escape>mutt-notmuch-py
 source "~/Dropbox/personal/address.muttrc"
 
 source "$HOME/.dotfiles/mutt/colors.muttrc"
-source "$HOME/.dotfiles/mutt/encrypt.muttrc"
+source "$HOME/.dotfiles/mutt/encypt.muttrc"
 source "$HOME/.dotfiles/mutt/accounts.muttrc"
