@@ -37,34 +37,9 @@ set fast_reply=yes
 set forward_decode                   # decode when forwarding
 set reply_to                         # reply to Reply to: field
 
-#{{{1 Personal email account
-
-
-#{{{1 Displayed headers
-
-# Ignore all headers
-ignore *
-
-# Then un-ignore the ones I want to see
-unignore From:
-unignore To:
-unignore Reply-To:
-unignore Subject:
-unignore Date:
-unignore Organization:
-unignore Newsgroups:
-unignore CC:
-unignore BCC:
-unignore User-Agent:
-
-# Now order the visable header lines
-hdr_order Date: From: To: CC: BCC: Reply-To: Subject: Organization: User-Agent:
-
-#{{{1 Keymaps
-
-
 source "~/Dropbox/personal/address.muttrc"
 
+source "$HOME/.dotfiles/mutt/headers.muttrc"
 source "$HOME/.dotfiles/mutt/keymap.muttrc"
 source "$HOME/.dotfiles/mutt/colors.muttrc"
 source "$HOME/.dotfiles/mutt/encypt.muttrc"

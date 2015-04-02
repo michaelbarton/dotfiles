@@ -1,0 +1,17 @@
+# Ignore all headers
+ignore *
+
+# Then un-ignore the ones I want to see
+unignore From:
+unignore To:
+unignore Reply-To:
+unignore Subject:
+unignore Date:
+unignore Organization:
+unignore Newsgroups:
+unignore CC:
+unignore BCC:
+unignore User-Agent:
+
+# Now order the visable header lines
+hdr_order Date: From: To: CC: BCC: Reply-To: Subject: Organization: User-Agent:
