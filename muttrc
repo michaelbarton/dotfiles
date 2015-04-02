@@ -20,17 +20,9 @@ set query_command="/usr/local/bin/lbdbq '%s'"
 set pager_index_lines= 10
 set implicit_autoview = yes
 
-
-
-#{{{1 Composing emails
-
-set forward_format = "Fwd: %s"
-set fast_reply=yes
-set forward_decode                   # decode when forwarding
-set reply_to                         # reply to Reply to: field
-
 source "~/Dropbox/personal/address.muttrc"
 
+source "$HOME/.dotfiles/mutt/compose.muttrc"
 source "$HOME/.dotfiles/mutt/appearance.muttrc"
 source "$HOME/.dotfiles/mutt/headers.muttrc"
 source "$HOME/.dotfiles/mutt/keymap.muttrc"

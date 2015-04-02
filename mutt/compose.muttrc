@@ -1,0 +1,4 @@
+set forward_format = "Fwd: %s"
+set fast_reply=yes
+set forward_decode                   # decode when forwarding
+set reply_to                         # reply to Reply to: field
