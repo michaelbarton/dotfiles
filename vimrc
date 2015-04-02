@@ -164,8 +164,9 @@ endfunction
 
 set wildignore=*.pyc
 
-au BufNewFile,BufRead GHI_* set filetype=markdown
-au BufNewFile,BufRead Vagrantfile set filetype=ruby
+au BufNewFile,BufRead *.muttrc     set filetype=muttrc
+au BufNewFile,BufRead GHI_*        set filetype=markdown
+au BufNewFile,BufRead Vagrantfile  set filetype=ruby
 
 " }}}
 " {{{ GUI
