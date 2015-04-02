@@ -21,7 +21,6 @@ set pager_index_lines= 10
 set implicit_autoview = yes
 
 
-source "~/Dropbox/personal/address.muttrc"
 
 #{{{1 Mailbox appearance
 
@@ -40,26 +39,6 @@ set reply_to                         # reply to Reply to: field
 
 #{{{1 Personal email account
 
-set folder = $HOME/.maildb/michaelbarton/
-set spoolfile = "+Inbox"
-folder-hook $HOME/.maildb/michaelbarton/ "\
-  set postponed = +'[Google Mail].Drafts' \
-      record    = +'[Google Mail].Sent Mail' \
-      from      = '$realname <mail@michaelbarton.me.uk>' \
-      sendmail  = '/usr/local/bin/msmtp -a personal' \
-      sendmail_wait = 0 \
-
-
-#{{{1 JGI email account
-
-set folder = $HOME/.maildb/jgi/
-set spoolfile = "+Inbox"
-folder-hook $HOME/.maildb/jgi/ "\
-  set postponed = +[Gmail].Drafts \
-      record    = +[Gmail].'Sent Mail' \
-      from      = '$realname <mbarton@lbl.gov>' \
-      sendmail  = '/usr/local/bin/msmtp -a jgi' \
-      sendmail_wait = 0 \
 
 #{{{1 Displayed headers
 
@@ -99,3 +78,6 @@ macro index,pager <space>f '<change-folder>~/.maildb/michaelbarton/[Google<quote
 
 # Search
 macro index S "<enter-command>unset wait_key<enter><shell-escape>mutt-notmuch-py ~/.maildb/jgi/temporary/search<enter><change-folder-readonly>+temporary/search<enter>" "search mail (using notmuch)"
+
+source "~/Dropbox/personal/address.muttrc"
+source "$HOME/.dotfiles/mutt/accounts.muttrc"
