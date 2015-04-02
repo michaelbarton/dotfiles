@@ -22,14 +22,6 @@ set implicit_autoview = yes
 
 
 
-#{{{1 Mailbox appearance
-
-set sort_aux = 'last-date-received'
-set index_format = "[%Z]  %D  %-20.20F  %s"
-set date_format = "%m/%d"
-set nostrict_threads
-set sort = 'threads'
-
 #{{{1 Composing emails
 
 set forward_format = "Fwd: %s"
@@ -39,6 +31,7 @@ set reply_to                         # reply to Reply to: field
 
 source "~/Dropbox/personal/address.muttrc"
 
+source "$HOME/.dotfiles/mutt/appearance.muttrc"
 source "$HOME/.dotfiles/mutt/headers.muttrc"
 source "$HOME/.dotfiles/mutt/keymap.muttrc"
 source "$HOME/.dotfiles/mutt/colors.muttrc"

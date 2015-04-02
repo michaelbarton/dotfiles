@@ -1,0 +1,5 @@
+set sort_aux = 'last-date-received'
+set index_format = "[%Z]  %D  %-20.20F  %s"
+set date_format = "%m/%d"
+set nostrict_threads
+set sort = 'threads'
