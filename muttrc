@@ -80,4 +80,6 @@ macro index,pager <space>f '<change-folder>~/.maildb/michaelbarton/[Google<quote
 macro index S "<enter-command>unset wait_key<enter><shell-escape>mutt-notmuch-py ~/.maildb/jgi/temporary/search<enter><change-folder-readonly>+temporary/search<enter>" "search mail (using notmuch)"
 
 source "~/Dropbox/personal/address.muttrc"
+
+source "$HOME/.dotfiles/mutt/encrypt.muttrc"
 source "$HOME/.dotfiles/mutt/accounts.muttrc"
