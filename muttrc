@@ -60,10 +60,6 @@ unignore User-Agent:
 # Now order the visable header lines
 hdr_order Date: From: To: CC: BCC: Reply-To: Subject: Organization: User-Agent:
 
-#{{{1 Colors
-
-source ~/.mutt/colors
-
 #{{{1 Keymaps
 
 macro index,pager <space>q "<change-folder>~/.maildb/jgi/INBOX<enter>" "Go to jgi mail"
@@ -81,5 +77,6 @@ macro index S "<enter-command>unset wait_key<enter><shell-escape>mutt-notmuch-py
 
 source "~/Dropbox/personal/address.muttrc"
 
+source "$HOME/.dotfiles/mutt/colors.muttrc"
 source "$HOME/.dotfiles/mutt/encrypt.muttrc"
 source "$HOME/.dotfiles/mutt/accounts.muttrc"
