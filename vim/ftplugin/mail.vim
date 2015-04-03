@@ -6,6 +6,7 @@ setlocal spelllang=en_gb
 setlocal spell
 
 " Reformat file contents when it's opened for editting
+%!mail-text-formatter -f %
 %!par -w75 -rTbgqR B\=.,?_A_a Q\=_s\>\|
 
 syntax enable
