@@ -7,4 +7,4 @@ set sort = 'threads'
 set sidebar_width=26
 set sidebar_visible=yes
 set sidebar_delim='|'
-mailboxes $HOME/.maildb/michaelbarton/Inbox $HOME/.maildb/jgi/Inbox
+mailboxes $HOME/.maildb/michaelbarton/Inbox $HOME/.maildb/jgi/Inbox $HOME/.maildb/michaelbarton/bioboxes $HOME/.maildb/michaelbarton/ci-server

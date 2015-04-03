@@ -10,3 +10,8 @@ macro index,pager <space>f '<change-folder>~/.maildb/michaelbarton/[Google<quote
 
 # Search
 macro index S "<enter-command>unset wait_key<enter><shell-escape>mutt-notmuch-py ~/.maildb/jgi/temporary/search<enter><change-folder-readonly>+temporary/search<enter>" "search mail (using notmuch)"
+
+# Sidebar
+macro index,pager <up>    "<sidebar-prev>" "Next sidebar folder"
+macro index,pager <down>  "<sidebar-next>" "Previous sidebar folder"
+macro index,pager <right> "<sidebar-open>" "Open selected sidebar folder"
