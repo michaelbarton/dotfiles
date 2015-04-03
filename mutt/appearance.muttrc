@@ -3,3 +3,8 @@ set index_format = "[%Z]  %D  %-20.20F  %s"
 set date_format = "%m/%d"
 set nostrict_threads
 set sort = 'threads'
+
+set sidebar_width=26
+set sidebar_visible=yes
+set sidebar_delim='|'
+mailboxes $HOME/.maildb/michaelbarton/Inbox $HOME/.maildb/jgi/Inbox
