@@ -20,82 +20,12 @@ set query_command="/usr/local/bin/lbdbq '%s'"
 set pager_index_lines= 10
 set implicit_autoview = yes
 
-
 source "~/Dropbox/personal/address.muttrc"
 
-#{{{1 Mailbox appearance
-
-set sort_aux = 'last-date-received'
-set index_format = "[%Z]  %D  %-20.20F  %s"
-set date_format = "%m/%d"
-set nostrict_threads
-set sort = 'threads'
-
-#{{{1 Composing emails
-
-set forward_format = "Fwd: %s"
-set fast_reply=yes
-set forward_decode                   # decode when forwarding
-set reply_to                         # reply to Reply to: field
-
-#{{{1 Personal email account
-
-set folder = $HOME/.maildb/michaelbarton/
-set spoolfile = "+Inbox"
-folder-hook $HOME/.maildb/michaelbarton/ "\
-  set postponed = +'[Google Mail].Drafts' \
-      record    = +'[Google Mail].Sent Mail' \
-      from      = '$realname <mail@michaelbarton.me.uk>' \
-      sendmail  = '/usr/local/bin/msmtp -a personal' \
-      sendmail_wait = 0 \
-
-
-#{{{1 JGI email account
-
-set folder = $HOME/.maildb/jgi/
-set spoolfile = "+Inbox"
-folder-hook $HOME/.maildb/jgi/ "\
-  set postponed = +[Gmail].Drafts \
-      record    = +[Gmail].'Sent Mail' \
-      from      = '$realname <mbarton@lbl.gov>' \
-      sendmail  = '/usr/local/bin/msmtp -a jgi' \
-      sendmail_wait = 0 \
-
-#{{{1 Displayed headers
-
-# Ignore all headers
-ignore *
-
-# Then un-ignore the ones I want to see
-unignore From:
-unignore To:
-unignore Reply-To:
-unignore Subject:
-unignore Date:
-unignore Organization:
-unignore Newsgroups:
-unignore CC:
-unignore BCC:
-unignore User-Agent:
-
-# Now order the visable header lines
-hdr_order Date: From: To: CC: BCC: Reply-To: Subject: Organization: User-Agent:
-
-#{{{1 Colors
-
-source ~/.mutt/colors
-
-#{{{1 Keymaps
-
-macro index,pager <space>q "<change-folder>~/.maildb/jgi/INBOX<enter>" "Go to jgi mail"
-macro index,pager <space>w '<change-folder>~/.maildb/jgi/[Gmail].All<quote-char> Mail<enter>' "Go to all mail"
-macro index,pager <space>e '<change-folder>~/.maildb/jgi/[Gmail].Sent<quote-char> Mail<enter>' "Go to sent mail"
-macro index,pager <space>r '<change-folder>~/.maildb/jgi/[Gmail].Drafts<enter>' "Go to drafts"
-
-macro index,pager <space>a "<change-folder>~/.maildb/michaelbarton/INBOX<enter>" "Go to michaelbarton mail"
-macro index,pager <space>s '<change-folder>~/.maildb/michaelbarton/[Google<quote-char> Mail].All<quote-char> Mail<enter>' "Go to all mail"
-macro index,pager <space>d '<change-folder>~/.maildb/michaelbarton/[Google<quote-char> Mail].Sent<quote-char> Mail<enter>' "Go to sent mail"
-macro index,pager <space>f '<change-folder>~/.maildb/michaelbarton/[Google<quote-char> Mail].Drafts<enter>' "Go to drafts"
-
-# Search
-macro index S "<enter-command>unset wait_key<enter><shell-escape>mutt-notmuch-py ~/.maildb/jgi/temporary/search<enter><change-folder-readonly>+temporary/search<enter>" "search mail (using notmuch)"
+source "$HOME/.dotfiles/mutt/compose.muttrc"
+source "$HOME/.dotfiles/mutt/appearance.muttrc"
+source "$HOME/.dotfiles/mutt/headers.muttrc"
+source "$HOME/.dotfiles/mutt/keymap.muttrc"
+source "$HOME/.dotfiles/mutt/colors.muttrc"
+source "$HOME/.dotfiles/mutt/encypt.muttrc"
+source "$HOME/.dotfiles/mutt/accounts.muttrc"
