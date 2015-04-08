@@ -56,6 +56,12 @@ Bundle "ekalinin/Dockerfile.vim"
 " Seemless navigation between vim and tmux windows
 Bundle 'christoomey/vim-tmux-navigator'
 
+" Manage git repositories inside vim
+Bundle 'tpope/vim-fugitive'
+
+" Syntax highlighting for less file
+Bundle 'groenewege/vim-less'
+
 "}}}
 "{{{ GENERAL CONFIG
 
