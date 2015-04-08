@@ -9,6 +9,9 @@ filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
+" Sensible vim plugins
+Bundle "tpope/vim-sensible"
+
 " let Vundle manage Vundle
 Bundle 'gmarik/vundle'
 
@@ -64,12 +67,6 @@ Bundle 'groenewege/vim-less'
 
 "}}}
 "{{{ GENERAL CONFIG
-
-" Filetype-specific indenting and plugins
-filetype plugin indent on
-
-scriptencoding utf-8
-set encoding=utf-8
 
 " I don't use swap files
 set noswapfile
@@ -128,26 +125,15 @@ set hlsearch
 " Ten rows at top and bottom of screen
 set scrolloff=7
 
-" Set backspace to work in all situations
-set backspace=indent,eol,start
-
 " }}}
 " {{{ APPEARANCE
-syntax enable
 colorscheme solarized
 
 " Add number column on left-hand side
 set number
 
-" Make the status bar appear
-set laststatus=2
-
 " Highlight the cursor position
 set cursorline
-
-
-" higlight trailing whitespace with a dot
-set list listchars=trail:·,tab:»·
 
 " }}}
 " {{{ AUTOCOMMANDS
