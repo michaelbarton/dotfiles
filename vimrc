@@ -158,6 +158,7 @@ set wildignore=*.pyc
 
 au BufNewFile,BufRead *.muttrc     set filetype=muttrc
 au BufNewFile,BufRead GHI_*        set filetype=markdown
+au BufNewFile,BufRead *.md         set filetype=markdown
 au BufNewFile,BufRead Vagrantfile  set filetype=ruby
 
 " }}}
