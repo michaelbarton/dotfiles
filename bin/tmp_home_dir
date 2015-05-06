@@ -2,12 +2,17 @@
 
 set -o nounset
 set -o errexit
+set -o xtrace
 
-DST=$HOME/$1
+shopt -s dotglob
 
-if [[ -e ${DST} ]]; then
-  TMP="${DST}-$(date +'%Y-%m-%d')"
-  mv ${DST} ${TMP}
-  trash ${TMP}
+PATH=${PATH}:/usr/local/bin
+DST=${HOME}/$1
+
+if test -n "$(ls ${DST})"
+then
+	TMP="${DST}-$(date +'%Y-%m-%d')"
+	mkdir -p ${TMP}
+	mv ${DST}/* ${TMP}
+	trash ${TMP}
 fi
-mkdir ${DST}
