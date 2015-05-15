@@ -3,7 +3,6 @@ coreutils
 csvfix
 git
 gnupg
-latex-mk
 lesspipe
 msmtp
 notmuch
@@ -12,7 +11,6 @@ openssl
 par
 parallel
 pbzip2
-pdfjam
 pngcrush
 psgrep
 reattach-to-user-namespace
@@ -21,5 +19,5 @@ trash
 urlview
 w3m
 wget
-xpdf
 xz
+zsh
