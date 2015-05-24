@@ -136,6 +136,8 @@ set number
 
 " Highlight the cursor position
 set cursorline
+highlight clear CursorLine
+highlight CursorLine term=underline cterm=underline
 
 " }}}
 " {{{ AUTOCOMMANDS
