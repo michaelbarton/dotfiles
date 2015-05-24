@@ -127,6 +127,8 @@ set scrolloff=7
 
 " }}}
 " {{{ APPEARANCE
+let g:solarized_termcolors = 256
+let g:solarized_termtrans  = 1
 colorscheme solarized
 
 " Add number column on left-hand side
