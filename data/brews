@@ -1,9 +1,11 @@
-cmake
 ack
+cmake
 coreutils
 csvfix
+fswatch
 git
 gnupg
+hub
 lesspipe
 msmtp
 notmuch
@@ -18,10 +20,7 @@ reattach-to-user-namespace
 tmux
 trash
 urlview
+vim
 w3m
 wget
 xz
-zsh
-vim
-hub
-fswatch
