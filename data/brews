@@ -1,3 +1,4 @@
+cmake
 ack
 coreutils
 csvfix
@@ -21,3 +22,6 @@ w3m
 wget
 xz
 zsh
+vim
+hub
+fswatch
