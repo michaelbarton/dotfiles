@@ -134,15 +134,15 @@ colorscheme solarized
 " Add number column on left-hand side
 set number
 
-" Highlight the cursor position
 set cursorline
-highlight clear CursorLine
-highlight CursorLine term=underline cterm=underline
 
-" }}}
-" {{{ AUTOCOMMANDS
+function! SetColors()
+	set background=dark
+	highlight clear CursorLine
+	highlight CursorLine term=underline cterm=underline
+endfunction
 
-au BufEnter * set background=dark
+au BufEnter * call SetColors()
 
 " }}}
 " {{{ FUNCTIONS
