@@ -69,21 +69,14 @@ Create maildb directories e.g.
 
     mkdir -p ~/.maildb/michaelbarton ~/.maildb/jgi
 
-Set up gmail certificates:
+Set up certificates files:
 
-    openssl s_client -connect imap.gmail.com:993 >| imap.cert.pub
-    openssl x509 -noout -fingerprint -in imap.cert.pub \
-      | cut -d = -f 2 \
-      | tr -d ':' \
-      | tr '[:upper:]' '[:lower:]'
-
-Add the generated fingerprint to the offlinemaprc file if required.
+    ruby -ropenssl -e "p OpenSSL::X509::DEFAULT_CERT_FILE"
 
 ## Mutt
 
-    mkdir ~/.mutt ln -s
-    ~/.dotfiles/solarized/mutt-colors-solarized/mutt-colors-solarized-dark-256.muttrc
-    ~/.mutt/colors
+    mkdir ~/.mutt
+    ln -s ~/.dotfiles/solarized/mutt-colors-solarized/mutt-colors-solarized-dark-256.muttrc ~/.mutt/colors
 
 ## iterm2
 

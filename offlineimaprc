@@ -35,11 +35,11 @@ type = Gmail
 remoteuser = mbarton@lbl.gov
 remotepasseval = get_keychain_pass(account="jgi.gmail")
 realdelete = no
-sslcacertfile = /usr/local/share/ca-bundle.crt
+sslcacertfile = /usr/local/etc/openssl/cert.pem
 
 [Repository personal-remote]
 type = Gmail
 remoteuser = mail@michaelbarton.me.uk
 remotepasseval = get_keychain_pass(account="personal.gmail")
 realdelete = no
-sslcacertfile = /usr/local/share/ca-bundle.crt
+sslcacertfile = /usr/local/etc/openssl/cert.pem
