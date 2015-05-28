@@ -1,6 +1,12 @@
 #!/bin/bash
 
 FILE=`/usr/local/bin/gmktemp --suffix=.pdf`
-EVERNOTE=/Applications/Evernote.app
+EVERNOTE=${HOME}/Applications/Evernote.app
 
-pdfjam $1 $2 -o $FILE && open -a $EVERNOTE $FILE &
+gs -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -dSAFER \
+   -dFirstPage=${1} \
+   -dLastPage=${2} \
+   -sOutputFile=${FILE} \
+   ${3}
+
+open -a $EVERNOTE $FILE &
