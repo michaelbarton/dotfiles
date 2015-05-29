@@ -65,6 +65,9 @@ Bundle 'tpope/vim-fugitive'
 " Syntax highlighting for less file
 Bundle 'groenewege/vim-less'
 
+" GPG encrypted file
+Bundle 'jamessan/vim-gnupg'
+
 "}}}
 "{{{ GENERAL CONFIG
 
