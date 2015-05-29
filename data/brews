@@ -1,10 +1,17 @@
+Caskroom/cask/firefox
+Caskroom/cask/gpgtools
+Caskroom/cask/pastor
+Caskroom/cask/selfcontrol
+Caskroom/cask/evernote
 ack
 cmake
 coreutils
-csvfix
+csv-fix
 fswatch
+ghostscript
 git
 gnupg
+gpg
 hub
 lesspipe
 msmtp
@@ -24,4 +31,3 @@ vim
 w3m
 wget
 xz
-gs

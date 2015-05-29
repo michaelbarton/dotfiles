@@ -1,6 +1,5 @@
 #!/bin/bash
 
-set -o errexit
 set -o nounset
 set -o xtrace
 
@@ -20,14 +19,5 @@ if [[ ! -z ${INSTALLED} ]]; then
     brew upgrade ${INSTALLED}
 fi
 
-exit
-
-
-$INSTALL kevwil/patches/mutt --with-debug --with-s-lang --with-sidebar-patch
-
-$INSTALL aspell --lang=en
-
-echo $BREWS | xargs $INSTALL
-
-brew upgrade
-brew cleanup
+brew install kevwil/patches/mutt --with-debug --with-s-lang --with-sidebar-patch
+brew install aspell --lang=en
