@@ -158,6 +158,12 @@ function! Iso8601Date()
   set formatoptions+=a
 endfunction
 
+" Insert human readable date
+function! HumanDate()
+  r!date
+endfunction
+
+
 "}}}
 "{{{ FILETYPES
 
@@ -214,7 +220,7 @@ map <right> <nop>
 " }}}
 "{{{ LEADER KEY MAPS
 " {{{ UPPER LEFT
-nnoremap <leader>q :call Iso8601Date()<CR>A : 
+nnoremap <leader>q <ESC>:1<CR>a= <ESC>:call HumanDate()<CR>0bJA =<CR><CR><ESC>
 nnoremap <leader>w <nop>
 nnoremap <leader>e <nop>
 nnoremap <leader>E <nop>
@@ -256,14 +262,14 @@ nnoremap <leader>m <nop>
 " }}}
 "{{{ LEADER NUMBER KEY MAPS - COMMON LOCATIONS
 
-nnoremap <leader>1 :e ~/Dropbox/personal/daily.log<CR>
-nnoremap <leader>2 :e ~/Dropbox/personal/wiki/Futures.wiki<CR>    " My TODO page
-nnoremap <leader>3 :e ~/Dropbox/personal/wiki/index.wiki<CR>      " Index page for wiki
-nnoremap <leader>4 :e ~/Dropbox/personal/wiki/Reflection.wiki<CR>
-nnoremap <leader>5 :e ~/Dropbox/personal/wiki/Daily\ Todo.wiki<CR>
-nnoremap <leader>6 :e ~/Dropbox/personal/wiki/Evening\ Todo.wiki<CR>
-nnoremap <leader>7 :e ~/Dropbox/personal/wiki/Week\ Days\ Todo.wiki<CR>
-nnoremap <leader>8 :e ~/Dropbox/personal/wiki/Friday\ Todo.wiki<CR>
+nnoremap <leader>1 :e ~/Dropbox/personal/journal.gpg<CR>
+nnoremap <leader>2 :e ~/Dropbox/personal/wiki/index.wiki<CR>      " Index page for wiki
+nnoremap <leader>3 <nop>
+nnoremap <leader>4 <nop>
+nnoremap <leader>5 <nop>
+nnoremap <leader>6 <nop>
+nnoremap <leader>7 <nop>
+nnoremap <leader>8 <nop>
 nnoremap <leader>9 <nop>
 nnoremap <leader>0 :e $MYVIMRC<CR>                                " My .vimrc file
 
@@ -272,7 +278,7 @@ nnoremap <leader>0 :e $MYVIMRC<CR>                                " My .vimrc fi
 
 nnoremap <F1>  <ESC>:source $MYVIMRC<CR> " Re-source the vimrc file
 set pastetoggle=<F2>
-nnoremap <F3>  <nop>
+nnoremap <F3>  <ESC>:2,.w !echo `wc -w` words<CR>
 nnoremap <F4>  <nop>
 nnoremap <F5>  <nop>
 nnoremap <F6>  <nop>
