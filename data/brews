@@ -1,4 +1,4 @@
-Caskroom/cask/xquartz
+Caskroom/cask/R
 Caskroom/cask/adium
 Caskroom/cask/evernote
 Caskroom/cask/firefox
@@ -30,6 +30,7 @@ pbzip2
 pngcrush
 psgrep
 reattach-to-user-namespace
+stow
 tmux
 trash
 urlview
@@ -37,13 +38,3 @@ vim
 w3m
 wget
 xz
-Caskroom/cask/xquartz
-Caskroom/cask/adium
-Caskroom/cask/evernote
-Caskroom/cask/firefox
-Caskroom/cask/gitter
-Caskroom/cask/gpgtools
-Caskroom/cask/inkscape
-Caskroom/cask/pastor
-Caskroom/cask/selfcontrol
-Caskroom/cask/spotify

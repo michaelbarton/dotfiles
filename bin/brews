@@ -11,6 +11,9 @@ INSTALLED=$(comm -1 -2 <(brew list) ${BREW_FILE} | tr '\n' ' ')
 brew tap kevwil/patches
 brew update
 
+# Install before other applications requiring this
+brew install Caskroom/cask/xquartz
+
 if [[ ! -z ${MISSING} ]]; then
     brew install ${MISSING}
 fi
