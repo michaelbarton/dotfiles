@@ -1,6 +1,5 @@
 #!/bin/zsh
 
-alias zen='cd ~/.zen'
 alias cache='cd ~/cache'
 alias cellar='cd /usr/local/Cellar'
 
