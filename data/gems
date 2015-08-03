@@ -1,5 +1,5 @@
+autotest-fsevent
+autotest-standalone
+bundler
 ghi
 rake
-bundler
-autotest-standalone
-autotest-fsevent
