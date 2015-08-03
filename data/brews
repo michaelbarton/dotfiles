@@ -5,10 +5,12 @@ Caskroom/cask/firefox
 Caskroom/cask/gitter
 Caskroom/cask/gpgtools
 Caskroom/cask/inkscape
+Caskroom/cask/iterm2
 Caskroom/cask/pastor
 Caskroom/cask/selfcontrol
 Caskroom/cask/spotify
 ack
+boot2docker
 cmake
 coreutils
 csv-fix
