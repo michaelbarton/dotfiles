@@ -8,7 +8,7 @@
 	<string>uk.me.michaelbarton.make_cache</string>
 	<key>ProgramArguments</key>
 	<array>
-		<string>/Users/mbarton/.bin/tmp_home_dir</string>
+		<string>/usr/local/bin/tmp_home_dir</string>
 		<string>cache</string>
 	</array>
 	<key>RunAtLoad</key>
