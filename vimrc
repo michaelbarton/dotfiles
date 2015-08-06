@@ -110,6 +110,9 @@ set shortmess+=I
 " Use system clipboard
 set clipboard=unnamed
 
+" Write buffers without prompting
+set autowrite
+
 if v:version >= 703
   " Keep undo file of previous actions
   set undofile
