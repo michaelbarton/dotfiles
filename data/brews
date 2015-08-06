@@ -9,6 +9,7 @@ Caskroom/cask/iterm2
 Caskroom/cask/pastor
 Caskroom/cask/selfcontrol
 Caskroom/cask/spotify
+Caskroom/cask/cyberduck
 ack
 boot2docker
 cmake
@@ -40,3 +41,4 @@ vim
 w3m
 wget
 xz
+jq
