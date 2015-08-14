@@ -15,8 +15,6 @@ alias log='add_log_entry'
 alias lls='ls -l --color=auto'
 alias lst='ls -ltr --color=auto'
 
-alias vim='vim -w ~/.vim/log "$@"'
-
 # Vim instead of vi
 alias vi='vim'
 
