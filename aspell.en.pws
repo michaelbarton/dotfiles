@@ -1,4 +1,4 @@
-personal_ws-1.1 en 506
+personal_ws-1.1 en 508
 absorbance
 ABySS
 ActiveRecord
@@ -398,6 +398,7 @@ rakefiles
 RAxML
 rcoffee
 rDNA
+README
 readonly
 readseq
 redox
@@ -452,6 +453,7 @@ synthase
 synthases
 syringae
 tandemly
+Taskfile
 taxa
 terabases
 tetramer
