@@ -50,9 +50,6 @@ Bundle 'bling/vim-airline'
 " Interactive clojure repl for vim
 Bundle 'tpope/vim-fireplace'
 
-" Tab completion plugin
-Bundle 'Valloric/YouCompleteMe'
-
 " Syntax highlighting for Dockerfiles
 Bundle "ekalinin/Dockerfile.vim"
 
@@ -166,6 +163,12 @@ function! HumanDate()
   r!date
 endfunction
 
+" Removes trailing spaces
+
+function! TrimWhiteSpace()
+  %s/\s\+$//e
+endfunction
+autocmd BufWritePre * :call TrimWhiteSpace()
 
 "}}}
 "{{{ FILETYPES
