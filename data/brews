@@ -1,5 +1,6 @@
 Caskroom/cask/R
 Caskroom/cask/adium
+Caskroom/cask/cyberduck
 Caskroom/cask/evernote
 Caskroom/cask/firefox
 Caskroom/cask/gitter
@@ -9,8 +10,10 @@ Caskroom/cask/iterm2
 Caskroom/cask/pastor
 Caskroom/cask/selfcontrol
 Caskroom/cask/spotify
-Caskroom/cask/cyberduck
+Caskroom/cask/vagrant
+Caskroom/cask/virtualbox
 ack
+ag
 boot2docker
 cmake
 coreutils
@@ -22,6 +25,7 @@ git
 gnupg
 gpg
 hub
+jq
 lesspipe
 msmtp
 notmuch
@@ -41,4 +45,3 @@ vim
 w3m
 wget
 xz
-jq
