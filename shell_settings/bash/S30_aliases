@@ -26,10 +26,3 @@ alias octave='octave --quiet'
 
 # Print grep results in color
 alias grep='grep --color=auto'
-
-# Tmux
-
-function tkw { tmux kill-window -t $1 }
-function tks { tmux kill-session -t $1 && tmux list-session}
-function tss { tmux switch-client -t $1 }
-function tls { tmux list-session }
