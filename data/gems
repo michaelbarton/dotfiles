@@ -1,5 +1,6 @@
 autotest-fsevent
 autotest-standalone
+awesome_print
 bundler
 ghi
 rake
