@@ -29,6 +29,7 @@ gpg
 https://raw.githubusercontent.com/localmed/homebrew/4bf4c8f0cc23808a4317d34bca7343e974285213/Library/Formula/jira-cli.rb
 hub
 jq
+leiningen
 lesspipe
 msmtp
 notmuch
