@@ -7,6 +7,8 @@ Caskroom/cask/gitter
 Caskroom/cask/gpgtools
 Caskroom/cask/inkscape
 Caskroom/cask/iterm2
+Caskroom/cask/java
+Caskroom/cask/mactex
 Caskroom/cask/pastor
 Caskroom/cask/selfcontrol
 Caskroom/cask/spotify
@@ -24,8 +26,10 @@ ghostscript
 git
 gnupg
 gpg
+https://raw.githubusercontent.com/localmed/homebrew/4bf4c8f0cc23808a4317d34bca7343e974285213/Library/Formula/jira-cli.rb
 hub
 jq
+leiningen
 lesspipe
 msmtp
 notmuch
@@ -37,6 +41,7 @@ pbzip2
 pngcrush
 psgrep
 reattach-to-user-namespace
+ruby
 stow
 tmux
 trash

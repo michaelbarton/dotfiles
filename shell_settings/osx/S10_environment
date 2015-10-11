@@ -10,6 +10,4 @@ export EC2_HOME="/usr/local/Cellar/ec2-api-tools/1.7.1.0/libexec"
 export GITHUB_TOKEN=`get-pass github.token`
 export HOMEBREW_GITHUB_API_TOKEN=$GITHUB_TOKEN
 
-export DOCKER_HOST="tcp://$(boot2docker ip 2> /dev/null):2376"
-export DOCKER_CERT_PATH="$HOME/.boot2docker/certs/boot2docker-vm"
-export DOCKER_TLS_VERIFY=1
+eval "$(docker-machine env default)"
