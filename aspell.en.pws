@@ -1,4 +1,4 @@
-personal_ws-1.1 en 508
+personal_ws-1.1 en 513
 absorbance
 ABySS
 ActiveRecord
@@ -29,6 +29,7 @@ assemblathons
 ATPase
 barcode
 barcodes
+barcoding
 bashrc
 bayanus
 BBSRC
@@ -75,6 +76,7 @@ circos
 citeulike
 CLI
 clojure
+Clum
 clustalw
 CMP
 codeml
@@ -207,6 +209,7 @@ Illumina
 img
 indels
 indices
+informatics
 Inkscape
 Inositol
 Interoperability
@@ -317,6 +320,7 @@ OTU
 OTUs
 overfit
 overfitting
+PacBio
 PAML
 paradoxus
 parallelisation
@@ -416,6 +420,7 @@ Ronn
 Roraima
 rRNA
 rRNAs
+RSII
 RSpec
 RSS
 RubyGems
