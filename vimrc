@@ -65,6 +65,9 @@ Bundle 'groenewege/vim-less'
 " GPG encrypted file
 Bundle 'jamessan/vim-gnupg'
 
+" Additional text objects for vim
+Bundle 'wellle/targets.vim'
+
 "}}}
 "{{{ GENERAL CONFIG
 
