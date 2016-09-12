@@ -15,3 +15,6 @@ macro index S "<enter-command>unset wait_key<enter><shell-escape>mutt-notmuch-py
 macro index,pager <up>    "<sidebar-prev>" "Next sidebar folder"
 macro index,pager <down>  "<sidebar-next>" "Previous sidebar folder"
 macro index,pager <right> "<sidebar-open>" "Open selected sidebar folder"
+
+# Show encryption menu after composing message
+bind compose p pgp-menu
