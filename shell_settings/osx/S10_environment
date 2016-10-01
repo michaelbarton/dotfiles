@@ -9,5 +9,3 @@ export EC2_HOME="/usr/local/Cellar/ec2-api-tools/1.7.1.0/libexec"
 
 export GITHUB_TOKEN=`get-pass github.token`
 export HOMEBREW_GITHUB_API_TOKEN=$GITHUB_TOKEN
-
-eval "$(docker-machine env default)"
