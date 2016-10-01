@@ -145,13 +145,15 @@ set number
 
 set cursorline
 
-function! SetColors()
-	set background=dark
-	highlight clear CursorLine
-	highlight CursorLine term=underline cterm=underline
-endfunction
+set background=dark
+highlight clear CursorLine
+highlight CursorLine term=underline cterm=underline
 
-au BufEnter * call SetColors()
+" Enable viewing of fancy characters
+set encoding=utf-8
+
+" Use patched fonts for powerline status bar
+let g:airline_powerline_fonts = 1
 
 " }}}
 " {{{ FUNCTIONS
