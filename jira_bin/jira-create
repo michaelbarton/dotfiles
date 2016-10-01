@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -e
+
+~/.jira/bin/jira create --template $1

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+
+JIRA="jira --user=mbarton --password=`get-pass jgi.jira` --server=https://issues.jgi-psf.org/"
+
+if [ -z "$1" ]; then
+    echo "JIRA issue ID required" 1>&2
+    exit 1
+fi
+
+$JIRA --action=getFieldValue --issue=$1 --field=title
