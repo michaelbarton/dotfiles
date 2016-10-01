@@ -262,10 +262,8 @@ nnoremap <leader>o <nop>
 nnoremap <leader>i <nop>
 " }}}
 " {{{ HOME RIGHT
-nnoremap <leader>; <nop>
 nnoremap <leader>l <nop>
 nnoremap <leader>k <nop>
-nnoremap <leader>j <nop>
 " }}}
 " {{{ LOWER RIGHT
 nnoremap <leader>/ <nop>
