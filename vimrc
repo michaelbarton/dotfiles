@@ -68,6 +68,9 @@ Bundle 'jamessan/vim-gnupg'
 " Additional text objects for vim
 Bundle 'wellle/targets.vim'
 
+" Show list of buffers
+Plugin 'bling/vim-bufferline'
+
 "}}}
 "{{{ GENERAL CONFIG
 
