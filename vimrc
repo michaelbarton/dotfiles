@@ -222,8 +222,6 @@ inoremap jj <ESC>
 " Double leader writes the file
 nnoremap <leader><leader> <Esc>:w<CR>
 
-inoremap qq http://issues.jgi-psf.org/browse/SEQQC-
-
 " Prevent from entering Ex mode
 nnoremap Q <nop>
 
