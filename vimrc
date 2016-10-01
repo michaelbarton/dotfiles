@@ -211,10 +211,10 @@ map h <nop>
 map l <nop>
 
 " Up motion
-map k <Plug>(easymotion-b)
+map k <Plug>(easymotion-bd-b)
 
 " Down motion
-map j <Plug>(easymotion-w)
+map j <Plug>(easymotion-bd-w)
 
 " Faster Esc
 inoremap jj <ESC>
