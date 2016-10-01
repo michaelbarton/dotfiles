@@ -277,8 +277,8 @@ nnoremap <leader>m <nop>
 "{{{ LEADER NUMBER KEY MAPS - COMMON LOCATIONS
 
 nnoremap <leader>1 :e ~/Dropbox/personal/journal.gpg<CR>
-nnoremap <leader>2 :e ~/Dropbox/personal/wiki/index.wiki<CR>      " Index page for wiki
-nnoremap <leader>3 <nop>
+nnoremap <leader>2 :e ~/Dropbox/personal/wiki/index.wiki<CR>
+nnoremap <leader>3 :ScratchPreview<CR>
 nnoremap <leader>4 <nop>
 nnoremap <leader>5 <nop>
 nnoremap <leader>6 <nop>
