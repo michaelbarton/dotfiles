@@ -14,5 +14,10 @@ set pgp_list_pubring_command="gpg --no-verbose --batch --quiet --with-colons --l
 set pgp_list_secring_command="gpg --no-verbose --batch --quiet --with-colons --list-secret-keys %r"
 
 set pgp_good_sign="^gpg: Good signature from"
+
+set pgp_use_gpg_agent = yes
+set pgp_timeout = 3600
+set crypt_replyencrypt = yes
+set crypt_replysign = yes
+
 set pgp_sign_as = 6EB517B0
-set pgp_replysign = yes
