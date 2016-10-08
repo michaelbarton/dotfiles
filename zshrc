@@ -25,3 +25,5 @@ done
 for zshrc_snipplet in ~/.shell_settings/osx/S[0-9][0-9]*[^~] ; do
         source $zshrc_snipplet
 done
+
+. ${HOME}/Dropbox/personal/dotfiles/environment.sh
