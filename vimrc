@@ -131,8 +131,8 @@ let g:EasyMotion_leader_key = '<Space>'
 " Highlight search matches
 set hlsearch
 
-" Ten rows at top and bottom of screen
-set scrolloff=7
+" N rows at top and bottom of screen
+set scrolloff=9999
 
 " }}}
 " {{{ APPEARANCE
