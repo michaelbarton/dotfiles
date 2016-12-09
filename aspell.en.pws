@@ -1,4 +1,4 @@
-personal_ws-1.1 en 524
+personal_ws-1.1 en 526
 absorbance
 ABySS
 ActiveRecord
@@ -153,6 +153,7 @@ Folate
 FriendFeed
 friendfeed
 functionalisation
+GAET
 GBp
 GC
 Gemfile
@@ -428,6 +429,7 @@ ribosome
 Ronn
 Roraima
 rRNA
+rrna
 rRNAs
 RSII
 RSpec
