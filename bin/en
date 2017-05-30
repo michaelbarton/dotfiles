@@ -1,12 +1,12 @@
 #!/bin/bash
 
-FILE=`/usr/local/bin/gmktemp --suffix=.pdf`
-EVERNOTE=${HOME}/Applications/Evernote.app
+set -o errexit
+set -o nounset
 
-gs -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -dSAFER \
-   -dFirstPage=${1} \
-   -dLastPage=${2} \
-   -sOutputFile=${FILE} \
-   ${3}
+TMP=`/usr/local/bin/gmktemp --suffix=.pdf`
+EVERNOTE=~/Applications/Evernote.app
 
-open -a $EVERNOTE $FILE &
+FILE=$1
+PAGES=$2
+
+pdfjam $FILE $PAGES -o $TMP && open -a $EVERNOTE $TMP &

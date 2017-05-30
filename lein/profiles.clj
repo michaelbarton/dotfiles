@@ -12,4 +12,4 @@
                         new (ns-resolve (doto 'clj-stacktrace.repl require)
                                         'pst)]
                     (alter-var-root orig (constantly (deref new))))
-                  (require 'spyscope.core)]}}}
+                  (require 'spyscope.core)]}}
