@@ -1,4 +1,4 @@
-personal_ws-1.1 en 526
+personal_ws-1.1 en 531
 absorbance
 ABySS
 ActiveRecord
@@ -93,6 +93,7 @@ contigs
 coreutil
 coreutils
 Cornu
+covariance
 CRISPR
 CSS
 CSV
@@ -246,6 +247,7 @@ Kwalify
 LaTeX
 leu
 leucine
+loadings
 Loess
 loess
 login
@@ -403,8 +405,10 @@ pyoverdine
 pyoverdines
 pyrosequencing
 Pyruvate
+quadratically
 quantile
 quantisation
+QUAST
 rakefile
 rakefiles
 RAxML
@@ -416,6 +420,7 @@ readonly
 readseq
 redox
 Refactored
+refactoring
 relaxase
 relaxases
 replicase
