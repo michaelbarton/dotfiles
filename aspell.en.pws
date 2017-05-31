@@ -1,7 +1,160 @@
+<<<<<<< HEAD
 personal_ws-1.1 en 524
 absorbance
+=======
+personal_ws-1.1 en 531
+>>>>>>> fce4bbd1c9e3d365b1c0d719d0456c04378b9de5
 ABySS
 ActiveRecord
+<<<<<<< HEAD
+=======
+Archaea
+Arginine
+Asparagine
+Aspartate
+Assemblathon
+BBSRC
+BMC
+BioPerl
+BioRuby
+BioStar
+Bioboxes
+CLI
+CMP
+COGs
+CRISPR
+CSS
+CSV
+Clum
+Complementation
+Connotea
+Cornu
+Daltons
+Debian
+Denormalisation
+DockerHub
+Dockerfile
+Doudoroff
+EMBL
+EMR
+Entner
+Erlang
+Eubacteria
+FBA
+Folate
+FriendFeed
+GAET
+GBp
+GC
+GFF
+GMP
+Gemfile
+GenBank
+Glycerolipid
+Google
+Heizer
+HubMed
+IEEE
+Illumina
+Inkscape
+Inositol
+Interoperability
+Isoleucine
+JGI's
+JSON
+JavaScript
+KBp
+KEGG
+Kbp
+Kmer
+Kwalify
+LaTeX
+Loess
+MAFFT
+MATLAB
+MBp
+MCA
+MOMA
+Makefile
+Makefiles
+Mannan
+Mbp
+Meraculous
+Metagenomics
+Multivatiate
+MySQL
+NADH
+NADPH
+NCBI
+NKU
+NRPS
+Nunn
+ORF
+ORFs
+ORM
+OSX
+OTU
+OTUs
+Orthology
+PAML
+PCR
+PHP
+PLoS
+PVD
+PacBio
+Pentose
+Phosphatidate
+Phosphatidyl
+Phosphatidylcholine
+Phosphatidylethanolamine
+Phosphatidylserine
+Phospholipid
+Phosphorylation
+Pilus
+Ploidy
+Precedings
+Procfile
+Prokaryotes
+Proteomics
+Pseudomonad
+Pseudomonads
+Pseudomonas
+PubMed
+Pyruvate
+QUAST
+RAxML
+RDS
+README
+RSII
+RSS
+RSpec
+Refactored
+Replicons
+Ronn
+Roraima
+RubyGems
+SBW
+SGD
+SMRT
+SOLiD
+SQL
+SVN
+Saccharomyces
+Shoulda
+Spearman
+Spearman's
+Sterol
+Taskfile
+Threonine
+Trehalose
+Ubuntu
+Valine
+Wellcome
+Wikipedia
+YPD
+Zymosterol
+absorbance
+>>>>>>> fce4bbd1c9e3d365b1c0d719d0456c04378b9de5
 adaptated
 aeruginosa
 agglomerative
@@ -92,10 +245,14 @@ contig
 contigs
 coreutil
 coreutils
+<<<<<<< HEAD
 Cornu
 CRISPR
 CSS
 CSV
+=======
+covariance
+>>>>>>> fce4bbd1c9e3d365b1c0d719d0456c04378b9de5
 curation
 cyanobacterium
 cys
@@ -245,7 +402,11 @@ Kwalify
 LaTeX
 leu
 leucine
+<<<<<<< HEAD
 Loess
+=======
+loadings
+>>>>>>> fce4bbd1c9e3d365b1c0d719d0456c04378b9de5
 loess
 login
 lys
@@ -401,7 +562,11 @@ pyochelins
 pyoverdine
 pyoverdines
 pyrosequencing
+<<<<<<< HEAD
 Pyruvate
+=======
+quadratically
+>>>>>>> fce4bbd1c9e3d365b1c0d719d0456c04378b9de5
 quantile
 quantisation
 rakefile
@@ -414,7 +579,11 @@ README
 readonly
 readseq
 redox
+<<<<<<< HEAD
 Refactored
+=======
+refactoring
+>>>>>>> fce4bbd1c9e3d365b1c0d719d0456c04378b9de5
 relaxase
 relaxases
 replicase
@@ -425,6 +594,7 @@ reproducibly
 resequencing
 ribosomal
 ribosome
+<<<<<<< HEAD
 Ronn
 Roraima
 rRNA
@@ -432,6 +602,9 @@ rRNAs
 RSII
 RSpec
 RSS
+=======
+rrna
+>>>>>>> fce4bbd1c9e3d365b1c0d719d0456c04378b9de5
 ruamel
 RubyGems
 rubygems
