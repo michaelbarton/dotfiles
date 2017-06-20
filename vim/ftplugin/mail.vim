@@ -1,5 +1,5 @@
 setlocal formatoptions+=ta
-setlocal textwidth=78
+setlocal textwidth=69
 setlocal autoindent
 
 setlocal spelllang=en_gb
@@ -7,7 +7,7 @@ setlocal spell
 
 " Reformat file contents when it's opened for editting
 %!mail-text-formatter -f %
-%!par -w75 -rTbgqR B\=.,?_A_a Q\=_s\>\|
+%!par -w69 -rTbgqR B\=.,?_A_a Q\=_s\>\|
 
 syntax enable
 setlocal background=dark
