@@ -186,6 +186,7 @@ set wildignore=*.pyc,*.egg-info/*
 au BufNewFile,BufRead *.muttrc          set filetype=muttrc
 au BufNewFile,BufRead GHI_*,*.md,*.Rmd  set filetype=markdown
 au BufNewFile,BufRead Vagrantfile       set filetype=ruby
+au BufNewFile,BufRead *.cwl             set filetype=yaml
 
 autocmd User GnuPG setfiletype markdown
 
