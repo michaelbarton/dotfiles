@@ -73,6 +73,8 @@ Plugin 'bling/vim-bufferline'
 
 "}}}
 "{{{ GENERAL CONFIG
+"
+let g:vimwiki_list = [{'syntax': 'markdown'}]
 
 " I don't use swap files
 set noswapfile

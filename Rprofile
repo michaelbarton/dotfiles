@@ -5,4 +5,4 @@ setHook(packageEvent("grDevices", "onLoad"),
 
 options(prompt="R> ", digits=4, show.signif.stars=FALSE)
 
-options(repos=structure(c(CRAN="http://cran.us.r-project.org")))
+options(repos=structure(c(CRAN="https://cloud.r-project.org/")))
