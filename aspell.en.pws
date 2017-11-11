@@ -1,6 +1,7 @@
-personal_ws-1.1 en 535
+personal_ws-1.1 en 546
 ABySS
 AI
+AIC
 API
 ASM
 ATPase
@@ -22,7 +23,6 @@ COGs
 CRISPR
 CSS
 CSV
-Clum
 Complementation
 Connotea
 Cornu
@@ -31,7 +31,6 @@ Debian
 Denormalisation
 DockerHub
 Dockerfile
-Doudoroff
 EMBL
 EMR
 Entner
@@ -123,6 +122,7 @@ QUAST
 RAxML
 RDS
 README
+RMarkdown
 RSII
 RSS
 RSpec
@@ -226,6 +226,7 @@ curation
 cyanobacterium
 cys
 dAMP
+dBIC
 dCMP
 dGMP
 dN
@@ -255,6 +256,7 @@ eukaryotic
 evaluator
 exometabolome
 exon
+exponentiate
 extremophile
 extremophiles
 facultive
@@ -263,6 +265,7 @@ fastq
 fermentative
 filesystem
 fluorescens
+frequentist
 friendfeed
 functionalisation
 genomer
@@ -360,6 +363,7 @@ microarray
 microbiome
 mikatae
 millimoles
+misannotation
 misassembled
 misassemblies
 misassembly
@@ -386,12 +390,14 @@ ortholog
 orthologous
 orthologs
 orthoquartzite
+outliers
 overfit
 overfitting
 paradoxus
 parallelisation
 paralog
 paralogs
+parameterisations
 parameterised
 pathogenicity
 pdf
@@ -422,6 +428,7 @@ polynucleotides
 postgres
 powerpoint
 practices
+preprocessed
 priori
 programmatically
 prokaryotes
@@ -444,6 +451,7 @@ pyoverdines
 pyrosequencing
 quadratically
 quantile
+quantiles
 quantisation
 rDNA
 rRNA
@@ -461,6 +469,8 @@ replicase
 replicases
 reproducibility
 reproducibly
+rescale
+rescaling
 resequencing
 ribosomal
 ribosome
@@ -483,6 +493,7 @@ stoichiometries
 stoichiometry
 stutzeri
 subtilis
+superset
 svd
 synomous
 synteny
