@@ -7,11 +7,10 @@ FILE=$(mktemp -d)/dayone.mkd
 cat <<EOF > ${FILE}
 # Daily Agenda
 
-## SMART goals
-
 - [ ]
 - [ ]
 - [ ]
+- [ ] Fill out task list for next day
 EOF
 
 vim ${FILE}
