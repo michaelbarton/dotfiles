@@ -2,7 +2,7 @@
 
 set -o xtrace
 
-FILE=$(mktemp -d)/dayone.mkd
+FILE=$(mktemp -d)/daily_agenda.mkd
 
 cat <<EOF > ${FILE}
 # Daily Agenda
