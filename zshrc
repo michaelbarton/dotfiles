@@ -28,4 +28,4 @@ done
 
 . ${HOME}/Dropbox/personal/dotfiles/environment.sh
 
-. ${HOME}/local_bash_settings.sh
+. ${HOME}/.local_bash_settings.sh
