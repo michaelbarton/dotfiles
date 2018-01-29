@@ -7,6 +7,10 @@ FILE=$(mktemp -d)/daily_agenda.mkd
 cat <<EOF > ${FILE}
 # Daily Agenda
 
+## Leave by ___
+
+## SMART goals
+
 - [ ]
 - [ ]
 - [ ]
