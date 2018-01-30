@@ -11,7 +11,7 @@ cat <<EOF > ${FILE}
 
 ## SMART goals
 
-- [ ]
+- [ ] Reconcile previous budgets, update future budgets
 - [ ]
 - [ ]
 - [ ] Fill out task list for next day
