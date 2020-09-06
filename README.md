@@ -52,7 +52,10 @@ Set up the systemd scripts to run offlineimap as a [systemd timer][].
 
     # Enable the service and start a first job
     systemctl --user enable offlineimap.service offlineimap.timer
-    systemctl --user start offlineimap.service
+    systemctl --user start offlineimap.timer
+
+    # Check that offlineimap worked successfully
+    journalctl | grep offlineimap
 
 [systemd timer]: https://aishpant.dev/blog/mailing-lists/
 
