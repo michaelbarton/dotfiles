@@ -22,3 +22,4 @@ type = Gmail
 remoteuser = mail@michaelbarton.me.uk
 remotepasseval = get_lastpass_pass("3915660541127214476")
 realdelete = no
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
