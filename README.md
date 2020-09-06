@@ -1,43 +1,72 @@
-## SUBMODULES AND PACKAGES
+# Generic instructions
 
-Run the following command in the root of the dotfiles directory to pull required submodules
+Run the following command in the root of the dotfiles directory to pull
+required submodules:
 
-    git submodule init
-    git submodule update
+    git submodule update --init --recursive
 
-Run the following command to install all additional tools and apps
+Run the following command to link all the dotfiles into your home directory.
+
+    ls ~/.dotfiles | xargs -I '{}' ln -s ~/.dotfiles/{} ~/.{}
+
+Set up shell scripts.
+
+    mkdir ${HOME}/.zsh_cache/
+
+    echo "#!/bin/bash" > ${HOME}/.local_bash_settings.sh
+    chmod 700 ${HOME}/.local_bash_settings.sh
+
+
+Install required vim plugins
+
+    vim +PluginInstall +qall
+
+# Linux instructions
+
+Install common apt packages
+
+    xargs -a data/apt-packages sudo apt install --yes
+
+## Set up email
+
+Copy the msmtprc file manually, since a symlink is not recognised by the
+program.
+
+    cp ~/.dotfiles/msmtprc ~/.msmtprc
+    chmod 600 ~/.msmptprc
+
+Disable app armour for msmtp. This is required for it to be able to run the
+command that fetches the password from lastpass.
+
+    sudo ln -s /etc/apparmor.d/usr.bin.msmtp /etc/apparmor.d/disable/
+    sudo apparmor_parser -R /etc/apparmor.d/usr.bin.msmtp
+
+Set up the systemd scripts to run offlineimap as a [systemd timer][].
+
+    sudo ln -s ${HOME}/.dotfiles/systemd/user/offlineimap.service /etc/systemd/user/
+    sudo ln -s ${HOME}/.dotfiles/systemd/user/offlineimap.timer /etc/systemd/user/
+
+    # Checks the that the timer is valid
+    systemd-analyze verify /etc/systemd/user/offlineimap.timer
+
+    # Enable the service and start a first job
+    systemctl --user enable offlineimap.service offlineimap.timer
+    systemctl --user start offlineimap.service
+
+[systemd timer]: https://aishpant.dev/blog/mailing-lists/
+
+# OSX specific instructions
+
+Run the following command to install all additional tools, apps, and fonts
+using rubygems and homebrew.
 
     ~/.dotfiles/bin/brews
     ~/.dotfiles/bin/gems
     ~/.dotfiles/bin/fonts
 
-Install vim plugins
-
-    vim +PluginInstall +qall
-
-## SOFT LINK
-
-Run the following command to link all the dotfiles into your home directory.
-
-    ls ~/.dotfiles | xargs -I '{}' ln -s ~/.dotfiles/{} ~/.{}
-    
-Also softlink colors schemes
-
-   ln -s ~/.dircolors-solarized/dircolors.256dark ~/.dir_colors
-
-## SHELL
-
-I use tmux as my shell. After installation with as above, edit /etc/shells to include the line:
-
-    /usr/local/bin/tmux
-    
-Then run the following command
-
-    chsh -s /usr/local/bin/tmux
-
-## CAPS LOCK
-
-Reset caps lock to be ctrl, System Preferences > Keyboard > Modifier Keys. I find this a bit better than reaching for the actual control key with my small finger.
+Reset caps lock to be ctrl, System Preferences > Keyboard > Modifier Keys. I
+find this a bit better than reaching for the actual control key with my small
+finger.
 
 ## ITERM2
 
@@ -57,7 +86,8 @@ Download and install mactex - http://tug.org/mactex/.
 
 ## PASSWORDS
 
-Add required passwords to keychain. Then use security to fetch them in the environment. E.g. email password and github.token
+Add required passwords to keychain. Then use security to fetch them in the
+environment. E.g. email password and github.token
 
 ## Offline imap
 

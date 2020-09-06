@@ -1,8 +1,8 @@
-set folder = $HOME/.maildb/michaelbarton/
-set spoolfile = "+Inbox"
-folder-hook $HOME/.maildb/michaelbarton/ "\
+set folder = $HOME/.maildb/
+set spoolfile = "+INBOX"
+folder-hook $HOME/.maildb/ "\
   set postponed = +'[Google Mail].Drafts' \
       record    = +'[Google Mail].Sent Mail' \
       from      = '$realname <mail@michaelbarton.me.uk>' \
-      sendmail  = '/usr/local/bin/msmtp -a personal' \
+      sendmail  = 'msmtp -a gmail' \
       sendmail_wait = 0
