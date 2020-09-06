@@ -14,7 +14,7 @@ maxage = 30
 
 [Repository personal-local]
 type = Maildir
-localfolders = ~/.maildb/michaelbarton
+localfolders = ~/.maildb/
 restoreatime = no
 
 [Repository personal-remote]
