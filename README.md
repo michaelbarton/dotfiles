@@ -43,6 +43,7 @@ command that fetches the password from lastpass.
 
 Set up the systemd scripts to run offlineimap as a [systemd timer][].
 
+    ln -s ~/.dotfiles/offlineimap/rc.linux ~/.offlineimaprc
     sudo ln -s ${HOME}/.dotfiles/systemd/user/offlineimap.service /etc/systemd/user/
     sudo ln -s ${HOME}/.dotfiles/systemd/user/offlineimap.timer /etc/systemd/user/
 

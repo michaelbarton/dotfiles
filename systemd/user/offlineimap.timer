@@ -1,5 +1,6 @@
 [Unit]
 Description=Offlineimap Query Timer
+Requires=offlineimap.service
 
 [Timer]
 # start the service 2 minutes after a boot-up
