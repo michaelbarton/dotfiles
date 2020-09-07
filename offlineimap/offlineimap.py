@@ -12,6 +12,7 @@ def get_keychain_pass(account=None):
     outtext = commands.getoutput(command)
     return re.match(r'password: "(.*)"', outtext).group(1)
 
-def get_lastpass_pass(pass_id):
-    command = "lpass show --password {}".format(pass_id)
+
+def get_keyring_pass(key, value):
+    command = "secret-tool lookup {} {}".format(key, value)
     return commands.getoutput(command).strip()

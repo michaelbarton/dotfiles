@@ -41,6 +41,10 @@ command that fetches the password from lastpass.
     sudo ln -s /etc/apparmor.d/usr.bin.msmtp /etc/apparmor.d/disable/
     sudo apparmor_parser -R /etc/apparmor.d/usr.bin.msmtp
 
+Store the gmail application password as an ubuntu secret:
+
+    secret-tool store --label='Gmail application password' password gmail
+
 Set up the systemd scripts to run offlineimap as a [systemd timer][].
 
     ln -s ~/.dotfiles/offlineimap/rc.linux ~/.offlineimaprc

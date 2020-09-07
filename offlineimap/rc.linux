@@ -1,7 +1,7 @@
 # Applies to all accounts
 [general]
 metadata = ~/.offlineimap
-pythonfile = ~/.offlineimap.py
+pythonfile = ~/.offlineimap/offlineimap.py
 maxsyncaccounts = 2
 ui = basic
 ssl = yes
@@ -20,6 +20,6 @@ restoreatime = no
 [Repository personal-remote]
 type = Gmail
 remoteuser = mail@michaelbarton.me.uk
-remotepasseval = get_lastpass_pass("3915660541127214476")
+remotepasseval = get_keyring_pass("password", "gmail")
 realdelete = no
 sslcacertfile = /etc/ssl/certs/ca-certificates.crt
