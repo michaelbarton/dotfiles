@@ -1,4 +1,5 @@
 hub
+inkscape
 lastpass-cli
 libsecret-tools
 msmtp
@@ -7,6 +8,8 @@ neovim
 offlineimap
 openssl
 ripgrep
+sqlite
+sqlitebrowser
 texlive-latex-extra
 tmux
 w3m
