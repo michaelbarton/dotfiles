@@ -1,0 +1,13 @@
+[Unit]
+Description=Sync email to computuer
+
+[Service]
+# execute the action and stop
+Type=oneshot
+ExecStart=/usr/bin/offlineimap
+
+# give 120 seconds for offlineimap to gracefully stop before hard killing it
+TimeoutStopSec=120
+
+[Install]
+WantedBy=mail.target

@@ -1,0 +1,13 @@
+[Unit]
+Description=Offlineimap Query Timer
+Requires=offlineimap.service
+
+[Timer]
+# start the service 2 minutes after a boot-up
+OnBootSec=2m
+
+# the timer will run the service every 5 minutes
+OnUnitInactiveSec=5m
+
+[Install]
+WantedBy=default.target
