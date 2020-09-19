@@ -63,6 +63,14 @@ Set up the systemd scripts to run offlineimap as a [systemd timer][].
 
 [systemd timer]: https://aishpant.dev/blog/mailing-lists/
 
+## Node JS
+
+The nodejs in the apt package listings appears to be out of date, and is not
+the the recommended way of installing.
+    
+    curl -sL https://deb.nodesource.com/setup | sudo -E bash -
+    sudo apt-get install -y nodejs
+
 # OSX specific instructions
 
 Run the following command to install all additional tools, apps, and fonts

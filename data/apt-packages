@@ -1,3 +1,4 @@
+curl
 hub
 inkscape
 lastpass-cli
@@ -13,4 +14,5 @@ sqlitebrowser
 texlive-latex-extra
 tmux
 w3m
+wget
 zsh
