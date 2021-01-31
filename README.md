@@ -25,6 +25,12 @@ Install required vim plugins
 
 Install common apt packages
 
+    # Add gh command line source package repo
+    # https://github.com/cli/cli/blob/trunk/docs/install_linux.md
+    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
+    sudo apt-add-repository https://cli.github.com/packages
+    sudo apt update
+
     xargs -a data/apt-packages sudo apt install --yes
 
 ## Set up email
@@ -67,7 +73,7 @@ Set up the systemd scripts to run offlineimap as a [systemd timer][].
 
 The nodejs in the apt package listings appears to be out of date, and is not
 the the recommended way of installing.
-    
+
     curl -sL https://deb.nodesource.com/setup | sudo -E bash -
     sudo apt-get install -y nodejs
 
@@ -91,8 +97,8 @@ Iterm2 has better all round support for colours, tmux and accessing the the clip
   * Set "Allow clipboard access to terminal apps"
   * Profiles > Terminal > "Silence bell"
   * Profiles > Colors and click the drop down menu and select import. Select
-    the file: 'solarized/iterm2-colors-solarized/Solarized Dark.terminal.' You 
-    may need to copy this file to the desktop first if you can access in in the 
+    the file: 'solarized/iterm2-colors-solarized/Solarized Dark.terminal.' You
+    may need to copy this file to the desktop first if you can access in in the
     file chooser box.
   * Set font to inconsolate-dz size 14
 
@@ -107,7 +113,7 @@ environment. E.g. email password and github.token
 
 ## Offline imap
 
-Create maildb directories e.g. 
+Create maildb directories e.g.
 
     mkdir -p ~/.maildb/michaelbarton ~/.maildb/jgi
 
