@@ -1,5 +1,6 @@
 curl
-hub
+docker
+gh
 inkscape
 lastpass-cli
 libsecret-tools
@@ -8,6 +9,8 @@ mutt
 neovim
 offlineimap
 openssl
+python3
+python3-pip
 ripgrep
 sqlite
 sqlitebrowser
