@@ -7,3 +7,6 @@
 [submodule "solarized"]
 	path = solarized
 	url = git://github.com/altercation/solarized.git
+[submodule "git/.zsh"]
+	path = git/.zsh
+	url = git@github.com:jcorbin/zsh-git.git
