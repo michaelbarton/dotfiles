@@ -10,3 +10,6 @@
 [submodule "git/.zsh"]
 	path = git/.zsh
 	url = git@github.com:jcorbin/zsh-git.git
+[submodule "git/.zsh-git"]
+	path = git/.zsh-git
+	url = git@github.com:jcorbin/zsh-git.git
