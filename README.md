@@ -5,21 +5,24 @@ required submodules:
 
     git submodule update --init --recursive
 
-Run the following command to link all the dotfiles into your home directory.
+    curl \
+        -fLo \
+        ~/.dotfiles/vim/.vim/autoload/plug.vim \
+        --create-dirs \
+     	https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-    ls ~/.dotfiles | xargs -I '{}' ln -s ~/.dotfiles/{} ~/.{}
+Run the following command to link all the dotfiles into the home directory.
+
+    stow vim tmux bash zsh linux
 
 Set up shell scripts.
 
-    mkdir ${HOME}/.zsh_cache/
-
-    echo "#!/bin/bash" > ${HOME}/.local_bash_settings.sh
-    chmod 700 ${HOME}/.local_bash_settings.sh
-
+    echo "#!/bin/bash" > ${HOME}/.local_bash_settings.sh chmod 700
+    ${HOME}/.local_bash_settings.sh
 
 Install required vim plugins
 
-    vim +PluginInstall +qall
+    vim +PlugInstall
 
 # Linux instructions
 
@@ -32,6 +35,12 @@ Install common apt packages
     sudo apt update
 
     xargs -a data/apt-packages sudo apt install --yes
+
+Change login shell
+
+    chsh -s $(which tmux)
+
+Then log out and login again.
 
 ## Set up email
 

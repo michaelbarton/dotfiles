@@ -6,70 +6,71 @@ set nocompatible
 " Required to setup Vundle
 filetype off
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+call plug#begin('~/.vim/plugged')
 
 " Sensible vim plugins
-Bundle "tpope/vim-sensible"
+Plug 'tpope/vim-sensible'
 
 " let Vundle manage Vundle
-Bundle 'gmarik/vundle'
+Plug 'gmarik/vundle'
 
 " This plugin automatically reloads changed vim scripts in the current vim
 " session. I like this because it makes it simple to add changes to
 " vim/ftplugin/*.vim files and have the changes appear immediately.
-Bundle 'xolox/vim-misc'
-Bundle 'xolox/vim-reload'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-reload'
 
 " Nice colorscheme for vim
-Bundle 'altercation/vim-colors-solarized'
+Plug 'altercation/vim-colors-solarized'
 
 " Personal wiki plugin. I prefer this one because it's simple and uses plain
 " text files.
-Bundle 'vim-scripts/vimwiki'
+Plug 'vim-scripts/vimwiki'
 
 " Faster file searching
-Bundle 'kien/ctrlp.vim'
+Plug 'kien/ctrlp.vim'
 
 " Indent, syntax and detect files for clojure
-Bundle 'guns/vim-clojure-static'
-Bundle 'kien/rainbow_parentheses.vim'
+Plug 'guns/vim-clojure-static'
+Plug 'kien/rainbow_parentheses.vim'
 
 " Useful for aligning columns of text
-Bundle 'vim-scripts/Align'
+Plug 'vim-scripts/Align'
 
 " Good for matching parentheses in lisps
-Bundle 'vim-scripts/paredit.vim'
+Plug 'vim-scripts/paredit.vim'
 
 " Fast movement around file
-Bundle 'Lokaltog/vim-easymotion'
+Plug 'Lokaltog/vim-easymotion'
 
 " Default status line for vim
-Bundle 'bling/vim-airline'
+Plug 'bling/vim-airline'
 
 " Interactive clojure repl for vim
-Bundle 'tpope/vim-fireplace'
+Plug 'tpope/vim-fireplace'
 
 " Syntax highlighting for Dockerfiles
-Bundle "ekalinin/Dockerfile.vim"
+Plug 'ekalinin/Dockerfile.vim'
 
 " Seemless navigation between vim and tmux windows
-Bundle 'christoomey/vim-tmux-navigator'
+Plug 'christoomey/vim-tmux-navigator'
 
 " Manage git repositories inside vim
-Bundle 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 
 " Syntax highlighting for less file
-Bundle 'groenewege/vim-less'
+Plug 'groenewege/vim-less'
 
 " GPG encrypted file
-Bundle 'jamessan/vim-gnupg'
+Plug 'jamessan/vim-gnupg'
 
 " Additional text objects for vim
-Bundle 'wellle/targets.vim'
+Plug 'wellle/targets.vim'
 
 " Show list of buffers
-Plugin 'bling/vim-bufferline'
+Plug 'bling/vim-bufferline'
+
+call plug#end()
 
 "}}}
 "{{{ GENERAL CONFIG

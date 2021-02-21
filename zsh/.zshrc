@@ -14,23 +14,13 @@ fi
 
 setopt extended_glob
 
-for zshrc_snipplet in ~/.shell_settings/bash/S[0-9][0-9]*[^~] ; do
+for zshrc_snipplet in ~/.bash/S[0-9][0-9]*[^~] ; do
         source $zshrc_snipplet
 done
 
-for zshrc_snipplet in ~/.shell_settings/zsh/S[0-9][0-9]*[^~] ; do
+for zshrc_snipplet in ~/.zsh/S[0-9][0-9]*[^~] ; do
         source $zshrc_snipplet
 done
-
-if [[ "$(uname)" == "Darwin" ]]; then
-	for zshrc_snipplet in ~/.shell_settings/osx/S[0-9][0-9]*[^~] ; do
-		source $zshrc_snipplet
-	done
-elif [[ "$(expr substr $(uname -s) 1 5)" == "Linux" ]]; then
-	for zshrc_snipplet in ~/.shell_settings/linux/S[0-9][0-9]*[^~] ; do
-		source $zshrc_snipplet
-	done
-fi
 
 if test -f "${HOME}/Dropbox/personal/dotfiles/environment.sh"; then
     echo "$FILE exists."

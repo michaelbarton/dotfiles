@@ -3,7 +3,8 @@
 boson/config/index.marshal
 doc/tags
 vim/tmp
-vim/bundle
+vim/.vim/plugged
+
 vim/colors
 vim/log
 .netrwhist
