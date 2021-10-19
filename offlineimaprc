@@ -5,14 +5,7 @@ pythonfile = ~/.offlineimap.py
 maxsyncaccounts = 2
 ui = basic
 ssl = yes
-accounts = JGI, Personal
-
-[Account JGI]
-localrepository = jgi-local
-remoterepository = jgi-remote
-status_backend = sqlite
-maxage = 30
-postsynchook = notmuch new
+accounts = Personal
 
 [Account Personal]
 localrepository = personal-local
@@ -20,22 +13,10 @@ remoterepository = personal-remote
 status_backend = sqlite
 maxage = 30
 
-[Repository jgi-local]
-type = Maildir
-localfolders = ~/.maildb/jgi
-restoreatime = no
-
 [Repository personal-local]
 type = Maildir
 localfolders = ~/.maildb/michaelbarton
 restoreatime = no
-
-[Repository jgi-remote]
-type = Gmail
-remoteuser = mbarton@lbl.gov
-remotepasseval = get_keychain_pass(account="jgi.gmail")
-realdelete = no
-sslcacertfile = /usr/local/etc/openssl/cert.pem
 
 [Repository personal-remote]
 type = Gmail
