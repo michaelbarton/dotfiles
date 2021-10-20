@@ -111,11 +111,6 @@ Iterm2 has better all round support for colours, tmux and accessing the the clip
 
 Download and install mactex - http://tug.org/mactex/.
 
-## PASSWORDS
-
-Add required passwords to keychain. Then use security to fetch them in the
-environment. E.g. email password and github.token
-
 ## Offline imap
 
 Create maildb directories e.g.
@@ -134,6 +129,10 @@ Create a gmail application password and create a corresponding keychain entry wi
 this password:
 
     security add-generic-password -a acct.gmail -s acct.gmail -w
+
+Set up launctl to run offlineimap map automatically.
+
+    launchctl load ~/.dotfiles/launchd_agents/uk.me.michaelbarton.offlineimap.plist
 
 ## Mutt
 
