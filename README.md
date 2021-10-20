@@ -16,10 +16,16 @@ Set up shell scripts.
     echo "#!/bin/bash" > ${HOME}/.local_bash_settings.sh
     chmod 700 ${HOME}/.local_bash_settings.sh
 
-
 Install required vim plugins
 
     vim +PluginInstall +qall
+
+Install fish dependencies
+
+    curl -L https://get.oh-my.fish | fish
+    omf install bobthefish
+    omf theme bobthefish
+    omf reload
 
 # Linux instructions
 
@@ -83,7 +89,6 @@ Run the following command to install all additional tools, apps, and fonts
 using rubygems and homebrew.
 
     ~/.dotfiles/bin/brews
-    ~/.dotfiles/bin/gems
     ~/.dotfiles/bin/fonts
 
 Reset caps lock to be ctrl, System Preferences > Keyboard > Modifier Keys. I
@@ -115,11 +120,20 @@ environment. E.g. email password and github.token
 
 Create maildb directories e.g.
 
-    mkdir -p ~/.maildb/michaelbarton ~/.maildb/jgi
+    mkdir -p ~/.maildb/michaelbarton
 
-Set up certificates files:
+Create offlineimaprc files
 
-    ruby -ropenssl -e "p OpenSSL::X509::DEFAULT_CERT_FILE"
+    cp ~/.dotfiles/offlineimap/rc.osx ~/.offlineimaprc
+    ln -s ~/.dotfiles/offlineimap/offlineimap.py ~/.offlineimap.py
+
+Check the expected openssl file exists. This is configured in the RC file:
+    - /usr/local/etc/openssl/cert.pem
+
+Create a gmail application password and create a corresponding keychain entry with
+this password:
+
+    security add-generic-password -a acct.gmail -s acct.gmail -w
 
 ## Mutt
 

@@ -1,4 +1,4 @@
-#{{{1 General options
+# General options
 
 set realname = "Michael Barton"
 set mbox_type = Maildir
@@ -19,8 +19,6 @@ bind editor ^T complete
 set query_command="/usr/local/bin/lbdbq '%s'"
 set pager_index_lines= 10
 set implicit_autoview = yes
-
-source "~/Dropbox/personal/address.muttrc"
 
 source "$HOME/.dotfiles/mutt/compose.muttrc"
 source "$HOME/.dotfiles/mutt/appearance.muttrc"
