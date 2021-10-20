@@ -7,3 +7,6 @@ vim/bundle
 vim/colors
 vim/log
 .netrwhist
+.idea
+offlineimap/Account*
+offlineimap/Repository*
