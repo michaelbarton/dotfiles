@@ -2,19 +2,14 @@
 
 set -o nounset
 set -o xtrace
+set -o errexit
 
 BREW_FILE="${HOME}/.dotfiles/data/brews"
 
 MISSING=$(comm -1 -3 <(brew list) ${BREW_FILE})
 INSTALLED=$(comm -1 -2 <(brew list) ${BREW_FILE} | tr '\n' ' ')
 
-sudo chown -R $USER /usr/local
-
-brew tap kevwil/patches
 brew update
-
-# Install before other applications requiring this
-brew install Caskroom/cask/xquartz
 
 if [[ ! -z ${MISSING} ]]; then
     brew install ${MISSING}
@@ -23,6 +18,3 @@ fi
 if [[ ! -z ${INSTALLED} ]]; then
     brew upgrade ${INSTALLED}
 fi
-
-brew install mutt --with-debug --with-s-lang --with-sidebar-patch --with-gpgme
-brew install aspell --lang=en

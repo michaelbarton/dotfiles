@@ -1,4 +1,3 @@
 #!/bin/bash
 
-brew tap caskroom/fonts
-cat ~/.dotfiles/data/fonts | xargs -I {}  brew cask install font-{}
+cat ~/.dotfiles/data/fonts | xargs -I {}  brew install homebrew/cask-fonts/font-{}
