@@ -1,22 +1,21 @@
 #!/bin/bash
 
-alias af='./script/autofeature'
-alias at='./script/autotest'
-
 alias dot='cd ~/.dotfiles'
-
-# Git shortcut
 alias g='git'
-
-# Personal log
-alias log='add_log_entry'
 
 # These have to be functions because ls is aliased to coreutils gls
 alias lls='ls -l --color=auto'
 alias lst='ls -ltr --color=auto'
 
-# Vim instead of vi
-alias vi='vim'
+# neovim instead of vi/nvim
+alias vi='nvim'
+alias vim='nvim'
+
+# bat instead of cat
+alias cat='bat'
+
+# fd instead of find
+alias find='fd'
 
 # Quiet R
 alias R='R --quiet --no-save --no-restore'

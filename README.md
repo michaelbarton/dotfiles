@@ -24,8 +24,8 @@ Install required vim plugins
 
 Install fish dependencies
 
-    curl -L https://get.oh-my.fish | fish
-    omf install bass
+    curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
+    fisher update
 
 # Linux instructions
 
