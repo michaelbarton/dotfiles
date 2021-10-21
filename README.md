@@ -20,12 +20,12 @@ Install required vim plugins
 
     vim +PluginInstall +qall
 
+# Shell
+
 Install fish dependencies
 
     curl -L https://get.oh-my.fish | fish
-    omf install bobthefish
-    omf theme bobthefish
-    omf reload
+    omf install bass
 
 # Linux instructions
 
