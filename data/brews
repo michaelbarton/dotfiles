@@ -1,6 +1,9 @@
+bat
 cmake
 coreutils
+fd
 fish
+fzf
 gh
 jq
 lesspipe
