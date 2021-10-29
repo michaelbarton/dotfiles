@@ -132,7 +132,8 @@ this password:
 
 Set up launctl to run offlineimap map automatically.
 
-    launchctl load ~/.dotfiles/launchd_agents/uk.me.michaelbarton.offlineimap.plist
+    ln -s ~/.dotfiles/launchd_agents/uk.me.michaelbarton.offlineimap.plist ~/Library/LaunchAgents/
+    launchctl load -w ~/Library/LaunchAgents/uk.me.michaelbarton.offlineimap.plist
 
 ## Mutt
 
