@@ -5,10 +5,13 @@ fd
 fish
 fzf
 gh
+htop
 jq
+just
 lesspipe
 msmtp
 mutt
+neovim
 notmuch
 offlineimap
 openssl@3
@@ -25,7 +28,6 @@ tmux
 trash
 tree
 urlview
-vim
 w3m
 wget
 xz
