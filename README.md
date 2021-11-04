@@ -5,27 +5,9 @@ required submodules:
 
     git submodule update --init --recursive
 
-Run the following command to link all the dotfiles into your home directory.
+Run the following command to install plugins and link files.
 
-    ls ~/.dotfiles | xargs -I '{}' ln -s ~/.dotfiles/{} ~/.{}
-
-Set up shell scripts.
-
-    mkdir ${HOME}/.zsh_cache/
-
-    echo "#!/bin/bash" > ${HOME}/.local_bash_settings.sh
-    chmod 700 ${HOME}/.local_bash_settings.sh
-
-Install required vim plugins
-
-    vim +PluginInstall +qall
-
-# Shell
-
-Install fish dependencies
-
-    curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
-    fisher update
+    bin/apply_ansible
 
 # Linux instructions
 
