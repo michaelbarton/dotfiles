@@ -1,6 +1,0 @@
-#!/usr/bin/env zsh
-
-if [ "$TERM" != "dumb" ]; then
-    eval `dircolors ~/.dir_colors`
-    export ZLS_COLORS=$LS_COLORS
-fi

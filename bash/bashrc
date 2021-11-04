@@ -1,3 +1,101 @@
+#!/bin/bash
+
+set -o nounset
+
+###################################################################
+#
+# Simple aliases
+#
+###################################################################
+
+alias dot='cd ~/.dotfiles'
+alias g='git'
+
+# These have to be functions because ls is aliased to coreutils gls
+alias lls='ls -l --color=auto'
+alias lst='ls -ltr --color=auto'
+
+# neovim instead of vi/nvim
+alias vi='nvim'
+alias vim='nvim'
+
+# bat instead of cat
+alias cat='bat'
+
+# fd instead of find
+alias find='fd'
+
+# Quiet R
+alias R='R --quiet --no-save --no-restore'
+
+# Quiet octave
+alias octave='octave --quiet'
+
+# Print grep results in color
+alias grep='grep --color=auto'
+
+# Tmux
+alias tkw="tmux kill-window -t"
+alias tks="tmux kill-session -t" 
+alias tss="tmux switch-client -t"
+alias tls="tmux list-session"
+
+
+###################################################################
+#
+# Paths
+#
+###################################################################
+
+USER_BIN=${HOME}/.bin
+HOMEBREW_BIN=/opt/homebrew/bin
+PYTHON_BIN=${HOME}/Library/Python/3.8/bin
+
+export PATH=${HOMEBREW_BIN}:${USER_BIN}:${PYTHON_BIN}:${PATH}
+
+###################################################################
+#
+# Misc. environment variables
+#
+###################################################################
+
+export MANWIDTH=80
+export EDITOR=nvim
+export VISUAL=nvim
+
+export EMAIL="mail@michaelbarton.me.uk"
+export FULLNAME="Michael Barton"
+
+export GIT_AUTHOR_NAME=$FULLNAME
+export GIT_COMMITTER_NAME=$FULLNAME
+export GIT_AUTHOR_EMAIL=$EMAIL
+export GIT_COMMITTER_EMAIL=$EMAIL
+
+export PAGER='less'
+export LESS='-R -M --shift 5'
+export LESSOPEN="|/usr/local/bin/lesspipe.sh %s"
+
+# language
+LC_ALL='en_GB.UTF-8'
+LANG='en_GB.UTF-8'
+LC_CTYPE=C
+DISPLAY=:0
+
+# this makes man pages look nicer...
+export LESS_TERMCAP_mb=$'\E[01;31m'
+export LESS_TERMCAP_md=$'\E[01;31m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_so=$'\E[01;44;33m'
+export LESS_TERMCAP_ue=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[01;32m'
+
+###################################################################
+#
+# Replace all OSX coreutils with Unix-like coreutils from homebrew
+#
+###################################################################
+
 # Core utils
 if [ -d /usr/local/Cellar/coreutils ]; then
         brew_prefix=`brew --prefix`

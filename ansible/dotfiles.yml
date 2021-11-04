@@ -1,0 +1,43 @@
+---
+# Based on elnappos dotfiles (https://github.com/elnappo/dotfiles)
+- name: Playbook to manage dotfiles
+  hosts: localhost
+  connection: local
+  tasks:
+
+    - name: Create folder
+      file:
+        path: "{{item}}"
+        state: directory
+      loop:
+        - "~/.config/fish/"
+        - "~/.config/nvim/autoload"
+        - "~/.config/plugged/"
+        - "~/cache"
+
+    - include: tasks/link_files.yml
+      tags:
+        - links
+
+    - name: Create the fisher plugin manager
+      command:
+        cmd: curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
+        creates: "~/.config/fish/functions/fisher.fish"
+
+    - name: Create the fisher plugin manager
+      command:
+        cmd: curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
+        creates: "~/.config/fish/functions/fisher.fish"
+
+    - name: Update fish plugins
+      command:
+        cmd: fish -c "fisher update"
+
+    - name: Install vim plugin manager
+      get_url:
+        url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        dest: ~/.config/nvim/autoload/plug.vim
+
+    - name: Install and update vim plugins
+      command:
+        cmd: nvim +PluginInstall +qall
