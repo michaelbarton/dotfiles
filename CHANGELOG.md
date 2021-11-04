@@ -5,3 +5,4 @@
 * Remove old `shell_settings` directory instead use `.bashrc` for common functions 
   between shells.
 * Use ansible to install all dotfiles
+* Add a script to create markdown pages from pubmed entries.
