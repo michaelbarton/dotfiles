@@ -1,7 +1,0 @@
-#!/usr/bin/env zsh
-
-PYTHON_PACKAGES=${HOME}/Library/Python/2.7/bin
-RVM_PATH=${HOME}/.rvm/bin
-JIRA_PATH=${HOME}/.jira_bin
-
-export PATH=${PATH}:${PYTHON_PACKAGES}:${RVM_PATH}:${JIRA_PATH}

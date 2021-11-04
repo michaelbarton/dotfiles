@@ -1,0 +1,18 @@
+---
+- name: link dotfiles
+  file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  loop:
+    - { src: "~/.dotfiles/tmux/tmux.conf", dest: "~/.tmux.conf"}
+    - { src: "~/.dotfiles/git/gitconfig", dest: "~/.gitconfig"}
+
+    # Shell
+    - { src: "~/.dotfiles/bash/bashrc", dest: "~/.bashrc"}
+    - { src: "~/.dotfiles/config/fish/config.fish", dest: "~/.config/fish/config.fish"}
+    - { src: "~/.dotfiles/config/fish/fish_plugins", dest: "~/.config/fish/fish_plugins"}
+
+    # Vim
+    - { src: "~/.dotfiles/nvim/init.vim", dest: "~/.config/nvim/init.vim"}
+    - { src: "~/.dotfiles/vim/ftplugin/markdown.vim", dest: "~/.config/nvim/ftplugin/markdown.vim"}

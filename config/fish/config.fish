@@ -1,3 +1,3 @@
-bass source ~/.shell_settings/bash/S30_aliases
+bass source ~/.bashrc
 
 starship init fish | source
