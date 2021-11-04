@@ -12,17 +12,13 @@
       loop:
         - "~/.config/fish/"
         - "~/.config/nvim/autoload"
+        - "~/.config/nvim/ftplugin"
         - "~/.config/plugged/"
         - "~/cache"
 
     - include: tasks/link_files.yml
       tags:
         - links
-
-    - name: Create the fisher plugin manager
-      command:
-        cmd: curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
-        creates: "~/.config/fish/functions/fisher.fish"
 
     - name: Create the fisher plugin manager
       command:
