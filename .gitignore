@@ -10,3 +10,4 @@ vim/log
 .idea
 offlineimap/Account*
 offlineimap/Repository*
+vim/plugged

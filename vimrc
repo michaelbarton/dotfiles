@@ -24,10 +24,6 @@ Bundle 'xolox/vim-reload'
 " Nice colorscheme for vim
 Bundle 'altercation/vim-colors-solarized'
 
-" Personal wiki plugin. I prefer this one because it's simple and uses plain
-" text files.
-Bundle 'vim-scripts/vimwiki'
-
 " Faster file searching
 Bundle 'kien/ctrlp.vim'
 
@@ -73,8 +69,6 @@ Plugin 'bling/vim-bufferline'
 
 "}}}
 "{{{ GENERAL CONFIG
-"
-let g:vimwiki_list = [{'syntax': 'markdown'}]
 
 " I don't use swap files
 set noswapfile
