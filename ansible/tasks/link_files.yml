@@ -5,9 +5,14 @@
     dest: "{{ item.dest }}"
     state: link
   loop:
+    - { src: "~/.dotfiles/tmux/tmux.conf", dest: "~/.tmux.conf"}
+    - { src: "~/.dotfiles/git/gitconfig", dest: "~/.gitconfig"}
+
+    # Shell
     - { src: "~/.dotfiles/bash/bashrc", dest: "~/.bashrc"}
     - { src: "~/.dotfiles/config/fish/config.fish", dest: "~/.config/fish/config.fish"}
     - { src: "~/.dotfiles/config/fish/fish_plugins", dest: "~/.config/fish/fish_plugins"}
-    - { src: "~/.dotfiles/tmux/tmux.conf", dest: "~/.tmux.conf"}
+
+    # Vim
     - { src: "~/.dotfiles/nvim/init.vim", dest: "~/.config/nvim/init.vim"}
-    - { src: "~/.dotfiles/git/gitconfig", dest: "~/.gitconfig"}
+    - { src: "~/.dotfiles/vim/ftplugin/markdown.vim", dest: "~/.config/nvim/ftplugin/markdown.vim"}
