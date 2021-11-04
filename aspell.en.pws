@@ -1,4 +1,4 @@
-personal_ws-1.1 en 552 
+personal_ws-1.1 en 556 
 ABySS
 AI
 AIC
@@ -24,22 +24,16 @@ COGs
 CRISPR
 CSS
 CSV
-Complementation
-Connotea
-Cornu
 Daltons
 Debian
-Denormalisation
 DockerHub
 Dockerfile
 EMBL
 EMR
-Entner
 Erlang
 Eubacteria
 FBA
 Folate
-FriendFeed
 GAET
 GBp
 GC
@@ -57,11 +51,12 @@ Inkscape
 Inositol
 Interoperability
 Isoleucine
-JGI's
+JGI
 JSON
 JavaScript
 KBp
 KEGG
+Karius
 Kbp
 Kmer
 Kwalify
@@ -127,6 +122,7 @@ RMarkdown
 RSII
 RSS
 RSpec
+RefSeq
 Refactored
 Replicons
 Ronn
@@ -219,11 +215,14 @@ codons
 coli
 commensal
 complementation
+complementation
+config
 contig
 contigs
 coreutil
 coreutils
 covariance
+cron
 curation
 cyanobacterium
 cys
@@ -240,6 +239,7 @@ dehydrogenase
 dehydrogenases
 dendrogram
 dendrograms
+denormalisation
 deplexed
 deplexing
 diauxic

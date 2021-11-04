@@ -1,13 +1,13 @@
 *.swp
 *.un~
-boson/config/index.marshal
 doc/tags
 vim/tmp
 vim/bundle
 vim/colors
 vim/log
+vim/plugged
 .netrwhist
 .idea
 offlineimap/Account*
 offlineimap/Repository*
-vim/plugged
+docker
