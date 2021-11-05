@@ -7,11 +7,13 @@
   loop:
     - { src: "~/.dotfiles/tmux/tmux.conf", dest: "~/.tmux.conf"}
     - { src: "~/.dotfiles/git/gitconfig", dest: "~/.gitconfig"}
+    - { src: "~/.dotfiles/aspell.en.pws", dest: "~/.aspell.en.pws"}
+
 
     # Shell
     - { src: "~/.dotfiles/bash/bashrc", dest: "~/.bashrc"}
-    - { src: "~/.dotfiles/config/fish/config.fish", dest: "~/.config/fish/config.fish"}
-    - { src: "~/.dotfiles/config/fish/fish_plugins", dest: "~/.config/fish/fish_plugins"}
+    - { src: "~/.dotfiles/fish/config.fish", dest: "~/.config/fish/config.fish"}
+    - { src: "~/.dotfiles/fish/fish_plugins", dest: "~/.config/fish/fish_plugins"}
 
     # Vim
     - { src: "~/.dotfiles/nvim/init.vim", dest: "~/.config/nvim/init.vim"}

@@ -1,3 +1,8 @@
+## 2021-11-05
+
+* Fix for parsing pubmed dates when creating markdown page. 
+* Move fish config files to top-level directory.
+
 ## 2021-11-04
 
 * Add rc for nvim at nvim/init.vim 
