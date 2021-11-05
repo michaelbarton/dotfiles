@@ -4,13 +4,14 @@ call plug#begin('~/.vim/plugged')
 " Markdown file support
 Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
 Plug 'junegunn/limelight.vim', { 'for': 'markdown' }
-Plug 'plasticboy/vim-markdown'
 
 " Solarised colour scheme
 Plug 'overcache/NeoSolarized'
 
-" JSON front matter highlight plugin
+" Language specific plugins
+Plug 'plasticboy/vim-markdown'
 Plug 'elzr/vim-json'
+Plug 'dag/vim-fish'
 
 " Initialize plugin system
 call plug#end()

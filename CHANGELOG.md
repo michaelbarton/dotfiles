@@ -1,3 +1,11 @@
+## 2021-11-05
+
+* Fix for parsing pubmed dates when creating markdown page. 
+* Move fish config files to top-level directory. 
+* Add fish syntax highlighting to vim. 
+* Symbolic link for aspell dictionary. 
+* Use exa instead of ls
+
 ## 2021-11-04
 
 * Add rc for nvim at nvim/init.vim 

@@ -11,9 +11,10 @@ set -o nounset
 alias dot='cd ~/.dotfiles'
 alias g='git'
 
-# These have to be functions because ls is aliased to coreutils gls
-alias lls='ls -l --color=auto'
-alias lst='ls -ltr --color=auto'
+# Use exa instead of ls
+alias ls='exa --classify --oneline --git'
+alias lls='exa --header --long --git'
+alias tree='exa --tree'
 
 # neovim instead of vi/nvim
 alias vi='nvim'
