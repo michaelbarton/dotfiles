@@ -12,6 +12,7 @@ import subprocess
 import textwrap
 
 import click
+import funcy
 import pydantic
 import requests
 
@@ -45,6 +46,13 @@ def generate_url(pubmed_id: str) -> str:
         )
     )
 
+def parse_entry_date(date_field: str) -> datetime.datetime:
+    """Function to handle variability in publication dates."""
+    _f = funcy.rpartial(datetime.datetime.strptime, "%Y %b %d")
+    try:
+        return _f(date_field)
+    except ValueError:
+        return _f(date_field + " 01")
 
 def parse_pubmed_response(response, pubmed_id: str) -> PubmedRecord:
     """Parse the JSON reponse from the pubmed API into a PubmedRecord."""
@@ -61,7 +69,7 @@ def parse_pubmed_response(response, pubmed_id: str) -> PubmedRecord:
         journal=response_body["source"],
         title=response_body["title"],
         pubmed_id=pubmed_id,
-        date_published=datetime.datetime.strptime(response_body["pubdate"], "%Y %b %d"),
+        date_published=parse_entry_date(response_body["pubdate"]),
     )
 
 
@@ -90,7 +98,6 @@ uuid: {record.pubmed_id}
 @click.command()
 @click.argument("pubmed_id", type=str)
 def run(pubmed_id: str):
-    """Main entry point."""
     pubmed_url = generate_url(pubmed_id)
     pubmed_record = parse_pubmed_response(requests.get(pubmed_url), pubmed_id)
     file_record = create_article_file(pubmed_record)

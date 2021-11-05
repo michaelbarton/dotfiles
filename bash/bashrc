@@ -48,10 +48,11 @@ alias tls="tmux list-session"
 ###################################################################
 
 USER_BIN=${HOME}/.bin
+DOTFILES_BIN=${HOME}/.dotfiles/bin
 HOMEBREW_BIN=/opt/homebrew/bin
 PYTHON_BIN=${HOME}/Library/Python/3.8/bin
 
-export PATH=${HOMEBREW_BIN}:${USER_BIN}:${PYTHON_BIN}:${PATH}
+export PATH=${HOMEBREW_BIN}:${DOTFILES_BIN}:${USER_BIN}:${PYTHON_BIN}:${PATH}
 
 ###################################################################
 #
