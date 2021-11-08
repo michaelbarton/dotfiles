@@ -9,6 +9,7 @@ set -o nounset
 ###################################################################
 
 alias dot='cd ~/.dotfiles'
+alias cache='cd ~/cache'
 alias g='git'
 
 # Use exa instead of ls
@@ -180,7 +181,6 @@ if [ -d /usr/local/Cellar/coreutils ]; then
         alias tac="$brew_prefix/bin/gtac"
         alias tail="$brew_prefix/bin/gtail"
         alias tee="$brew_prefix/bin/gtee"
-        alias test="$brew_prefix/bin/gtest"
         alias touch="$brew_prefix/bin/gtouch"
         alias tr="$brew_prefix/bin/gtr"
         alias true="$brew_prefix/bin/gtrue"

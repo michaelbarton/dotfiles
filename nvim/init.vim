@@ -13,6 +13,11 @@ Plug 'plasticboy/vim-markdown'
 Plug 'elzr/vim-json'
 Plug 'dag/vim-fish'
 
+" status bar
+Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+
 " Initialize plugin system
 call plug#end()
 
@@ -52,6 +57,13 @@ set undofile
 set undodir=$HOME/.vim/tmp
 set colorcolumn=85        " Highlight when line reaches this length
 
+" Removes trailing spaces on write
+
+function! TrimWhiteSpace()
+  %s/\s\+$//e
+endfunction
+autocmd BufWritePre * :call TrimWhiteSpace()
+
 "
 " APPEARANCE
 "
@@ -69,6 +81,8 @@ highlight CursorLine term=underline cterm=underline
 
 " Enable viewing of fancy characters
 set encoding=utf-8
+
+let g:airline_powerline_fonts = 1
 
 set termguicolors
 
@@ -88,4 +102,10 @@ nnoremap Q <nop>
 " Leader key maps
 nnoremap <leader>f :nohlsearch<CR>
 nnoremap <leader>g :b#<CR>    " Switch to the last used buffer
+
+" Use F1 to source the vimrc file
+nnoremap <F1>  <ESC>:source $MYVIMRC<CR> 
+
+" Use F2 to turn on unformatted pasting of text.
+set pastetoggle=<F2>
 
