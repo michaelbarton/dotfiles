@@ -1,4 +1,0 @@
-#!/bin/bash
-
-echo "Running:`~/.jgi_bin/uge_queue | cut -f 2 -d ' ' | grep r | wc -l | tr -s ' '`"
-echo "Waiting:`~/.jgi_bin/uge_queue | cut -f 2 -d ' ' | grep q | wc -l | tr -s ' '`"
