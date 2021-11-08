@@ -1,8 +1,0 @@
-#!/bin/bash
-
-FILE=`/usr/local/bin/gmktemp`
-
-scp gp:/global/projectb/scratch/mbarton/metagenome/libs_QC_metrics.txt $FILE
-sed 's/	/,/g' $FILE > ${FILE}.csv
-
-open ${FILE}.csv

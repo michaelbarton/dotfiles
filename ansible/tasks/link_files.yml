@@ -9,9 +9,9 @@
     - { src: "~/.dotfiles/git/gitconfig", dest: "~/.gitconfig"}
     - { src: "~/.dotfiles/aspell.en.pws", dest: "~/.aspell.en.pws"}
 
-
     # Shell
     - { src: "~/.dotfiles/bash/bashrc", dest: "~/.bashrc"}
+    - { src: "~/.dotfiles/inputrc", dest: "~/.inputrc"}
     - { src: "~/.dotfiles/fish/config.fish", dest: "~/.config/fish/config.fish"}
     - { src: "~/.dotfiles/fish/fish_plugins", dest: "~/.config/fish/fish_plugins"}
 
