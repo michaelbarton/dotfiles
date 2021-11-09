@@ -1,7 +1,7 @@
 #!/bin/sh
 
 TMP=~/aspell.en.pws.tmp
-ORIG=~/.dotfiles/aspell.en.pws
+ORIG=~/.dotfiles/aspell/aspell.en.pws
 HEADER=personal_ws
 
 grep $HEADER $ORIG | sed 's/ $//' > $TMP

@@ -104,8 +104,11 @@ nnoremap <leader>f :nohlsearch<CR>
 nnoremap <leader>g :b#<CR>    " Switch to the last used buffer
 
 " Use F1 to source the vimrc file
-nnoremap <F1>  <ESC>:source $MYVIMRC<CR> 
+nnoremap <F1>  <ESC>:source $MYVIMRC<CR>
 
 " Use F2 to turn on unformatted pasting of text.
 set pastetoggle=<F2>
 
+" Create new entry in the wiki
+let g:zettelkasten = "~/Dropbox/wiki/zettel/"
+command! -nargs=1 NewZettel :execute ":e" zettelkasten . strftime("%Y%m%d%H%M") . "_<args>.md"

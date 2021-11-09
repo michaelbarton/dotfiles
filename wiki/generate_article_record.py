@@ -49,10 +49,16 @@ def generate_url(pubmed_id: str) -> str:
 def parse_entry_date(date_field: str) -> datetime.datetime:
     """Function to handle variability in publication dates."""
     _f = funcy.rpartial(datetime.datetime.strptime, "%Y %b %d")
-    try:
+    field_length = len(date_field.strip().split(" "))
+
+    if field_length == 3:
         return _f(date_field)
-    except ValueError:
+
+    if field_length == 2:
         return _f(date_field + " 01")
+
+    if field_length == 1:
+        return _f(date_field + " Jan 01")
 
 def parse_pubmed_response(response, pubmed_id: str) -> PubmedRecord:
     """Parse the JSON reponse from the pubmed API into a PubmedRecord."""

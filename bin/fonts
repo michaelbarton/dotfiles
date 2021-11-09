@@ -1,3 +1,0 @@
-#!/bin/bash
-
-cat ~/.dotfiles/data/fonts | xargs -I {}  brew install homebrew/cask-fonts/font-{}

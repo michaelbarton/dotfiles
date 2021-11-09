@@ -1,20 +1,29 @@
 ---
 - name: link dotfiles
   file:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
+    src: "~/.dotfiles/{{ item.src }}"
+    dest: "~/{{ item.dest }}"
     state: link
   loop:
-    - { src: "~/.dotfiles/tmux/tmux.conf", dest: "~/.tmux.conf"}
-    - { src: "~/.dotfiles/git/gitconfig", dest: "~/.gitconfig"}
-    - { src: "~/.dotfiles/aspell.en.pws", dest: "~/.aspell.en.pws"}
+    - { src: "tmux/tmux.conf", dest: ".tmux.conf"}
+    - { src: "git/gitconfig", dest: ".gitconfig"}
+
+    # Dictionary
+    - { src: "aspell/aspell.en.pws", dest: ".aspell.en.pws"}
+    - { src: "aspell/aspell.conf", dest: ".aspell.conf"}
+    - { src: "aspell/sort_dictionary", dest: ".bin/sort_dictionary"}
 
     # Shell
-    - { src: "~/.dotfiles/bash/bashrc", dest: "~/.bashrc"}
-    - { src: "~/.dotfiles/inputrc", dest: "~/.inputrc"}
-    - { src: "~/.dotfiles/fish/config.fish", dest: "~/.config/fish/config.fish"}
-    - { src: "~/.dotfiles/fish/fish_plugins", dest: "~/.config/fish/fish_plugins"}
+    - { src: "bash/bashrc", dest: ".bashrc"}
+    - { src: "inputrc", dest: ".inputrc"}
+    - { src: "fish/config.fish", dest: ".config/fish/config.fish"}
+    - { src: "fish/fish_plugins", dest: ".config/fish/fish_plugins"}
 
     # Vim
-    - { src: "~/.dotfiles/nvim/init.vim", dest: "~/.config/nvim/init.vim"}
-    - { src: "~/.dotfiles/vim/ftplugin/markdown.vim", dest: "~/.config/nvim/ftplugin/markdown.vim"}
+    - { src: "nvim/init.vim", dest: ".config/nvim/init.vim"}
+    - { src: "vim/ftplugin/markdown.vim", dest: ".config/nvim/ftplugin/markdown.vim"}
+
+    # Scripts
+    - { src: "wiki/convert_daily_log.py", dest: ".bin/convert_daily_log"}
+    - { src: "wiki/generate_article_record.py", dest: ".bin/generate_article_record"}
+    - { src: "ansible/apply_ansible", dest: ".bin/apply_ansible"}
