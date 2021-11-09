@@ -17,6 +17,15 @@ Plug 'dag/vim-fish'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
+" Code completion
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" Seemless navigation between vim and tmux windows
+Plug 'christoomey/vim-tmux-navigator'
+
+" Support for fzf for searching files
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -57,12 +66,25 @@ set undofile
 set undodir=$HOME/.vim/tmp
 set colorcolumn=85        " Highlight when line reaches this length
 
-" Removes trailing spaces on write
 
+"
+" FUNCTIONS
+"
+
+" Removes trailing spaces on write
 function! TrimWhiteSpace()
   %s/\s\+$//e
 endfunction
 autocmd BufWritePre * :call TrimWhiteSpace()
+
+command! -bang WikiSearch call fzf#vim#files('~/Dropbox/wiki', <bang>0)
+
+"
+" FILE TYPES
+"
+
+set wildignore=*.pyc,*.egg-info/*
+autocmd BufRead,BufNewFile *.njk setfiletype html
 
 "
 " APPEARANCE
@@ -108,6 +130,9 @@ nnoremap <F1>  <ESC>:source $MYVIMRC<CR>
 
 " Use F2 to turn on unformatted pasting of text.
 set pastetoggle=<F2>
+
+" Use F3 to search wiki files
+nnoremap <F3>  <ESC>:WikiSearch<CR>
 
 " Create new entry in the wiki
 let g:zettelkasten = "~/Dropbox/wiki/zettel/"

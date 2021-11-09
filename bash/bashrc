@@ -38,7 +38,7 @@ alias grep='grep --color=auto'
 
 # Tmux
 alias tkw="tmux kill-window -t"
-alias tks="tmux kill-session -t" 
+alias tks="tmux kill-session -t"
 alias tss="tmux switch-client -t"
 alias tls="tmux list-session"
 
@@ -61,6 +61,10 @@ export PATH=${HOMEBREW_BIN}:${DOTFILES_BIN}:${USER_BIN}:${PYTHON_BIN}:${PATH}
 # Misc. environment variables
 #
 ###################################################################
+
+# fzf should use ripgrep for search
+export FZF_DEFAULT_COMMAND='rg --files'
+export FZF_DEFAULT_OPTS='-m --height 50% --border'
 
 export MANWIDTH=80
 export EDITOR=nvim
