@@ -1,7 +1,8 @@
 ## 2021-11-08
 
 * Remove old and out of date files.
-* Additional vim short cuts
+* Additional vim short cuts.
+* Move aspell files to directory.
 
 ## 2021-11-05
 
