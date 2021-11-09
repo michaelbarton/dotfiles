@@ -1,3 +1,0 @@
-#!/bin/bash
-
-/usr/local/bin/reattach-to-user-namespace -l /bin/zsh

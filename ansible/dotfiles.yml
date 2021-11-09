@@ -15,6 +15,7 @@
         - "~/.config/nvim/ftplugin"
         - "~/.config/plugged/"
         - "~/cache"
+        - "~/.bin"
 
     - include: tasks/link_files.yml
       tags:
