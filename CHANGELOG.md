@@ -1,6 +1,10 @@
 ## 2021-11-10
 
 * Add HTML syntax support to vim
+* The asdf language manager uses `brew ---prefix` instead of hard coded path.
+* Remove code completion plugin for the time being.
+* Remove tmux `escape-time` option that was causing issues with command line
+  edit in fish.
 
 ## 2021-11-09
 

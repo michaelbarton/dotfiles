@@ -9,4 +9,7 @@ function sp
 end
 
 # Language version manager
-source /opt/homebrew/opt/asdf/libexec/asdf.fish
+source (brew --prefix)/opt/asdf/libexec/asdf.fish
+
+# Use ctrl+s to fzf search
+fzf_configure_bindings --directory=\cs
