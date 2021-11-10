@@ -1,3 +1,11 @@
+## 2021-11-10
+
+* Add HTML syntax support to vim
+
+## 2021-11-09
+
+* Add support for using fzf in vim
+
 ## 2021-11-08
 
 * Remove old and out of date files.
