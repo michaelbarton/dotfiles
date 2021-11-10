@@ -17,9 +17,6 @@ Plug 'dag/vim-fish'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-" Code completion
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
 " Seemless navigation between vim and tmux windows
 Plug 'christoomey/vim-tmux-navigator'
 
