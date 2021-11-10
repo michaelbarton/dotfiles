@@ -1,3 +1,7 @@
+## 2021-11-9
+
+* Add support for using fzf in vim
+
 ## 2021-11-08
 
 * Remove old and out of date files.

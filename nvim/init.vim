@@ -27,6 +27,10 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 
+" HTML tags
+Plug 'mattn/emmet-vim'
+
+
 " Initialize plugin system
 call plug#end()
 
@@ -76,6 +80,7 @@ function! TrimWhiteSpace()
   %s/\s\+$//e
 endfunction
 autocmd BufWritePre * :call TrimWhiteSpace()
+autocmd FileType html setlocal shiftwidth=2 tabstop=2
 
 command! -bang WikiSearch call fzf#vim#files('~/Dropbox/wiki', <bang>0)
 
@@ -85,6 +90,7 @@ command! -bang WikiSearch call fzf#vim#files('~/Dropbox/wiki', <bang>0)
 
 set wildignore=*.pyc,*.egg-info/*
 autocmd BufRead,BufNewFile *.njk setfiletype html
+
 
 "
 " APPEARANCE
