@@ -8,6 +8,11 @@ function sp
 	aspell -c $argv[1] && ~/.dotfiles/bin/sort_dictionary
 end
 
+# Cat th contents of a file into the clip board
+function pbcat
+	cat $argv[1] | pbcopy
+end
+
 # Language version manager
 source (brew --prefix)/opt/asdf/libexec/asdf.fish
 
