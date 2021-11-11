@@ -79,7 +79,11 @@ endfunction
 autocmd BufWritePre * :call TrimWhiteSpace()
 autocmd FileType html setlocal shiftwidth=2 tabstop=2
 
+" Search for files in wiki
 command! -bang WikiSearch call fzf#vim#files('~/Dropbox/wiki', <bang>0)
+
+" Insert file path from wiki
+inoremap <expr> <c-x><c-f> fzf#vim#complete#path('fd --base-directory ~/Dropbox/wiki --type file')
 
 "
 " FILE TYPES
