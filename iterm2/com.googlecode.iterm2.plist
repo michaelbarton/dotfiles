@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Command</key>
-	<string></string>
+	<string>/opt/homebrew/bin/tmux</string>
 	<key>Default Bookmark Guid</key>
 	<string>DD9A4A03-FCD2-4623-B8AB-C323EAC29147</string>
 	<key>HapticFeedbackForEsc</key>
@@ -749,5 +749,7 @@
 	<false/>
 	<key>VisualIndicatorForEsc</key>
 	<false/>
+	<key>WorkAroundBigSurBug</key>
+	<true/>
 </dict>
 </plist>
