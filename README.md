@@ -1,15 +1,12 @@
-# Generic instructions
+# Dofiles
 
-Run the following command in the root of the dotfiles directory to pull
-required submodules:
-
-    git submodule update --init --recursive
+## OSX Setup
 
 Run the following command to install plugins and link files.
 
     bin/apply_ansible
 
-# Linux instructions
+## Linux setup
 
 Install common apt packages
 
@@ -57,26 +54,6 @@ Set up the systemd scripts to run offlineimap as a [systemd timer][].
 
 [systemd timer]: https://aishpant.dev/blog/mailing-lists/
 
-## Node JS
-
-The nodejs in the apt package listings appears to be out of date, and is not
-the the recommended way of installing.
-
-    curl -sL https://deb.nodesource.com/setup | sudo -E bash -
-    sudo apt-get install -y nodejs
-
-# OSX specific instructions
-
-Run the following command to install all additional tools, apps, and fonts
-using rubygems and homebrew.
-
-    ~/.dotfiles/bin/brews
-    ~/.dotfiles/bin/fonts
-
-Reset caps lock to be ctrl, System Preferences > Keyboard > Modifier Keys. I
-find this a bit better than reaching for the actual control key with my small
-finger.
-
 ## ITERM2
 
 Iterm2 has better all round support for colours, tmux and accessing the the clipboard. This is installed using Caskroom in the section above.
@@ -89,11 +66,8 @@ Iterm2 has better all round support for colours, tmux and accessing the the clip
     file chooser box.
   * Set font to inconsolate-dz size 14
 
-## MACTEX
 
-Download and install mactex - http://tug.org/mactex/.
-
-## Offline imap
+## Offlineimap
 
 Create maildb directories e.g.
 

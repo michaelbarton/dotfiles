@@ -10,6 +10,7 @@ set -o nounset
 
 alias dot='cd ~/.dotfiles'
 alias cache='cd ~/cache'
+alias wiki='cd ~/Dropbox/wiki'
 alias g='git'
 
 # Use exa instead of ls
