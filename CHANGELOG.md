@@ -1,3 +1,10 @@
+## 2021-11-15
+
+* Remove unused git submodules
+* Update README
+* Add additional bash and fish shortcuts
+* Remove zshrc
+
 ## 2021-11-10
 
 * Add HTML syntax support to vim
