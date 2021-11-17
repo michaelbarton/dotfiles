@@ -53,9 +53,9 @@ alias tls="tmux list-session"
 USER_BIN=${HOME}/.bin
 DOTFILES_BIN=${HOME}/.dotfiles/bin
 HOMEBREW_BIN=/opt/homebrew/bin
-PYTHON_BIN=${HOME}/Library/Python/3.8/bin
+PYTHON_BIN=${HOME}/.venv/bin
 
-export PATH=${HOMEBREW_BIN}:${DOTFILES_BIN}:${USER_BIN}:${PYTHON_BIN}:${PATH}
+export PATH=${PYTHON_BIN}:${HOMEBREW_BIN}:${DOTFILES_BIN}:${USER_BIN}:${PATH}
 
 ###################################################################
 #
@@ -81,7 +81,6 @@ export GIT_COMMITTER_EMAIL=$EMAIL
 
 export PAGER='less'
 export LESS='-R -M --shift 5'
-export LESSOPEN="|/usr/local/bin/lesspipe.sh %s"
 
 # language
 LC_ALL='en_GB.UTF-8'
@@ -89,14 +88,6 @@ LANG='en_GB.UTF-8'
 LC_CTYPE=C
 DISPLAY=:0
 
-# this makes man pages look nicer...
-export LESS_TERMCAP_mb=$'\E[01;31m'
-export LESS_TERMCAP_md=$'\E[01;31m'
-export LESS_TERMCAP_me=$'\E[0m'
-export LESS_TERMCAP_se=$'\E[0m'
-export LESS_TERMCAP_so=$'\E[01;44;33m'
-export LESS_TERMCAP_ue=$'\E[0m'
-export LESS_TERMCAP_us=$'\E[01;32m'
 
 ###################################################################
 #

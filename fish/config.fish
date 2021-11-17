@@ -24,3 +24,11 @@ function wikisearch
 	fd . --base-directory="$HOME/Dropbox/wiki/" | fzf | xargs -I {} -o nvim ~/Dropbox/wiki/{}
 end
 bind \cg wikisearch
+
+set -U*x* LESS_TERMCAP_us \e\[1\x3B32m
+set -U*x* LESS_TERMCAP_md \e\[1\x3B31m
+set -U*x* LESS_TERMCAP_mb \e\[01\x3B31m
+set -U*x* LESS_TERMCAP_me \e\[0m
+set -U*x* LESS_TERMCAP_se \e\[0m
+set -U*x* LESS_TERMCAP_so \e\[01\x44\x33m
+set -U*x* LESS_TERMCAP_ue \e\[0m
