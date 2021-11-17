@@ -1,3 +1,8 @@
+## 2021-11-17
+
+* Fix shell path so python venv bin is first.
+* Fix syntax highlighting in less.
+
 ## 2021-11-15
 
 * Remove unused git submodules
