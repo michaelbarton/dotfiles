@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+import re
 from datetime import datetime
 from email import policy
 import email
@@ -15,7 +15,8 @@ EDITOR = os.environ.get('EDITOR','vim')
 
 @click.command()
 @click.argument("filepath", type=click.Path(exists=True))
-def run(filepath: str):
+@click.option("--skip-edit", "-e", default=False, is_flag=True)
+def run(filepath: str, skip_edit: bool):
 
     # Read email from file.
     contents = pathlib.Path(filepath).read_text()
@@ -26,9 +27,10 @@ def run(filepath: str):
     date_subject = datetime.strptime(msg.get("Subject"), "%Y%m%d")
 
     # Convert html contents to plain text
-    email_body = str(msg.get_body()).replace("=\n", "")
+    email_body = str(msg.get_content()).replace("=\n", "")
     soup = bs4.BeautifulSoup(email_body, features="html.parser")
-    body = soup.get_text().replace("=E2=80=A2 =E2=80=A2 =E2=80=A2", "\n")
+    # Strip out weird characters and footer.
+    body = re.sub("--Sent from.+", "", soup.get_text().replace("=E2=80=A2 =E2=80=A2 =E2=80=A2", "\n"))
 
     # Write to file
     dst_file = (
@@ -36,7 +38,12 @@ def run(filepath: str):
         / f"Dropbox/wiki/unprocessed/{date_subject.strftime('%Y%m%d')}_daily_log.md"
     )
     dst_file.write_text(body)
+
+    if skip_edit:
+        return
+
     subprocess.call([EDITOR, str(dst_file.absolute())])
 
 
-run()
+if __name__ == '__main__':
+    run()
