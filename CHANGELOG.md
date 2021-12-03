@@ -1,3 +1,9 @@
+## 2021-12-03
+
+* Add scripts to fetch data from NCBI.
+* Run black on python files.
+* Streamline output file from converting daily log
+
 ## 2021-11-17
 
 * Fix shell path so python venv bin is first.
