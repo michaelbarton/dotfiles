@@ -14,11 +14,11 @@ def get_keychain_pass(account):
     password_block = process.stdout.read().decode().strip()
     if password_block:
         return password_block
-    raise RuntimeError("No password found with `{}`:\n {}".format(' '.join(command), password_block))
-
+    raise RuntimeError(
+        "No password found with `{}`:\n {}".format(" ".join(command), password_block)
+    )
 
 
 def get_keyring_pass(key, value):
     command = "secret-tool lookup {} {}".format(key, value)
     return commands.getoutput(command).strip()
-

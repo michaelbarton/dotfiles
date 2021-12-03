@@ -16,11 +16,12 @@ import funcy
 import pydantic
 import requests
 
-EDITOR = os.environ.get('EDITOR','vim')
+EDITOR = os.environ.get("EDITOR", "vim")
 
 
 class PubmedRecord(pydantic.BaseModel):
     """Class to track the required fields in a pubmed entry."""
+
     first_author: str
     title: str
     journal: str
@@ -46,6 +47,7 @@ def generate_url(pubmed_id: str) -> str:
         )
     )
 
+
 def parse_entry_date(date_field: str) -> datetime.datetime:
     """Function to handle variability in publication dates."""
     _f = funcy.rpartial(datetime.datetime.strptime, "%Y %b %d")
@@ -59,6 +61,7 @@ def parse_entry_date(date_field: str) -> datetime.datetime:
 
     if field_length == 1:
         return _f(date_field + " Jan 01")
+
 
 def parse_pubmed_response(response, pubmed_id: str) -> PubmedRecord:
     """Parse the JSON reponse from the pubmed API into a PubmedRecord."""
