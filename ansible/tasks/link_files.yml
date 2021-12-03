@@ -27,7 +27,6 @@
     - { src: "wiki/convert_daily_log.py", dest: ".bin/convert_daily_log"}
     - { src: "wiki/generate_article_record.py", dest: ".bin/generate_article_record"}
     - { src: "ansible/apply_ansible", dest: ".bin/apply_ansible"}
-    - { src: "ncbi/fetch_fasta_gene", dest: ".bin/fetch_fasta_gene"}
-    - { src: "ncbi/fetch_genbank", dest: ".bin/fetch_genbank"}
-
+    - { src: "ncbi/fetch_fasta_gene.py", dest: ".bin/fetch_fasta_gene"}
+    - { src: "ncbi/fetch_genbank.py", dest: ".bin/fetch_genbank"}
 
