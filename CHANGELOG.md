@@ -1,3 +1,9 @@
+## 2022-01-12
+
+* Add script to preview hocon files.
+* Add script preview parchet.
+* `git merge` no longer tries to sign commit.
+
 ## 2021-12-03
 
 * Add scripts to fetch data from NCBI.
