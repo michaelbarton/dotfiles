@@ -1,5 +1,8 @@
 #!/usr/local/bin/fish
 
+# Language version manager
+source (brew --prefix)/opt/asdf/libexec/asdf.fish
+
 bass source ~/.bashrc
 
 starship init fish | source
@@ -13,8 +16,6 @@ function pbcat
 	cat $argv[1] | pbcopy
 end
 
-# Language version manager
-source (brew --prefix)/opt/asdf/libexec/asdf.fish
 
 # Use ctrl+s to fzf search the current directory
 fzf_configure_bindings --directory=\cs
