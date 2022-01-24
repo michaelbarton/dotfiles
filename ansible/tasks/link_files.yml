@@ -29,4 +29,5 @@
     - { src: "ansible/apply_ansible", dest: ".bin/apply_ansible"}
     - { src: "ncbi/fetch_fasta_gene.sh", dest: ".bin/fetch_fasta_gene"}
     - { src: "ncbi/fetch_genbank.sh", dest: ".bin/fetch_genbank"}
+    - { src: "markdown/md2docx.sh", dest: ".bin/md2docx"}
 

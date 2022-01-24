@@ -27,6 +27,8 @@ Plug 'junegunn/fzf.vim'
 " HTML tags
 Plug 'mattn/emmet-vim'
 
+" Justfile syntax highlighting
+Plug 'NoahTheDuke/vim-just'
 
 " Initialize plugin system
 call plug#end()

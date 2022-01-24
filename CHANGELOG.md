@@ -1,3 +1,10 @@
+## 2022-01-24
+
+* Add script to convert md to docx
+* Justfile syntax highlighting
+* iterm2 starts in cache directory.
+* Add script to fetch genome FASTA
+
 ## 2021-12-03
 
 * Add scripts to fetch data from NCBI.
