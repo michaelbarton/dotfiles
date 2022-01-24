@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Command</key>
-	<string>/opt/homebrew/bin/tmux</string>
+	<string></string>
 	<key>Default Bookmark Guid</key>
 	<string>DD9A4A03-FCD2-4623-B8AB-C323EAC29147</string>
 	<key>HapticFeedbackForEsc</key>
@@ -282,7 +282,7 @@
 			<key>Custom Command</key>
 			<string>Custom Shell</string>
 			<key>Custom Directory</key>
-			<string>No</string>
+			<string>Yes</string>
 			<key>Default Bookmark</key>
 			<string>No</string>
 			<key>Description</key>
@@ -686,7 +686,7 @@
 			<key>Window Type</key>
 			<integer>0</integer>
 			<key>Working Directory</key>
-			<string>/Users/michaelbarton</string>
+			<string>/Users/michaelbarton/cache</string>
 		</dict>
 	</array>
 	<key>PointerActions</key>
