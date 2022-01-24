@@ -45,7 +45,7 @@
 
   r    = rebase
   ri   = rebase --interactive
-  m    = merge --no-ff --gpg-sign
+  m    = merge --no-ff
 
   p    = push
   pm   = push --mirror

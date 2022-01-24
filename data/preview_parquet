@@ -1,0 +1,14 @@
+#!/usr/bin/env python3
+"""Preview the contents of a parquet file as CSV."""
+
+import pandas
+import io
+import sys
+
+IN_FILE = sys.argv[1]
+
+data = pandas.read_parquet(IN_FILE)
+output = io.StringIO()
+data.to_csv(output)
+print(output.getvalue())
+

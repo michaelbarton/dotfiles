@@ -50,10 +50,10 @@ alias tls="tmux list-session"
 #
 ###################################################################
 
+PYTHON_BIN=${HOME}/.venv/bin
 USER_BIN=${HOME}/.bin
 DOTFILES_BIN=${HOME}/.dotfiles/bin
 HOMEBREW_BIN=/opt/homebrew/bin
-PYTHON_BIN=${HOME}/.venv/bin
 
 export PATH=${PYTHON_BIN}:${HOMEBREW_BIN}:${DOTFILES_BIN}:${USER_BIN}:${PATH}
 

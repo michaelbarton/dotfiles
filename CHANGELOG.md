@@ -1,9 +1,12 @@
 ## 2022-01-24
 
+* Add script preview parchet.
 * Add script to convert md to docx
-* Justfile syntax highlighting
-* iterm2 starts in cache directory.
 * Add script to fetch genome FASTA
+* Add script to preview hocon files.
+* Justfile syntax highlighting
+* `git merge` no longer tries to sign commit.
+* iterm2 starts in cache directory.
 
 ## 2021-12-03
 

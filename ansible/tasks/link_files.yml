@@ -30,4 +30,5 @@
     - { src: "ncbi/fetch_fasta_gene.sh", dest: ".bin/fetch_fasta_gene"}
     - { src: "ncbi/fetch_genbank.sh", dest: ".bin/fetch_genbank"}
     - { src: "markdown/md2docx.sh", dest: ".bin/md2docx"}
+    - { src: "data/preview_parquet", dest: ".bin/preview_parquet"}
 
