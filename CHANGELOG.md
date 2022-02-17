@@ -1,3 +1,8 @@
+## 2022-02-17
+
+* Additional scripts for working with yml and parquet.
+* Update dictionary.
+
 ## 2022-01-24
 
 * Add script preview parchet.
