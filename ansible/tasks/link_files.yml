@@ -23,6 +23,11 @@
     - { src: "nvim/init.vim", dest: ".config/nvim/init.vim"}
     - { src: "vim/ftplugin/markdown.vim", dest: ".config/nvim/ftplugin/markdown.vim"}
 
+    # Scripts for working with data
+    - { src: "parquet/csv_to_parquet.py", dest: ".bin/csv_to_parquet"}
+    - { src: "parquet/parquet_to_csv.py", dest: ".bin/parquet_to_csv"}
+    - { src: "yml/format_yml.py", dest: ".bin/format_yml"}
+
     # Scripts
     - { src: "wiki/convert_daily_log.py", dest: ".bin/convert_daily_log"}
     - { src: "wiki/generate_article_record.py", dest: ".bin/generate_article_record"}
@@ -30,5 +35,6 @@
     - { src: "ncbi/fetch_fasta_gene.sh", dest: ".bin/fetch_fasta_gene"}
     - { src: "ncbi/fetch_genbank.sh", dest: ".bin/fetch_genbank"}
     - { src: "markdown/md2docx.sh", dest: ".bin/md2docx"}
-    - { src: "data/preview_parquet", dest: ".bin/preview_parquet"}
+
+
 
