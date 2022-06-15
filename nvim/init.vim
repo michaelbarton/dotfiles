@@ -149,5 +149,6 @@ nnoremap <F3>  <ESC>:WikiSearch<CR>
 inoremap <F3> <C-R>=strftime("## [[%Y%m%d]]")<CR>
 
 " Create new entry in the wiki
-let g:zettelkasten = "~/Dropbox/wiki/zettel/"
-command! -nargs=1 NewZettel :execute ":e" zettelkasten . strftime("%Y%m%d%H%M") . "_<args>.md"
+let g:wiki = "~/Dropbox/wiki/"
+command! -nargs=1 NewZettel :execute ":e" wiki . "zettel/" . strftime("%Y%m%d%H%M") . "_<args>.md"
+command! -nargs=1 NewBlogIdea :execute ":e" wiki . "blog/" . strftime("%Y%m%d%H%M") . "_<args>.md"
