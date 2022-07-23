@@ -28,9 +28,6 @@ Plug 'junegunn/fzf.vim'
 " HTML tags
 Plug 'mattn/emmet-vim'
 
-" Vim snippets
-Plug 'dcampos/nvim-snippy'
-
 " Initialize plugin system
 call plug#end()
 
