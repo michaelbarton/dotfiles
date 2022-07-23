@@ -2,6 +2,9 @@
 
 ## OSX Setup
 
+- Install homebrew `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
+- Install ansible `pip3 install ansible`
+
 Run the following command to install plugins and link files.
 
     bin/apply_ansible

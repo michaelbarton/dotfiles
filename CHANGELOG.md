@@ -1,3 +1,8 @@
+## 2022-07-23
+
+* Additional commands for searching personal wiki
+* Update dictionary.
+
 ## 2022-02-17
 
 * Additional scripts for working with yml and parquet.

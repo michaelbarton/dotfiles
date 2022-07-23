@@ -12,6 +12,7 @@ Plug 'overcache/NeoSolarized'
 Plug 'plasticboy/vim-markdown'
 Plug 'elzr/vim-json'
 Plug 'dag/vim-fish'
+Plug 'NoahTheDuke/vim-just'
 
 " status bar
 Plug 'bling/vim-airline'
@@ -26,9 +27,6 @@ Plug 'junegunn/fzf.vim'
 
 " HTML tags
 Plug 'mattn/emmet-vim'
-
-" Justfile syntax highlighting
-Plug 'NoahTheDuke/vim-just'
 
 " Initialize plugin system
 call plug#end()
@@ -141,9 +139,13 @@ nnoremap <F1>  <ESC>:source $MYVIMRC<CR>
 " Use F2 to turn on unformatted pasting of text.
 set pastetoggle=<F2>
 
-" Use F3 to search wiki files
+" Use F3 to search wiki files when not in insert mode
 nnoremap <F3>  <ESC>:WikiSearch<CR>
 
+" Paste the current date header
+inoremap <F3> <C-R>=strftime("## [[%Y%m%d]]")<CR>
+
 " Create new entry in the wiki
-let g:zettelkasten = "~/Dropbox/wiki/zettel/"
-command! -nargs=1 NewZettel :execute ":e" zettelkasten . strftime("%Y%m%d%H%M") . "_<args>.md"
+let g:wiki = "~/Dropbox/wiki/"
+command! -nargs=1 NewZettel :execute ":e" wiki . "zettel/" . strftime("%Y%m%d%H%M") . "_<args>.md"
+command! -nargs=1 NewBlogIdea :execute ":e" wiki . "blog/" . strftime("%Y%m%d%H%M") . "_<args>.md"
