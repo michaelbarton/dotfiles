@@ -64,7 +64,10 @@ homebrew is installed this may be in a location like `$(brew
 
 ### Debugging launchctl agents
 
-See: https://apple.stackexchange.com/a/415074/227087
+- Double check the path of the executable in the plist file points to the
+  homebrew installed location of offline imap. If homebrew is installed to a
+  different location this path may not be correct.
+- See: https://apple.stackexchange.com/a/415074/227087
 
 ## Linux setup
 
