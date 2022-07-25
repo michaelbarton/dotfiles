@@ -55,6 +55,11 @@ Setup the mutt colour scheme section.
     mkdir ~/.mutt
     ln -s ~/.dotfiles/solarized/mutt-colors-solarized/mutt-colors-solarized-dark-256.muttrc ~/.mutt/colors
 
+Copy the corresponding msmtp rc file. Ensure that the password fetch command is
+correct in this file.
+
+    cp ~/.dotfiles/osx.rc ~/.msmtprc
+
 ### OpenSSL Certificate on OSX
 
 The offlineimap program requires that a `cert.pem` file is available. The
