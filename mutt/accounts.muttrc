@@ -1,4 +1,4 @@
-set folder = $HOME/.maildb/
+set folder = $HOME/.maildb/michaelbarton
 set spoolfile = "+INBOX"
 folder-hook $HOME/.maildb/ "\
   set postponed = +'[Google Mail].Drafts' \

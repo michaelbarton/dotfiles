@@ -20,7 +20,7 @@ restoreatime = no
 [Repository personal-remote]
 type = Gmail
 remoteuser = mail@michaelbarton.me.uk
-remotepasseval = get_keychain_pass(account="personal.gmail")
+remotepasseval = get_keychain_pass(account="acct.gmail")
 realdelete = no
 # This is installed by `brew install openssl` and may change with versions
 sslcacertfile = /usr/local/etc/openssl@3/cert.pem

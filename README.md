@@ -9,6 +9,63 @@ Run the following command to install plugins and link files.
 
     bin/apply_ansible
 
+### iTerm2
+
+Iterm2 has better all round support for colours, tmux and accessing the the
+clipboard. This is installed using Caskroom in the section above.
+
+  * Set "Allow clipboard access to terminal apps"
+  * Profiles > Terminal > "Silence bell"
+  * Profiles > Colors and click the drop down menu and select import. Select
+    the file: 'solarized/iterm2-colors-solarized/Solarized Dark.terminal.' You
+    may need to copy this file to the desktop first if you can access in in the
+    file chooser box.
+  * Set font to inconsolate-dz size 14
+
+### OSX Email Setup
+
+Create maildb directories e.g.
+
+    mkdir -p ~/.maildb/michaelbarton
+
+Create offlineimaprc files
+
+    cp ~/.dotfiles/offlineimap/rc.osx ~/.offlineimaprc
+    ln -s ~/.dotfiles/offlineimap/offlineimap.py ~/.offlineimap.py
+
+Check the expected openssl file exists: `/usr/local/etc/openssl/cert.pem`. If
+not see the openssl certificate section below.
+
+Create a gmail application password in the gmail web page. Then create a
+corresponding keychain entry with this password:
+
+    security add-generic-password -a acct.gmail -s acct.gmail -w
+
+Test that this password is correct by running offlineimap once. If there are
+any issues make sure the account name in the KeyChain App matches that used in
+the `offlineimaprc` file.
+
+Set up launctl to run offlineimap map automatically.
+
+    ln -s ~/.dotfiles/offlineimap/uk.me.michaelbarton.offlineimap.plist ~/Library/LaunchAgents/
+    launchctl load -w ~/Library/LaunchAgents/uk.me.michaelbarton.offlineimap.plist
+
+Setup the mutt colour scheme section.
+
+    mkdir ~/.mutt
+    ln -s ~/.dotfiles/solarized/mutt-colors-solarized/mutt-colors-solarized-dark-256.muttrc ~/.mutt/colors
+
+### OpenSSL Certificate on OSX
+
+The offlineimap program requires that a `cert.pem` file is available. The
+location of file is configured by the offlineimaprc file. Depending on where
+homebrew is installed this may be in a location like `$(brew
+--prefix)/etc/openssl@1.1/cert.pem`.
+
+### Debugging launchctl agents
+
+See: https://apple.stackexchange.com/a/415074/227087
+
 ## Linux setup
 
 Install common apt packages
@@ -21,7 +78,7 @@ Install common apt packages
 
     xargs -a data/apt-packages sudo apt install --yes
 
-## Set up email
+### Linux Email Setup
 
 Copy the msmtprc file manually, since a symlink is not recognised by the
 program.
@@ -57,44 +114,3 @@ Set up the systemd scripts to run offlineimap as a [systemd timer][].
 
 [systemd timer]: https://aishpant.dev/blog/mailing-lists/
 
-## ITERM2
-
-Iterm2 has better all round support for colours, tmux and accessing the the clipboard. This is installed using Caskroom in the section above.
-
-  * Set "Allow clipboard access to terminal apps"
-  * Profiles > Terminal > "Silence bell"
-  * Profiles > Colors and click the drop down menu and select import. Select
-    the file: 'solarized/iterm2-colors-solarized/Solarized Dark.terminal.' You
-    may need to copy this file to the desktop first if you can access in in the
-    file chooser box.
-  * Set font to inconsolate-dz size 14
-
-
-## Offlineimap
-
-Create maildb directories e.g.
-
-    mkdir -p ~/.maildb/michaelbarton
-
-Create offlineimaprc files
-
-    cp ~/.dotfiles/offlineimap/rc.osx ~/.offlineimaprc
-    ln -s ~/.dotfiles/offlineimap/offlineimap.py ~/.offlineimap.py
-
-Check the expected openssl file exists. This is configured in the RC file:
-    - /usr/local/etc/openssl/cert.pem
-
-Create a gmail application password and create a corresponding keychain entry with
-this password:
-
-    security add-generic-password -a acct.gmail -s acct.gmail -w
-
-Set up launctl to run offlineimap map automatically.
-
-    ln -s ~/.dotfiles/launchd_agents/uk.me.michaelbarton.offlineimap.plist ~/Library/LaunchAgents/
-    launchctl load -w ~/Library/LaunchAgents/uk.me.michaelbarton.offlineimap.plist
-
-## Mutt
-
-    mkdir ~/.mutt
-    ln -s ~/.dotfiles/solarized/mutt-colors-solarized/mutt-colors-solarized-dark-256.muttrc ~/.mutt/colors
