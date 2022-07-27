@@ -45,7 +45,7 @@ Test that this password is correct by running offlineimap once. If there are
 any issues make sure the account name in the KeyChain App matches that used in
 the `offlineimaprc` file.
 
-Set up launctl to run offlineimap map automatically.
+Set up launchctl to run offlineimap map automatically.
 
     ln -s ~/.dotfiles/offlineimap/uk.me.michaelbarton.offlineimap.plist ~/Library/LaunchAgents/
     launchctl load -w ~/Library/LaunchAgents/uk.me.michaelbarton.offlineimap.plist
@@ -55,7 +55,7 @@ Setup the mutt colour scheme section.
     mkdir ~/.mutt
     ln -s ~/.dotfiles/solarized/mutt-colors-solarized/mutt-colors-solarized-dark-256.muttrc ~/.mutt/colors
 
-Copy the corresponding msmtp rc file. Ensure that the password fetch command is
+Copy the corresponding msmtprc file. Ensure that the password fetch command is
 correct in this file.
 
     cp ~/.dotfiles/osx.rc ~/.msmtprc
