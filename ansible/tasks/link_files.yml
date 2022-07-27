@@ -7,6 +7,8 @@
   loop:
     - { src: "tmux/tmux.conf", dest: ".tmux.conf"}
     - { src: "git/gitconfig", dest: ".gitconfig"}
+    - { src: "muttrc", dest: ".muttrc"}
+    - { src: "mutt", dest: ".mutt"}
 
     # Dictionary
     - { src: "aspell/aspell.en.pws", dest: ".aspell.en.pws"}

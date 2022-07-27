@@ -1,0 +1,14 @@
+# Set default values for all following accounts.
+defaults
+auth           on
+tls            on
+
+# Gmail
+account gmail
+host smtp.gmail.com
+port 587
+protocol smtp
+from mail@michaelbarton.me.uk
+user mail@michaelbarton.me.uk
+# Change according to KeyChain entry name
+passwordeval security find-generic-password -w -a acct.gmail
