@@ -1,3 +1,8 @@
+## 2022-08-22
+
+* Use vim wiki for personal wiki.
+* Add telescope vim plugin.
+
 ## 2022-07-23
 
 * Additional commands for searching personal wiki
