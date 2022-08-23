@@ -10,19 +10,6 @@ curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
 fish -c "fisher update"
 ```
 
-### iTerm2
-
-Iterm2 has better all round support for colours, tmux and accessing the the
-clipboard. This is installed using Caskroom in the section above.
-
-  * Set "Allow clipboard access to terminal apps"
-  * Profiles > Terminal > "Silence bell"
-  * Profiles > Colors and click the drop down menu and select import. Select
-    the file: 'solarized/iterm2-colors-solarized/Solarized Dark.terminal.' You
-    may need to copy this file to the desktop first if you can access in in the
-    file chooser box.
-  * Set font to inconsolate-dz size 14
-
 ### OSX Email Setup
 
 Create maildb directories e.g.
@@ -65,8 +52,7 @@ correct in this file.
 
 The offlineimap program requires that a `cert.pem` file is available. The
 location of file is configured by the offlineimaprc file. Depending on where
-homebrew is installed this may be in a location like `$(brew
---prefix)/etc/openssl@1.1/cert.pem`.
+homebrew is installed this may be in a location like `$(brew --prefix)/etc/openssl@1.1/cert.pem`.
 
 ### Debugging launchctl agents
 
@@ -122,4 +108,3 @@ Set up the systemd scripts to run offlineimap as a [systemd timer][].
     journalctl | grep offlineimap
 
 [systemd timer]: https://aishpant.dev/blog/mailing-lists/
-
