@@ -22,11 +22,20 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'christoomey/vim-tmux-navigator'
 
 " Support for fzf for searching files
+" TODO: Consider phasing this out and use telescope instead.
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 
+" Using telescope for searching files
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
 " HTML tags
 Plug 'mattn/emmet-vim'
+
+" Vimwiki setup for zettelkasten
+Plug 'vimwiki/vimwiki'
 
 " Initialize plugin system
 call plug#end()
@@ -115,6 +124,21 @@ set encoding=utf-8
 let g:airline_powerline_fonts = 1
 
 set termguicolors
+
+"
+" SETTINGS FOR VIM WIKI
+"
+
+
+let g:vimwiki_list = [{'path': '~/Dropbox/wiki/zettel', 'syntax': 'markdown', 'ext': '.md'}]
+let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
+
+"  This will make sure vimwiki will only set the filetype of markdown files
+"  inside a wiki directory, rather than globally.
+"
+"  See: https://www.reddit.com/r/vim/comments/9riu4c/using_vimwiki_with_markdown/e8hag4f/?context=8&depth=9
+let g:vimwiki_global_ext = 0
+
 
 "
 " GENERAL KEY MAPS
