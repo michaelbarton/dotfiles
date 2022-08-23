@@ -1,0 +1,10 @@
+---
+version: "3.9"
+services:
+  prettier:
+    build:
+      target: prettier
+      context: .
+    working_dir: /mnt/src
+    volumes:
+      - .:/mnt/src:rw

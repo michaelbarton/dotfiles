@@ -4,7 +4,6 @@
   hosts: localhost
   connection: local
   tasks:
-
     - name: Create folder
       file:
         path: "{{item}}"
@@ -21,15 +20,6 @@
       tags:
         - links
 
-    - name: Create the fisher plugin manager
-      command:
-        cmd: curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
-        creates: "~/.config/fish/functions/fisher.fish"
-
-    - name: Update fish plugins
-      command:
-        cmd: fish -c "fisher update"
-
     - name: Install vim plugin manager
       get_url:
         url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -37,4 +27,4 @@
 
     - name: Install and update vim plugins
       command:
-        cmd: nvim +PluginInstall +qall
+        cmd: nvim -c "PlugInstall" -c "qa!"
