@@ -11,6 +11,9 @@ set -o nounset
 alias dot='cd ~/.dotfiles'
 alias cache='cd ~/cache'
 alias wiki='vim ~/Dropbox/wiki/zettel/index.md'
+alias today='vim ~/Dropbox/wiki/zettel/$(date "+%Y%m%d").md'
+alias yesterday='vim ~/Dropbox/wiki/zettel/$(date --date "yesterday" "+%Y%m%d").md'
+alias tomorrow='vim ~/Dropbox/wiki/zettel/$(date --date "tomorrow" "+%Y%m%d").md'
 alias g='git'
 
 # Use exa instead of ls

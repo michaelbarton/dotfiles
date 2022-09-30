@@ -37,6 +37,9 @@ Plug 'mattn/emmet-vim'
 " Vimwiki setup for zettelkasten
 Plug 'vimwiki/vimwiki'
 
+" Support simple commands such as deleting and renaming files and buffers
+Plug 'tpope/vim-eunuch'
+
 " Initialize plugin system
 call plug#end()
 
