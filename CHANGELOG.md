@@ -1,3 +1,10 @@
+# CHANGELOG
+
+## 2022-09-30
+
+- Add vim plugin for moving, deleting, ... files.
+- Additional aliases working files.
+
 ## 2022-08-22
 
 - Remove vundle submodule.
