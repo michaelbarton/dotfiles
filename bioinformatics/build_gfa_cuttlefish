@@ -1,0 +1,20 @@
+#!/bin/bash -ue
+
+SRC_DIR=$(realpath $1)
+
+mkdir -p out/graph
+
+docker run \
+	-it \
+	--rm \
+	--mount "type=bind,source=${SRC_DIR},target=/mnt/references" \
+	--mount "type=bind,source=$(pwd)/out/graph,target=/mnt/out/graph" \
+	--platform linux/amd64 \
+	cuttlefish \
+	cuttlefish build \
+	--dir /mnt/references \
+	--ref \
+	--output /mnt/out/graph/graph.gfa \
+	--threads 4
+
+

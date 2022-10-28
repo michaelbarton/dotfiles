@@ -1,0 +1,13 @@
+#!/bin/bash -ue
+
+GENOME_1=$1
+GENOME_2=$2
+
+docker run \
+	--rm \
+	--mount "type=bind,source=$(pwd)/${GENOME_1},target=/mnt/genome/$(basename -- ${GENOME_1})" \
+	--mount "type=bind,source=$(pwd)/${GENOME_2},target=/mnt/genome/$(basename -- ${GENOME_2})" \
+	--platform linux/amd64 \
+	quay.io/biocontainers/minimap2:2.24--h7132678_1 \
+	minimap2 -ax asm20 "/mnt/genome/$(basename -- ${GENOME_1})" "/mnt/genome/$(basename -- ${GENOME_2})"
+
