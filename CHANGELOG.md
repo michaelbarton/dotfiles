@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2022-10-31
+
+- Use Nord colours for iterm and vim
+
 ## 2022-09-30
 
 - Add vim plugin for moving, deleting, ... files.

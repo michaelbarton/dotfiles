@@ -5,8 +5,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
 Plug 'junegunn/limelight.vim', { 'for': 'markdown' }
 
-" Solarised colour scheme
-Plug 'overcache/NeoSolarized'
+" Nord colour scheme
+Plug 'arcticicestudio/nord-vim'
 
 " Language specific plugins
 Plug 'plasticboy/vim-markdown'
@@ -110,7 +110,7 @@ autocmd BufRead,BufNewFile *.njk setfiletype html
 " APPEARANCE
 "
 
-colorscheme NeoSolarized
+colorscheme nord
 
 " Add number column on left-hand side
 set number
