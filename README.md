@@ -10,6 +10,9 @@ curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
 fish -c "fisher update"
 ```
 
+Download and install the Nord colour theme for iterm:
+https://github.com/arcticicestudio/nord-iterm2
+
 ### OSX Email Setup
 
 Create maildb directories e.g.
