@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2022-11-01
+
+- Update wiki scripts
+
 ## 2022-10-31
 
 - Use Nord colours for iterm and vim
