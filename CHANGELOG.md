@@ -6,6 +6,10 @@
 - Add python script for converting blast to coverage file.
 - Increase font size
 
+## 2022-11-01
+
+- Update wiki scripts
+
 ## 2022-10-31
 
 - Use Nord colours for iterm and vim

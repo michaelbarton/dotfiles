@@ -11,10 +11,13 @@ set -o nounset
 alias dot='cd ~/.dotfiles'
 alias cache='cd ~/cache'
 alias wiki='vim ~/Dropbox/wiki/zettel/index.md'
-alias today='vim ~/Dropbox/wiki/zettel/$(date "+%Y%m%d").md'
-alias yesterday='vim ~/Dropbox/wiki/zettel/$(date --date "yesterday" "+%Y%m%d").md'
-alias tomorrow='vim ~/Dropbox/wiki/zettel/$(date --date "tomorrow" "+%Y%m%d").md'
 alias g='git'
+
+# Use gdate because this is the version installed on OSX by homebrew.
+# A better way might be to alias gdate to date
+alias today='vim ~/Dropbox/wiki/zettel/$(gdate "+%Y%m%d").md'
+alias yesterday='vim ~/Dropbox/wiki/zettel/$(gdate --date "yesterday" "+%Y%m%d").md'
+alias tomorrow='vim ~/Dropbox/wiki/zettel/$(gdate --date "tomorrow" "+%Y%m%d").md'
 
 # Use exa instead of ls
 alias ls='exa --classify --oneline --git'

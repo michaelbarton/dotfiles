@@ -37,6 +37,7 @@
     - { src: "ncbi/fetch_fasta_gene.sh", dest: ".bin/fetch_fasta_gene"}
     - { src: "ncbi/fetch_genbank.sh", dest: ".bin/fetch_genbank"}
     - { src: "markdown/md2docx.sh", dest: ".bin/md2docx"}
+    - { src: "zettel/process_today.sh", dest: ".bin/process_today"}
 
 
 
