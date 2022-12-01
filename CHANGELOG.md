@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2022-12-01
+
+- Add shell script helpers for running common bioinformatics tools.
+- Add python script for converting blast to coverage file.
+- Increase font size
+
 ## 2022-11-01
 
 - Update wiki scripts

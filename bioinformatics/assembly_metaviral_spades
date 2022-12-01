@@ -1,0 +1,20 @@
+#!/bin/bash -ue
+
+SRC_FILE=$(realpath $1)
+DST_FILE=$(realpath $2)
+TMP_DIR=$(mktemp -d)
+
+mkdir -p out/assembly
+
+
+docker run \
+	--rm \
+	--mount "type=bind,source=${SRC_FILE},target=/mnt/reads/reads.fq.gz" \
+	--mount "type=bind,source=${TMP_DIR},target=/mnt/out/assembly" \
+	--platform linux/amd64 \
+	quay.io/biocontainers/spades:3.15.5--h95f258a_1 \
+	metaviralspades.py \
+	-o /mnt/out/assembly \
+	-s /mnt/reads/reads.fq.gz
+
+cp ${TMP_DIR}/contigs.fasta ${DST_FILE}
