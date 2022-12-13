@@ -30,6 +30,10 @@
     - { src: "parquet/parquet_to_csv.py", dest: ".bin/parquet_to_csv"}
     - { src: "yml/format_yml.py", dest: ".bin/format_yml"}
 
+    # Vimwiki scripts
+    - { src: "zettel/process_today.sh", dest: ".bin/process_today"}
+    - { src: "zettel/today.sh", dest: ".bin/today"}
+
     # Scripts
     - { src: "wiki/convert_daily_log.py", dest: ".bin/convert_daily_log"}
     - { src: "wiki/generate_article_record.py", dest: ".bin/generate_article_record"}
@@ -37,7 +41,6 @@
     - { src: "ncbi/fetch_fasta_gene.sh", dest: ".bin/fetch_fasta_gene"}
     - { src: "ncbi/fetch_genbank.sh", dest: ".bin/fetch_genbank"}
     - { src: "markdown/md2docx.sh", dest: ".bin/md2docx"}
-    - { src: "zettel/process_today.sh", dest: ".bin/process_today"}
 
 
 

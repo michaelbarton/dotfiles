@@ -1,4 +1,4 @@
-personal_ws-1.1 en 566
+personal_ws-1.1 en 572
 ABySS
 AI
 AIC
@@ -30,6 +30,7 @@ Daltons
 Debian
 DockerHub
 Dockerfile
+EFS
 EMBL
 EMR
 Erlang
@@ -216,6 +217,7 @@ chemostat
 circos
 citeulike
 clojure
+cloudflare
 clustalw
 codebase
 codeml
@@ -435,6 +437,7 @@ phylogenetics
 phylogenies
 phylogenomic
 phylogenomics
+pigz
 pili
 plasmid
 plasmids
@@ -564,4 +567,7 @@ workflows
 ws
 yaml
 yml
+zlib
+zopfli
 zsh
+zstd

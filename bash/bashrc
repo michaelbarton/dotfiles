@@ -15,7 +15,6 @@ alias g='git'
 
 # Use gdate because this is the version installed on OSX by homebrew.
 # A better way might be to alias gdate to date
-alias today='vim ~/Dropbox/wiki/zettel/$(gdate "+%Y%m%d").md'
 alias yesterday='vim ~/Dropbox/wiki/zettel/$(gdate --date "yesterday" "+%Y%m%d").md'
 alias tomorrow='vim ~/Dropbox/wiki/zettel/$(gdate --date "tomorrow" "+%Y%m%d").md'
 
