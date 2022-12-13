@@ -5,8 +5,11 @@ call plug#begin('~/.vim/plugged')
 Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
 Plug 'junegunn/limelight.vim', { 'for': 'markdown' }
 
-" Nord colour scheme
+" Dark Nord colour scheme
 Plug 'arcticicestudio/nord-vim'
+
+" Light gruvbox colour scheme
+Plug 'morhetz/gruvbox'
 
 " Language specific plugins
 Plug 'plasticboy/vim-markdown'

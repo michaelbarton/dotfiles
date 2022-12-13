@@ -5,4 +5,4 @@ set -o errexit
 
 PATH=${HOME}/Library/Python/3.8/bin:${PATH}
 
-ansible-playbook -i "localhost," -c local ansible/dotfiles.yml
+ansible-playbook -i "localhost," -c local ~/.dotfiles/ansible/dotfiles.yml
