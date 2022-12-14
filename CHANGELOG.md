@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 2022-12-14
+
+- Alias `mosh` to `ssh`.
+- Add nextflow vim syntax highlighting.
+
 ## 2022-12-13
 
 - Convert `today` alias to a bash script that copies over the template file.
