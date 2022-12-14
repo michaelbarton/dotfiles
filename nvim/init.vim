@@ -16,6 +16,7 @@ Plug 'plasticboy/vim-markdown'
 Plug 'elzr/vim-json'
 Plug 'dag/vim-fish'
 Plug 'NoahTheDuke/vim-just'
+Plug 'LukeGoodsell/nextflow-vim'
 
 " status bar
 Plug 'bling/vim-airline'
