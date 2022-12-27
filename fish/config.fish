@@ -4,6 +4,10 @@ bass source ~/.bashrc
 
 starship init fish | source
 
+function ssh
+	mosh $argv
+end
+
 function sp
 	aspell -c $argv[1] && ~/.dotfiles/bin/sort_dictionary
 end

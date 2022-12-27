@@ -22,7 +22,6 @@ alias tomorrow='vim ~/Dropbox/wiki/zettel/$(gdate --date "tomorrow" "+%Y%m%d").m
 alias ls='exa --classify --oneline --git'
 alias lls='exa --header --long --git'
 alias tree='exa --tree'
-alias ssh='mosh'
 
 # neovim instead of vi/nvim
 alias vi='nvim'
