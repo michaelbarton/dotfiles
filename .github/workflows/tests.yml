@@ -15,4 +15,4 @@ jobs:
           fetch-depth: 1
 
       - name: Check formatting
-        run: just fmt_check
+        run: make fmt_check
