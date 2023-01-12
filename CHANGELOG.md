@@ -7,6 +7,10 @@
 - Remove fish greeting.
 - Add vim command to open current file in sublime.
 
+## 2022-12-27
+
+- Added parquet_less.sh script
+
 ## 2022-12-14
 
 - Alias `mosh` to `ssh`.
