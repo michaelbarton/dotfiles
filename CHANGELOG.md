@@ -4,6 +4,8 @@
 
 - Add CI workflow for checking files are formatted.
 - Add markdown to pdf conversion script.
+- Remove fish greeting.
+- Add vim command to open current file in sublime.
 
 ## 2022-12-14
 
