@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## 2023-01-12
+
+- Add CI workflow for checking files are formatted.
+- Add markdown to pdf conversion script.
+- Remove fish greeting.
+- Add vim command to open current file in sublime.
+- Fix aspell dictionary script.
+
+## 2022-12-27
+
+- Added parquet_less.sh script
+
 ## 2022-12-14
 
 - Alias `mosh` to `ssh`.

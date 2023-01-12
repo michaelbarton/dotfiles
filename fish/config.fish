@@ -4,8 +4,16 @@ bass source ~/.bashrc
 
 starship init fish | source
 
+set fish_greeting ""
+
+# This needs to be a function instead of alias, because mosh calls ssh. If it's an
+# alias then it calls itself
+function ssh
+	mosh $argv
+end
+
 function sp
-	aspell -c $argv[1] && ~/.dotfiles/bin/sort_dictionary
+	aspell -c $argv[1] && ~/.dotfiles/aspell/sort_dictionary
 end
 
 # Cat th contents of a file into the clip board
