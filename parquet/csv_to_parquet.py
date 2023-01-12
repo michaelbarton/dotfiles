@@ -13,4 +13,3 @@ if not OUT_FILE:
 
 data = pandas.read_csv(IN_FILE)
 data.to_parquet(OUT_FILE, index=False)
-

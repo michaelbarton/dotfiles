@@ -102,6 +102,10 @@ command! -bang WikiSearch call fzf#vim#files('~/Dropbox/wiki', <bang>0)
 inoremap <expr> <c-x><c-f> fzf#vim#complete#path(
 	\ 'fd --base-directory ~/Dropbox/wiki --type file \| sed -e "s#zettel/##;s#literature/##g;s#\.md##"')
 
+" Open the current file in sublime text
+command Open !subl %
+
+
 "
 " FILE TYPES
 "
