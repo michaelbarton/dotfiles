@@ -1,4 +1,4 @@
-personal_ws-1.1 en 572
+personal_ws-1.1 en 589
 absorbance
 ABySS
 ActiveRecord
@@ -30,6 +30,7 @@ Assemblathon
 assemblathons
 ATPase
 AWS
+backends
 barcode
 barcodes
 barcoding
@@ -103,6 +104,7 @@ CRISPR
 cron
 CSS
 CSV
+CUDA
 curation
 cyanobacterium
 cys
@@ -177,6 +179,7 @@ geochemical
 geochemically
 geomicrobiology
 GFF
+GID
 gigabase
 gigabases
 github
@@ -191,6 +194,7 @@ glycolysis
 glycolytic
 GMP
 Google
+gqc
 gzip
 gzipped
 hadoop
@@ -242,6 +246,7 @@ isomerase
 JavaScript
 JGI
 jgi
+JIT
 JSON
 jupyter
 Karius
@@ -257,12 +262,14 @@ kluyveri
 Kmer
 kmer
 kmers
+Kolmogorov
 kudriavzevii
 Kwalify
 LaTeX
 launchctl
 leu
 leucine
+LLVM
 loadings
 Loess
 loess
@@ -314,6 +321,7 @@ msgpack
 msmtp
 multi
 multimeric
+multinomial
 Multivatiate
 mutualism
 MySQL
@@ -328,6 +336,7 @@ NRPS
 nucleotide
 nucleotides
 nucmer
+numpy
 Nunn
 oligonucleotide
 oligonucleotides
@@ -397,6 +406,7 @@ plasmids
 Ploidy
 PLoS
 plugin
+PMF
 png
 polymerase
 polymorphisms
@@ -405,6 +415,8 @@ postgres
 powerpoint
 practices
 Precedings
+precomputation
+precomputes
 preprocessed
 priori
 Procfile
@@ -481,6 +493,7 @@ Saccharomyces
 SBW
 scaffolded
 scaffolder
+scipy
 screenshot
 screenshots
 ser
@@ -492,6 +505,7 @@ siderophores
 silico
 silva
 sintering
+Smirnov
 SMRT
 SOLiD
 Spearman

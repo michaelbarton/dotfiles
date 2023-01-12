@@ -6,6 +6,7 @@
 - Add markdown to pdf conversion script.
 - Remove fish greeting.
 - Add vim command to open current file in sublime.
+- Fix aspell dictionary script.
 
 ## 2022-12-27
 

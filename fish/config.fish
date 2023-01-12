@@ -13,7 +13,7 @@ function ssh
 end
 
 function sp
-	aspell -c $argv[1] && ~/.dotfiles/bin/sort_dictionary
+	aspell -c $argv[1] && ~/.dotfiles/aspell/sort_dictionary
 end
 
 # Cat th contents of a file into the clip board

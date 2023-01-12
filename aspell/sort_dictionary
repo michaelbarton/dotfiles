@@ -1,4 +1,5 @@
 #!/bin/sh
+# Reorders the dictionary in the way aspell likes it.
 
 TMP=~/aspell.en.pws.tmp
 ORIG=~/.dotfiles/aspell/aspell.en.pws
