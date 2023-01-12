@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 2023-01-12
+
+- Add CI workflow for checking files are formatted.
+- Add markdown to pdf conversion script.
+
 ## 2022-12-14
 
 - Alias `mosh` to `ssh`.
