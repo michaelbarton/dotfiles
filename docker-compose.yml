@@ -1,9 +1,20 @@
 ---
 version: "3.9"
 services:
+
+  # Format markdown and yml files.
   prettier:
     build:
       target: prettier
+      context: .
+    working_dir: /mnt/src
+    volumes:
+      - .:/mnt/src:rw
+
+  # Format python files.
+  black:
+    build:
+      target: black
       context: .
     working_dir: /mnt/src
     volumes:
