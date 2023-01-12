@@ -14,5 +14,8 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: Build docker images
+        run: make build
+
       - name: Check formatting
         run: make fmt_check

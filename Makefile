@@ -7,3 +7,7 @@ fmt:
 fmt_check:
 	${DOCKER} prettier npx prettier --check *.md **/*.yml
 	${DOCKER} black black --check --line-length=100 **/*.py
+
+build:
+	docker-compose build
+
