@@ -10,6 +10,7 @@ set -o nounset
 
 alias dot='cd ~/.dotfiles'
 alias cache='cd ~/cache'
+alias tmp='cd $(mktemp -d)'
 alias wiki='vim ~/Dropbox/wiki/zettel/index.md'
 alias g='git'
 
