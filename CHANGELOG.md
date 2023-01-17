@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 2023-01-17
+
+- Added script to create the 'today' wiki file using a jinja template.
+- Add bash shortcut to jump to temporary directory.
+
 ## 2023-01-12
 
 - Add CI workflow for checking files are formatted.
