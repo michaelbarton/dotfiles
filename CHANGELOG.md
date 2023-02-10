@@ -6,6 +6,14 @@
 - Add vim text alignment plugin.
 - Update dictionary.
 
+## 2023-01-17
+
+- Added script to create the 'today' wiki file using a jinja template.
+- Add bash shortcut to jump to temporary directory.
+- Removed `convert_daily_log.py`. Use dedicated python package for this
+  instead.
+- Process today script also deletes the source file afterward.
+
 ## 2023-01-12
 
 - Add CI workflow for checking files are formatted.
