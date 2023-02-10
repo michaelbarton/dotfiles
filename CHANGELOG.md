@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2023-02-10
+
+- Add `zoxide` command to fish.
+- Add vim text alignment plugin.
+- Update dictionary.
+
 ## 2023-01-17
 
 - Added script to create the 'today' wiki file using a jinja template.

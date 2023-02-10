@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Convert a CSV file to parchet"""
+"""Convert a CSV file to parquet"""
 
 import pandas
 import io

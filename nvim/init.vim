@@ -44,6 +44,9 @@ Plug 'vimwiki/vimwiki'
 " Support simple commands such as deleting and renaming files and buffers
 Plug 'tpope/vim-eunuch'
 
+" Simple alignment in vim
+Plug 'junegunn/vim-easy-align'
+
 " Initialize plugin system
 call plug#end()
 

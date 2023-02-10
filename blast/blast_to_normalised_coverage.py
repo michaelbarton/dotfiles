@@ -93,7 +93,6 @@ def parse_blast_file(input_file) -> Dict[str, Dict[int, int]]:
     required=True,
 )
 def main(input_file: str, src_fasta: str, output_file: str):
-
     references: Dict[str, Reference] = {}
     for src_file in Path(src_fasta).glob("*"):
         if not (".fa" in src_file.suffixes or ".fna" in src_file.suffixes):
