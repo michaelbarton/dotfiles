@@ -19,7 +19,6 @@ EDITOR = os.environ.get("EDITOR", "vim")
 @click.argument("filepath", type=click.Path(exists=True))
 @click.option("--skip-edit", "-e", default=False, is_flag=True)
 def run(filepath: str, skip_edit: bool):
-
     # Read email from file.
     contents = pathlib.Path(filepath).read_text()
     msg = email.message_from_string(contents, policy=policy.default)

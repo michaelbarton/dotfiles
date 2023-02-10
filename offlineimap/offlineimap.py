@@ -4,7 +4,6 @@ import sys
 
 
 def get_keychain_pass(account):
-
     command = ["/usr/bin/security", "find-generic-password", "-w", "-a", account]
     process = subprocess.Popen(command, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
     process.wait()

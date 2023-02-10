@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2023-02-10
+
+- Add `zoxide` command to fish.
+- Add vim text alignment plugin.
+- Update dictionary.
+
 ## 2023-01-12
 
 - Add CI workflow for checking files are formatted.
