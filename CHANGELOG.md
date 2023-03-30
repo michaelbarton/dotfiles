@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 2023-03-30
+
+- Add nvim function to insert a wiki link found using fzf.
+- Add python script to convert old format wiki entries into the new vimwiki
+  format.
+- The `today` script tries to insert a quote at the beginning.
+- The `today` script loads a different template if it is a weekend.
+
 ## 2023-02-10
 
 - Add `zoxide` command to fish.
