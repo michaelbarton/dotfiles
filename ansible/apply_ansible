@@ -3,6 +3,4 @@
 set -o nounset
 set -o errexit
 
-PATH=${HOME}/Library/Python/3.8/bin:${PATH}
-
 ansible-playbook -i "localhost," -c local ~/.dotfiles/ansible/dotfiles.yml
