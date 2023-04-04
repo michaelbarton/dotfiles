@@ -8,12 +8,16 @@ import requests
 from packaging import specifiers
 from packaging import version
 
+
 def get_specifier(version_specifier: str) -> Optional[specifiers.SpecifierSet]:
     try:
-        return functools.reduce(lambda a, b: a & b, [specifiers.SpecifierSet(s) for s in version_specifier.split(',')])
+        return functools.reduce(
+            lambda a, b: a & b, [specifiers.SpecifierSet(s) for s in version_specifier.split(",")]
+        )
     except specifiers.InvalidSpecifier as e:
         print(f"Error parsing {version_specifier}: {e}")
         return None
+
 
 def get_latest_package_release(package_name: str):
     try:
@@ -21,12 +25,16 @@ def get_latest_package_release(package_name: str):
         response = requests.get(url)
         response.raise_for_status()
         data = response.json()
-        return max([version.parse(release_version) for release_version in data["releases"] if "rc" not in release_version])
+        return max(
+            [
+                version.parse(release_version)
+                for release_version in data["releases"]
+                if "rc" not in release_version
+            ]
+        )
     except Exception as e:
         print(f"Error fetching latest version for {package_name}: {e}")
         return None
-
-
 
 
 def update_dependencies(pyproject_path):
@@ -36,7 +44,6 @@ def update_dependencies(pyproject_path):
     dependencies = pyproject_data.get("tool", {}).get("poetry", {}).get("dependencies", {})
 
     for package, version_specifier in dependencies.items():
-
         if package in ("python", "platformdirs") or not isinstance(version_specifier, str):
             continue
         version_specifier = version_specifier.replace("^", "~=")
@@ -57,7 +64,5 @@ def update_dependencies(pyproject_path):
         toml.dump(pyproject_data, f)
 
 
-
 if __name__ == "__main__":
     update_dependencies("pyproject.toml")
-

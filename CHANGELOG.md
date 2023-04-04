@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 2023-04-04
+
+- Add fish completions for `gh`.
+- Remove deprecated `convert_daily_log.py`.
+- Update dictionary.
+- Add script to remove unused git branches.
+- Add script to bump poetry dependencies.
+
 ## 2023-02-10
 
 - Add `zoxide` command to fish.
