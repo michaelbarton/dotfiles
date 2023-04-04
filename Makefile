@@ -1,5 +1,10 @@
 DOCKER = docker-compose run --rm
 
+all: fmt apply
+
+apply:
+	./ansible/apply_ansible
+
 fmt:
 	${DOCKER} prettier npx prettier --write *.md **/*.yml
 	${DOCKER} black black --line-length=100 **/*.py
