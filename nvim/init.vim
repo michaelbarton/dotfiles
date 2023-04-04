@@ -104,9 +104,22 @@ autocmd FileType html setlocal shiftwidth=2 tabstop=2
 " Search for files in wiki
 command! -bang WikiSearch call fzf#vim#files('~/Dropbox/wiki', <bang>0)
 
-" Insert file path from wiki
-inoremap <expr> <c-x><c-f> fzf#vim#complete#path(
-	\ 'fd --base-directory ~/Dropbox/wiki --type file \| sed -e "s#zettel/##;s#literature/##g;s#\.md##"')
+
+function! WikiLink(line)
+    let abs_path = substitute(a:line, './', $HOME.'/Dropbox/wiki/', '')
+    let contents = readfile(abs_path)
+    let title = substitute(contents[0], '^#\+\s*', '', '')
+    let path = a:line
+    let wikilink = '[['.path.'|'.title.']]'
+
+    " Write link without text wrapping
+    let saved_textwidth = &textwidth
+    set textwidth=0
+    execute "normal! a" . wikilink
+    let &textwidth = saved_textwidth
+endfunction
+
+command! -bang WikiInsert call fzf#run({'source': 'fd --base-directory ~/Dropbox/wiki --type file', 'sink': function('WikiLink')})
 
 " Open the current file in sublime text
 command Open !subl %
@@ -180,8 +193,10 @@ nnoremap <F1>  <ESC>:source $MYVIMRC<CR>
 " Use F2 to turn on unformatted pasting of text.
 set pastetoggle=<F2>
 
-" Use F3 to search wiki files when not in insert mode
+" Search for a wiki file
 nnoremap <F3>  <ESC>:WikiSearch<CR>
+" Insert a link to a wiki file
+nnoremap <F4>  <ESC>:WikiInsert<CR>
 
 " Paste the current date header
 inoremap <F3> <C-R>=strftime("## [[%Y%m%d]]")<CR>
