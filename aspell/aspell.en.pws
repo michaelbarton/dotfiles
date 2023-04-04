@@ -1,4 +1,4 @@
-personal_ws-1.1 en 587
+personal_ws-1.1 en 590
 absorbance
 ABySS
 ActiveRecord
@@ -237,6 +237,7 @@ Inositol
 Interoperability
 interoperable
 intraspecies
+intrinsics
 intron
 iPod
 irreproducible
@@ -330,6 +331,7 @@ NADPH
 NCBI
 NERSC
 newbler
+nextflow
 NKU
 novo
 NRPS
@@ -441,6 +443,7 @@ PubMed
 putida
 PVD
 py
+pydantic
 pyochelin
 pyochelins
 pyoverdine

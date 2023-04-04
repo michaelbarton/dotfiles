@@ -20,6 +20,7 @@
     - { src: "inputrc", dest: ".inputrc"}
     - { src: "fish/config.fish", dest: ".config/fish/config.fish"}
     - { src: "fish/fish_plugins", dest: ".config/fish/fish_plugins"}
+    - { src: "fish/completions/fish_gh_completion.fish", dest: ".config/fish/fish_gh_completion"}
 
     # Vim
     - { src: "nvim/init.vim", dest: ".config/nvim/init.vim"}
@@ -34,14 +35,14 @@
     # Vimwiki scripts
     - { src: "zettel/process_today.sh", dest: ".bin/process_today"}
     - { src: "zettel/today.sh", dest: ".bin/today"}
+    - { src: "zettel/generate_article_record.py", dest: ".bin/generate_article_record"}
 
     # Scripts
-    - { src: "wiki/convert_daily_log.py", dest: ".bin/convert_daily_log"}
-    - { src: "wiki/generate_article_record.py", dest: ".bin/generate_article_record"}
     - { src: "ansible/apply_ansible", dest: ".bin/apply_ansible"}
     - { src: "ncbi/fetch_fasta_gene.sh", dest: ".bin/fetch_fasta_gene"}
     - { src: "ncbi/fetch_genbank.sh", dest: ".bin/fetch_genbank"}
     - { src: "markdown/md2docx.sh", dest: ".bin/md2docx"}
+    - { src: "poetry/update_poetry_dependencies.py", dest: ".bin/update_poetry_dependencies"}
 
 
 

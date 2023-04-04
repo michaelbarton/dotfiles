@@ -47,6 +47,9 @@ Plug 'tpope/vim-eunuch'
 " Simple alignment in vim
 Plug 'junegunn/vim-easy-align'
 
+" Use .editorconfig files if they exist in a directory
+Plug 'editorconfig/editorconfig-vim'
+
 " Initialize plugin system
 call plug#end()
 
