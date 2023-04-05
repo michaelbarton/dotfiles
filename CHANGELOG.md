@@ -7,6 +7,7 @@
 - Update dictionary.
 - Add script to remove unused git branches.
 - Add script to bump poetry dependencies.
+- Fix zettel path directory when creating a wiki link
 
 ## 2023-03-30
 

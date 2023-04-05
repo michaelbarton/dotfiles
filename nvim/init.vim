@@ -109,8 +109,8 @@ function! WikiLink(line)
     let abs_path = substitute(a:line, './', $HOME.'/Dropbox/wiki/', '')
     let contents = readfile(abs_path)
     let title = substitute(contents[0], '^#\+\s*', '', '')
-    let path = a:line
-    let wikilink = '[['.path.'|'.title.']]'
+    let rel_path = substitute(a:line, 'zettel/', '', '')
+    let wikilink = '[['.rel_path.'|'.title.']]'
 
     " Write link without text wrapping
     let saved_textwidth = &textwidth
