@@ -43,6 +43,5 @@
     - { src: "ncbi/fetch_genbank.sh", dest: ".bin/fetch_genbank"}
     - { src: "markdown/md2docx.sh", dest: ".bin/md2docx"}
     - { src: "poetry/update_poetry_dependencies.py", dest: ".bin/update_poetry_dependencies"}
-
-
+    - { src: "github/create_pr.bash", dest: ".bin/pr"}
 
