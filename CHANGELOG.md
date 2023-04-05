@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2023-04-05
+
+- Add bash script to create PR from CHANGELOG.md
+
 ## 2023-04-04
 
 - Add fish completions for `gh`.
