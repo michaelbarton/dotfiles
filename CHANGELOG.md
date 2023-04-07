@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2023-04-07
+
+- Fix path for creating wiki links
+
 ## 2023-04-05
 
 - Add bash script to create PR from CHANGELOG.md
