@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2023-04-07
+
+- Use `difft` for git diffs
+
 ## 2023-04-05
 
 - Add bash script to create PR from CHANGELOG.md
