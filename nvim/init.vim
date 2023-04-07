@@ -104,12 +104,12 @@ autocmd FileType html setlocal shiftwidth=2 tabstop=2
 " Search for files in wiki
 command! -bang WikiSearch call fzf#vim#files('~/Dropbox/wiki', <bang>0)
 
-
+" Create a link to another file in the wiki
 function! WikiLink(line)
     let abs_path = substitute(a:line, './', $HOME.'/Dropbox/wiki/', '')
     let contents = readfile(abs_path)
     let title = substitute(contents[0], '^#\+\s*', '', '')
-    let rel_path = substitute(a:line, 'zettel/', '', '')
+    let rel_path = substitute(substitute(a:line, 'zettel/', '', ''), '.md', '', '')
     let wikilink = '[['.rel_path.'|'.title.']]'
 
     " Write link without text wrapping
