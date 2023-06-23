@@ -4,12 +4,15 @@ import requests
 from xml.etree import ElementTree as ET
 import sys
 
+
 def species_to_id(species):
     # URL encode the species name
     species_encoded = requests.utils.quote(species)
 
     # fetch taxon id from NCBI
-    response = requests.get(f"https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=taxonomy&term={species_encoded}")
+    response = requests.get(
+        f"https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=taxonomy&term={species_encoded}"
+    )
 
     # Parse XML from response text
     root = ET.fromstring(response.text)
@@ -23,9 +26,9 @@ def species_to_id(species):
     else:
         return "No taxon ID found for the provided species."
 
+
 # Fetch the species name from the command line argument
 species = sys.argv[1]
 
 # Call the function and print the result
 print(species_to_id(species))
-
