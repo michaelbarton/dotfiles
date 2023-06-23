@@ -4,6 +4,7 @@
 
 - Use `difft` for git diffs
 - Add script to get tax id from NCBI.
+- PR layout in PR creation script.
 
 ## 2023-04-05
 
