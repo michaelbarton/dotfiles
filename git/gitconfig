@@ -94,7 +94,7 @@
 	prompt = false
 
 [difftool "difftastic"]
-	cmd = difft "$LOCAL" "$REMOTE"
+	cmd = difft --inline "$LOCAL" "$REMOTE"
 
 # Use a pager for large output, just like other git commands.
 [pager]
@@ -103,3 +103,8 @@
 # `git dft` is less to type than `git difftool`.
 [alias]
 	dft = difftool
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
