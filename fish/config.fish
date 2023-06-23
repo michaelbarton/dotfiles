@@ -1,6 +1,7 @@
 #!/usr/local/bin/fish
 
 bass source ~/.bashrc
+bass source ~/.local/environment.bash
 
 starship init fish | source
 zoxide init fish | source

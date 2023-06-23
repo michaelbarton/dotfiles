@@ -44,4 +44,5 @@
     - { src: "markdown/md2docx.sh", dest: ".bin/md2docx"}
     - { src: "poetry/update_poetry_dependencies.py", dest: ".bin/update_poetry_dependencies"}
     - { src: "github/create_pr.bash", dest: ".bin/pr"}
+    - { src: "ncbi/get_species_tax_id.py", dest: ".bin/tid"}
 

@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 2023-04-07
+
+- Use `difft` for git diffs.
+- Add script to get tax id from NCBI.
+- PR layout in PR creation script.
+- Add git lfs configuration.
+- Add script query grafana.
+
 ## 2023-04-05
 
 - Add bash script to create PR from CHANGELOG.md
