@@ -3,6 +3,7 @@
 ## 2023-04-07
 
 - Use `difft` for git diffs
+- Add script to get tax id from NCBI.
 
 ## 2023-04-05
 
