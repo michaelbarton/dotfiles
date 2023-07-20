@@ -60,8 +60,11 @@ PYTHON_BIN=${HOME}/.venv/bin
 USER_BIN=${HOME}/.bin
 DOTFILES_BIN=${HOME}/.dotfiles/bin
 HOMEBREW_BIN=/opt/homebrew/bin
+NPM_BIN=${HOME}/.npm-global/bin
 
-export PATH=${PYTHON_BIN}:${HOMEBREW_BIN}:${DOTFILES_BIN}:${USER_BIN}:${PATH}
+export PATH=${PYTHON_BIN}:${NPM_BIN}:${HOMEBREW_BIN}:${DOTFILES_BIN}:${USER_BIN}:${PATH}
+
+
 
 ###################################################################
 #
