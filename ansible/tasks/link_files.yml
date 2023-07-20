@@ -37,7 +37,7 @@
     - { src: "zettel/today.sh", dest: ".bin/today"}
     - { src: "zettel/generate_article_record.py", dest: ".bin/generate_article_record"}
 
-    # Scripts
+    # Misc. scripts and config
     - { src: "ansible/apply_ansible", dest: ".bin/apply_ansible"}
     - { src: "ncbi/fetch_fasta_gene.sh", dest: ".bin/fetch_fasta_gene"}
     - { src: "ncbi/fetch_genbank.sh", dest: ".bin/fetch_genbank"}
@@ -45,4 +45,5 @@
     - { src: "poetry/update_poetry_dependencies.py", dest: ".bin/update_poetry_dependencies"}
     - { src: "github/create_pr.bash", dest: ".bin/pr"}
     - { src: "ncbi/get_species_tax_id.py", dest: ".bin/tid"}
+    - { src: "hammerspoon/init.lua", dest: ".hammerspoon/init.lua"}
 
