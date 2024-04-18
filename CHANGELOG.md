@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## 2024-04-18
+
+- Add script to dump duckdb schema to file.
+
+## 2023-07-20
+
+- Add hammerspoon command to create window setup.
+- Add npm PATH.
+- Add additional bioinformatics scripts.
+
 ## 2023-04-07
 
 - Use `difft` for git diffs.
