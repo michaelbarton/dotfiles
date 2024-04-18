@@ -6,6 +6,7 @@
 - Add python cookiecutter script to dump project to file.
 - Add LLM prompt.
 - Replace exa.
+- Add script to convert poetry project to markdown.
 
 ## 2023-07-20
 
