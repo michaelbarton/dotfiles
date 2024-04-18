@@ -3,6 +3,7 @@
 ## 2024-04-18
 
 - Add script to dump duckdb schema to file.
+- Add python cookiecutter script to dump project to file.
 
 ## 2023-07-20
 

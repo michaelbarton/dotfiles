@@ -1,0 +1,17 @@
+# Launch Jupyter Notebook
+notebook:
+    poetry run jupyter notebook notebooks/
+
+# Format the code using black
+fmt:
+    poetry run isort .
+    poetry run black .
+
+# Run the tests using pytest
+test:
+    poetry run pytest tests/
+
+# Run the main script
+run:
+    poetry run python {{ cookiecutter.package_name }}/main.py
+
