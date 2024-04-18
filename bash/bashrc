@@ -19,10 +19,10 @@ alias g='git'
 alias yesterday='vim ~/Dropbox/wiki/zettel/$(gdate --date "yesterday" "+%Y%m%d").md'
 alias tomorrow='vim ~/Dropbox/wiki/zettel/$(gdate --date "tomorrow" "+%Y%m%d").md'
 
-# Use exa instead of ls
-alias ls='exa --classify --oneline --git'
-alias lls='exa --header --long --git'
-alias tree='exa --tree'
+# Use eza instead of ls
+alias ls='eza --classify --oneline --git'
+alias lls='eza --header --long --git'
+alias tree='eza --tree'
 
 # neovim instead of vi/nvim
 alias vi='nvim'
