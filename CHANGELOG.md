@@ -4,6 +4,7 @@
 
 - Add script to dump duckdb schema to file.
 - Add python cookiecutter script to dump project to file.
+- Add LLM prompt.
 
 ## 2023-07-20
 
