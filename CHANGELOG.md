@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 2024-05-18
+
+- Replace `process_today.sh` with automated version using launch agents.
+- Remove copilot in vim
+
 ## 2023-04-07
 
 - Fix path for creating wiki links
