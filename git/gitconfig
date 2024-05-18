@@ -73,8 +73,6 @@
   excludesfile = /Users/mike/.gitignore
   autocrlf = input
   whitespace = trailing-space,space-before-tab
-[diff]
-  renames = copies
 [branch]
   autosetupmerge = true
 [rerere]
@@ -86,3 +84,27 @@
 	default = matching
 [ghi]
 	token = !security find-internet-password -a michaelbarton -s github.com -l 'ghi token' -w
+
+[diff]
+	tool = difftastic
+	renames = copies
+	external = difft
+
+[difftool]
+	prompt = false
+
+[difftool "difftastic"]
+	cmd = difft --inline "$LOCAL" "$REMOTE"
+
+# Use a pager for large output, just like other git commands.
+[pager]
+	difftool = true
+
+# `git dft` is less to type than `git difftool`.
+[alias]
+	dft = difftool
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

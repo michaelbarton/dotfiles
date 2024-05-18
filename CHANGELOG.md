@@ -8,6 +8,11 @@
 ## 2023-04-07
 
 - Fix path for creating wiki links
+- Use `difft` for git diffs.
+- Add script to get tax id from NCBI.
+- PR layout in PR creation script.
+- Add git lfs configuration.
+- Add script query grafana.
 
 ## 2023-04-05
 

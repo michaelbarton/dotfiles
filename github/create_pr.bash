@@ -5,6 +5,7 @@
 set -o errexit
 set -o nounset
 
+
 # Is there a branch called master or main?
 if git branch -a | grep 'remotes/origin/master'; then
   BASE=master
@@ -19,7 +20,7 @@ FILE=$(mktemp -d)/pull_request.txt
 
 cat > $FILE <<- EOM
 \`\`\`diff
-$(git diff ${BASE} -- CHANGELOG.md)
+$(git diff --no-ext-diff ${BASE} -- CHANGELOG.md)
 \`\`\`
 EOM
 
