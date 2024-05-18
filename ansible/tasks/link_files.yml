@@ -45,4 +45,5 @@
     - { src: "github/create_pr.bash", dest: ".bin/pr"}
     - { src: "ncbi/get_species_tax_id.py", dest: ".bin/tid"}
     - { src: "hammerspoon/init.lua", dest: ".hammerspoon/init.lua"}
+    - { src: "python/scratch_python_project.sh", dest: ".bin/scratch_python_project"}
 

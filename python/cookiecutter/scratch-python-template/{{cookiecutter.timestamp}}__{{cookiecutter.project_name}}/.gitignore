@@ -1,0 +1,8 @@
+.local
+target/
+dbt_packages/
+logs/
+seeds/
+snapshots/
+.idea
+__pycache__

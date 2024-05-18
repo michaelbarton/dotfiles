@@ -1,0 +1,5 @@
+{
+  "project_name": "my_project",
+  "package_name": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}",
+  "timestamp": "{{ cookiecutter.timestamp }}"
+}

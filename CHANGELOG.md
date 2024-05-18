@@ -2,6 +2,14 @@
 
 ## 2024-05-18
 
+- Add script to dump duckdb schema to file.
+- Add python cookiecutter script.
+- Add LLM prompt.
+- Replace exa.
+- Add script to convert poetry project to markdown.
+- Add hammerspoon command to create window setup.
+- Add npm PATH.
+- Add additional bioinformatics scripts.
 - Replace `process_today.sh` with automated version using launch agents.
 - Remove copilot in vim
 
