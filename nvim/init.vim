@@ -1,6 +1,10 @@
 " Specify a directory for plugins
 call plug#begin('~/.vim/plugged')
 
+" Copilot support
+" Plug 'github/copilot.vim'
+" Disable for the time being. Want to disable for vimwiki files
+
 " Markdown file support
 Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
 Plug 'junegunn/limelight.vim', { 'for': 'markdown' }
@@ -104,12 +108,12 @@ autocmd FileType html setlocal shiftwidth=2 tabstop=2
 " Search for files in wiki
 command! -bang WikiSearch call fzf#vim#files('~/Dropbox/wiki', <bang>0)
 
-
+" Create a link to another file in the wiki
 function! WikiLink(line)
     let abs_path = substitute(a:line, './', $HOME.'/Dropbox/wiki/', '')
     let contents = readfile(abs_path)
     let title = substitute(contents[0], '^#\+\s*', '', '')
-    let rel_path = substitute(a:line, 'zettel/', '', '')
+    let rel_path = substitute(substitute(a:line, 'zettel/', '', ''), '.md', '', '')
     let wikilink = '[['.rel_path.'|'.title.']]'
 
     " Write link without text wrapping
@@ -195,8 +199,10 @@ set pastetoggle=<F2>
 
 " Search for a wiki file
 nnoremap <F3>  <ESC>:WikiSearch<CR>
+
 " Insert a link to a wiki file
-nnoremap <F4>  <ESC>:WikiInsert<CR>
+nnoremap <F4> <ESC>:WikiInsert<CR>
+inoremap <F4> <ESC>:WikiInsert<CR>
 
 " Paste the current date header
 inoremap <F3> <C-R>=strftime("## [[%Y%m%d]]")<CR>
@@ -204,4 +210,7 @@ inoremap <F3> <C-R>=strftime("## [[%Y%m%d]]")<CR>
 " Create new entry in the wiki
 let g:wiki = "~/Dropbox/wiki/"
 command! -nargs=1 NewZettel :execute ":e" wiki . "zettel/" . strftime("%Y%m%d%H%M") . "_<args>.md"
-command! -nargs=1 NewBlogIdea :execute ":e" wiki . "blog/" . strftime("%Y%m%d%H%M") . "_<args>.md"
+
+" Use F5 to create a new zettel
+nnoremap <F5> <ESC>:NewZettel
+

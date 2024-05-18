@@ -363,6 +363,8 @@
 	</dict>
 	<key>Default Bookmark Guid</key>
 	<string>DD9A4A03-FCD2-4623-B8AB-C323EAC29147</string>
+	<key>EnableAPIServer</key>
+	<false/>
 	<key>HapticFeedbackForEsc</key>
 	<false/>
 	<key>HotkeyMigratedFromSingleToMulti</key>
@@ -1863,5 +1865,7 @@
 	<false/>
 	<key>WorkAroundBigSurBug</key>
 	<true/>
+	<key>findMode_iTerm</key>
+	<integer>0</integer>
 </dict>
 </plist>
