@@ -3,4 +3,4 @@
 set -o nounset
 set -o errexit
 
-ansible-playbook -i "localhost," -c local ~/.dotfiles/ansible/dotfiles.yml
+ansible-playbook -i ~/.dotfiles/ansible/inventory.ini ~/.dotfiles/ansible/dotfiles.yml

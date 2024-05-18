@@ -41,7 +41,7 @@ bind \cg wiki_file
 #
 # An argument must be provided because ripgrep is run on all the files, then the
 # fzf tool can be used to filter and search through the returned results.
-function wiki_text
+function wt
 	set dir (pwd)
 	cd ~/Dropbox/wiki/ && rg $argv[1]  --files-with-matches \
 		| fzf --preview 'bat --style=numbers --color=always {}' --preview-window="right:65%" --height="70%"\

@@ -1,21 +1,21 @@
 # CHANGELOG
 
-## 2024-04-18
+## 2024-05-18
 
 - Add script to dump duckdb schema to file.
-- Add python cookiecutter script to dump project to file.
+- Add python cookiecutter script.
 - Add LLM prompt.
 - Replace exa.
 - Add script to convert poetry project to markdown.
-
-## 2023-07-20
-
 - Add hammerspoon command to create window setup.
 - Add npm PATH.
 - Add additional bioinformatics scripts.
+- Replace `process_today.sh` with automated version using launch agents.
+- Remove copilot in vim
 
 ## 2023-04-07
 
+- Fix path for creating wiki links
 - Use `difft` for git diffs.
 - Add script to get tax id from NCBI.
 - PR layout in PR creation script.
