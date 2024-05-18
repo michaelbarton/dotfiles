@@ -1,8 +1,8 @@
 ---
-- name: link dotfiles
-  file:
-    src: "~/.dotfiles/{{ item.src }}"
-    dest: "~/{{ item.dest }}"
+- name: Link dotfiles
+  ansible.builtin.file:
+    src: "{{ ansible_user_dir }}/.dotfiles/{{ item.src }}"
+    dest: "{{ ansible_user_dir }}/{{ item.dest }}"
     state: link
   loop:
     - { src: "tmux/tmux.conf", dest: ".tmux.conf"}
@@ -33,7 +33,6 @@
     - { src: "yml/format_yml.py", dest: ".bin/format_yml"}
 
     # Vimwiki scripts
-    - { src: "zettel/process_today.sh", dest: ".bin/process_today"}
     - { src: "zettel/today.sh", dest: ".bin/today"}
     - { src: "zettel/generate_article_record.py", dest: ".bin/generate_article_record"}
 

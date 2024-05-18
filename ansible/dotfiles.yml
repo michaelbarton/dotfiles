@@ -5,26 +5,32 @@
   connection: local
   tasks:
     - name: Create folder
-      file:
-        path: "{{item}}"
+      ansible.builtin.file:
+        path: "{{ item }}"
         state: directory
       loop:
-        - "~/.config/fish/"
-        - "~/.config/nvim/autoload"
-        - "~/.config/nvim/ftplugin"
-        - "~/.config/plugged/"
-        - "~/cache"
-        - "~/.bin"
+        - "{{ ansible_user_dir }}/.config/fish/"
+        - "{{ ansible_user_dir }}/.config/nvim/autoload"
+        - "{{ ansible_user_dir }}/.config/nvim/ftplugin"
+        - "{{ ansible_user_dir }}/.config/plugged/"
+        - "{{ ansible_user_dir }}/cache"
+        - "{{ ansible_user_dir }}/.bin"
 
-    - include: tasks/link_files.yml
+    - include_tasks: tasks/launch_agents.yml
+      when: ansible_hostname == "Michaels-MacBook-Air"
+      tags:
+        - agents
+
+    - include_tasks: tasks/link_files.yml
       tags:
         - links
 
     - name: Install vim plugin manager
-      get_url:
+      ansible.builtin.get_url:
         url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-        dest: ~/.config/nvim/autoload/plug.vim
+        dest: "{{ ansible_user_dir }}/.config/nvim/autoload/plug.vim"
 
     - name: Install and update vim plugins
-      command:
+      ansible.builtin.command:
         cmd: nvim -c "PlugInstall" -c "qa!"
+
