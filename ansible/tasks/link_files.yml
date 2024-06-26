@@ -22,6 +22,10 @@
     - { src: "fish/fish_plugins", dest: ".config/fish/fish_plugins"}
     - { src: "fish/completions/fish_gh_completion.fish", dest: ".config/fish/fish_gh_completion"}
 
+    # Git
+    - { src: "git/autocommit.py", dest: ".bin/autocommit"}
+    - { src: "git/autocommit.json", dest: ".config/git/autocommit.json"}
+
     # Vim
     - { src: "nvim/init.vim", dest: ".config/nvim/init.vim"}
     - { src: "vim/ftplugin/markdown.vim", dest: ".config/nvim/ftplugin/markdown.vim"}

@@ -25,7 +25,7 @@
   l    = log --decorate --graph --pretty=format:\"%Cred%h%Creset - %s %Cgreen(%cr)%Creset\" --abbrev-commit --date=relative
 
   c    = commit
-  ca   = commit -a
+  ca   = !~/.bin/autocommit
   cc   = commit --amend
 
   a    = add

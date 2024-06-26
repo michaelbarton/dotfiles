@@ -13,6 +13,7 @@
         - "{{ ansible_user_dir }}/.config/nvim/autoload"
         - "{{ ansible_user_dir }}/.config/nvim/ftplugin"
         - "{{ ansible_user_dir }}/.config/plugged/"
+        - "{{ ansible_user_dir }}/.config/git/"
         - "{{ ansible_user_dir }}/cache"
         - "{{ ansible_user_dir }}/.bin"
 
