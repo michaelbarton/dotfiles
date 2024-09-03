@@ -3,24 +3,26 @@
 import argparse
 import duckdb
 
-
 def dump_schema(database_path, output_file):
     # Connect to the DuckDB database
     con = duckdb.connect(database_path)
 
-    # Execute the .schema command and capture the output
-    schema = con.execute(".schema").fetchall()
+    # Query to get all table names
+    tables = con.execute("SELECT table_name FROM information_schema.tables WHERE table_schema = 'main'").fetchall()
 
     # Write the schema to the output file
     with open(output_file, "w") as file:
-        for table_schema in schema:
-            file.write(table_schema[0] + "\n\n")
+        for table in tables:
+            table_name = table[0]
+            # Get the CREATE TABLE statement for each table
+            create_table_stmt = con.execute(f"SELECT sql FROM sqlite_master WHERE type='table' AND name='{table_name}'").fetchone()[0]
+            file.write(f"-- Table: {table_name}\n")
+            file.write(f"{create_table_stmt};\n\n")
 
     # Close the database connection
     con.close()
 
     print(f"Schema dumped to {output_file}")
-
 
 if __name__ == "__main__":
     # Create an argument parser
