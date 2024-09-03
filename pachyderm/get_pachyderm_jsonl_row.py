@@ -55,13 +55,13 @@ def decompress_content(content: bytes, file_name: str) -> str:
     Returns:
         str: The decompressed content as a string.
     """
-    if file_name.endswith('.zst'):
+    if file_name.endswith(".zst"):
         dctx = zstandard.ZstdDecompressor()
-        return dctx.decompress(content).decode('utf-8')
-    elif file_name.endswith('.gz'):
-        return gzip.decompress(content).decode('utf-8')
+        return dctx.decompress(content).decode("utf-8")
+    elif file_name.endswith(".gz"):
+        return gzip.decompress(content).decode("utf-8")
     else:
-        return content.decode('utf-8')
+        return content.decode("utf-8")
 
 
 def find_matching_row(lines: list[str], pattern: str) -> str | None:
@@ -99,8 +99,12 @@ def main() -> None:
     """
     parser = argparse.ArgumentParser(description="Process files from a Pachyderm repository.")
     parser.add_argument("repo_name", help="Name of the Pachyderm repository")
-    parser.add_argument("--file-glob", help="Glob pattern to select specific files (default: *)", default="*")
-    parser.add_argument("--row-glob", help="Glob pattern to select a specific row (default: *)", default="*")
+    parser.add_argument(
+        "--file-glob", help="Glob pattern to select specific files (default: *)", default="*"
+    )
+    parser.add_argument(
+        "--row-glob", help="Glob pattern to select a specific row (default: *)", default="*"
+    )
     args = parser.parse_args()
 
     repo_name: str = args.repo_name
@@ -116,7 +120,7 @@ def main() -> None:
         sys.exit(1)
 
     # Select the first file if multiple files are returned
-    file_name = glob_output.split('\n')[SKIP_HEADER].split('\t')[FILE_COLUMN]
+    file_name = glob_output.split("\n")[SKIP_HEADER].split("\t")[FILE_COLUMN]
 
     repo_path = f"{repo_name}@master:/{file_name}"
 
