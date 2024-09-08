@@ -1,0 +1,12 @@
+---
+- name: Create virtual environment
+  ansible.builtin.pip:
+    virtualenv: "{{ venv_path }}"
+    virtualenv_python: "python{{ python_version }}"
+    name: 
+      - dap-python
+      - debugpy
+      - isort
+      - neovim
+      - pynvim
+      - pyright
