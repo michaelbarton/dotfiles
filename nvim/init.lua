@@ -83,6 +83,13 @@ I hope you enjoy your Neovim journey,
 
 P.S. You can delete this when you're done too. It's your config now! :)
 --]]
+--
+
+-- Is this needed?
+-- vim.g.python_host_prog = vim.fn.expand '~/.venvs/nvim/bin/python3'
+-- vim.g.python3_host_prog = vim.fn.expand '~/.venvs/nvim/bin/python3'
+
+vim.env.PATH = vim.env.PATH .. ':' .. vim.fn.expand '~/.venvs/nvim/bin'
 
 -- Set <space> as the leader key
 -- See `:help mapleader`
@@ -97,8 +104,6 @@ vim.g.have_nerd_font = true
 -- See `:help vim.opt`
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
-
-vim.g.wiki_root = '~/Dropbox/wiki/zettel/'
 
 -- Make line numbers default
 vim.opt.number = true
@@ -166,6 +171,20 @@ vim.keymap.set('n', '<leader>f', '<cmd>nohlsearch<CR>')
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
+-- Set the wiki directory path
+vim.g.wiki_root = vim.fn.expand '~/Dropbox/wiki/'
+
+-- Create a new page in the wiki
+vim.keymap.set('n', '<leader>wn', function()
+  vim.ui.input({ prompt = 'Zettel name: ' }, function(input)
+    if input then
+      local timestamp = os.date '%Y%m%d%H%M'
+      local filename = string.format('%szettel/%s_%s.md', vim.g.wiki_root, timestamp, input)
+      vim.cmd.edit(filename)
+    end
+  end)
+end, { desc = '[W]iki [N]ew Page' })
+
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
@@ -173,12 +192,6 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
-
--- Disable arrow keys in normal mode
-vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
-vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
-vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
-vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
@@ -241,11 +254,24 @@ require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   'preservim/vim-markdown',
+  'mfussenegger/nvim-dap-python', -- Debug python in nvim
 
   { -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lervag/wiki.vim',
     config = function()
       -- vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
+    end,
+  },
+
+  {
+    'jose-elias-alvarez/null-ls.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = function()
+      local null_ls = require 'null-ls'
+
+      null_ls.setup {
+        sources = {},
+      }
     end,
   },
 
@@ -701,6 +727,7 @@ require('lazy').setup({
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
+        ensure_installed = { 'ruff_lsp' },
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
@@ -709,6 +736,15 @@ require('lazy').setup({
             -- certain features of an LSP (for example, turning off formatting for tsserver)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
             require('lspconfig')[server_name].setup(server)
+            -- ruff
+            require('lspconfig').ruff_lsp.setup {
+              init_options = {
+                settings = {
+                  -- Any extra CLI arguments for `ruff` go here.
+                  args = {},
+                },
+              },
+            }
           end,
         },
       }

@@ -21,12 +21,10 @@
         - "{{ ansible_user_dir }}/.hammerspoon"
 
     - include_tasks: tasks/python.yml
-      when: ansible_hostname == "Michaels-MacBook-Air"
       tags:
         - python
 
     - include_tasks: tasks/launch_agents.yml
-      when: ansible_hostname == "Michaels-MacBook-Air"
       tags:
         - agents
 

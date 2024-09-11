@@ -10,3 +10,4 @@
       - neovim
       - pynvim
       - pyright
+      - ruff-lsp
