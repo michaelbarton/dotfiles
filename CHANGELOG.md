@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 2024-11-21
+
+- Add script to create llm overview of a project.
+- Add script to update all pachyderm version in JSON files.
+- Add script to get a JSONL row from a file in a pachyderm repository.
+- Add script to autocommit in git.
+- Update script to dump duckdb schema.
+- Update dictionary.
+
 ## 2024-05-18
 
 - Add script to dump duckdb schema to file.
