@@ -1,6 +1,6 @@
-#!/opt/homebrew/bin/python3
+#!/usr/bin/env python3
 """
-Script to extract code from a Dockerized Python Poetry project directory and save it into a single text file.
+Script to extract code project directory and save it into a single text file.
 
 This script allows you to extract code from a project directory and its subdirectories, as well as
 additional specified directories and files. The extracted code is saved into a single text file.

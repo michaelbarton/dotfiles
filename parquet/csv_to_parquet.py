@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3.10
 """Convert a CSV file to parquet"""
 
 import pandas

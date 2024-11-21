@@ -1,0 +1,7 @@
+{
+    "auto_commit_files": [
+        "CHANGELOG.md",
+        "README.md"
+    ],
+    "fallback_command": "git commit -a"
+}
