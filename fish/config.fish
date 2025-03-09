@@ -43,9 +43,9 @@ bind \cg wiki_file
 # fzf tool can be used to filter and search through the returned results.
 function wt
 	set dir (pwd)
-	cd ~/Dropbox/wiki/ && rg $argv[1]  --files-with-matches \
+	cd ~/Dropbox/wiki/zettel/ && rg $argv[1]  --files-with-matches \
 		| fzf --preview 'bat --style=numbers --color=always {}' --preview-window="right:65%" --height="70%"\
-		| xargs -I {} -o nvim ~/Dropbox/wiki/{}
+		| xargs -I {} -o nvim ~/Dropbox/wiki/zettel/{}
 	cd $dir
 end
 
