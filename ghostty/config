@@ -1,0 +1,6 @@
+font-family = Iosevka Nerd Font
+font-size = 16
+cursor-style = block
+theme = catppuccin-frappe
+shell-integration = fish
+
