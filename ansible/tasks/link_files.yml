@@ -35,6 +35,7 @@
     # Vimwiki scripts
     - { src: "zettel/today.sh", dest: ".bin/today"}
     - { src: "zettel/generate_article_record.py", dest: ".bin/generate_article_record"}
+    - { src: "zettel/process_daily_files.sh", dest: ".bin/pdf"}
 
     # Misc. scripts and config
     - { src: "ansible/apply_ansible", dest: ".bin/apply_ansible"}
