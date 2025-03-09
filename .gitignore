@@ -11,3 +11,4 @@ vim/plugged
 offlineimap/Account*
 offlineimap/Repository*
 docker
+__pycache__
