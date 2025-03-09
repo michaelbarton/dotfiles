@@ -5,7 +5,7 @@ import os
 import random
 import re
 import textwrap
-from typing import List, Dict, Any, Optional
+from typing import Any, Dict, List, Optional
 
 import click
 import jinja2
@@ -36,15 +36,17 @@ def should_be_reviewed(src_dir: str, file: str) -> bool:
 
 def pick_random_files(directory: str, n: int = 3) -> List[str]:
     """Randomly pick N files for review from the wiki."""
+    all_md_files = [f for f in os.listdir(directory) if f.endswith(".md")]
+    random.shuffle(all_md_files)
 
-    # Get a list of all files in the directory
-    files = os.listdir(directory)
+    selected_files = []
+    for file in all_md_files:
+        if should_be_reviewed(directory, file):
+            selected_files.append(file.replace(".md", ""))
+            if len(selected_files) == n:
+                break
 
-    # Remove the file extension for the wiki format
-    files = [f.replace(".md", "") for f in files if should_be_reviewed(directory, f)]
-    # Select three random files from the filtered list
-    random_files = random.sample(files, n)
-    return random_files
+    return selected_files
 
 
 def is_weekday() -> bool:
@@ -127,11 +129,15 @@ def main(
 
     # Create jinja template
     with open(template_file, "r") as template_file:
-        template = jinja2.Template(template_file.read(), trim_blocks=True, lstrip_blocks=True)
+        template = jinja2.Template(
+            template_file.read(), trim_blocks=True, lstrip_blocks=True
+        )
 
     # Create today's daily file
     with open(output_file, "w") as fh_out:
-        template_metadata = create_template_metadata(source_directory, today, source_quote_file)
+        template_metadata = create_template_metadata(
+            source_directory, today, source_quote_file
+        )
         content = template.render(**template_metadata)
         # Remove multiple blank lines
         content = re.sub(r"\n{3,}", "\n\n", content)
