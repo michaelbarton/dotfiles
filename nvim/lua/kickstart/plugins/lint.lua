@@ -6,8 +6,15 @@ return {
     config = function()
       local lint = require 'lint'
       lint.linters_by_ft = {
-        markdown = { 'markdownlint' },
+        python = { 'ruff' },
+        dockerfile = { 'hadolint' },
+        bash = { 'shell-check' },
+        yaml = { 'yamllint' },
+        json = { 'jsonlint' },
+        -- make = { 'checkmake' },
       }
+
+      lint.linters.ruff.args = {}
 
       -- To allow other plugins to add linters to require('lint').linters_by_ft,
       -- instead set linters_by_ft like this:
@@ -18,10 +25,8 @@ return {
       -- which will cause errors unless these tools are available:
       -- {
       --   clojure = { "clj-kondo" },
-      --   dockerfile = { "hadolint" },
       --   inko = { "inko" },
       --   janet = { "janet" },
-      --   json = { "jsonlint" },
       --   markdown = { "vale" },
       --   rst = { "vale" },
       --   ruby = { "ruby" },
