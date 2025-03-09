@@ -1,0 +1,30 @@
+---
+- name: Create virtual environment
+  ansible.builtin.pip:
+    virtualenv: "{{ venv_path }}/nvim"
+    virtualenv_python: "python{{ python_version }}"
+    name:
+      - codespell
+      - dap-python
+      - debugpy
+      - isort
+      - neovim
+      - pynvim
+      - pyright
+      - ruff
+      - ruff-lsp
+      - yamllint
+
+- name: Link specific configuration files
+  ansible.builtin.file:
+    src: "{{ playbook_dir }}/../{{ item.src }}"
+    dest: "{{ ansible_env.HOME }}/{{ item.dest }}"
+    state: link
+  loop:
+    - {src: "nvim/init.lua", dest: ".config/nvim/init.lua"}
+
+- name: Install jsonlint node.js package.
+  community.general.npm:
+    name: jsonlint
+    path: "{{ venv_path }}/nvim/bin"
+    global: false

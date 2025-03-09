@@ -1,10 +1,9 @@
 ---
-# Based on elnappos dotfiles (https://github.com/elnappo/dotfiles)
 - name: Playbook to manage dotfiles
   hosts: localhost
   connection: local
   vars:
-    venv_path: "{{ ansible_env.HOME }}/.venvs/nivm"
+    venv_path: "{{ ansible_env.HOME }}/.venvs"
     python_version: "3.11"  # Adjust this to your preferred Python version
   tasks:
     - name: Create folder
@@ -20,7 +19,7 @@
         - "{{ ansible_user_dir }}/.bin"
         - "{{ ansible_user_dir }}/.hammerspoon"
 
-    - include_tasks: tasks/python.yml
+    - include_tasks: tasks/neovim.yml
       tags:
         - python
 
