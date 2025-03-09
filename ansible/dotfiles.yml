@@ -4,7 +4,7 @@
   connection: local
   vars:
     venv_path: "{{ ansible_env.HOME }}/.venvs"
-    python_version: "3.11"  # Adjust this to your preferred Python version
+    python_version: "3.11" # Adjust this to your preferred Python version
   tasks:
     - name: Create folder
       ansible.builtin.file:

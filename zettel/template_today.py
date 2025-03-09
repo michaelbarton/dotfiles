@@ -129,15 +129,11 @@ def main(
 
     # Create jinja template
     with open(template_file, "r") as template_file:
-        template = jinja2.Template(
-            template_file.read(), trim_blocks=True, lstrip_blocks=True
-        )
+        template = jinja2.Template(template_file.read(), trim_blocks=True, lstrip_blocks=True)
 
     # Create today's daily file
     with open(output_file, "w") as fh_out:
-        template_metadata = create_template_metadata(
-            source_directory, today, source_quote_file
-        )
+        template_metadata = create_template_metadata(source_directory, today, source_quote_file)
         content = template.render(**template_metadata)
         # Remove multiple blank lines
         content = re.sub(r"\n{3,}", "\n\n", content)
