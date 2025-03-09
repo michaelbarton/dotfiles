@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 2025-03-09
+
+- Replace nvim config with lua version
+- Add ghostty config
+- Remove iterm config
+- Remove unused zettel files
+- Update command for templating the today file
+
 ## 2024-09-08
 
 - Add paperless-ngx setup
