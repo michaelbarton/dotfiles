@@ -3,5 +3,11 @@ return {
   'akinsho/bufferline.nvim',
   version = '*',
   dependencies = 'nvim-tree/nvim-web-devicons',
-  numbers = 'buffer_id',
+  config = function()
+    require('bufferline').setup {
+      options = {
+        numbers = 'buffer_id',
+      },
+    }
+  end,
 }
