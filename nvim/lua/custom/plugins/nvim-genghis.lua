@@ -1,0 +1,1 @@
+return { 'chrisgrieser/nvim-genghis' }

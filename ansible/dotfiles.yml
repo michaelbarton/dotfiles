@@ -1,8 +1,10 @@
 ---
-# Based on elnappos dotfiles (https://github.com/elnappo/dotfiles)
 - name: Playbook to manage dotfiles
   hosts: localhost
   connection: local
+  vars:
+    venv_path: "{{ ansible_env.HOME }}/.venvs"
+    python_version: "3.11" # Adjust this to your preferred Python version
   tasks:
     - name: Create folder
       ansible.builtin.file:
@@ -15,21 +17,16 @@
         - "{{ ansible_user_dir }}/.config/plugged/"
         - "{{ ansible_user_dir }}/cache"
         - "{{ ansible_user_dir }}/.bin"
+        - "{{ ansible_user_dir }}/.hammerspoon"
+
+    - include_tasks: tasks/neovim.yml
+      tags:
+        - python
 
     - include_tasks: tasks/launch_agents.yml
-      when: ansible_hostname == "Michaels-MacBook-Air"
       tags:
         - agents
 
     - include_tasks: tasks/link_files.yml
       tags:
         - links
-
-    - name: Install vim plugin manager
-      ansible.builtin.get_url:
-        url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-        dest: "{{ ansible_user_dir }}/.config/nvim/autoload/plug.vim"
-
-    - name: Install and update vim plugins
-      ansible.builtin.command:
-        cmd: nvim -c "PlugInstall" -c "qa!"

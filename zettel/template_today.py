@@ -5,7 +5,7 @@ import os
 import random
 import re
 import textwrap
-from typing import List, Dict, Any, Optional
+from typing import Any, Dict, List, Optional
 
 import click
 import jinja2
@@ -36,15 +36,17 @@ def should_be_reviewed(src_dir: str, file: str) -> bool:
 
 def pick_random_files(directory: str, n: int = 3) -> List[str]:
     """Randomly pick N files for review from the wiki."""
+    all_md_files = [f for f in os.listdir(directory) if f.endswith(".md")]
+    random.shuffle(all_md_files)
 
-    # Get a list of all files in the directory
-    files = os.listdir(directory)
+    selected_files = []
+    for file in all_md_files:
+        if should_be_reviewed(directory, file):
+            selected_files.append(file.replace(".md", ""))
+            if len(selected_files) == n:
+                break
 
-    # Remove the file extension for the wiki format
-    files = [f.replace(".md", "") for f in files if should_be_reviewed(directory, f)]
-    # Select three random files from the filtered list
-    random_files = random.sample(files, n)
-    return random_files
+    return selected_files
 
 
 def is_weekday() -> bool:
