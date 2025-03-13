@@ -91,8 +91,7 @@ DISPLAY=:0
 #
 ###################################################################
 
-# Core utils
-# Check if brew exists and coreutils is installed, regardless of Homebrew location
+# Check if brew exists and coreutils is installed
 if command -v brew >/dev/null 2>&1 && brew list coreutils &>/dev/null; then
         brew_prefix=$(brew --prefix)
         alias base64="$brew_prefix/bin/gbase64"
