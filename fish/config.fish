@@ -1,17 +1,25 @@
 #!/usr/local/bin/fish
 
+# Source bashrc, these are maintained so that a bash shell can still be used for debugging fish
 bass source ~/.bashrc
-bass source ~/.local/environment.bash
+
+# host specific environment variables, not version controlled
+if test -f ~/.local/environment.bash
+    bass source ~/.local/environment.bash
+end
 
 starship init fish | source
 zoxide init fish | source
 
 set fish_greeting ""
 
-# This needs to be a function instead of alias, because mosh calls ssh. If it's an
-# alias then it calls itself
+# Improve the ssh function to use mosh only when appropriate
 function ssh
-	mosh $argv
+    if test (count $argv) -gt 0 && string match -qr '^[a-zA-Z0-9._-]+$' -- $argv[1]
+        mosh $argv
+    else
+        command ssh $argv
+    end
 end
 
 function sp

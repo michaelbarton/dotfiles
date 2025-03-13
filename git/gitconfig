@@ -21,53 +21,70 @@
   changed = green
   untracked = cyan
 [alias]
-  s    = status -sb
-  l    = log --decorate --graph --pretty=format:\"%Cred%h%Creset - %s %Cgreen(%cr)%Creset\" --abbrev-commit --date=relative
+  # Status and info
+  s    = status -sb                                                                 # Short status with branch info
+  l    = log --decorate --graph --pretty=format:\"%Cred%h%Creset - %s %Cgreen(%cr)%Creset\" --abbrev-commit --date=relative  # Compact log with graph
+  name = !git for-each-ref --format='%(refname:short)' `git symbolic-ref HEAD`     # Get current branch name
+  aliases = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /'      # List all aliases
+  which = branch -a --contains                                                      # Show which branches contain a commit
+  last-commit = !git --no-pager log --max-count 1 --remotes --pretty=format:"%H%n" # Get last commit hash
+  last-branch = for-each-ref --count 1 --sort=-committerdate refs/remotes/ --format='%(refname:short)' # Most recent branch
 
-  c    = commit
-  ca   = commit -a
-  cc   = commit --amend
+  # Committing changes
+  c    = commit                   # Commit changes
+  ca   = commit -a                # Commit all changes
+  cc   = commit --amend           # Amend last commit
 
-  a    = add
-  ap   = add --patch
-  rm   = rm
+  # Staging
+  a    = add                      # Add files
+  ap   = add --patch              # Interactive add
+  rm   = rm                       # Remove files
 
-  d    = diff
-  ds   = diff --staged
-  dt   = diff --word-diff
-  lst  = diff HEAD^..HEAD
+  # Viewing changes
+  d    = diff                     # Show changes
+  ds   = diff --staged            # Show staged changes
+  dt   = diff --word-diff         # Show word-level diff
+  lst  = diff HEAD^..HEAD         # Show changes in the last commit
 
-  sw   = checkout
-  swb  = checkout -b
-  pd   = checkout -
-  b    = branch
-  bd   = branch -d
+  # Branch operations
+  sw   = checkout                 # Switch branches
+  swb  = checkout -b              # Create and switch to a branch
+  pd   = checkout -                # Jump to previous branch
+  b    = branch                   # List branches
+  bd   = branch -d                # Delete branch
 
-  r    = rebase
-  ri   = rebase --interactive
-  m    = merge --no-ff
+  # Advanced operations
+  r    = rebase                   # Rebase current branch
+  ri   = rebase --interactive     # Interactive rebase
+  m    = merge --no-ff            # Merge with commit
 
-  p    = push
-  pm   = push --mirror
-  pt   = push --tags
-
-  t    = tag -u mail@michaelbarton.me.uk -s
-
-  hub  = !sh -c 'hub clone -p $1 $2' -
-
-  undo = reset HEAD~1
-
-  aliases = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /'
-  name = !git for-each-ref --format='%(refname:short)' `git symbolic-ref HEAD`
+  # Remote operations
+  p    = push                     # Push to remote
+  pm   = push --mirror            # Mirror push
+  pt   = push --tags              # Push tags
+  
+  # Branch promotion/demotion
+  # promote: Push the current branch to origin and set up tracking
   promote = !BRCH=$(git name) && git push origin $BRCH && git branch --set-upstream-to=origin/$BRCH
+  
+  # demote: Delete the remote copy of the current branch
   demote = !BRCH=$(git name) && git push origin :$BRCH
-  which = branch -a --contains
-  me = !gitme
 
-  last-commit = !git --no-pager log --max-count 1 --remotes --pretty=format:"%H%n"
-  last-branch = for-each-ref --count 1 --sort=-committerdate refs/remotes/ --format='%(refname:short)'
+  # Tagging
+  t    = tag -u mail@michaelbarton.me.uk -s  # Create signed tag
 
+  # GitHub specific
+  hub  = !sh -c 'hub clone -p $1 $2' -        # Clone from GitHub with hub
+  me = !gitme                                  # Custom user command
+
+  # Workflow helpers
+  undo = reset HEAD~1                          # Undo last commit
+  
+  # Create a hotfix branch, commit changes, merge back to original branch, and clean up
   hotfix = !git checkout -b hotfix && git commit -a --sign && git checkout - && git merge --no-ff --gpg-sign - && git branch -d hotfix
+
+  # Difftastic integration
+  dft = difftool                              # Shorthand for difftool
 
 [core]
   excludesfile = /Users/mike/.gitignore
@@ -100,9 +117,6 @@
 [pager]
 	difftool = true
 
-# `git dft` is less to type than `git difftool`.
-[alias]
-	dft = difftool
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f

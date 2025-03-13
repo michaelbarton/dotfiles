@@ -1,6 +1,6 @@
-font-family = Iosevka Nerd Font
-font-size = 16
 cursor-style = block
-theme = catppuccin-frappe
+font-family = FiraCode Nerd Font
+font-size = 16
 shell-integration = fish
-
+theme = catppuccin-frappe
+command = /opt/homebrew/bin/fish
