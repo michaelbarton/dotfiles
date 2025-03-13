@@ -7,6 +7,8 @@ vim.env.PATH = vim.env.PATH .. ':' .. vim.fn.expand '~/.venvs/nvim/bin'
 vim.g.mapleader = ','
 vim.g.maplocalleader = ','
 
+vim.o.shell = 'fish'
+
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 vim.opt.termguicolors = true
@@ -84,17 +86,6 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 
 -- Set the wiki directory path
 vim.g.wiki_root = vim.fn.expand '~/Dropbox/wiki/zettel'
-
--- Create a new page in the wiki
-vim.keymap.set('n', '<leader>wn', function()
-  vim.ui.input({ prompt = 'Zettel name: ' }, function(input)
-    if input then
-      local timestamp = os.date '%Y%m%d%H%M'
-      local filename = string.format('%s/%s_%s.md', vim.g.wiki_root, timestamp, input)
-      vim.cmd.edit(filename)
-    end
-  end)
-end, { desc = '[W]iki [N]ew Page' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -393,10 +384,16 @@ require('lazy').setup({
         builtin.find_files { cwd = vim.g.wiki_root }
       end, { desc = '[W]iki [S]earch' })
 
-      -- Shortcut for adding wiki
-      vim.keymap.set('n', '<leader>ws', function()
-        builtin.find_files { cwd = vim.g.wiki_root }
-      end, { desc = '[W]iki [S]earch' })
+      -- Create a new page in the wiki
+      vim.keymap.set('n', '<leader>wn', function()
+        vim.ui.input({ prompt = 'Zettel name: ' }, function(input)
+          if input then
+            local timestamp = os.date '%Y%m%d%H%M'
+            local filename = string.format('%s/%s_%s.md', vim.g.wiki_root, timestamp, input)
+            vim.cmd.edit(filename)
+          end
+        end)
+      end, { desc = '[W]iki [N]ew Page' })
 
       vim.keymap.set('n', '<leader>wi', function()
         builtin.find_files {
