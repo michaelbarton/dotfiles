@@ -23,11 +23,13 @@ fish -c "fisher update"
 ### Email Setup
 
 1. Create maildb directory:
+
    ```bash
    mkdir -p ~/.maildb/michaelbarton
    ```
 
 2. Set up Gmail password in keychain:
+
    ```bash
    security add-generic-password -a acct.gmail -s acct.gmail -w
    ```
@@ -40,4 +42,5 @@ fish -c "fisher update"
 ## Customization
 
 For machine-specific settings, create:
+
 - `~/.local/environment.bash` for Bash settings

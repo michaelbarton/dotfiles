@@ -17,13 +17,13 @@
     python_version: "3.11" # Adjust this to your preferred Python version
     dotfiles_dir: "{{ ansible_env.HOME }}/.dotfiles"
     config_dir: "{{ ansible_user_dir }}/.config"
-  
+
   tasks:
     - name: Create necessary directories
       ansible.builtin.file:
         path: "{{ item }}"
         state: directory
-        mode: '0755'
+        mode: "0755"
       loop:
         - "{{ config_dir }}/fish"
         - "{{ config_dir }}/nvim/autoload"

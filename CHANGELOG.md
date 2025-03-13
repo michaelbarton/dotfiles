@@ -4,7 +4,7 @@
 
 - Reorganize file structure for better organization
 - Remove tmux, irssi, and zsh configurations
-- Additional nvim lua modules 
+- Additional nvim lua modules
 - Minor fish shell config fixes
 - Simplify and restructure README.md
 - Remove .gitmodules file
