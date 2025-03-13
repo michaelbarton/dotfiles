@@ -2,6 +2,18 @@
 
 ## 2025-03-09
 
+- Reorganize file structure for better organization
+- Remove tmux, irssi, and zsh configurations
+- Additional nvim lua modules 
+- Minor fish shell config fixes
+- Simplify and restructure README.md
+- Remove .gitmodules file
+- Update bash configuration with simplified aliases
+- Remove old/unused scripts
+- Remove Linux-specific apt packages file
+
+## 2025-03-09
+
 - Replace nvim config with lua version
 - Add ghostty config
 - Remove iterm config
