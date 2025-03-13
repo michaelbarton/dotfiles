@@ -1,6 +1,0 @@
-#!/usr/bin/env Rscript
-
-install.packages(
-  read.table('~/.dotfiles/r_packages')$V1,
-  dependencies = TRUE,
-  repos = "http://cran.r-project.org")
