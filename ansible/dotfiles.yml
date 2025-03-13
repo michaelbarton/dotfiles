@@ -1,32 +1,53 @@
 ---
+# Main Ansible playbook for managing dotfiles
+# This playbook handles:
+# - Creating necessary directories
+# - Setting up Neovim configuration
+# - Configuring OS-specific launch agents
+# - Linking dotfiles to their proper locations
+#
+# To run only specific tags: ./apply_ansible [tag1,tag2]
+# Available tags: links, python, agents
+
 - name: Playbook to manage dotfiles
   hosts: localhost
   connection: local
   vars:
     venv_path: "{{ ansible_env.HOME }}/.venvs"
     python_version: "3.11" # Adjust this to your preferred Python version
+    dotfiles_dir: "{{ ansible_env.HOME }}/.dotfiles"
+    config_dir: "{{ ansible_user_dir }}/.config"
+  
   tasks:
-    - name: Create folder
+    - name: Create necessary directories
       ansible.builtin.file:
         path: "{{ item }}"
         state: directory
+        mode: '0755'
       loop:
-        - "{{ ansible_user_dir }}/.config/fish"
-        - "{{ ansible_user_dir }}/.config/nvim/autoload"
-        - "{{ ansible_user_dir }}/.config/plugged"
-        - "{{ ansible_user_dir }}/.config/ghostty"
+        - "{{ config_dir }}/fish"
+        - "{{ config_dir }}/nvim/autoload"
+        - "{{ config_dir }}/plugged"
+        - "{{ config_dir }}/ghostty"
         - "{{ ansible_user_dir }}/cache"
         - "{{ ansible_user_dir }}/.bin"
         - "{{ ansible_user_dir }}/.hammerspoon"
+      tags:
+        - always
 
-    - include_tasks: tasks/neovim.yml
+    - name: Include Neovim setup tasks
+      include_tasks: tasks/neovim.yml
       tags:
         - python
+        - nvim
 
-    - include_tasks: tasks/launch_agents.yml
+    - name: Include OS-specific launch agents
+      include_tasks: tasks/launch_agents.yml
       tags:
         - agents
 
-    - include_tasks: tasks/link_files.yml
+    - name: Include dotfile linking tasks
+      include_tasks: tasks/link_files.yml
       tags:
         - links
+        - setup
