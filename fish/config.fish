@@ -1,6 +1,9 @@
 #!/usr/local/bin/fish
 
+# Source bashrc, these are maintained so that a bash shell can still be used for debugging fish
 bass source ~/.bashrc
+
+# host specific environment variables, not version controlled
 bass source ~/.local/environment.bash
 
 starship init fish | source

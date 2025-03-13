@@ -14,18 +14,12 @@ alias tmp='cd $(mktemp -d)'
 alias wiki='vim ~/Dropbox/wiki/zettel/index.md'
 alias g='git'
 
-# Use gdate because this is the version installed on OSX by homebrew.
-# A better way might be to alias gdate to date
-alias yesterday='vim ~/Dropbox/wiki/zettel/$(gdate --date "yesterday" "+%Y%m%d").md'
-alias tomorrow='vim ~/Dropbox/wiki/zettel/$(gdate --date "tomorrow" "+%Y%m%d").md'
-
 # Use eza instead of ls
 alias ls='eza --classify --oneline --git'
 alias lls='eza --header --long --git'
 alias tree='eza --tree'
 
 # neovim instead of vi/nvim
-alias vi='nvim'
 alias vim='nvim'
 
 # bat instead of cat
@@ -43,13 +37,6 @@ alias octave='octave --quiet'
 # Print grep results in color
 alias grep='grep --color=auto'
 
-# Tmux
-alias tkw="tmux kill-window -t"
-alias tks="tmux kill-session -t"
-alias tss="tmux switch-client -t"
-alias tls="tmux list-session"
-
-
 ###################################################################
 #
 # Paths
@@ -62,9 +49,7 @@ DOTFILES_BIN=${HOME}/.dotfiles/bin
 HOMEBREW_BIN=/opt/homebrew/bin
 NPM_BIN=${HOME}/.npm-global/bin
 
-export PATH=${PYTHON_BIN}:${NPM_BIN}:${HOMEBREW_BIN}:${DOTFILES_BIN}:${USER_BIN}:${PATH}
-
-
+export PATH=${NPM_BIN}:${HOMEBREW_BIN}:${DOTFILES_BIN}:${USER_BIN}:${PATH}
 
 ###################################################################
 #
@@ -107,8 +92,9 @@ DISPLAY=:0
 ###################################################################
 
 # Core utils
-if [ -d /usr/local/Cellar/coreutils ]; then
-        brew_prefix=`brew --prefix`
+# Check if brew exists and coreutils is installed, regardless of Homebrew location
+if command -v brew >/dev/null 2>&1 && brew list coreutils &>/dev/null; then
+        brew_prefix=$(brew --prefix)
         alias base64="$brew_prefix/bin/gbase64"
         alias basename="$brew_prefix/bin/gbasename"
         alias cat="$brew_prefix/bin/gcat"

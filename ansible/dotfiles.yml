@@ -11,10 +11,10 @@
         path: "{{ item }}"
         state: directory
       loop:
-        - "{{ ansible_user_dir }}/.config/fish/"
+        - "{{ ansible_user_dir }}/.config/fish"
         - "{{ ansible_user_dir }}/.config/nvim/autoload"
-        - "{{ ansible_user_dir }}/.config/nvim/ftplugin"
-        - "{{ ansible_user_dir }}/.config/plugged/"
+        - "{{ ansible_user_dir }}/.config/plugged"
+        - "{{ ansible_user_dir }}/.config/ghostty"
         - "{{ ansible_user_dir }}/cache"
         - "{{ ansible_user_dir }}/.bin"
         - "{{ ansible_user_dir }}/.hammerspoon"
