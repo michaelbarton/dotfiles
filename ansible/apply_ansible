@@ -1,6 +1,0 @@
-#!/bin/bash
-
-set -o nounset
-set -o errexit
-
-ansible-playbook -i ~/.dotfiles/ansible/inventory.ini ~/.dotfiles/ansible/dotfiles.yml

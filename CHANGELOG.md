@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2025-03-17
+
+- Remove `apply_ansible` and move to Makefile.
+- Update conform formatters.
+- Add additional nvim plugins.
+
 ## 2025-03-09
 
 - Reorganize file structure for better organization
