@@ -2,8 +2,8 @@ DOCKER = docker-compose run --rm
 
 all: fmt apply
 
-apply:
-	./ansible/apply_ansible
+apply: 
+	uv run ansible-playbook -i ~/.dotfiles/ansible/inventory.ini ~/.dotfiles/ansible/dotfiles.yml
 
 fmt:
 	${DOCKER} prettier npx prettier --write *.md **/*.yml
