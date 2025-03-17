@@ -33,14 +33,11 @@ return {
     end,
     formatters_by_ft = {
       lua = { 'stylua' },
-      yaml = { 'yamlfix' },
+      yaml = { 'prettierd' },
       sql = { 'sqlfmt' },
       markdown = { 'prettierd' },
-      -- Conform can also run multiple formatters sequentially
       python = { 'ruff_format', 'ruff_fix', 'ruff_organize_imports' },
-      --
-      -- You can use 'stop_after_first' to run the first available formatter from the list
-      -- javascript = { "prettierd", "prettier", stop_after_first = true },
+      javascript = { 'prettierd' },
     },
   },
 }
