@@ -85,8 +85,10 @@ vim.keymap.set('n', '<leader>f', '<cmd>nohlsearch<CR>')
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
--- Set the wiki directory path
-vim.g.wiki_root = vim.fn.expand '~/Dropbox/wiki/zettel'
+local wiki_path = vim.fn.expand('~/Dropbox/wiki/zettel')
+if vim.fn.isdirectory(wiki_path) == 1 then
+  vim.g.wiki_root = wiki_path
+end
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
