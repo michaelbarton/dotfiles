@@ -32,12 +32,39 @@ return {
       }
     end,
     formatters_by_ft = {
+      javascript = { 'prettierd' },
       lua = { 'stylua' },
-      yaml = { 'prettierd' },
-      sql = { 'sqlfmt' },
       markdown = { 'prettierd' },
       python = { 'ruff_format', 'ruff_fix', 'ruff_organize_imports' },
-      javascript = { 'prettierd' },
+      quarto = { 'injected' },
+      sql = { 'sqlfmt' },
+      yaml = { 'prettierd' },
     },
   },
+  -- See:
+  -- https://github.com/jmbuhr/quarto-nvim-kickstarter/blob/382b050e13eada7180ad048842386be37e820660/lua/plugins/editing.lua#L29-L81
+  config = function()
+    require('conform').formatters.injected = {
+      -- Set the options field
+      options = {
+        -- Set to true to ignore errors
+        ignore_errors = false,
+        -- Map of treesitter language to file extension
+        -- A temporary file name with this extension will be generated during formatting
+        -- because some formatters care about the filename.
+        lang_to_ext = {
+          bash = 'sh',
+          javascript = 'js',
+          latex = 'tex',
+          markdown = 'md',
+          python = 'py',
+          r = 'r',
+          typescript = 'ts',
+        },
+        -- Map of treesitter language to formatters to use
+        -- (defaults to the value from formatters_by_ft)
+        lang_to_formatters = {},
+      },
+    }
+  end,
 }

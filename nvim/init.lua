@@ -85,7 +85,7 @@ vim.keymap.set('n', '<leader>f', '<cmd>nohlsearch<CR>')
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
-local wiki_path = vim.fn.expand('~/Dropbox/wiki/zettel')
+local wiki_path = vim.fn.expand '~/Dropbox/wiki/zettel'
 if vim.fn.isdirectory(wiki_path) == 1 then
   vim.g.wiki_root = wiki_path
 end
@@ -109,11 +109,6 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 
 -- Faster Esc
 vim.keymap.set('i', 'jj', '<ESC>', { noremap = true })
-
--- Double leader writes the file
-vim.keymap.set('n', '<leader><leader>', function()
-  vim.cmd 'write'
-end, { noremap = true })
 
 -- Prevent from entering Ex mode
 vim.keymap.set('n', 'Q', '<nop>', { noremap = true })
@@ -162,18 +157,6 @@ require('lazy').setup({
   'mfussenegger/nvim-dap-python', -- Debug python in nvim
 
   { 'catppuccin/nvim', name = 'catppuccin', priority = 1000 },
-
-  {
-    'jose-elias-alvarez/null-ls.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    config = function()
-      local null_ls = require 'null-ls'
-
-      null_ls.setup {
-        sources = {},
-      }
-    end,
-  },
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -446,7 +429,7 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         -- gopls = {},
-        -- pyright = {},
+        pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -706,7 +689,6 @@ require('lazy').setup({
   require 'kickstart.plugins.debug',
   require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
-  -- require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
