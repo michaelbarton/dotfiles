@@ -1,51 +1,51 @@
-local mainMonitor = "DELL U3421WE"  -- replace with the name of your main monitor
-local secondMonitor = "27GL850"  -- replace with the name of your second monitor
+-- Hammerspoon configuration
 
--- Define custom position values in hs.layout.*
-local positions = {
-  leftThirdMain = {x=0, y=0, w=0.33, h=1},
-  rightTwoThirdsMain = {x=0.33, y=0, w=0.67, h=1},
-  topThirdSecond = {x=0, y=0, w=1, h=0.33},
-  middleThirdSecond = {x=0, y=0.33, w=1, h=0.33},
-  bottomThirdSecond = {x=0, y=0.67, w=1, h=0.33},
+local MONITORS = {
+    MAIN = "DELL U3421WE",
+    SECONDARY = "27GL850"
 }
 
-local layout = {
-  {"iTerm", nil, mainMonitor, positions.leftThirdMain, nil, nil},
-  {"PyCharm", nil, mainMonitor, positions.rightTwoThirdsMain, nil, nil},
-  {"Slack", nil, secondMonitor, positions.topThirdSecond, nil, nil},
-  {"Google Chrome", nil, secondMonitor, positions.middleThirdSecond, nil, nil},
-  {"Spotify", nil, secondMonitor, positions.bottomThirdSecond, nil, nil},
+local LAYOUT_POSITIONS = {
+    LEFT_THIRD = {x = 0, y = 0, w = 0.33, h = 1},
+    RIGHT_TWO_THIRDS = {x = 0.33, y = 0, w = 0.67, h = 1},
+    TOP_THIRD = {x = 0, y = 0, w = 1, h = 0.33},
+    MIDDLE_THIRD = {x = 0, y = 0.33, w = 1, h = 0.33},
+    BOTTOM_THIRD = {x = 0, y = 0.67, w = 1, h = 0.33}
 }
 
-local appNames = {
-  "iTerm",
-  "PyCharm",
-  "Slack",
-  "Google Chrome",
-  "Spotify"
+local APPS = {
+    CURSOR = "Cursor",
+    TERMINAL = "Ghostty",
+    SLACK = "Slack",
+    CHROME = "Google Chrome",
+    SPOTIFY = "Spotify"
 }
 
-local function launchApps()
-  for i, appName in ipairs(appNames) do
-    hs.application.launchOrFocus(appName)
-  end
+local WINDOW_LAYOUT = {
+    {APPS.CURSOR, nil, MONITORS.MAIN, LAYOUT_POSITIONS.LEFT_THIRD, nil, nil},
+    {APPS.TERMINAL, nil, MONITORS.MAIN, LAYOUT_POSITIONS.RIGHT_TWO_THIRDS, nil, nil},
+    {APPS.SLACK, nil, MONITORS.SECONDARY, LAYOUT_POSITIONS.TOP_THIRD, nil, nil},
+    {APPS.CHROME, nil, MONITORS.SECONDARY, LAYOUT_POSITIONS.MIDDLE_THIRD, nil, nil},
+    {APPS.SPOTIFY, nil, MONITORS.SECONDARY, LAYOUT_POSITIONS.BOTTOM_THIRD, nil, nil}
+}
+
+local menubar = hs.menubar.new()
+
+local function setupMenubar()
+    menubar:setTitle("🖥")
+    menubar:setTooltip("Window Layout Manager")
+    menubar:setMenu({
+        {
+            title = "Launch & Arrange Apps",
+            fn = function()
+                for _, appName in pairs(APPS) do
+                    hs.application.launchOrFocus(appName)
+                end
+                hs.layout.apply(WINDOW_LAYOUT)
+            end
+        }
+    })
 end
 
-local menu = hs.menubar.new()
-local function setLayout()
-  menu:setTitle("🖥")
-  menu:setTooltip("Set Layout")
-  hs.layout.apply(layout)
-end
-
-local function enableMenu()
-  menu:setTitle("🖥")
-  menu:setTooltip("No Layout")
-  menu:setMenu({
-      { title = "Launch & Arrange Apps", fn = function() launchApps(); setLayout() end },
-  })
-end
-
-enableMenu()
+setupMenubar()
 
