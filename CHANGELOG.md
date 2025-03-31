@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2025-03-25
+
+- Switch to LazyVim from kickstarter for nvim config.
+
 ## 2025-03-17
 
 - Remove `apply_ansible` and move to Makefile.
