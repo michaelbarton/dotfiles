@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 2025-04-29
+
+## 2025-04-29
+
+- Changed nvim Python LSP from `basedpyright` to disabled by default
+- Set shell to `fish` in nvim configuration
+- Added ToggleTerm plugin for improved terminal management in nvim
+
 ## 2025-03-25
 
 - Switch to LazyVim from kickstarter for nvim config.
@@ -21,9 +29,6 @@
 - Update bash configuration with simplified aliases
 - Remove old/unused scripts
 - Remove Linux-specific apt packages file
-
-## 2025-03-09
-
 - Replace nvim config with lua version
 - Add ghostty config
 - Remove iterm config
