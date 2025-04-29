@@ -1,0 +1,31 @@
+-- https://www.reddit.com/r/neovim/comments/1av26kw/i_tried_to_figure_it_out_but_i_give_up_how_do_i/
+
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  command = "set formatoptions+=cqln",
+})
+vim.opt_local.textwidth = 80
+
+-- auto format text as it's being edited
+-- n=format lists
+vim.opt_local.formatoptions:append("cqln")
+
+-- recognize asterisk as bullets
+-- https://unix.stackexchange.com/a/31348
+vim.opt_local.formatlistpat:append([[\|^\\*\s*]])
+
+-- Maintain indenting of paragraphs in the text
+vim.opt_local.autoindent = true
+
+-- Use two spaces for tabs
+vim.opt_local.shiftwidth = 2
+vim.opt_local.tabstop = 2
+vim.opt_local.expandtab = true
+
+-- disable header folding
+vim.g.vim_markdown_folding_disabled = 1
+
+-- do not use conceal feature
+vim.g.vim_markdown_conceal = 0
+
+vim.g.vim_markdown_auto_insert_bullets = 0
+vim.g.vim_markdown_new_list_item_indent = 0
