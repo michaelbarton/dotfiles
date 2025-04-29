@@ -20,11 +20,16 @@ return {
     },
   },
   {
+    "williamboman/mason.nvim",
+    opts = { ensure_installed = { "prettier", "prettierd" } },
+  },
+  {
     "stevearc/conform.nvim",
     opts = {
       formatters_by_ft = {
         quarto = { "injected" },
         sql = { "sqlfmt" },
+        markdown = { "mdformat" },
       },
       -- See:
       -- https://github.com/jmbuhr/quarto-nvim-kickstarter/blob/382b050e13eada7180ad048842386be37e820660/lua/plugins/editing.lua#L29-L81
@@ -44,12 +49,13 @@ return {
             python = "py",
             r = "r",
             typescript = "ts",
+            vimwiki = "md",
           },
           -- Map of treesitter language to formatters to use
           -- (defaults to the value from formatters_by_ft)
           lang_to_formatters = {},
         },
-      }
+      },
     },
   },
 }
