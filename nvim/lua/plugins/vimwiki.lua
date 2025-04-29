@@ -9,4 +9,7 @@ return {
       },
     }
   end,
+  config = function()
+    vim.keymap.del('n', '<leader>wn', { silent = true, noremap = true })
+  end,
 }
