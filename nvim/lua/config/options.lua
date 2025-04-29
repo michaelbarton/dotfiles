@@ -9,4 +9,9 @@
 -- These are managed by ansible in the dotfiles setup
 vim.env.PATH = vim.env.PATH .. ":" .. vim.fn.expand("~/.venvs/nvim/bin")
 
+-- Location of wiki files
+vim.g.wiki_root = "~/Dropbox/wiki/zettel/"
+
 vim.o.shell = "fish"
+vim.opt_local.textwidth = 80
+vim.opt.wrap = true
