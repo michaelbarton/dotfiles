@@ -1,7 +1,5 @@
 ---
-version: "3.9"
 services:
-
   # Format markdown and yml files.
   prettier:
     build:
