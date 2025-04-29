@@ -1,5 +1,9 @@
 return {
   "vimwiki/vimwiki",
+  keys = {
+    -- disable the keymap to create new pages
+    {"<leader>wn", false},
+  },
   init = function()
     vim.g.vimwiki_list = {
       {
@@ -8,8 +12,5 @@ return {
         ext = ".md",
       },
     }
-  end,
-  config = function()
-    vim.keymap.del('n', '<leader>wn', { silent = true, noremap = true })
   end,
 }
