@@ -8,6 +8,7 @@
       - dap-python
       - debugpy
       - isort
+      - mdformat
       - neovim
       - pynvim
       - pyright
@@ -22,8 +23,9 @@
     dest: "{{ ansible_env.HOME }}/{{ item.dest }}"
     state: link
   loop:
-    - {src: "nvim/init.lua", dest: ".config/nvim/init.lua"}
-    - {src: "nvim/lua", dest: ".config/nvim/lua"}
+    - { src: "nvim/init.lua", dest: ".config/nvim/init.lua" }
+    - { src: "nvim/lua", dest: ".config/nvim/lua" }
+    - { src: "nvim/ftplugin", dest: ".config/nvim/ftplugin" }
 
 - name: Install jsonlint node.js package.
   community.general.npm:
