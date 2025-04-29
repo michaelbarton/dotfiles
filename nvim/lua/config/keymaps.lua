@@ -3,8 +3,6 @@
 -- Add any additional keymaps here
 --
 
-local fzf = require("fzf-lua")
-
 -- Insert today's date as a heading in the format ## [[YYYYMMDD]] with two new lines
 vim.keymap.set("n", "<leader>id", function()
   local date = os.date("%Y%m%d")
@@ -19,6 +17,7 @@ end, { desc = "[I]nsert [D]ate" })
 
 -- Shortcut for searching the wiki
 vim.keymap.set("n", "<leader>ws", function()
+  local fzf = require("fzf-lua")
   fzf.files({ prompt = "wiki  ", cwd = vim.g.wiki_root })
 end, { desc = "[W]iki [S]earch" })
 
@@ -34,6 +33,7 @@ vim.keymap.set("n", "<leader>wn", function()
 end, { desc = "[W]iki [N]ew Page" })
 
 vim.keymap.set("n", "<leader>wi", function()
+  local fzf = require("fzf-lua")
   fzf.files({
     prompt = "Wiki Files",
     cwd = vim.g.wiki_root,
