@@ -2,5 +2,5 @@ cursor-style = block
 font-family = FiraCode Nerd Font
 font-size = 16
 shell-integration = fish
-theme = catppuccin-frappe
+theme = Catppuccin Frappe
 command = /opt/homebrew/bin/fish
