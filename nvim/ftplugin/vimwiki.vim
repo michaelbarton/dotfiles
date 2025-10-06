@@ -16,7 +16,8 @@ setlocal textwidth=80
 " l - Don't auto-wrap if line is already longer than textwidth
 " 1 - Don't break a line after a one-letter word
 " j - Remove comment leader when joining lines
-setlocal formatoptions=qnl1j
+" t - Enable auto-wrapping as you type
+setlocal formatoptions=tqnl1jr
 
 " Recognize asterisk as bullets (from your original file)
 setlocal formatlistpat+=\\|^\\*\\s*
@@ -47,7 +48,6 @@ setlocal breakat=\ ^I!@*-+;:,./?
 
 " Enable better list formatting for vimwiki
 setlocal comments=b:*,b:-,b:+,b:1.,b:a.
-setlocal formatoptions+=r
 
-" Format paragraph on save if desired (commented out by default)
-autocmd BufWritePre <buffer> normal! gggqG
+" Format paragraph on save, preserving cursor position
+autocmd BufWritePre <buffer> let view = winsaveview() | execute "normal! gggqG" | call winrestview(view)
