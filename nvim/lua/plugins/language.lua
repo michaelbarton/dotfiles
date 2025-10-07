@@ -31,6 +31,16 @@ return {
         quarto = { "injected" },
         sql = { "sqlfmt" },
         markdown = { "mdformat" },
+        vimwiki = { "mdformat" },
+      },
+      -- Configure mdformat with text wrapping and formatting options
+      formatters = {
+        mdformat = {
+          prepend_args = {
+            "--wrap", "80",    -- Wrap text at 80 characters
+            "--number",        -- Use numbered lists consistently
+          },
+        },
       },
       -- See:
       -- https://github.com/jmbuhr/quarto-nvim-kickstarter/blob/382b050e13eada7180ad048842386be37e820660/lua/plugins/editing.lua#L29-L81

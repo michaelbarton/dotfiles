@@ -13,5 +13,7 @@ vim.env.PATH = vim.env.PATH .. ":" .. vim.fn.expand("~/.venvs/nvim/bin")
 vim.g.wiki_root = "~/Dropbox/wiki/zettel/"
 
 vim.o.shell = "fish"
-vim.opt_local.textwidth = 80
+
+-- Global text width and wrapping settings
+vim.opt.textwidth = 80
 vim.opt.wrap = true

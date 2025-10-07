@@ -48,6 +48,3 @@ setlocal breakat=\ ^I!@*-+;:,./?
 
 " Enable better list formatting for vimwiki
 setlocal comments=b:*,b:-,b:+,b:1.,b:a.
-
-" Format paragraph on save, preserving cursor position
-autocmd BufWritePre <buffer> let view = winsaveview() | execute "normal! gggqG" | call winrestview(view)
