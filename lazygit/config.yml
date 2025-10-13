@@ -1,0 +1,100 @@
+gui:
+  # Use Catppuccin Frappe theme (matching your terminal/nvim theme)
+  theme:
+    lightTheme: false
+    activeBorderColor:
+      - '#f2cdcd'  # Brighter pink for better visibility
+      - bold
+    inactiveBorderColor:
+      - '#c6d0f5'  # Brighter inactive border
+    optionsTextColor:
+      - '#a6d189'  # Brighter green for better contrast
+    selectedLineBgColor:
+      - '#51576d'  # Slightly lighter background for selected lines
+    selectedRangeBgColor:
+      - '#51576d'  # Slightly lighter background for selected range
+    cherryPickedCommitBgColor:
+      - '#ef9f76'  # Keep orange - good contrast
+    cherryPickedCommitFgColor:
+      - '#1e1e2e'  # Dark text on orange background
+    unstagedChangesColor:
+      - '#f38ba8'  # Brighter red for unstaged changes
+    defaultFgColor:
+      - '#f2cdcd'  # Brighter default text color
+    searchingActiveBorderColor:
+      - '#f9e2af'  # Brighter yellow for search
+  # Show command log in bottom right
+  showCommandLog: true
+  # Show file tree in commits view
+  showFileTree: true
+  # Enlarge the side panel
+  sidePanelWidth: 0.3333
+  # Better commit message length
+  commitLength:
+    show: true
+
+git:
+  # Auto-fetch every 60 seconds
+  autoFetch: true
+  autoRefresh: true
+  # Use delta for diffs (matching your git config)
+  paging:
+    colorArg: always
+    pager: delta --dark --paging=never
+  # Better merge behavior
+  merging:
+    args: '--no-ff'
+  # Pull with rebase by default
+  pull:
+    mode: 'rebase'
+  # Sign commits by default
+  commit:
+    signOff: false
+    autoWrapCommitMessage: true
+    autoWrapWidth: 72
+
+# Custom commands for common workflows
+customCommands:
+  - key: '<c-p>'
+    description: 'Push to origin and create PR (using gh cli)'
+    context: 'global'
+    command: 'gh pr create --web'
+  - key: '<c-r>'
+    description: 'View PR in browser'
+    context: 'global'
+    command: 'gh pr view --web'
+
+# Confirmations
+confirmOnQuit: false
+quitOnTopLevelReturn: true
+
+# Key bindings (vim-style)
+keybinding:
+  universal:
+    quit: 'q'
+    return: '<esc>'
+    prevItem: 'k'
+    nextItem: 'j'
+    prevPage: 'K'
+    nextPage: 'J'
+    scrollLeft: 'h'
+    scrollRight: 'l'
+  files:
+    commitChanges: 'c'
+    commitChangesWithoutHook: 'C'
+    amendLastCommit: 'A'
+    ignoreFile: 'i'
+    refreshFiles: 'r'
+    stashAllChanges: 's'
+    viewStashOptions: 'S'
+  commits:
+    squashDown: 's'
+    renameCommit: 'r'
+    renameCommitWithEditor: 'R'
+    viewResetOptions: 'g'
+    markCommitAsFixup: 'f'
+    createFixupCommit: 'F'
+    rewordCommit: 'w'
+
+# Start in commits view (change to 'files' if you prefer)
+startupPopupVersion: 5
