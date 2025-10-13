@@ -22,7 +22,8 @@ require("lazy").setup({
       import = "lazyvim.plugins",
       version = ">=15.0.0", -- Pin to v15.0.0 or higher
     },
-    -- Import LazyVim extras
+    -- Import LazyVim extras - Languages
+    { import = "lazyvim.plugins.extras.lang.docker" },
     { import = "lazyvim.plugins.extras.lang.git" },
     { import = "lazyvim.plugins.extras.lang.json" },
     { import = "lazyvim.plugins.extras.lang.markdown" },
@@ -30,6 +31,14 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.lang.r" },
     { import = "lazyvim.plugins.extras.lang.toml" },
     { import = "lazyvim.plugins.extras.lang.yaml" },
+
+    -- Import LazyVim extras - Coding enhancements
+    { import = "lazyvim.plugins.extras.coding.mini-surround" },
+    { import = "lazyvim.plugins.extras.coding.yanky" },
+
+    -- Import LazyVim extras - Editor utilities
+    { import = "lazyvim.plugins.extras.editor.telescope" },
+    { import = "lazyvim.plugins.extras.util.project" },
 
     -- import/override with your plugins
     { import = "plugins" },
