@@ -37,3 +37,13 @@
     name: jsonlint
     path: "{{ venv_path }}/nvim/bin"
     global: false
+
+- name: Run Lazy sync for Neovim plugins
+  ansible.builtin.command:
+    argv:
+      - nvim
+      - --headless
+      - "+Lazy! sync"
+      - "+qa"
+  tags:
+    - nvim
