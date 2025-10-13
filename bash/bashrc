@@ -4,6 +4,17 @@ set -o nounset
 
 ###################################################################
 #
+# XDG Base Directory Specification
+#
+###################################################################
+
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
+
+###################################################################
+#
 # Simple aliases
 #
 ###################################################################
@@ -45,11 +56,12 @@ alias grep='grep --color=auto'
 
 PYTHON_BIN=${HOME}/.venv/bin
 USER_BIN=${HOME}/.bin
+LOCAL_BIN=${HOME}/.local/bin
 DOTFILES_BIN=${HOME}/.dotfiles/bin
 HOMEBREW_BIN=/opt/homebrew/bin
 NPM_BIN=${HOME}/.npm-global/bin
 
-export PATH=${NPM_BIN}:${HOMEBREW_BIN}:${DOTFILES_BIN}:${USER_BIN}:${PATH}
+export PATH=${NPM_BIN}:${HOMEBREW_BIN}:${DOTFILES_BIN}:${USER_BIN}:${LOCAL_BIN}:${PATH}
 
 ###################################################################
 #
@@ -79,114 +91,84 @@ export LESS='-R -M --shift 5'
 export JAVA_HOME=$(/usr/libexec/java_home -v 18)
 
 # language
-LC_ALL='en_GB.UTF-8'
-LANG='en_GB.UTF-8'
-LC_CTYPE=C
-DISPLAY=:0
+export LC_ALL='en_GB.UTF-8'
+export LANG='en_GB.UTF-8'
+export LC_CTYPE=C
+export DISPLAY=:0
+
+###################################################################
+#
+# Shell history improvements
+#
+###################################################################
+
+export HISTSIZE=50000
+export HISTFILESIZE=100000
+export HISTCONTROL=ignoredups:erasedups
+export HISTTIMEFORMAT="[%F %T] "
+shopt -s histappend  # Append to history, don't overwrite
+
+###################################################################
+#
+# Modern shell tool initialization
+#
+###################################################################
+
+# Initialize starship prompt
+if command -v starship &>/dev/null; then
+    eval "$(starship init bash)"
+fi
+
+# Initialize zoxide for smart directory navigation
+if command -v zoxide &>/dev/null; then
+    eval "$(zoxide init bash)"
+fi
+
+# Initialize atuin for enhanced shell history
+if command -v atuin &>/dev/null; then
+    eval "$(atuin init bash)"
+fi
+
+# Initialize mise for runtime version management
+if command -v mise &>/dev/null; then
+    eval "$(mise activate bash)"
+fi
 
 
 ###################################################################
 #
-# Replace all OSX coreutils with Unix-like coreutils from homebrew
+# GNU Coreutils (simplified approach)
 #
 ###################################################################
 
-# Check if brew exists and coreutils is installed
-if command -v brew >/dev/null 2>&1 && brew list coreutils &>/dev/null; then
-        brew_prefix=$(brew --prefix)
-        alias base64="$brew_prefix/bin/gbase64"
-        alias basename="$brew_prefix/bin/gbasename"
-        alias cat="$brew_prefix/bin/gcat"
-        alias chcon="$brew_prefix/bin/gchcon"
-        alias chgrp="$brew_prefix/bin/gchgrp"
-        alias chmod="$brew_prefix/bin/gchmod"
-        alias chown="$brew_prefix/bin/gchown"
-        alias chroot="$brew_prefix/bin/gchroot"
-        alias cksum="$brew_prefix/bin/gcksum"
-        alias comm="$brew_prefix/bin/gcomm"
-        alias cp="$brew_prefix/bin/gcp"
-        alias csplit="$brew_prefix/bin/gcsplit"
-        alias cut="$brew_prefix/bin/gcut"
-        alias date="$brew_prefix/bin/gdate"
-        alias dd="$brew_prefix/bin/gdd"
-        alias df="$brew_prefix/bin/gdf"
-        alias dir="$brew_prefix/bin/gdir"
-        alias dircolors="$brew_prefix/bin/gdircolors"
-        alias dirname="$brew_prefix/bin/gdirname"
-        alias du="$brew_prefix/bin/gdu"
-        alias echo="$brew_prefix/bin/gecho"
-        alias env="$brew_prefix/bin/genv"
-        alias expand="$brew_prefix/bin/gexpand"
-        alias expr="$brew_prefix/bin/gexpr"
-        alias factor="$brew_prefix/bin/gfactor"
-        alias false="$brew_prefix/bin/gfalse"
-        alias fmt="$brew_prefix/bin/gfmt"
-        alias fold="$brew_prefix/bin/gfold"
-        alias groups="$brew_prefix/bin/ggroups"
-        alias head="$brew_prefix/bin/ghead"
-        alias hostid="$brew_prefix/bin/ghostid"
-        alias id="$brew_prefix/bin/gid"
-        alias install="$brew_prefix/bin/ginstall"
-        alias join="$brew_prefix/bin/gjoin"
-        alias kill="$brew_prefix/bin/gkill"
-        alias link="$brew_prefix/bin/glink"
-        alias ln="$brew_prefix/bin/gln"
-        alias logname="$brew_prefix/bin/glogname"
-        alias ls="$brew_prefix/bin/gls"
-        alias md5sum="$brew_prefix/bin/gmd5sum"
-        alias mkdir="$brew_prefix/bin/gmkdir"
-        alias mkfifo="$brew_prefix/bin/gmkfifo"
-        alias mknod="$brew_prefix/bin/gmknod"
-        alias mktemp="$brew_prefix/bin/gmktemp"
-        alias mv="$brew_prefix/bin/gmv"
-        alias nice="$brew_prefix/bin/gnice"
-        alias nl="$brew_prefix/bin/gnl"
-        alias nohup="$brew_prefix/bin/gnohup"
-        alias of="$brew_prefix/bin/god"
-        alias paste="$brew_prefix/bin/gpaste"
-        alias pathchk="$brew_prefix/bin/gpathchk"
-        alias pinky="$brew_prefix/bin/gpinky"
-        alias pr="$brew_prefix/bin/gpr"
-        alias printenv="$brew_prefix/bin/gprintenv"
-        alias printf="$brew_prefix/bin/gprintf"
-        alias ptx="$brew_prefix/bin/gptx"
-        alias pwd="$brew_prefix/bin/gpwd"
-        alias readlink="$brew_prefix/bin/greadlink"
-        alias rm="$brew_prefix/bin/grm"
-        alias rmdir="$brew_prefix/bin/grmdir"
-        alias runcon="$brew_prefix/bin/gruncon"
-        alias seq="$brew_prefix/bin/gseq"
-        alias sha1sum="$brew_prefix/bin/gsha1sum"
-        alias sha224sum="$brew_prefix/bin/gsha224sum"
-        alias sha256sum="$brew_prefix/bin/gsha256sum"
-        alias sha384sum="$brew_prefix/bin/gsha384sum"
-        alias sha512sum="$brew_prefix/bin/gsha512sum"
-        alias shred="$brew_prefix/bin/gshred"
-        alias shuf="$brew_prefix/bin/gshuf"
-        alias sleep="$brew_prefix/bin/gsleep"
-        alias sort="$brew_prefix/bin/gsort"
-        alias split="$brew_prefix/bin/gsplit"
-        alias stat="$brew_prefix/bin/gstat"
-        alias stty="$brew_prefix/bin/gstty"
-        alias sum="$brew_prefix/bin/gsum"
-        alias sync="$brew_prefix/bin/gsync"
-        alias tac="$brew_prefix/bin/gtac"
-        alias tail="$brew_prefix/bin/gtail"
-        alias tee="$brew_prefix/bin/gtee"
-        alias touch="$brew_prefix/bin/gtouch"
-        alias tr="$brew_prefix/bin/gtr"
-        alias true="$brew_prefix/bin/gtrue"
-        alias tsort="$brew_prefix/bin/gtsort"
-        alias tty="$brew_prefix/bin/gtty"
-        alias uname="$brew_prefix/bin/guname"
-        alias unexpand="$brew_prefix/bin/gunexpand"
-        alias uniq="$brew_prefix/bin/guniq"
-        alias unlink="$brew_prefix/bin/gunlink"
-        alias uptime="$brew_prefix/bin/guptime"
-        alias users="$brew_prefix/bin/gusers"
-        alias vdir="$brew_prefix/bin/gvdir"
-        alias wc="$brew_prefix/bin/gwc"
-        alias who="$brew_prefix/bin/gwho"
-        alias whoami="$brew_prefix/bin/gwhoami"
-        alias yes="$brew_prefix/bin/gyes"
+# Only alias the most commonly used GNU tools
+# For full GNU environment, add to PATH instead:
+# export PATH="$(brew --prefix)/opt/coreutils/libexec/gnubin:$PATH"
+
+if command -v brew >/dev/null 2>&1; then
+    brew_prefix=$(brew --prefix)
+    
+    # Core file operations
+    alias cp="$brew_prefix/bin/gcp"
+    alias mv="$brew_prefix/bin/gmv"
+    alias rm="$brew_prefix/bin/grm"
+    
+    # Text processing
+    alias sed="$brew_prefix/bin/gsed"
+    alias awk="$brew_prefix/bin/gawk"
+    alias grep="$brew_prefix/bin/ggrep"
+    
+    # Date/time
+    alias date="$brew_prefix/bin/gdate"
+    
+    # System info
+    alias stat="$brew_prefix/bin/gstat"
+    alias readlink="$brew_prefix/bin/greadlink"
+    
+    # Note: ls/cat/find are overridden with modern alternatives (eza/bat/fd) in aliases section above
+fi
+
+# Source local overrides if they exist
+if [ -f "$HOME/.local/environment.bash" ]; then
+    source "$HOME/.local/environment.bash"
 fi

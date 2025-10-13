@@ -1,0 +1,130 @@
+#!/bin/zsh
+
+###################################################################
+#
+# XDG Base Directory Specification
+#
+###################################################################
+
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
+
+###################################################################
+#
+# History Configuration
+#
+###################################################################
+
+# Create state directory if it doesn't exist
+mkdir -p "$XDG_STATE_HOME/zsh"
+
+HISTFILE="$XDG_STATE_HOME/zsh/history"
+HISTSIZE=50000
+SAVEHIST=50000
+
+# History options
+setopt EXTENDED_HISTORY          # Write timestamp to history
+setopt HIST_EXPIRE_DUPS_FIRST   # Expire duplicate entries first
+setopt HIST_IGNORE_DUPS         # Don't record duplicate entries
+setopt HIST_FIND_NO_DUPS        # Skip duplicates when searching
+setopt HIST_REDUCE_BLANKS       # Remove superfluous blanks
+setopt SHARE_HISTORY            # Share history between sessions
+
+###################################################################
+#
+# Completion System
+#
+###################################################################
+
+# Create cache directory if it doesn't exist
+mkdir -p "$XDG_CACHE_HOME/zsh"
+
+# Initialize completion system
+autoload -Uz compinit
+compinit -d "$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"
+
+# Better completion behavior
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' # Case insensitive
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' completer _expand _complete _ignored _approximate
+zstyle ':completion:*' max-errors 2
+
+###################################################################
+#
+# Better Directory Navigation
+#
+###################################################################
+
+setopt AUTO_CD              # cd by typing directory name
+setopt AUTO_PUSHD          # Push directories onto stack
+setopt PUSHD_IGNORE_DUPS   # Don't push duplicates
+setopt PUSHD_MINUS         # Exchange meaning of + and -
+setopt PUSHD_SILENT        # Don't print directory stack
+
+###################################################################
+#
+# Source Common Shell Configuration
+#
+###################################################################
+
+# Source bashrc for common aliases and environment
+if [ -f "$HOME/.bashrc" ]; then
+    source "$HOME/.bashrc"
+fi
+
+###################################################################
+#
+# Modern Shell Tool Initialization
+#
+###################################################################
+
+# Initialize starship prompt
+if command -v starship &>/dev/null; then
+    eval "$(starship init zsh)"
+fi
+
+# Initialize zoxide for smart directory navigation
+if command -v zoxide &>/dev/null; then
+    eval "$(zoxide init zsh)"
+fi
+
+# Initialize atuin for enhanced shell history
+if command -v atuin &>/dev/null; then
+    eval "$(atuin init zsh --disable-up-arrow)"
+fi
+
+# Initialize mise for runtime version management
+if command -v mise &>/dev/null; then
+    eval "$(mise activate zsh)"
+fi
+
+###################################################################
+#
+# Cursor Terminal Integration
+#
+###################################################################
+
+# https://forum.cursor.com/t/agent-not-detecting-that-a-command-has-completed/65052/29
+PROMPT_EOL_MARK=""
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+precmd() {
+    print -Pn "\e]133;D;%?\a"
+}
+
+preexec() {
+    print -Pn "\e]133;C;\a"
+}
+
+###################################################################
+#
+# Local Overrides
+#
+###################################################################
+
+# Source local overrides if they exist
+[ -f "$HOME/.local/environment.zsh" ] && source "$HOME/.local/environment.zsh"
