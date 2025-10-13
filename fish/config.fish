@@ -1,5 +1,11 @@
 #!/usr/local/bin/fish
 
+# --- XDG Base Directory Specification ---
+set -x XDG_CONFIG_HOME $HOME/.config
+set -x XDG_DATA_HOME $HOME/.local/share
+set -x XDG_CACHE_HOME $HOME/.cache
+set -x XDG_STATE_HOME $HOME/.local/state
+
 # --- Cursor Terminal Fix ---
 # The complex prompt from starship can cause the terminal in Cursor (which is
 # based on VS Code) to hang, as it has trouble determining when a command
@@ -10,7 +16,7 @@
 # This ensures a stable experience in Cursor without sacrificing the rich
 # prompt in other terminal emulators.
 #
-# see: https://forum.cursor.com/t/cursor-agent-mode-when-running-terminal-commands-often-hangs-up-the-terminal-requiring-a-click-to-pop-it-out-in-order-to-continue-commands/59969/22
+
 #
 if test "$TERM_PROGRAM" = vscode
     exit 0
@@ -20,12 +26,22 @@ end
 starship init fish | source
 zoxide init fish | source
 
+# Initialize mise for runtime version management (if installed)
+if command -v mise &>/dev/null
+    mise activate fish | source
+end
+
+# Initialize atuin for enhanced shell history (if installed)
+if command -v atuin &>/dev/null
+    atuin init fish | source
+end
+
 # Disable fish greeting
 set fish_greeting ""
 
 ###################################################################
 #
-# Simple aliases - converted from bashrc
+# Simple aliases
 #
 ###################################################################
 
@@ -34,8 +50,10 @@ alias cache='cd ~/cache'
 alias tmp='cd $(mktemp -d)'
 alias wiki='vim ~/Dropbox/wiki/zettel/index.md'
 alias g='git'
+alias lg='lazygit'
+alias y='yazi'
 
-# Use modern alternatives
+# Use coreutils alternatives
 alias ls='eza --classify --oneline --git'
 alias lls='eza --header --long --git'
 alias tree='eza --tree'
@@ -59,6 +77,7 @@ alias grep='grep --color=auto'
 # Paths
 set -x PYTHON_BIN $HOME/.venv/bin
 set -x USER_BIN $HOME/.bin
+set -x LOCAL_BIN $HOME/.local/bin
 set -x DOTFILES_BIN $HOME/.dotfiles/bin
 set -x HOMEBREW_BIN /opt/homebrew/bin
 set -x NPM_BIN $HOME/.npm-global/bin
@@ -68,10 +87,11 @@ fish_add_path $NPM_BIN
 fish_add_path $HOMEBREW_BIN
 fish_add_path $DOTFILES_BIN
 fish_add_path $USER_BIN
+fish_add_path $LOCAL_BIN
 
-# FZF configuration
-set -x FZF_DEFAULT_COMMAND 'rg --files'
-set -x FZF_DEFAULT_OPTS '-m --height 50% --border'
+# FZF configuration with better preview
+set -x FZF_DEFAULT_COMMAND 'fd --type f --hidden --follow --exclude .git'
+set -x FZF_DEFAULT_OPTS '--height 60% --border --layout=reverse --preview "bat --style=numbers --color=always --line-range :500 {}" --preview-window=right:60%:wrap'
 
 # Editor settings
 set -x MANWIDTH 80
@@ -91,7 +111,6 @@ set -x PAGER less
 set -x LESS '-R -M --shift 5'
 
 # Java home - commented out as it adds startup delay
-# Uncomment if you need Java development
 # if test -x /usr/libexec/java_home
 #     set -x JAVA_HOME (/usr/libexec/java_home -v 18 2>/dev/null)
 # end
@@ -104,7 +123,7 @@ set -x DISPLAY :0
 
 ###################################################################
 #
-# GNU Coreutils aliases 
+# GNU Coreutils aliases to replace OXS versions
 #
 ###################################################################
 
@@ -115,20 +134,15 @@ if test -x /opt/homebrew/bin/gcat
     set brew_prefix /opt/homebrew
 
     # Only alias the most commonly used commands to reduce startup time
-    # Remove the ones you don't actually use
-    alias cat="$brew_prefix/bin/gcat"
     alias cp="$brew_prefix/bin/gcp"
     alias date="$brew_prefix/bin/gdate"
     alias echo="$brew_prefix/bin/gecho"
-    alias ls="$brew_prefix/bin/gls"
     alias mv="$brew_prefix/bin/gmv"
     alias rm="$brew_prefix/bin/grm"
     alias sed="$brew_prefix/bin/gsed"
     alias sort="$brew_prefix/bin/gsort"
     alias tail="$brew_prefix/bin/gtail"
 
-    # Override ls alias with eza as you prefer
-    alias ls='eza --classify --oneline --git'
 end
 
 ###################################################################
@@ -184,8 +198,7 @@ set -Ux LESS_TERMCAP_se \e\[0m
 set -Ux LESS_TERMCAP_so \e\[01\;44\;33m
 set -Ux LESS_TERMCAP_ue \e\[0m
 
-# Source local environment variables if they exist 
+# Source local environment variables if they exist
 if test -f ~/.local/environment.fish
     source ~/.local/environment.fish
 end
-
