@@ -12,6 +12,7 @@
 
     # Shell
     - { src: "bash/bashrc", dest: ".bashrc" }
+    - { src: "zsh/zshrc", dest: ".zshrc" }
     - { src: "inputrc", dest: ".inputrc" }
     - { src: "fish/config.fish", dest: ".config/fish/config.fish" }
     - { src: "fish/fish_plugins", dest: ".config/fish/fish_plugins" }
@@ -19,6 +20,10 @@
         src: "fish/completions/fish_gh_completion.fish",
         dest: ".config/fish/fish_gh_completion",
       }
+    - { src: "atuin/config.toml", dest: ".config/atuin/config.toml" }
+    - { src: "lazygit/config.yml", dest: ".config/lazygit/config.yml" }
+    - { src: "starship/starship.toml", dest: ".config/starship.toml" }
+    - { src: ".mise.toml", dest: ".mise.toml" }
 
     # Scripts for working with data
     - { src: "parquet/csv_to_parquet.py", dest: ".bin/csv_to_parquet" }
@@ -40,3 +45,10 @@
         src: "python/scratch_python_project.sh",
         dest: ".bin/scratch_python_project",
       }
+
+- name: Link SSH config with secure permissions
+  ansible.builtin.file:
+    src: "{{ ansible_user_dir }}/.dotfiles/ssh/config"
+    dest: "{{ ansible_user_dir }}/.ssh/config"
+    state: link
+    mode: "0600"

@@ -16,6 +16,11 @@
       - ruff-lsp
       - yamllint
 
+- name: Remove existing ftplugin directory if it exists (to allow symlinking)
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config/nvim/ftplugin"
+    state: absent
+
 - name: Link specific configuration files
 
   ansible.builtin.file:
