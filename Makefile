@@ -2,7 +2,7 @@ DOCKER = docker-compose run --rm
 
 all: fmt apply
 
-apply: 
+apply:
 	uv run ansible-playbook -i ~/.dotfiles/ansible/inventory.ini ~/.dotfiles/ansible/dotfiles.yml
 
 fmt:
@@ -16,3 +16,5 @@ fmt_check:
 build:
 	docker-compose build
 
+nvim-health:
+	nvim --headless "+checkhealth" +qa
