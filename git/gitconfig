@@ -132,11 +132,26 @@
 	diffFilter = delta --color-only
 
 [delta]
-	navigate = true
-	light = false
-	side-by-side = true
-	line-numbers = true
-	syntax-theme = Catppuccin-frappe
+    navigate = true
+    side-by-side = true
+    line-numbers = true
+    detect-dark-light = always
+    # Remove all line backgrounds; use terminal background
+    zero-style = normal
+    minus-style = normal
+    plus-style = normal
+    # Emphasize only changed tokens without backgrounds; keep syntax colors
+    minus-emph-style = syntax ul
+    plus-emph-style = syntax ul
+    # Subtle gutters
+    line-numbers-zero-style = dim
+    line-numbers-minus-style = red dim
+    line-numbers-plus-style = green dim
+    # Minimal headers/decorations
+    hunk-header-decoration-style = none
+    hunk-header-style = yellow dim
+    file-decoration-style = none
+    commit-decoration-style = none
 
 [diff]
 	tool = difftastic
