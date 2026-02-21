@@ -1,4 +1,4 @@
-DOCKER = docker-compose run --rm
+DOCKER = docker compose run --rm
 
 all: fmt apply
 
@@ -14,7 +14,7 @@ fmt_check:
 	${DOCKER} black black --check --line-length=100 **/*.py
 
 build:
-	docker-compose build
+	docker compose build
 
 nvim-health:
 	nvim --headless "+checkhealth" +qa
