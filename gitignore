@@ -1,47 +1,264 @@
-*.swp
-Icon*
-.DS_Store
-tags
-tmp
-*.jar
+# Global gitignore for all repositories
+# Apply with: git config --global core.excludesfile ~/.gitignore
 
-# Ruby files
+###################################################################
+# OS Files
+###################################################################
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+.AppleDouble
+.LSOverride
+Icon*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.directory
+.Trash-*
+
+###################################################################
+# Editor Files
+###################################################################
+
+# Vim
+*.swp
+*.swo
+*.swn
+.*.sw[a-z]
+Session.vim
+.netrwhist
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# JetBrains IDEs
+.idea/
+*.iml
+*.iws
+*.ipr
+.idea_modules/
+
+# Tags
+tags
+
+###################################################################
+# Compiled Files
+###################################################################
+
+# Python
+*.py[cod]
+*$py.class
+__pycache__/
+*.so
+*.egg
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# C/C++
+*.o
+*.obj
+*.exe
+*.out
+*.app
+*.dylib
+*.dll
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+
+# Rust
+target/
+Cargo.lock
+
+# Go
+*.test
+*.prof
+
+###################################################################
+# Package Management
+###################################################################
+
+# Node
+node_modules/
+.npm/
+.yarn/
+package-lock.json # Optional: remove if you want to track this
+
+# Python
+.venv/
+venv/
+ENV/
+env/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Ruby
+vendor/bundle/
+.bundle/
 .rake_tasks
 Gemfile.lock
 autotest
 .autotest
 cucumber.yml
 .rspec
-.netrwhist
 
-# LaTeX generated files
+# PHP
+vendor/
+composer.lock
+
+###################################################################
+# Environment & Configuration
+###################################################################
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+.envrc.local
+
+# mise/asdf
+.mise.local.toml
+.tool-versions.local
+
+# Secrets
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa
+id_dsa
+id_ed25519
+
+###################################################################
+# Logs & Temporary Files
+###################################################################
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
+*.backup
+*.cache
+
+# Cache directories
+.cache/
+*.cache/
+
+###################################################################
+# Build & Generated Files
+###################################################################
+
+# Documentation builds
+_build/
+docs/_build/
+site/
+
+# Compiled output
+out/
+dist/
+build/
+
+# Coverage reports
+coverage/
+.nyc_output/
+
+###################################################################
+# Database Files
+###################################################################
+
+*.sqlite
+*.sqlite3
+*.db
+
+###################################################################
+# Archives
+###################################################################
+
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+###################################################################
+# Project-Specific (Common)
+###################################################################
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# R
+.Rhistory
+.RData
+.Rapp.history
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+
+# Docker
+.dockerignore
+
+# LaTeX
 *.aux
 *.bbl
 *.blg
 *.dvi
-*.log
-*.pdf
 *.fdb_latexmk
 
-# man pages
+# Man pages
 *.[1-9]
 *.[1-9].html
 
-# bioinformatics file
+# Bioinformatics
 *.fasta
 *.fna
 *.fastq
 *.fnq
 *.sra
 
-# data files
+# Data files
 *.tab
 *.png
 *.uploaded
 *.xz
 
-# Python
-*.pyc
-
-
+# Dropbox
 .dropbox
+
+# Misc
+.sass-cache/
+*.pid
+*.seed
+*.pid.lock

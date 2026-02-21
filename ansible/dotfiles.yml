@@ -21,17 +21,23 @@
   tasks:
     - name: Create necessary directories
       ansible.builtin.file:
-        path: "{{ item }}"
+        path: "{{ item.path }}"
         state: directory
-        mode: "0755"
+        mode: "{{ item.mode | default('0755') }}"
       loop:
-        - "{{ config_dir }}/fish"
-        - "{{ config_dir }}/nvim/autoload"
-        - "{{ config_dir }}/plugged"
-        - "{{ config_dir }}/ghostty"
-        - "{{ ansible_user_dir }}/cache"
-        - "{{ ansible_user_dir }}/.bin"
-        - "{{ ansible_user_dir }}/.hammerspoon"
+        - { path: "{{ config_dir }}/fish" }
+        - { path: "{{ config_dir }}/nvim/autoload" }
+        - { path: "{{ config_dir }}/plugged" }
+        - { path: "{{ config_dir }}/ghostty" }
+        - { path: "{{ config_dir }}/atuin" }
+        - { path: "{{ config_dir }}/lazygit" }
+        - { path: "{{ ansible_user_dir }}/cache" }
+        - { path: "{{ ansible_user_dir }}/.bin" }
+        - { path: "{{ ansible_user_dir }}/.hammerspoon" }
+        - { path: "{{ ansible_user_dir }}/.ssh/sockets", mode: "0700" }
+        - { path: "{{ ansible_user_dir }}/.local/share" }
+        - { path: "{{ ansible_user_dir }}/.cache" }
+        - { path: "{{ ansible_user_dir }}/.local/state" }
       tags:
         - always
 

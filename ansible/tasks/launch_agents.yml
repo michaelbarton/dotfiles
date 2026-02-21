@@ -3,17 +3,16 @@
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/Library/LaunchAgents"
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: Create Launch Agent plist
   ansible.builtin.copy:
     src: "{{ ansible_user_dir }}/.dotfiles/zettel/uk.me.michaelbarton.process_daily_files.plist"
     dest: "{{ ansible_user_dir }}/Library/LaunchAgents/uk.me.michaelbarton.process_daily_files.plist"
-    mode: '0644'
+    mode: "0644"
 
 - name: Load Launch Agent
   ansible.builtin.command:
     cmd: launchctl load "{{ ansible_user_dir }}/Library/LaunchAgents/uk.me.michaelbarton.process_daily_files.plist"
   args:
     creates: "{{ ansible_user_dir }}/Library/LaunchAgents/uk.me.michaelbarton.process_daily_files.plist"
-

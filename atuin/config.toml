@@ -1,0 +1,91 @@
+## Atuin Configuration
+## Documentation: https://atuin.sh/docs
+
+# Sync disabled - local only mode (can enable later if you want)
+sync_address = ""
+sync_frequency = "0"
+auto_sync = false
+
+# Search settings
+search_mode = "fuzzy"  # fuzzy, fulltext, skim
+filter_mode = "global" # global, host, session, directory
+filter_mode_shell_up_key_binding = "directory" # When pressing up arrow
+style = "compact"  # compact, full, auto
+
+# Enhanced search options
+search_mode_auto = true  # Automatically switch between fuzzy and fulltext
+search_mode_auto_threshold = 10  # Switch to fulltext after 10 chars
+
+# History settings
+inline_height = 30  # Number of lines to show in search
+show_preview = true
+max_preview_height = 4
+show_help = true
+
+# Don't record commands that start with a space
+history_filter = []
+
+# Store more history
+max_history_length = 100000
+
+# Don't record these commands
+filter_commands = [
+    "cd",
+    "ls",
+    "ll",
+    "exit",
+    "clear",
+    "history",
+    "pwd",
+    "which",
+    "type",
+    "command",
+    "hash",
+    "alias",
+    "unalias",
+    "set",
+    "unset",
+    "export",
+    "env",
+    "printenv",
+]
+
+# Keys
+keymap_mode = "vim-insert"  # vim-insert, vim-normal, emacs, auto
+
+# UI customization
+enter_accept = true
+
+# Exclude patterns
+history_filter_patterns = [
+    "^secret-command",
+    "^password",
+]
+
+# Stats
+common_subcommands = [
+    "git",
+    "cargo",
+    "docker",
+    "kubectl",
+    "npm",
+    "yarn",
+    "pnpm",
+    "pip",
+    "poetry",
+    "mise",
+    "zoxide",
+    "starship",
+    "nvim",
+    "vim",
+    "eza",
+    "bat",
+    "fd",
+    "rg",
+    "fzf",
+    "lazygit",
+    "yazi",
+]
+
+# Update check
+update_check = false

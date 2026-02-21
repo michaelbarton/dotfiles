@@ -2,6 +2,7 @@
 """
 Merge multiple BAM files into a single SAM file, preserving reads that map to more than one of the given references.
 """
+
 from typing import Optional
 
 import pysam

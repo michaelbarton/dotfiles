@@ -12,3 +12,4 @@ offlineimap/Account*
 offlineimap/Repository*
 docker
 __pycache__
+.DS_Store

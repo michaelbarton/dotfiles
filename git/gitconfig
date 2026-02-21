@@ -87,25 +87,79 @@
   dft = difftool                              # Shorthand for difftool
 
 [core]
-  excludesfile = /Users/mike/.gitignore
+  excludesfile = ~/.gitignore
   autocrlf = input
   whitespace = trailing-space,space-before-tab
 [branch]
-  autosetupmerge = true
+	autosetupmerge = true
+	sort = -committerdate
+
+[tag]
+	sort = version:refname
 [rerere]
   enabled = true
   autoupdate = true
+
+[merge]
+	conflictstyle = zdiff3
+[init]
+	defaultBranch = main
+
+[pull]
+	rebase = true
+
+[rebase]
+	autoSquash = true
+	autoStash = true
+	updateRefs = true
+	missingCommitsCheck = error
+
+[commit]
+	gpgsign = false
+
 [github]
   user = michaelbarton
 [push]
-	default = matching
+	default = current
+	autoSetupRemote = true
 [ghi]
 	token = !security find-internet-password -a michaelbarton -s github.com -l 'ghi token' -w
+
+[core]
+	pager = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+    navigate = true
+    side-by-side = true
+    line-numbers = true
+    detect-dark-light = always
+    # Remove all line backgrounds; use terminal background
+    zero-style = normal
+    minus-style = normal
+    plus-style = normal
+    # Emphasize only changed tokens without backgrounds; keep syntax colors
+    minus-emph-style = syntax ul
+    plus-emph-style = syntax ul
+    # Subtle gutters
+    line-numbers-zero-style = dim
+    line-numbers-minus-style = red dim
+    line-numbers-plus-style = green dim
+    # Minimal headers/decorations
+    hunk-header-decoration-style = none
+    hunk-header-style = yellow dim
+    file-decoration-style = none
+    commit-decoration-style = none
 
 [diff]
 	tool = difftastic
 	renames = copies
-	external = difft
+	colorMoved = default
+	algorithm = histogram
+	indentHeuristic = true
+	colorMovedWS = allow-indentation-change
 
 [difftool]
 	prompt = false
@@ -122,3 +176,14 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+
+[maintenance]
+	auto = false
+	strategy = incremental
+
+[feature]
+	manyFiles = true
+	experimental = true
+
+[worktree]
+	guessRemote = true

@@ -26,7 +26,7 @@ return {
       start_in_insert = true, -- start terminal in insert mode
       insert_mappings = true, -- allow toggling terminal in insert mode
       persist_size = true,
-      close_on_exit = false, -- close terminal when process exits
+      close_on_exit = true, -- close terminal when process exits
       shell = vim.o.shell, -- use your default shell
     })
 
