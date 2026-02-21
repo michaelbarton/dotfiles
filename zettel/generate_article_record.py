@@ -86,9 +86,7 @@ def create_article_file(record: PubmedRecord) -> None:
     """Create article record file with pubmed metadata."""
     file_name = datetime.datetime.today().strftime("%Y%m%d%H%M") + f"_{record.key()}.md"
     file_path = pathlib.Path.home() / "Dropbox/wiki/zettel" / file_name
-    file_path.write_text(
-        textwrap.dedent(
-            f"""
+    file_path.write_text(textwrap.dedent(f"""
 ---
 key: {record.key()}
 title: "{record.title}"
@@ -98,9 +96,7 @@ date: {record.date_published}
 pubmed: "https://pubmed.ncbi.nlm.nih.gov/{record.pubmed_id}/"
 uuid: {record.pubmed_id}
 ---
-            """.strip()
-        )
-    )
+            """.strip()))
     return file_path
 
 

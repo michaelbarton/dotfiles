@@ -247,11 +247,9 @@ def test_cli_in_place_no_backup() -> None:
     runner = CliRunner()
     with runner.isolated_filesystem():
         with open("input.md", "w") as f:
-            f.write(
-                """# Test
+            f.write("""# Test
 ## [[20231031]]
-Entry 1"""
-            )
+Entry 1""")
 
         result = runner.invoke(main, ["input.md", "--in-place", "--no-backup"])
         assert result.exit_code == 0
