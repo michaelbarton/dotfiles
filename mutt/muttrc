@@ -5,7 +5,7 @@ set mbox_type = Maildir
 
 my_hdr X-URL: http://www.michaelbarton.me.uk
 
-set editor = "vim -f"
+set editor = "nvim"
 set mail_check = 60
 set timeout = 60
 set header_cache=~/.mutt/cache/headers

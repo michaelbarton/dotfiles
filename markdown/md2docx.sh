@@ -9,4 +9,4 @@ IN_FILE=$1
 FILENAME=$(basename -- "$IN_FILE")
 FILENAME_NOEXT="${FILENAME%.*}"
 
-pandoc -o ${FILENAME_NOEXT}.docx -f markdown -t docx $IN_FILE
+pandoc -o "${FILENAME_NOEXT}.docx" -f markdown -t docx "$IN_FILE"

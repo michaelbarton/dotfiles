@@ -88,50 +88,52 @@ export GIT_COMMITTER_EMAIL=$EMAIL
 export PAGER='less'
 export LESS='-R -M --shift 5'
 
-export JAVA_HOME=$(/usr/libexec/java_home -v 18)
+# Java home (only set if java_home exists and returns a valid path)
+if [ -x /usr/libexec/java_home ]; then
+    _java_home=$(/usr/libexec/java_home 2>/dev/null)
+    if [ -n "$_java_home" ]; then
+        export JAVA_HOME="$_java_home"
+    fi
+    unset _java_home
+fi
 
 # language
 export LC_ALL='en_GB.UTF-8'
 export LANG='en_GB.UTF-8'
-export LC_CTYPE=C
-export DISPLAY=:0
 
 ###################################################################
 #
-# Shell history improvements
+# Bash-specific settings (skipped when sourced from zsh)
 #
 ###################################################################
 
-export HISTSIZE=50000
-export HISTFILESIZE=100000
-export HISTCONTROL=ignoredups:erasedups
-export HISTTIMEFORMAT="[%F %T] "
-shopt -s histappend  # Append to history, don't overwrite
+if [ -n "$BASH_VERSION" ]; then
+    # Shell history improvements
+    export HISTSIZE=50000
+    export HISTFILESIZE=100000
+    export HISTCONTROL=ignoredups:erasedups
+    export HISTTIMEFORMAT="[%F %T] "
+    shopt -s histappend  # Append to history, don't overwrite
 
-###################################################################
-#
-# Modern shell tool initialization
-#
-###################################################################
+    # Initialize starship prompt
+    if command -v starship &>/dev/null; then
+        eval "$(starship init bash)"
+    fi
 
-# Initialize starship prompt
-if command -v starship &>/dev/null; then
-    eval "$(starship init bash)"
-fi
+    # Initialize zoxide for smart directory navigation
+    if command -v zoxide &>/dev/null; then
+        eval "$(zoxide init bash)"
+    fi
 
-# Initialize zoxide for smart directory navigation
-if command -v zoxide &>/dev/null; then
-    eval "$(zoxide init bash)"
-fi
+    # Initialize atuin for enhanced shell history
+    if command -v atuin &>/dev/null; then
+        eval "$(atuin init bash)"
+    fi
 
-# Initialize atuin for enhanced shell history
-if command -v atuin &>/dev/null; then
-    eval "$(atuin init bash)"
-fi
-
-# Initialize mise for runtime version management
-if command -v mise &>/dev/null; then
-    eval "$(mise activate bash)"
+    # Initialize mise for runtime version management
+    if command -v mise &>/dev/null; then
+        eval "$(mise activate bash)"
+    fi
 fi
 
 
@@ -145,27 +147,26 @@ fi
 # For full GNU environment, add to PATH instead:
 # export PATH="$(brew --prefix)/opt/coreutils/libexec/gnubin:$PATH"
 
-if command -v brew >/dev/null 2>&1; then
-    brew_prefix=$(brew --prefix)
-    
+# Check for coreutils by looking for a binary instead of running brew --prefix
+if [ -x /opt/homebrew/bin/gcat ]; then
+    brew_prefix=/opt/homebrew
+
     # Core file operations
     alias cp="$brew_prefix/bin/gcp"
     alias mv="$brew_prefix/bin/gmv"
     alias rm="$brew_prefix/bin/grm"
-    
+
     # Text processing
     alias sed="$brew_prefix/bin/gsed"
     alias awk="$brew_prefix/bin/gawk"
     alias grep="$brew_prefix/bin/ggrep"
-    
+
     # Date/time
     alias date="$brew_prefix/bin/gdate"
-    
+
     # System info
     alias stat="$brew_prefix/bin/gstat"
     alias readlink="$brew_prefix/bin/greadlink"
-    
-    # Note: ls/cat/find are overridden with modern alternatives (eza/bat/fd) in aliases section above
 fi
 
 # Source local overrides if they exist

@@ -89,7 +89,6 @@ htmlcov/
 
 # Rust
 target/
-Cargo.lock
 
 # Go
 *.test
@@ -103,7 +102,6 @@ Cargo.lock
 node_modules/
 .npm/
 .yarn/
-package-lock.json # Optional: remove if you want to track this
 
 # Python
 .venv/
