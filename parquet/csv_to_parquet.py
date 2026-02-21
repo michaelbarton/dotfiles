@@ -12,11 +12,11 @@
 import pandas
 import sys
 
-IN_FILE, OUT_FILE = sys.argv[1], sys.argv[2]
-
-if not OUT_FILE:
-    print("Output file argument required.")
+if len(sys.argv) != 3:
+    print("Usage: csv_to_parquet <input.csv> <output.parquet>")
     exit(1)
+
+IN_FILE, OUT_FILE = sys.argv[1], sys.argv[2]
 
 data = pandas.read_csv(IN_FILE)
 data.to_parquet(OUT_FILE, index=False)

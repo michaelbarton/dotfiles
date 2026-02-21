@@ -1,48 +1,48 @@
 #!/bin/bash
 #
-# Remove any local branches that don't exist on the origin
+# Remove local branches that have been merged and no longer exist on the remote.
+# Protects main, master, and the currently checked-out branch.
 #
+# Usage: clean_branches.sh [-f]
+#   -f  Force delete unmerged branches that no longer exist on remote
 
 set -o errexit
+set -o nounset
 
-#!/bin/bash
-
-# Check if Git is installed
-if ! git --version >/dev/null 2>&1; then
-  echo "Error: Git is not installed. Please install Git and try again."
-  exit 1
-fi
-
-# Check if the current directory is a Git repository
 if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-  echo "Error: The current directory is not a Git repository. Please navigate to a Git repository and try again."
+  echo "Error: not inside a git repository."
   exit 1
 fi
 
-# Check for the -f flag
 force_delete=false
-if [[ "$1" == "-f" ]]; then
+if [[ "${1:-}" == "-f" ]]; then
   force_delete=true
 fi
 
-# Fetch the latest changes from the remote repository and prune deleted branches
+# Fetch and prune remote tracking branches
 git fetch --prune
 
-# Get a list of merged branches and filter out the branches that no longer exist on the origin
-merged_branches=$(git branch --merged | grep -v "\*" | grep -v "^\s*master" | grep -v "^\s*main" | xargs -n 1 git branch -r --contains | sed 's/origin\///' | uniq)
+current_branch=$(git symbolic-ref --short HEAD)
 
-# Iterate through each local branch and check if it exists in the list of merged branches
-for branch in $(git for-each-ref --format='%(refname:short)' refs/heads); do
-  if ! echo "$merged_branches" | grep -q "^$branch$"; then
-    if [ "$force_delete" = true ]; then
-      echo "Force deleting branch '$branch' as it either doesn't exist on the origin or isn't merged."
-      git branch -D "$branch" 2>/dev/null || echo "Error: Could not delete branch '$branch'."
-    else
-      echo "Skipping branch '$branch' as it either doesn't exist on the origin or isn't merged."
-    fi
-  else
-    echo "Deleting branch '$branch' as it is merged and doesn't exist on the origin."
-    git branch -d "$branch" 2>/dev/null || echo "Error: Could not delete branch '$branch'."
+# Delete local branches that have been merged into the current branch
+git branch --merged | while read -r branch; do
+  branch=$(echo "$branch" | tr -d '* ')
+  # Skip protected branches
+  if [[ "$branch" == "main" || "$branch" == "master" || "$branch" == "$current_branch" ]]; then
+    continue
   fi
+  echo "Deleting merged branch '$branch'"
+  git branch -d "$branch" 2>/dev/null || echo "  Could not delete '$branch'"
 done
 
+# Optionally force-delete branches whose remote tracking branch is gone
+if [ "$force_delete" = true ]; then
+  git branch -vv | grep ': gone]' | while read -r line; do
+    branch=$(echo "$line" | awk '{print $1}')
+    if [[ "$branch" == "main" || "$branch" == "master" || "$branch" == "$current_branch" ]]; then
+      continue
+    fi
+    echo "Force deleting gone branch '$branch'"
+    git branch -D "$branch" 2>/dev/null || echo "  Could not delete '$branch'"
+  done
+fi

@@ -38,6 +38,7 @@ require("lazy").setup({
 
     -- Import LazyVim extras - Editor utilities
     { import = "lazyvim.plugins.extras.editor.telescope" },
+    { import = "lazyvim.plugins.extras.editor.mini-move" },
     { import = "lazyvim.plugins.extras.util.project" },
 
     -- import/override with your plugins

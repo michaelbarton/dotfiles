@@ -13,7 +13,6 @@
       - pynvim
       - pyright
       - ruff
-      - ruff-lsp
       - yamllint
 
 - name: Remove existing ftplugin directory if it exists (to allow symlinking)

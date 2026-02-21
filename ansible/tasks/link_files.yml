@@ -18,7 +18,7 @@
     - { src: "fish/fish_plugins", dest: ".config/fish/fish_plugins" }
     - {
         src: "fish/completions/fish_gh_completion.fish",
-        dest: ".config/fish/fish_gh_completion",
+        dest: ".config/fish/completions/fish_gh_completion.fish",
       }
     - { src: "atuin/config.toml", dest: ".config/atuin/config.toml" }
     - { src: "lazygit/config.yml", dest: ".config/lazygit/config.yml" }
@@ -28,7 +28,6 @@
     # Scripts for working with data
     - { src: "parquet/csv_to_parquet.py", dest: ".bin/csv_to_parquet" }
     - { src: "parquet/parquet_to_csv.py", dest: ".bin/parquet_to_csv" }
-    - { src: "yml/format_yml.py", dest: ".bin/format_yml" }
 
     # Misc. scripts and config
     - { src: "zettel/today.sh", dest: ".bin/today" }

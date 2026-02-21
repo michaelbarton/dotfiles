@@ -47,9 +47,9 @@
   lst  = diff HEAD^..HEAD         # Show changes in the last commit
 
   # Branch operations
-  sw   = checkout                 # Switch branches
-  swb  = checkout -b              # Create and switch to a branch
-  pd   = checkout -                # Jump to previous branch
+  sw   = switch                   # Switch branches
+  swb  = switch -c                # Create and switch to a branch
+  pd   = switch -                  # Jump to previous branch
   b    = branch                   # List branches
   bd   = branch -d                # Delete branch
 
@@ -90,6 +90,7 @@
   excludesfile = ~/.gitignore
   autocrlf = input
   whitespace = trailing-space,space-before-tab
+	pager = delta
 [branch]
 	autosetupmerge = true
 	sort = -committerdate
@@ -122,11 +123,6 @@
 [push]
 	default = current
 	autoSetupRemote = true
-[ghi]
-	token = !security find-internet-password -a michaelbarton -s github.com -l 'ghi token' -w
-
-[core]
-	pager = delta
 
 [interactive]
 	diffFilter = delta --color-only

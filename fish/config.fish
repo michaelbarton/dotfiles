@@ -1,5 +1,3 @@
-#!/usr/local/bin/fish
-
 # --- XDG Base Directory Specification ---
 set -x XDG_CONFIG_HOME $HOME/.config
 set -x XDG_DATA_HOME $HOME/.local/share
@@ -88,6 +86,7 @@ fish_add_path $HOMEBREW_BIN
 fish_add_path $DOTFILES_BIN
 fish_add_path $USER_BIN
 fish_add_path $LOCAL_BIN
+fish_add_path $PYTHON_BIN
 
 # FZF configuration with better preview
 set -x FZF_DEFAULT_COMMAND 'fd --type f --hidden --follow --exclude .git'
@@ -110,16 +109,17 @@ set -x GIT_COMMITTER_EMAIL $EMAIL
 set -x PAGER less
 set -x LESS '-R -M --shift 5'
 
-# Java home - commented out as it adds startup delay
-# if test -x /usr/libexec/java_home
-#     set -x JAVA_HOME (/usr/libexec/java_home -v 18 2>/dev/null)
-# end
+# Java home (only set if java_home exists and returns a valid path)
+if test -x /usr/libexec/java_home
+    set -l java_home (/usr/libexec/java_home 2>/dev/null)
+    if test -n "$java_home"
+        set -gx JAVA_HOME $java_home
+    end
+end
 
 # Language settings
 set -x LC_ALL 'en_GB.UTF-8'
 set -x LANG 'en_GB.UTF-8'
-set -x LC_CTYPE C
-set -x DISPLAY :0
 
 ###################################################################
 #
@@ -151,9 +151,9 @@ end
 #
 ###################################################################
 
-# Improve the ssh function to use mosh only when appropriate
+# Use mosh when connecting to a simple hostname with no extra arguments
 function ssh
-    if test (count $argv) -gt 0; and string match -qr '^[a-zA-Z0-9._-]+$' -- $argv[1]
+    if test (count $argv) -eq 1; and string match -qr '^[a-zA-Z0-9._-]+$' -- $argv[1]
         mosh $argv
     else
         command ssh $argv
@@ -166,7 +166,7 @@ end
 
 # Cat the contents of a file into the clipboard
 function pbcat
-    cat $argv[1] | pbcopy
+    command cat $argv[1] | pbcopy
 end
 
 # Use ctrl+s to fzf search the current directory
@@ -182,21 +182,19 @@ bind \cg wiki_file
 
 # Search for all files *containing* text
 function wt
-    set dir (pwd)
-    cd ~/Dropbox/wiki/zettel/; and rg $argv[1] --files-with-matches \
-        | fzf --preview 'bat --style=numbers --color=always {}' --preview-window="right:65%" --height="70%" \
-        | xargs -I {} -o nvim ~/Dropbox/wiki/zettel/{}
-    cd $dir
+    rg $argv[1] --files-with-matches ~/Dropbox/wiki/zettel/ \
+        | fzf --preview "bat --style=numbers --color=always {}" --preview-window="right:65%" --height="70%" \
+        | xargs -I {} -o nvim {}
 end
 
 # LESS colors for man pages
-set -Ux LESS_TERMCAP_us \e\[1\;32m
-set -Ux LESS_TERMCAP_md \e\[1\;31m
-set -Ux LESS_TERMCAP_mb \e\[01\;31m
-set -Ux LESS_TERMCAP_me \e\[0m
-set -Ux LESS_TERMCAP_se \e\[0m
-set -Ux LESS_TERMCAP_so \e\[01\;44\;33m
-set -Ux LESS_TERMCAP_ue \e\[0m
+set -gx LESS_TERMCAP_us \e\[1\;32m
+set -gx LESS_TERMCAP_md \e\[1\;31m
+set -gx LESS_TERMCAP_mb \e\[01\;31m
+set -gx LESS_TERMCAP_me \e\[0m
+set -gx LESS_TERMCAP_se \e\[0m
+set -gx LESS_TERMCAP_so \e\[01\;44\;33m
+set -gx LESS_TERMCAP_ue \e\[0m
 
 # Source local environment variables if they exist
 if test -f ~/.local/environment.fish
