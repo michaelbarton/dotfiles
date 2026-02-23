@@ -13,10 +13,9 @@ git:
   # Auto-fetch every 60 seconds
   autoFetch: true
   autoRefresh: true
-  # Use delta for diffs (matching your git config)
-  paging:
-    colorArg: always
-    pager: delta --paging=never
+  # Use delta for diffs with correct panel width for side-by-side
+  pagers:
+    - pager: delta --paging=never --width={{columnWidth}}
   # Better merge behavior
   merging:
     args: "--no-ff"
