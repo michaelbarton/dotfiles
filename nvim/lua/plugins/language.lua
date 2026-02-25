@@ -19,30 +19,10 @@ return {
         "yaml",
       },
     },
-    init = function()
-      -- Patch vim highlights query to remove "tab" node type that doesn't
-      -- exist in older tree-sitter-vim parsers.
-      -- See: https://github.com/nvim-treesitter/nvim-treesitter/issues/8369
-      local ok = pcall(vim.treesitter.query.get, "vim", "highlights")
-      if not ok then
-        local files = vim.api.nvim_get_runtime_file("queries/vim/highlights.scm", true)
-        local lines = {}
-        for _, file in ipairs(files) do
-          local f = io.open(file, "r")
-          if f then
-            for line in f:lines() do
-              if not line:match('^%s*"tab"%s*$') then
-                table.insert(lines, line)
-              end
-            end
-            f:close()
-          end
-        end
-        if #lines > 0 then
-          pcall(vim.treesitter.query.set, "vim", "highlights", table.concat(lines, "\n"))
-        end
-      end
-    end,
+    -- Pin before "tab" node type addition that breaks tree-sitter-vim.
+    -- See: https://github.com/nvim-treesitter/nvim-treesitter/issues/8369
+    -- TODO: Remove this pin once tree-sitter-vim ships with "tab" support.
+    commit = "d0bf5ff",
   },
   {
     "mason-org/mason.nvim",
