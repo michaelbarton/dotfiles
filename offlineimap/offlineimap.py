@@ -6,9 +6,7 @@ def get_keychain_pass(account):
     process = subprocess.Popen(command, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
     process.wait()
     if process.returncode != 0:
-        raise RuntimeError(
-            "Error running command: {}".format(process.stderr.read().decode())
-        )
+        raise RuntimeError("Error running command: {}".format(process.stderr.read().decode()))
 
     password_block = process.stdout.read().decode().strip()
     if password_block:

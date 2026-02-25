@@ -19,16 +19,10 @@ return {
         "yaml",
       },
     },
-    init = function()
-      -- Remove stale vim parser from site directory that conflicts with
-      -- nvim-treesitter managed parsers, causing "Invalid node type 'tab'" error.
-      -- See: https://github.com/nvim-treesitter/nvim-treesitter/issues/8369
-      local stale_parser = vim.fn.stdpath("data") .. "/site/parser/vim.so"
-      local fs = vim.uv or vim.loop
-      if fs.fs_stat(stale_parser) then
-        os.remove(stale_parser)
-      end
-    end,
+    -- Pin before "tab" node type addition that breaks tree-sitter-vim.
+    -- See: https://github.com/nvim-treesitter/nvim-treesitter/issues/8369
+    -- TODO: Remove this pin once tree-sitter-vim ships with "tab" support.
+    commit = "d0bf5ff",
   },
   {
     "mason-org/mason.nvim",
