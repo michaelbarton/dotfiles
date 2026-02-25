@@ -20,13 +20,27 @@ return {
       },
     },
     init = function()
-      -- Remove stale vim parser from site directory that conflicts with
-      -- nvim-treesitter managed parsers, causing "Invalid node type 'tab'" error.
+      -- Patch vim highlights query to remove "tab" node type that doesn't
+      -- exist in older tree-sitter-vim parsers.
       -- See: https://github.com/nvim-treesitter/nvim-treesitter/issues/8369
-      local stale_parser = vim.fn.stdpath("data") .. "/site/parser/vim.so"
-      local fs = vim.uv or vim.loop
-      if fs.fs_stat(stale_parser) then
-        os.remove(stale_parser)
+      local ok = pcall(vim.treesitter.query.get, "vim", "highlights")
+      if not ok then
+        local files = vim.api.nvim_get_runtime_file("queries/vim/highlights.scm", true)
+        local lines = {}
+        for _, file in ipairs(files) do
+          local f = io.open(file, "r")
+          if f then
+            for line in f:lines() do
+              if not line:match('^%s*"tab"%s*$') then
+                table.insert(lines, line)
+              end
+            end
+            f:close()
+          end
+        end
+        if #lines > 0 then
+          pcall(vim.treesitter.query.set, "vim", "highlights", table.concat(lines, "\n"))
+        end
       end
     end,
   },
