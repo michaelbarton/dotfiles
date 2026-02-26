@@ -19,40 +19,6 @@ return {
         "yaml",
       },
     },
-    init = function()
-      -- Strip invalid node types from vim highlights query so it works
-      -- with the tree-sitter-vim parser bundled in older nvim versions.
-      -- See: https://github.com/nvim-treesitter/nvim-treesitter/issues/8369
-      local ok = pcall(vim.treesitter.query.get, "vim", "highlights")
-      if ok then return end
-
-      local lang_ok, lang = pcall(vim.treesitter.language.inspect, "vim")
-      if not lang_ok then return end
-
-      local valid = {}
-      for _, s in ipairs(lang.symbols) do
-        valid[s[1]] = true
-      end
-
-      local files = vim.api.nvim_get_runtime_file("queries/vim/highlights.scm", true)
-      local lines = {}
-      for _, file in ipairs(files) do
-        local f = io.open(file, "r")
-        if f then
-          for line in f:lines() do
-            local node = line:match('^%s*"([^"]+)"%s*$')
-            if not node or valid[node] then
-              table.insert(lines, line)
-            end
-          end
-          f:close()
-        end
-      end
-
-      if #lines > 0 then
-        pcall(vim.treesitter.query.set, "vim", "highlights", table.concat(lines, "\n"))
-      end
-    end,
   },
   {
     "mason-org/mason.nvim",
