@@ -46,3 +46,16 @@
       - "+qa"
   tags:
     - nvim
+
+- name: Clone tree-sitter-rout parser source into R.nvim resources
+  # TODO: Remove once https://github.com/R-nvim/R.nvim/issues/466 is fixed and merged -- see
+  # nvim/lua/plugins/language.lua for full context. Idempotent: skipped if grammar.js exists.
+  ansible.builtin.shell: |
+    target="{{ ansible_env.HOME }}/.local/share/nvim/lazy/R.nvim/resources/tree-sitter-rout"
+    grammar="$target/grammar.js"
+    if [ ! -f "$grammar" ]; then
+      rm -rf "$target"
+      git clone https://github.com/R-nvim/tree-sitter-rout "$target"
+    fi
+  tags:
+    - nvim

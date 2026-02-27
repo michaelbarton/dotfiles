@@ -1,5 +1,23 @@
 return {
   {
+    "R-nvim/R.nvim",
+    -- TODO: Remove this build workaround once https://github.com/R-nvim/R.nvim/issues/466 is
+    -- fixed and merged to main, then advance past that commit with `:Lazy update R.nvim`.
+    -- The upstream bug: check_rout_parser() calls vim.uv.chdir() into resources/tree-sitter-rout
+    -- but early `return` on build failure skips the chdir(cwdir) restore, leaving nvim stuck in
+    -- the plugin directory. Root cause is that the tree-sitter-rout submodule gitlink is absent
+    -- from older pinned commits, so `git submodule update` is a no-op and grammar.js is missing.
+    -- Workaround: clone the source directly so the build succeeds and cwd is properly restored.
+    -- Removal check: delete this block, run `make nvim-check`, confirm PASS [R]: clean startup.
+    build = function()
+      local target = vim.fn.stdpath("data") .. "/lazy/R.nvim/resources/tree-sitter-rout"
+      if vim.fn.filereadable(target .. "/grammar.js") == 0 then
+        vim.fn.system({ "rm", "-rf", target })
+        vim.fn.system({ "git", "clone", "https://github.com/R-nvim/tree-sitter-rout", target })
+      end
+    end,
+  },
+  {
     "nvim-treesitter/nvim-treesitter",
     opts = {
       ensure_installed = {
