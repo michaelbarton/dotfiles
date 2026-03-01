@@ -59,3 +59,13 @@
     fi
   tags:
     - nvim
+
+- name: Update treesitter parsers
+  ansible.builtin.command:
+    argv:
+      - nvim
+      - --headless
+      - "+TSUpdateSync"
+      - "+qa"
+  tags:
+    - nvim

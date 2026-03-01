@@ -37,10 +37,6 @@ return {
         "yaml",
       },
     },
-    -- Pin before "tab" node type addition that breaks tree-sitter-vim.
-    -- See: https://github.com/nvim-treesitter/nvim-treesitter/issues/8369
-    -- TODO: Remove this pin once tree-sitter-vim ships with "tab" support.
-    commit = "d0bf5ff",
   },
   {
     "mason-org/mason.nvim",
