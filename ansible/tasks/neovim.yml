@@ -31,11 +31,14 @@
     - { src: "nvim/lua", dest: ".config/nvim/lua" }
     - { src: "nvim/ftplugin", dest: ".config/nvim/ftplugin" }
 
-- name: Install jsonlint node.js package.
-  community.general.npm:
-    name: jsonlint
-    path: "{{ venv_path }}/nvim/bin"
-    global: false
+- name: Install jsonlint node.js package
+  ansible.builtin.command:
+    argv:
+      - npm
+      - install
+      - --prefix
+      - "{{ venv_path }}/nvim"
+      - jsonlint
 
 - name: Run Lazy sync for Neovim plugins
   ansible.builtin.command:
