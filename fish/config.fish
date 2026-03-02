@@ -20,6 +20,11 @@ if test "$TERM_PROGRAM" = vscode
     exit 0
 end
 
+# Auto-attach to tmux in Ghostty (but not inside nvim, scripts, or existing tmux)
+if test "$TERM_PROGRAM" = ghostty; and not set -q TMUX; and not set -q NVIM; and status is-interactive
+    tmux new-session -A -s main
+end
+
 # Initialize starship and zoxide
 starship init fish | source
 zoxide init fish | source
