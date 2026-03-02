@@ -1,0 +1,56 @@
+name: Ansible Playbook
+
+on: [push]
+
+env:
+  TERM: xterm
+
+jobs:
+  playbook:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Symlink checkout to ~/.dotfiles
+        run: ln -s "$GITHUB_WORKSPACE" "$HOME/.dotfiles"
+
+      - name: Create stubs for files excluded from version control
+        run: |
+          touch "$HOME/.dotfiles/.mise.toml"
+          mkdir -p "$HOME/.dotfiles/ssh"
+          touch "$HOME/.dotfiles/ssh/config"
+          mkdir -p "$HOME/.config/fish/completions"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Neovim
+        run: |
+          curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
+          sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
+          echo "/opt/nvim-linux-x86_64/bin" >> "$GITHUB_PATH"
+
+      - name: Install virtualenv
+        run: pip install virtualenv
+
+      - name: Check playbook syntax
+        run: >
+          uv run ansible-playbook
+          -i "localhost,"
+          -c local
+          "$HOME/.dotfiles/ansible/dotfiles.yml"
+          --syntax-check
+
+      - name: Run playbook (skip macOS-only tasks)
+        run: >
+          uv run ansible-playbook
+          -i "localhost,"
+          -c local
+          "$HOME/.dotfiles/ansible/dotfiles.yml"
+          --skip-tags agents
