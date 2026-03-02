@@ -4,3 +4,7 @@ font-size = 16
 shell-integration = fish
 theme = Catppuccin Frappe
 command = /opt/homebrew/bin/fish
+
+# Let tmux handle all window/tab management
+keybind = super+t=unbind
+keybind = super+n=unbind
