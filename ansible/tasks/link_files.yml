@@ -4,6 +4,7 @@
     src: "{{ ansible_user_dir }}/.dotfiles/{{ item.src }}"
     dest: "{{ ansible_user_dir }}/{{ item.dest }}"
     state: link
+    force: true
   loop:
     # Dictionary
     - { src: "aspell/aspell.en.pws", dest: ".aspell.en.pws" }
