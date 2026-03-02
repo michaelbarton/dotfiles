@@ -2,13 +2,8 @@
 
 Prefix key: `Ctrl-a`
 
-## When to use what
-
-| Use Ghostty tabs for | Use tmux windows/panes for |
-| --- | --- |
-| Completely separate tmux sessions | Multiple views within a project |
-| Isolated work contexts | Splits you want to survive a disconnect |
-| Quick throwaway shells (`Cmd-T`, do thing, `Cmd-W`) | Persistent layouts |
+All window and tab management is handled by tmux. Ghostty's `Cmd-T` and
+`Cmd-N` are unbound to avoid conflicts.
 
 ## tmux (prefix = Ctrl-a)
 
@@ -54,18 +49,6 @@ Prefix key: `Ctrl-a`
 | `q` | Exit copy mode |
 
 ## Ghostty
-
-### Tabs & Windows
-
-| Keys | Action |
-| --- | --- |
-| `Cmd-T` | New tab (new tmux session via fish auto-attach) |
-| `Cmd-W` | Close tab |
-| `Cmd-Shift-]` / `Cmd-Shift-[` | Next / previous tab |
-| `Cmd-1-9` | Jump to tab by number |
-| `Cmd-N` | New window |
-
-### Other
 
 | Keys | Action |
 | --- | --- |
