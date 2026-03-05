@@ -328,7 +328,21 @@ vim.keymap.set("n", "<leader>dv", function()
   end
   require("conform").format({ async = false, lsp_fallback = true })
   vim.cmd("write")
-  dbt_cmd_raw("cd " .. root .. " && uv run dbt show -s " .. model .. " --limit 500 --output csv | vd -f csv")
+  local prev_win = vim.api.nvim_get_current_win()
+  local cmd = "cd " .. root .. " && uv run dbt show -s " .. model .. " --limit 500 --output csv | vd -f csv"
+  require("toggleterm.terminal").Terminal
+    :new({
+      cmd = cmd,
+      close_on_exit = true,
+      on_exit = function()
+        vim.schedule(function()
+          if vim.api.nvim_win_is_valid(prev_win) then
+            vim.api.nvim_set_current_win(prev_win)
+          end
+        end)
+      end,
+    })
+    :toggle()
 end, { desc = "[D]bt [V]isidata preview" })
 
 -- dbt: read a prompt template from nvim/prompts/ and substitute {{key}} placeholders
