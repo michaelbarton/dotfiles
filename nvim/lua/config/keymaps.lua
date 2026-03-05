@@ -277,6 +277,22 @@ vim.keymap.set("n", "<leader>ds", function()
   dbt_cmd("dbt show -s %s")
 end, { desc = "[D]bt [S]how preview results" })
 
+-- dbt: read a prompt template from nvim/prompts/ and substitute {{key}} placeholders
+local function dbt_load_prompt(name, vars)
+  local prompt_dir = vim.fn.stdpath("config") .. "/prompts/"
+  local path = prompt_dir .. name .. ".md"
+  local lines = vim.fn.readfile(path)
+  if #lines == 0 then
+    vim.notify("Prompt not found: " .. path, vim.log.levels.ERROR)
+    return nil
+  end
+  local prompt = table.concat(lines, "\n")
+  for key, value in pairs(vars or {}) do
+    prompt = prompt:gsub("{{" .. key .. "}}", value)
+  end
+  return prompt
+end
+
 -- dbt: run claude agent on current model (quick analysis with sonnet)
 vim.keymap.set("n", "<leader>da", function()
   local filepath = vim.fn.expand("%:p")
@@ -284,8 +300,13 @@ vim.keymap.set("n", "<leader>da", function()
     vim.notify("No file open", vim.log.levels.WARN)
     return
   end
+  local prompt = dbt_load_prompt("dbt_quick_analysis", {})
+  if not prompt then
+    return
+  end
   local cmd = string.format(
-    'claude -p "Review this dbt model and add brief comments suggesting improvements, potential issues, or best-practice violations. Be concise." --model claude-sonnet-4-6 %s',
+    "claude -p %s --model claude-sonnet-4-6 %s",
+    vim.fn.shellescape(prompt),
     vim.fn.shellescape(filepath)
   )
   dbt_cmd_raw(cmd)
@@ -309,22 +330,19 @@ vim.keymap.set("n", "<leader>dA", function()
     return
   end
 
-  -- Build a shell script that:
-  -- 1. Compiles the model and captures compiled SQL
-  -- 2. Runs dbt show --limit 20 to get sample rows
-  -- 3. Feeds everything to claude
+  -- Compile + gather sample rows, then template the prompt and pass to claude
+  local prompt_path = vim.fn.stdpath("config") .. "/prompts/dbt_deep_analysis.md"
   local cmd = string.format(
-    [[dbt compile -s %s --quiet && compiled_sql=$(cat $(find %s/target/compiled -name '%s.sql' | head -1) 2>/dev/null) && sample_rows=$(dbt show -s %s --limit 20 2>/dev/null) && claude -p "You have access to a duckdb database. Interrogate the database to understand the schema and data, then cross-reference with this dbt model. Check for: data quality issues, join correctness, missing filters, column type mismatches, and potential improvements. Run queries to validate assumptions.
-
-Here is the compiled SQL:
-${compiled_sql}
-
-Here are the first 20 rows returned by this model:
-${sample_rows}" --model claude-sonnet-4-6 --thinking %s]],
+    [[dbt compile -s %s --quiet ]]
+      .. [[&& compiled_sql=$(cat $(find %s/target/compiled -name '%s.sql' | head -1) 2>/dev/null) ]]
+      .. [[&& sample_rows=$(dbt show -s %s --limit 20 2>/dev/null) ]]
+      .. [[&& prompt=$(sed -e "s|{{compiled_sql}}|${compiled_sql}|g" -e "s|{{sample_rows}}|${sample_rows}|g" %s) ]]
+      .. [[&& claude -p "${prompt}" --model claude-sonnet-4-6 --thinking %s]],
     model,
     vim.fn.shellescape(root),
     model,
     model,
+    vim.fn.shellescape(prompt_path),
     vim.fn.shellescape(filepath)
   )
   dbt_cmd_raw(cmd)
