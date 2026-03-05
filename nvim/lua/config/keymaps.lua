@@ -17,8 +17,7 @@ end, { desc = "[I]nsert [D]ate" })
 
 -- Shortcut for searching the wiki
 vim.keymap.set("n", "<leader>ws", function()
-  local fzf = require("fzf-lua")
-  fzf.files({ prompt = "wiki  ", cwd = vim.g.wiki_root })
+  require("telescope.builtin").find_files({ prompt_title = "Wiki", cwd = vim.g.wiki_root })
 end, { desc = "[W]iki [S]earch" })
 
 -- Create a new page in the wiki
@@ -33,28 +32,23 @@ vim.keymap.set("n", "<leader>wn", function()
 end, { desc = "[W]iki [N]ew Page" })
 
 vim.keymap.set("n", "<leader>wi", function()
-  local fzf = require("fzf-lua")
-  fzf.files({
-    prompt = "Wiki Files",
+  local actions = require("telescope.actions")
+  local action_state = require("telescope.actions.state")
+  require("telescope.builtin").find_files({
+    prompt_title = "Wiki Insert Link",
     cwd = vim.g.wiki_root,
-    actions = {
-      -- Override the default selection action
-      ["default"] = function(selected)
-        -- Get the selected file (should be just one)
-        if selected and #selected > 0 then
-          local full_path = selected[1]
-
-          -- Extract just the filename from the path
-          local filename = full_path:match("([^/\\]+)$")
-
-          -- Create a wiki link format [[filename]] without the file extension
+    attach_mappings = function(prompt_bufnr, map)
+      actions.select_default:replace(function()
+        local entry = action_state.get_selected_entry()
+        actions.close(prompt_bufnr)
+        if entry then
+          local filename = entry[1]:match("([^/\\]+)$")
           local link = string.format("[[%s]]", filename:gsub("%.%w+$", ""))
-
-          -- Insert the wiki link at the current cursor position
           vim.api.nvim_put({ link }, "c", true, true)
         end
-      end,
-    },
+      end)
+      return true
+    end,
   })
 end, { noremap = true, silent = true, desc = "[W]iki [I]nsert Link" })
 
@@ -161,7 +155,7 @@ vim.keymap.set("n", "<leader>dg", function()
   end
 end, { desc = "[D]bt [G]o to ref/source" })
 
--- dbt: send a raw command string to toggleterm (used by fzf actions)
+-- dbt: send a raw command string to toggleterm (used by picker actions)
 local function dbt_cmd_raw(cmd)
   local term = require("toggleterm.terminal").get(1)
   if not term then
@@ -181,48 +175,39 @@ vim.keymap.set("n", "<leader>df", function()
     return
   end
 
-  local fzf = require("fzf-lua")
-  fzf.files({
-    prompt = "dbt model  ",
+  local actions = require("telescope.actions")
+  local action_state = require("telescope.actions.state")
+  require("telescope.builtin").find_files({
+    prompt_title = "dbt model (enter=open, C-r=run, C-b=build, C-t=test)",
     cwd = root,
-    cmd = "fd -e sql . models",
-    actions = {
-      -- Default: open the file
-      ["default"] = fzf.actions.file_edit,
-      -- Ctrl-r: run the selected model
-      ["ctrl-r"] = function(selected)
-        if selected and #selected > 0 then
-          local name = selected[1]:match("([^/]+)%.sql$")
-          if name then
-            dbt_cmd_raw("uv run dbt run -s " .. name)
-          end
+    search_dirs = { "models" },
+    find_command = { "fd", "-e", "sql" },
+    attach_mappings = function(prompt_bufnr, map)
+      local function get_model_name()
+        local entry = action_state.get_selected_entry()
+        if entry then
+          return entry[1]:match("([^/]+)%.sql$")
         end
-      end,
-      -- Ctrl-b: build the selected model
-      ["ctrl-b"] = function(selected)
-        if selected and #selected > 0 then
-          local name = selected[1]:match("([^/]+)%.sql$")
-          if name then
-            dbt_cmd_raw("uv run dbt build -s " .. name)
-          end
-        end
-      end,
-      -- Ctrl-t: test the selected model
-      ["ctrl-t"] = function(selected)
-        if selected and #selected > 0 then
-          local name = selected[1]:match("([^/]+)%.sql$")
-          if name then
-            dbt_cmd_raw("uv run dbt test -s " .. name)
-          end
-        end
-      end,
-    },
-    fzf_opts = {
-      ["--header"] = "enter=open | ctrl-r=run | ctrl-b=build | ctrl-t=test",
-      ["--multi"] = true,
-    },
+      end
+      map("i", "<C-r>", function()
+        local name = get_model_name()
+        actions.close(prompt_bufnr)
+        if name then dbt_cmd_raw("uv run dbt run -s " .. name) end
+      end)
+      map("i", "<C-b>", function()
+        local name = get_model_name()
+        actions.close(prompt_bufnr)
+        if name then dbt_cmd_raw("uv run dbt build -s " .. name) end
+      end)
+      map("i", "<C-t>", function()
+        local name = get_model_name()
+        actions.close(prompt_bufnr)
+        if name then dbt_cmd_raw("uv run dbt test -s " .. name) end
+      end)
+      return true
+    end,
   })
-end, { desc = "[D]bt [F]ind model (fzf)" })
+end, { desc = "[D]bt [F]ind model" })
 
 -- dbt: open the compiled SQL for the current model in a split
 vim.keymap.set("n", "<leader>do", function()
@@ -252,7 +237,7 @@ vim.keymap.set("n", "<leader>d/", function()
     vim.notify("No dbt_project.yml found", vim.log.levels.WARN)
     return
   end
-  require("fzf-lua").grep({ prompt = "dbt grep  ", cwd = root .. "/models" })
+  require("telescope.builtin").live_grep({ prompt_title = "dbt grep", cwd = root .. "/models" })
 end, { desc = "[D]bt search models" })
 
 vim.keymap.set("n", "<leader>dr", function()
