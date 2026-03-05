@@ -93,6 +93,166 @@ local function dbt_cmd(cmd_template)
   term:send(cmd)
 end
 
+-- dbt: find the project root (directory containing dbt_project.yml)
+local function dbt_project_root()
+  local path = vim.fn.findfile("dbt_project.yml", ".;")
+  if path == "" then
+    return nil
+  end
+  return vim.fn.fnamemodify(path, ":p:h")
+end
+
+-- dbt: jump to model under cursor from {{ ref('model_name') }} or {{ source('src', 'table') }}
+vim.keymap.set("n", "<leader>dg", function()
+  local line = vim.api.nvim_get_current_line()
+  local col = vim.api.nvim_win_get_cursor(0)[2] + 1
+
+  -- Try to find ref('model') or ref("model") around cursor
+  local ref_model = nil
+  for start_pos, name, end_pos in line:gmatch("()ref%(['\"]([^'\"]+)['\"]%)()" ) do
+    if col >= start_pos and col <= end_pos then
+      ref_model = name
+      break
+    end
+  end
+
+  -- Try source('source_name', 'table_name') if no ref found
+  local source_name, source_table = nil, nil
+  if not ref_model then
+    for start_pos, src, tbl, end_pos in line:gmatch("()source%(['\"]([^'\"]+)['\"]%s*,%s*['\"]([^'\"]+)['\"]%)()" ) do
+      if col >= start_pos and col <= end_pos then
+        source_name, source_table = src, tbl
+        break
+      end
+    end
+  end
+
+  if not ref_model and not source_table then
+    vim.notify("No ref() or source() under cursor", vim.log.levels.WARN)
+    return
+  end
+
+  local root = dbt_project_root()
+  if not root then
+    vim.notify("No dbt_project.yml found", vim.log.levels.WARN)
+    return
+  end
+
+  -- Search for the model file
+  local search_name = ref_model or source_table
+  local matches = vim.fn.globpath(root, "**/" .. search_name .. ".sql", false, true)
+  if #matches == 0 then
+    -- Also try .yml for source definitions
+    matches = vim.fn.globpath(root, "**/" .. search_name .. ".yml", false, true)
+  end
+
+  if #matches == 1 then
+    vim.cmd.edit(matches[1])
+  elseif #matches > 1 then
+    vim.ui.select(matches, { prompt = "Multiple matches:" }, function(choice)
+      if choice then
+        vim.cmd.edit(choice)
+      end
+    end)
+  else
+    vim.notify("No file found for: " .. search_name, vim.log.levels.WARN)
+  end
+end, { desc = "[D]bt [G]o to ref/source" })
+
+-- dbt: send a raw command string to toggleterm (used by fzf actions)
+local function dbt_cmd_raw(cmd)
+  local term = require("toggleterm.terminal").get(1)
+  if not term then
+    term = require("toggleterm.terminal").Terminal:new({ id = 1 })
+  end
+  if not term:is_open() then
+    term:toggle()
+  end
+  term:send(cmd)
+end
+
+-- dbt: fuzzy model picker — select a model then choose an action
+vim.keymap.set("n", "<leader>df", function()
+  local root = dbt_project_root()
+  if not root then
+    vim.notify("No dbt_project.yml found", vim.log.levels.WARN)
+    return
+  end
+
+  local fzf = require("fzf-lua")
+  fzf.files({
+    prompt = "dbt model  ",
+    cwd = root,
+    cmd = "fd -e sql . models",
+    actions = {
+      -- Default: open the file
+      ["default"] = fzf.actions.file_edit,
+      -- Ctrl-r: run the selected model
+      ["ctrl-r"] = function(selected)
+        if selected and #selected > 0 then
+          local name = selected[1]:match("([^/]+)%.sql$")
+          if name then
+            dbt_cmd_raw("dbt run -s " .. name)
+          end
+        end
+      end,
+      -- Ctrl-b: build the selected model
+      ["ctrl-b"] = function(selected)
+        if selected and #selected > 0 then
+          local name = selected[1]:match("([^/]+)%.sql$")
+          if name then
+            dbt_cmd_raw("dbt build -s " .. name)
+          end
+        end
+      end,
+      -- Ctrl-t: test the selected model
+      ["ctrl-t"] = function(selected)
+        if selected and #selected > 0 then
+          local name = selected[1]:match("([^/]+)%.sql$")
+          if name then
+            dbt_cmd_raw("dbt test -s " .. name)
+          end
+        end
+      end,
+    },
+    fzf_opts = {
+      ["--header"] = "enter=open | ctrl-r=run | ctrl-b=build | ctrl-t=test",
+      ["--multi"] = true,
+    },
+  })
+end, { desc = "[D]bt [F]ind model (fzf)" })
+
+-- dbt: open the compiled SQL for the current model in a split
+vim.keymap.set("n", "<leader>do", function()
+  local model = dbt_model_name()
+  if not model then
+    return
+  end
+  local root = dbt_project_root()
+  if not root then
+    vim.notify("No dbt_project.yml found", vim.log.levels.WARN)
+    return
+  end
+  local compiled = vim.fn.globpath(root, "target/compiled/**/" .. model .. ".sql", false, true)
+  if #compiled == 0 then
+    vim.notify("No compiled SQL found — run dbt compile first", vim.log.levels.WARN)
+    return
+  end
+  vim.cmd("vsplit " .. compiled[1])
+  vim.bo.readonly = true
+  vim.bo.modifiable = false
+end, { desc = "[D]bt [O]pen compiled SQL" })
+
+-- dbt: grep across all models (search for column names, CTEs, etc.)
+vim.keymap.set("n", "<leader>d/", function()
+  local root = dbt_project_root()
+  if not root then
+    vim.notify("No dbt_project.yml found", vim.log.levels.WARN)
+    return
+  end
+  require("fzf-lua").grep({ prompt = "dbt grep  ", cwd = root .. "/models" })
+end, { desc = "[D]bt search models" })
+
 vim.keymap.set("n", "<leader>dr", function()
   dbt_cmd("dbt run -s %s")
 end, { desc = "[D]bt [R]un current model" })
