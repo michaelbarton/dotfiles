@@ -277,6 +277,57 @@ vim.keymap.set("n", "<leader>ds", function()
   dbt_cmd("uv run dbt show -s %s")
 end, { desc = "[D]bt [S]how preview results" })
 
+-- dbt: preview sample rows in a horizontal split
+vim.keymap.set("n", "<leader>dp", function()
+  local model = dbt_model_name()
+  if not model then
+    return
+  end
+  vim.notify("Fetching preview for " .. model .. "...", vim.log.levels.INFO)
+  local cmd = { "uv", "run", "dbt", "show", "-s", model, "--limit", "20" }
+  local output = {}
+  vim.fn.jobstart(cmd, {
+    cwd = dbt_project_root(),
+    stdout_buffered = true,
+    stderr_buffered = true,
+    on_stdout = function(_, data)
+      if data then
+        vim.list_extend(output, data)
+      end
+    end,
+    on_exit = function(_, exit_code)
+      vim.schedule(function()
+        if exit_code ~= 0 then
+          vim.notify("dbt show failed (exit " .. exit_code .. ")", vim.log.levels.ERROR)
+          return
+        end
+        -- Trim trailing empty lines
+        while #output > 0 and output[#output] == "" do
+          table.remove(output)
+        end
+        if #output == 0 then
+          vim.notify("No rows returned", vim.log.levels.WARN)
+          return
+        end
+        -- Open a scratch buffer in a horizontal split
+        vim.cmd("botright new")
+        local buf = vim.api.nvim_get_current_buf()
+        vim.bo[buf].buftype = "nofile"
+        vim.bo[buf].bufhidden = "wipe"
+        vim.bo[buf].swapfile = false
+        vim.bo[buf].filetype = "sql"
+        vim.api.nvim_buf_set_name(buf, "dbt-preview://" .. model)
+        vim.api.nvim_buf_set_lines(buf, 0, -1, false, output)
+        vim.bo[buf].modifiable = false
+        -- Resize to fit content (max 20 lines)
+        local height = math.min(#output, 20)
+        vim.api.nvim_win_set_height(0, height)
+        vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = buf, silent = true })
+      end)
+    end,
+  })
+end, { desc = "[D]bt [P]review model rows" })
+
 -- dbt: read a prompt template from nvim/prompts/ and substitute {{key}} placeholders
 local function dbt_load_prompt(name, vars)
   local prompt_dir = vim.fn.stdpath("config") .. "/prompts/"
