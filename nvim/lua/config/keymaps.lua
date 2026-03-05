@@ -82,7 +82,8 @@ local function dbt_cmd(cmd_template)
   -- Build the command
   local cmd = string.format(cmd_template, model)
 
-  -- Send to toggleterm (terminal 1)
+  -- Send to toggleterm (terminal 1), then return focus to the code window
+  local prev_win = vim.api.nvim_get_current_win()
   local term = require("toggleterm.terminal").get(1)
   if not term then
     term = require("toggleterm.terminal").Terminal:new({ id = 1 })
@@ -91,6 +92,7 @@ local function dbt_cmd(cmd_template)
     term:toggle()
   end
   term:send(cmd)
+  vim.api.nvim_set_current_win(prev_win)
 end
 
 -- dbt: find the project root (directory containing dbt_project.yml)
