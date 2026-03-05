@@ -52,6 +52,12 @@
       tags:
         - agents
 
+    - name: Include tmux setup tasks
+      include_tasks: tasks/tmux.yml
+      tags:
+        - tmux
+        - setup
+
     - name: Include dotfile linking tasks
       include_tasks: tasks/link_files.yml
       tags:
