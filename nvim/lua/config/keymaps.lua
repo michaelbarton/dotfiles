@@ -329,7 +329,30 @@ vim.keymap.set("n", "<leader>dv", function()
   require("conform").format({ async = false, lsp_fallback = true })
   vim.cmd("write")
   local prev_win = vim.api.nvim_get_current_win()
-  local cmd = "cd " .. root .. " && uv run dbt show -s " .. model .. " --limit 500 --output csv | vd -f csv"
+  local json_to_csv = [[python3 -c "
+import sys, json, csv
+raw = sys.stdin.read()
+for line in raw.splitlines():
+    try:
+        obj = json.loads(line)
+    except json.JSONDecodeError:
+        continue
+    preview = None
+    if 'data' in obj and 'preview' in obj['data']:
+        preview = obj['data']['preview']
+    elif 'results' in obj:
+        preview = obj['results'][0].get('preview')
+    elif 'preview' in obj:
+        preview = obj['preview']
+    if preview:
+        if isinstance(preview, str):
+            preview = json.loads(preview)
+        w = csv.DictWriter(sys.stdout, fieldnames=preview[0].keys())
+        w.writeheader()
+        w.writerows(preview)
+        break
+"]]
+  local cmd = "cd " .. root .. " && uv run dbt show -s " .. model .. " --limit 500 --output json --log-format json | " .. json_to_csv .. " | vd -f csv"
   require("toggleterm.terminal").Terminal
     :new({
       cmd = cmd,
