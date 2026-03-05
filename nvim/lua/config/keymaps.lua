@@ -315,6 +315,22 @@ vim.keymap.set("n", "<leader>dp", function()
   })
 end, { desc = "[D]bt [P]review model rows" })
 
+-- dbt: show model output as CSV piped into visidata
+vim.keymap.set("n", "<leader>dv", function()
+  local model = dbt_model_name()
+  if not model then
+    return
+  end
+  local root = dbt_project_root()
+  if not root then
+    vim.notify("No dbt_project.yml found", vim.log.levels.WARN)
+    return
+  end
+  require("conform").format({ async = false, lsp_fallback = true })
+  vim.cmd("write")
+  dbt_cmd_raw("cd " .. root .. " && uv run dbt show -s " .. model .. " --limit 500 --output csv | vd -f csv")
+end, { desc = "[D]bt [V]isidata preview" })
+
 -- dbt: read a prompt template from nvim/prompts/ and substitute {{key}} placeholders
 local function dbt_load_prompt(name, vars)
   local prompt_dir = vim.fn.stdpath("config") .. "/prompts/"
