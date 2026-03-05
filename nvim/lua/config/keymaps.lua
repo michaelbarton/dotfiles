@@ -97,6 +97,14 @@ vim.keymap.set("n", "<leader>dr", function()
   dbt_cmd("dbt run -s %s")
 end, { desc = "[D]bt [R]un current model" })
 
+vim.keymap.set("n", "<leader>dR", function()
+  dbt_cmd("dbt run -s %s+")
+end, { desc = "[D]bt [R]un model + downstream" })
+
+vim.keymap.set("n", "<leader>db", function()
+  dbt_cmd("dbt build -s %s")
+end, { desc = "[D]bt [B]uild current model (run + test)" })
+
 vim.keymap.set("n", "<leader>dc", function()
   dbt_cmd("dbt compile -s %s")
 end, { desc = "[D]bt [C]ompile current model" })
@@ -104,3 +112,7 @@ end, { desc = "[D]bt [C]ompile current model" })
 vim.keymap.set("n", "<leader>dt", function()
   dbt_cmd("dbt test -s %s")
 end, { desc = "[D]bt [T]est current model" })
+
+vim.keymap.set("n", "<leader>ds", function()
+  dbt_cmd("dbt show -s %s")
+end, { desc = "[D]bt [S]how preview results" })
