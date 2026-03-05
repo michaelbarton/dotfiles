@@ -292,6 +292,7 @@ vim.keymap.set("n", "<leader>da", function()
 end, { desc = "[D]bt [A]nalyse model (quick)" })
 
 -- dbt: run claude agent on current model (deep analysis with sonnet thinking, cross-reference DB)
+-- Compiles the model first, then passes compiled SQL + first 20 rows as extra context
 vim.keymap.set("n", "<leader>dA", function()
   local filepath = vim.fn.expand("%:p")
   if filepath == "" then
@@ -302,8 +303,28 @@ vim.keymap.set("n", "<leader>dA", function()
   if not model then
     return
   end
+  local root = dbt_project_root()
+  if not root then
+    vim.notify("No dbt_project.yml found", vim.log.levels.WARN)
+    return
+  end
+
+  -- Build a shell script that:
+  -- 1. Compiles the model and captures compiled SQL
+  -- 2. Runs dbt show --limit 20 to get sample rows
+  -- 3. Feeds everything to claude
   local cmd = string.format(
-    'claude -p "You have access to a duckdb database. Interrogate the database to understand the schema and data, then cross-reference with this dbt model. Check for: data quality issues, join correctness, missing filters, column type mismatches, and potential improvements. Run queries to validate assumptions." --model claude-sonnet-4-6 --thinking %s',
+    [[dbt compile -s %s --quiet && compiled_sql=$(cat $(find %s/target/compiled -name '%s.sql' | head -1) 2>/dev/null) && sample_rows=$(dbt show -s %s --limit 20 2>/dev/null) && claude -p "You have access to a duckdb database. Interrogate the database to understand the schema and data, then cross-reference with this dbt model. Check for: data quality issues, join correctness, missing filters, column type mismatches, and potential improvements. Run queries to validate assumptions.
+
+Here is the compiled SQL:
+${compiled_sql}
+
+Here are the first 20 rows returned by this model:
+${sample_rows}" --model claude-sonnet-4-6 --thinking %s]],
+    model,
+    vim.fn.shellescape(root),
+    model,
+    model,
     vim.fn.shellescape(filepath)
   )
   dbt_cmd_raw(cmd)
