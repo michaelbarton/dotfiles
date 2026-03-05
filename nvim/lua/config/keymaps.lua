@@ -339,8 +339,7 @@ vim.keymap.set("n", "<leader>da", function()
   })
 end, { desc = "[D]bt [A]nalyse model (quick)" })
 
--- dbt: run claude agent on current model (deep analysis with sonnet thinking, cross-reference DB)
--- Compiles the model first, then passes compiled SQL + first 20 rows as extra context
+-- dbt: open interactive claude session in a new tmux window with compiled SQL + sample rows as context
 vim.keymap.set("n", "<leader>dA", function()
   local filepath = vim.fn.expand("%:p")
   if filepath == "" then
@@ -357,14 +356,17 @@ vim.keymap.set("n", "<leader>dA", function()
     return
   end
 
-  -- Compile + gather sample rows, then template the prompt and pass to claude
+  -- Open a new tmux window that compiles, gathers context, then starts interactive claude
   local prompt_path = vim.fn.stdpath("config") .. "/prompts/dbt_deep_analysis.md"
   local cmd = string.format(
-    [[uv run dbt compile -s %s --quiet ]]
-      .. [[&& compiled_sql=$(cat $(find %s/target/compiled -name '%s.sql' | head -1) 2>/dev/null) ]]
+    [[tmux new-window -n 'dbt:%s' ']]
+      .. [[uv run dbt compile -s %s --quiet ]]
+      .. [[&& compiled_sql=$(cat $(find %s/target/compiled -name "%s.sql" | head -1) 2>/dev/null) ]]
       .. [[&& sample_rows=$(uv run dbt show -s %s --limit 20 2>/dev/null) ]]
       .. [[&& prompt=$(sed -e "s|{{compiled_sql}}|${compiled_sql}|g" -e "s|{{sample_rows}}|${sample_rows}|g" %s) ]]
-      .. [[&& claude -p "${prompt}" --model claude-sonnet-4-6 --thinking %s]],
+      .. [[&& claude --model claude-sonnet-4-6 --thinking --prompt "${prompt}" %s ]]
+      .. [[|| read -p "Press enter to close..."']],
+    model,
     model,
     vim.fn.shellescape(root),
     model,
@@ -372,5 +374,6 @@ vim.keymap.set("n", "<leader>dA", function()
     vim.fn.shellescape(prompt_path),
     vim.fn.shellescape(filepath)
   )
-  dbt_cmd_raw(cmd)
-end, { desc = "[D]bt [A]nalyse model (deep, DB cross-ref)" })
+  vim.fn.system(cmd)
+  vim.notify("Opened interactive claude session in tmux window 'dbt:" .. model .. "'", vim.log.levels.INFO)
+end, { desc = "[D]bt [A]nalyse model (interactive)" })
