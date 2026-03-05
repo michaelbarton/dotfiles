@@ -276,3 +276,35 @@ end, { desc = "[D]bt [T]est current model" })
 vim.keymap.set("n", "<leader>ds", function()
   dbt_cmd("dbt show -s %s")
 end, { desc = "[D]bt [S]how preview results" })
+
+-- dbt: run claude agent on current model (quick analysis with sonnet)
+vim.keymap.set("n", "<leader>da", function()
+  local filepath = vim.fn.expand("%:p")
+  if filepath == "" then
+    vim.notify("No file open", vim.log.levels.WARN)
+    return
+  end
+  local cmd = string.format(
+    'claude -p "Review this dbt model and add brief comments suggesting improvements, potential issues, or best-practice violations. Be concise." --model claude-sonnet-4-6 %s',
+    vim.fn.shellescape(filepath)
+  )
+  dbt_cmd_raw(cmd)
+end, { desc = "[D]bt [A]nalyse model (quick)" })
+
+-- dbt: run claude agent on current model (deep analysis with sonnet thinking, cross-reference DB)
+vim.keymap.set("n", "<leader>dA", function()
+  local filepath = vim.fn.expand("%:p")
+  if filepath == "" then
+    vim.notify("No file open", vim.log.levels.WARN)
+    return
+  end
+  local model = dbt_model_name()
+  if not model then
+    return
+  end
+  local cmd = string.format(
+    'claude -p "You have access to a duckdb database. Interrogate the database to understand the schema and data, then cross-reference with this dbt model. Check for: data quality issues, join correctness, missing filters, column type mismatches, and potential improvements. Run queries to validate assumptions." --model claude-sonnet-4-6 --thinking %s',
+    vim.fn.shellescape(filepath)
+  )
+  dbt_cmd_raw(cmd)
+end, { desc = "[D]bt [A]nalyse model (deep, DB cross-ref)" })
