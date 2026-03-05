@@ -57,3 +57,50 @@ vim.keymap.set("n", "<leader>wi", function()
     },
   })
 end, { noremap = true, silent = true, desc = "[W]iki [I]nsert Link" })
+
+-- dbt: extract model name from current file path (e.g., models/staging/stg_orders.sql -> stg_orders)
+local function dbt_model_name()
+  local filepath = vim.fn.expand("%:t:r")
+  if filepath == "" then
+    vim.notify("No file open", vim.log.levels.WARN)
+    return nil
+  end
+  return filepath
+end
+
+-- dbt: format the current SQL file, then send a dbt command to the terminal
+local function dbt_cmd(cmd_template)
+  local model = dbt_model_name()
+  if not model then
+    return
+  end
+
+  -- Format with conform (sqlfmt), then save
+  require("conform").format({ async = false, lsp_fallback = true })
+  vim.cmd("write")
+
+  -- Build the command
+  local cmd = string.format(cmd_template, model)
+
+  -- Send to toggleterm (terminal 1)
+  local term = require("toggleterm.terminal").get(1)
+  if not term then
+    term = require("toggleterm.terminal").Terminal:new({ id = 1 })
+  end
+  if not term:is_open() then
+    term:toggle()
+  end
+  term:send(cmd)
+end
+
+vim.keymap.set("n", "<leader>dr", function()
+  dbt_cmd("dbt run -s %s")
+end, { desc = "[D]bt [R]un current model" })
+
+vim.keymap.set("n", "<leader>dc", function()
+  dbt_cmd("dbt compile -s %s")
+end, { desc = "[D]bt [C]ompile current model" })
+
+vim.keymap.set("n", "<leader>dt", function()
+  dbt_cmd("dbt test -s %s")
+end, { desc = "[D]bt [T]est current model" })
