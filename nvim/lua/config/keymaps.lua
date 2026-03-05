@@ -192,7 +192,7 @@ vim.keymap.set("n", "<leader>df", function()
         if selected and #selected > 0 then
           local name = selected[1]:match("([^/]+)%.sql$")
           if name then
-            dbt_cmd_raw("dbt run -s " .. name)
+            dbt_cmd_raw("uv run dbt run -s " .. name)
           end
         end
       end,
@@ -201,7 +201,7 @@ vim.keymap.set("n", "<leader>df", function()
         if selected and #selected > 0 then
           local name = selected[1]:match("([^/]+)%.sql$")
           if name then
-            dbt_cmd_raw("dbt build -s " .. name)
+            dbt_cmd_raw("uv run dbt build -s " .. name)
           end
         end
       end,
@@ -210,7 +210,7 @@ vim.keymap.set("n", "<leader>df", function()
         if selected and #selected > 0 then
           local name = selected[1]:match("([^/]+)%.sql$")
           if name then
-            dbt_cmd_raw("dbt test -s " .. name)
+            dbt_cmd_raw("uv run dbt test -s " .. name)
           end
         end
       end,
@@ -254,27 +254,27 @@ vim.keymap.set("n", "<leader>d/", function()
 end, { desc = "[D]bt search models" })
 
 vim.keymap.set("n", "<leader>dr", function()
-  dbt_cmd("dbt run -s %s")
+  dbt_cmd("uv run dbt run -s %s")
 end, { desc = "[D]bt [R]un current model" })
 
 vim.keymap.set("n", "<leader>dR", function()
-  dbt_cmd("dbt run -s %s+")
+  dbt_cmd("uv run dbt run -s %s+")
 end, { desc = "[D]bt [R]un model + downstream" })
 
 vim.keymap.set("n", "<leader>db", function()
-  dbt_cmd("dbt build -s %s")
+  dbt_cmd("uv run dbt build -s %s")
 end, { desc = "[D]bt [B]uild current model (run + test)" })
 
 vim.keymap.set("n", "<leader>dc", function()
-  dbt_cmd("dbt compile -s %s")
+  dbt_cmd("uv run dbt compile -s %s")
 end, { desc = "[D]bt [C]ompile current model" })
 
 vim.keymap.set("n", "<leader>dt", function()
-  dbt_cmd("dbt test -s %s")
+  dbt_cmd("uv run dbt test -s %s")
 end, { desc = "[D]bt [T]est current model" })
 
 vim.keymap.set("n", "<leader>ds", function()
-  dbt_cmd("dbt show -s %s")
+  dbt_cmd("uv run dbt show -s %s")
 end, { desc = "[D]bt [S]how preview results" })
 
 -- dbt: read a prompt template from nvim/prompts/ and substitute {{key}} placeholders
@@ -294,6 +294,7 @@ local function dbt_load_prompt(name, vars)
 end
 
 -- dbt: run claude agent on current model (quick analysis with sonnet)
+-- Replaces buffer contents with the file + inline SQL comments
 vim.keymap.set("n", "<leader>da", function()
   local filepath = vim.fn.expand("%:p")
   if filepath == "" then
@@ -304,12 +305,38 @@ vim.keymap.set("n", "<leader>da", function()
   if not prompt then
     return
   end
-  local cmd = string.format(
-    "claude -p %s --model claude-sonnet-4-6 %s",
-    vim.fn.shellescape(prompt),
-    vim.fn.shellescape(filepath)
-  )
-  dbt_cmd_raw(cmd)
+  local bufnr = vim.api.nvim_get_current_buf()
+
+  vim.notify("Running quick analysis...", vim.log.levels.INFO)
+
+  local cmd = { "claude", "-p", prompt, "--model", "claude-sonnet-4-6", filepath }
+  local output = {}
+  vim.fn.jobstart(cmd, {
+    stdout_buffered = true,
+    on_stdout = function(_, data)
+      if data then
+        output = data
+      end
+    end,
+    on_exit = function(_, exit_code)
+      vim.schedule(function()
+        if exit_code ~= 0 then
+          vim.notify("claude exited with code " .. exit_code, vim.log.levels.ERROR)
+          return
+        end
+        -- Remove trailing empty strings from jobstart output
+        while #output > 0 and output[#output] == "" do
+          table.remove(output)
+        end
+        if #output == 0 then
+          vim.notify("No output from claude", vim.log.levels.WARN)
+          return
+        end
+        vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, output)
+        vim.notify("Inline comments added — review and :w to save, or :u to undo", vim.log.levels.INFO)
+      end)
+    end,
+  })
 end, { desc = "[D]bt [A]nalyse model (quick)" })
 
 -- dbt: run claude agent on current model (deep analysis with sonnet thinking, cross-reference DB)
@@ -333,9 +360,9 @@ vim.keymap.set("n", "<leader>dA", function()
   -- Compile + gather sample rows, then template the prompt and pass to claude
   local prompt_path = vim.fn.stdpath("config") .. "/prompts/dbt_deep_analysis.md"
   local cmd = string.format(
-    [[dbt compile -s %s --quiet ]]
+    [[uv run dbt compile -s %s --quiet ]]
       .. [[&& compiled_sql=$(cat $(find %s/target/compiled -name '%s.sql' | head -1) 2>/dev/null) ]]
-      .. [[&& sample_rows=$(dbt show -s %s --limit 20 2>/dev/null) ]]
+      .. [[&& sample_rows=$(uv run dbt show -s %s --limit 20 2>/dev/null) ]]
       .. [[&& prompt=$(sed -e "s|{{compiled_sql}}|${compiled_sql}|g" -e "s|{{sample_rows}}|${sample_rows}|g" %s) ]]
       .. [[&& claude -p "${prompt}" --model claude-sonnet-4-6 --thinking %s]],
     model,
