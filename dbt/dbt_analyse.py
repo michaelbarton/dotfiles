@@ -12,7 +12,6 @@ Usage:
                    --filepath <source_sql_path> --prompt <prompt_template_path>
 """
 
-import json
 import subprocess
 import sys
 import glob
@@ -57,17 +56,7 @@ def get_lineage(model, root):
 
 def get_existing_tests(model, root):
     """Extract test definitions for a model from schema.yml files."""
-    schema_files = glob.glob(os.path.join(root, "**", "schema.yml"), recursive=True)
-    schema_files += glob.glob(os.path.join(root, "**", "_schema.yml"), recursive=True)
-    schema_files += glob.glob(os.path.join(root, "**", f"*_models.yml"), recursive=True)
-    schema_files += glob.glob(os.path.join(root, "**", f"*.yml"), recursive=True)
-    # Deduplicate while preserving order
-    seen = set()
-    unique_files = []
-    for f in schema_files:
-        if f not in seen:
-            seen.add(f)
-            unique_files.append(f)
+    unique_files = glob.glob(os.path.join(root, "**", "*.yml"), recursive=True)
 
     tests = []
     for schema_path in unique_files:
@@ -96,26 +85,6 @@ def get_existing_tests(model, root):
                         tests.append(f"- {col_name}: {t}")
     return "\n".join(tests) if tests else ""
 
-
-def get_data_profile(model, root):
-    """Run a profiling query via dbt show to get column stats."""
-    # Use an inline query that profiles the model's output
-    profile_sql = f"""
-    {{% set cols = adapter.get_columns_in_relation(ref('{model}')) %}}
-    SELECT
-      {{% for col in cols %}}
-      '{{{ col.name }}}' AS column_name_{{{{ loop.index }}}},
-      COUNT(*) AS total_rows_{{{{ loop.index }}}},
-      COUNT("{{{ col.name }}}") AS non_null_{{{{ loop.index }}}},
-      COUNT(DISTINCT "{{{ col.name }}}") AS distinct_{{{{ loop.index }}}}
-      {{% if not loop.last %}},{{% endif %}}
-      {{% endfor %}}
-    FROM {{{{ ref('{model}') }}}}
-    """
-    # Simpler approach: ask dbt to show the model with a higher limit and
-    # compute stats from sample rows in the prompt. The LLM has database
-    # access and can run profiling queries itself. We just nudge it.
-    return ""
 
 
 def render_template(template, replacements):
