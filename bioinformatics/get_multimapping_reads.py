@@ -86,9 +86,7 @@ def write_multiple_references_reads(
                     new_read.reference_start = read.reference_start
                     new_read.mapping_quality = read.mapping_quality
                     new_read.cigar = read.cigar
-                    new_read.next_reference_id = (
-                        read.next_reference_id
-                    )  # Note: This may need to be handled differently if mate pairs can be on different references
+                    new_read.next_reference_id = read.next_reference_id  # Note: This may need to be handled differently if mate pairs can be on different references
                     new_read.next_reference_start = read.next_reference_start
                     new_read.template_length = read.template_length
                     new_read.query_qualities = read.query_qualities
