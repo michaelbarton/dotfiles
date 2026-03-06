@@ -11,7 +11,7 @@ fmt:
 
 fmt_check:
 	npx --yes prettier --check **/*.yml
-	uvx mdformat --check *.md
+	uvx mdformat --check --wrap 80 --number *.md
 	uvx ruff format --check --line-length=100 **/*.py
 	uvx ruff check --line-length=100 **/*.py
 
