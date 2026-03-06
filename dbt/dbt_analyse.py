@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# /// script
+# requires-python = ">=3.10"
+# dependencies = ["click"]
+# ///
 """
 dbt_analyse: compile a dbt model, gather context, then launch an interactive
 cursor-agent session. Designed to be called from a tmux window.
@@ -12,6 +16,8 @@ import subprocess
 import sys
 import glob
 import os
+import tempfile
+
 import click
 
 
@@ -51,7 +57,8 @@ def main(model, root, filepath, prompt, limit, model_flag):
     if not matches:
         click.echo(f"ERROR: no compiled SQL found for {model} — did compile succeed?", err=True)
         sys.exit(1)
-    compiled_sql = open(matches[0]).read()
+    with open(matches[0]) as f:
+        compiled_sql = f.read()
     click.echo(f"Compiled SQL: {matches[0]}")
 
     # --- 3. sample rows ---
@@ -88,21 +95,37 @@ def main(model, root, filepath, prompt, limit, model_flag):
     if not os.path.exists(filepath):
         click.echo(f"ERROR: source file not found: {filepath}", err=True)
         sys.exit(1)
-    source_sql = open(filepath).read()
+    with open(filepath) as f:
+        source_sql = f.read()
 
     # --- 5. build prompt ---
     if not os.path.exists(prompt):
         click.echo(f"ERROR: prompt template not found: {prompt}", err=True)
         sys.exit(1)
-    template = open(prompt).read()
-    full_prompt = template.replace("{{compiled_sql}}", compiled_sql).replace(
-        "{{sample_rows}}", sample_rows
-    )
+    with open(prompt) as f:
+        template = f.read()
+    # Substitute compiled_sql first; use a sentinel to avoid the compiled SQL
+    # accidentally containing the {{sample_rows}} placeholder.
+    full_prompt = template.replace("{{compiled_sql}}", compiled_sql)
+    full_prompt = full_prompt.replace("{{sample_rows}}", sample_rows)
     full_prompt += f"\n\nSource SQL:\n{source_sql}"
 
-    # --- 6. launch cursor-agent ---
+    # --- 6. write context to a temp file & launch cursor-agent ---
+    # Avoids OS arg-length limits (ARG_MAX) when compiled SQL + sample rows
+    # are large.
+    ctx = tempfile.NamedTemporaryFile(
+        mode="w", suffix=".md", prefix=f"dbt_audit_{model}_", delete=False,
+    )
+    ctx.write(full_prompt)
+    ctx.close()
+    click.echo(f"Context written to {ctx.name}")
+
     click.echo(f"Launching cursor-agent ({model_flag})...")
-    os.execlp("cursor-agent", "cursor-agent", "--model", model_flag, full_prompt)
+    agent_prompt = (
+        f"Read the audit instructions and dbt model context from {ctx.name}. "
+        "Perform a thorough data quality audit of the dbt model as described."
+    )
+    os.execlp("cursor-agent", "cursor-agent", "--model", model_flag, agent_prompt)
 
 
 if __name__ == "__main__":

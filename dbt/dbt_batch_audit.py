@@ -24,6 +24,7 @@ Usage:
     dbt_batch_audit.py models/intermediate/ models/stg_special.sql
 """
 
+import re
 import subprocess
 import sys
 import glob
@@ -82,11 +83,10 @@ def write_context_file(output_dir, model_name, template, compiled_sql, sample_ro
     ctx_dir = os.path.join(output_dir, ".context")
     os.makedirs(ctx_dir, exist_ok=True)
 
-    content = (
-        template
-        .replace("{{compiled_sql}}", compiled_sql)
-        .replace("{{sample_rows}}", sample_rows)
-    )
+    # Substitute compiled_sql first to avoid the compiled SQL accidentally
+    # containing the {{sample_rows}} placeholder.
+    content = template.replace("{{compiled_sql}}", compiled_sql)
+    content = content.replace("{{sample_rows}}", sample_rows)
     content += f"\n\nSource SQL:\n{source_sql}"
 
     ctx_path = os.path.join(ctx_dir, f"{model_name}__context.md")
@@ -104,7 +104,6 @@ def get_available_models():
     )
     # Strip ANSI escape codes, then extract the first token of each line that
     # looks like a model ID (alphanumeric + hyphens/dots, before the " - " separator).
-    import re
     ansi_escape = re.compile(r"\x1b\[[0-9;]*[A-Za-z]|\x1b\[[0-9]*[A-Za-z]")
     clean = ansi_escape.sub("", result.stdout)
     models = set()
@@ -147,12 +146,24 @@ def run_audit(model_name, context_path, llm, output_dir, root):
         "Output your complete findings as a well-structured markdown report."
     )
 
-    result = subprocess.run(
-        ["cursor-agent", "--print", "--force", "--model", llm, prompt],
-        capture_output=True,
-        text=True,
-        cwd=root,
-    )
+    try:
+        result = subprocess.run(
+            ["cursor-agent", "--print", "--force", "--model", llm, prompt],
+            capture_output=True,
+            text=True,
+            cwd=root,
+            timeout=900,
+        )
+    except subprocess.TimeoutExpired:
+        report = "(audit timed out after 900s)"
+        click.echo(f"  [{model_name} × {llm}] Timed out", err=True)
+        safe_llm = llm.replace("/", "_").replace(" ", "_")
+        report_path = os.path.join(output_dir, f"{model_name}__{safe_llm}.md")
+        with open(report_path, "w") as f:
+            f.write(f"# Audit: {model_name} (LLM: {llm})\n\n{report}\n")
+        elapsed = time.monotonic() - start
+        click.echo(f"  [{model_name} × {llm}] Done ({elapsed:.0f}s) → {report_path}")
+        return model_name, llm, report
 
     if result.returncode == 0:
         report = result.stdout.strip()
@@ -235,12 +246,21 @@ Individual audit reports:
         "consolidated synthesis report in markdown."
     )
 
-    result = subprocess.run(
-        ["cursor-agent", "--print", "--force", "--model", synthesis_model, prompt],
-        capture_output=True,
-        text=True,
-        cwd=root,
-    )
+    try:
+        result = subprocess.run(
+            ["cursor-agent", "--print", "--force", "--model", synthesis_model, prompt],
+            capture_output=True,
+            text=True,
+            cwd=root,
+            timeout=1200,
+        )
+    except subprocess.TimeoutExpired:
+        synthesis = "(synthesis timed out after 1200s)"
+        click.echo("WARNING: synthesis timed out", err=True)
+        synthesis_path = os.path.join(output_dir, "final_synthesis.md")
+        with open(synthesis_path, "w") as f:
+            f.write(f"# dbt Model Audit — Final Synthesis\n\n{synthesis}\n")
+        return synthesis_path
 
     if result.returncode == 0:
         synthesis = result.stdout.strip()
