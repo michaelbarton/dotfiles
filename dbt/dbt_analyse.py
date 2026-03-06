@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # /// script
 # requires-python = ">=3.10"
-# dependencies = ["click"]
+# dependencies = ["click", "pyyaml"]
 # ///
 """
 dbt_analyse: compile a dbt model, gather context, then launch an interactive
@@ -12,13 +12,16 @@ Usage:
                    --filepath <source_sql_path> --prompt <prompt_template_path>
 """
 
+import json
 import subprocess
 import sys
 import glob
 import os
+import re
 import tempfile
 
 import click
+import yaml
 
 
 def run(cmd, cwd=None, capture=False, check=True):
@@ -35,6 +38,107 @@ def run(cmd, cwd=None, capture=False, check=True):
             click.echo(stderr, err=True)
         sys.exit(result.returncode)
     return result
+
+
+def get_lineage(model, root):
+    """Return a summary of immediate parents and children from dbt ls."""
+    lines = []
+    for direction, selector in [("parents", f"+{model},1+{model}"), ("children", f"{model}+,{model}1+")]:
+        result = subprocess.run(
+            ["uv", "run", "dbt", "ls", "-s", selector, "--output", "name", "--quiet"],
+            capture_output=True, text=True, cwd=root,
+        )
+        if result.returncode == 0:
+            names = [n.strip() for n in result.stdout.strip().splitlines() if n.strip() and n.strip() != model]
+            if names:
+                lines.append(f"**{direction.title()}:** {', '.join(names)}")
+    return "\n".join(lines) if lines else ""
+
+
+def get_existing_tests(model, root):
+    """Extract test definitions for a model from schema.yml files."""
+    schema_files = glob.glob(os.path.join(root, "**", "schema.yml"), recursive=True)
+    schema_files += glob.glob(os.path.join(root, "**", "_schema.yml"), recursive=True)
+    schema_files += glob.glob(os.path.join(root, "**", f"*_models.yml"), recursive=True)
+    schema_files += glob.glob(os.path.join(root, "**", f"*.yml"), recursive=True)
+    # Deduplicate while preserving order
+    seen = set()
+    unique_files = []
+    for f in schema_files:
+        if f not in seen:
+            seen.add(f)
+            unique_files.append(f)
+
+    tests = []
+    for schema_path in unique_files:
+        try:
+            with open(schema_path) as f:
+                doc = yaml.safe_load(f)
+        except (yaml.YAMLError, OSError):
+            continue
+        if not isinstance(doc, dict):
+            continue
+        for m in doc.get("models", []):
+            if not isinstance(m, dict) or m.get("name") != model:
+                continue
+            # Model-level tests
+            for t in m.get("tests", []):
+                tests.append(f"- model-level: {t}")
+            # Column-level tests
+            for col in m.get("columns", []):
+                if not isinstance(col, dict):
+                    continue
+                col_name = col.get("name", "?")
+                for t in col.get("tests", []):
+                    if isinstance(t, str):
+                        tests.append(f"- {col_name}: {t}")
+                    elif isinstance(t, dict):
+                        tests.append(f"- {col_name}: {t}")
+    return "\n".join(tests) if tests else ""
+
+
+def get_data_profile(model, root):
+    """Run a profiling query via dbt show to get column stats."""
+    # Use an inline query that profiles the model's output
+    profile_sql = f"""
+    {{% set cols = adapter.get_columns_in_relation(ref('{model}')) %}}
+    SELECT
+      {{% for col in cols %}}
+      '{{{ col.name }}}' AS column_name_{{{{ loop.index }}}},
+      COUNT(*) AS total_rows_{{{{ loop.index }}}},
+      COUNT("{{{ col.name }}}") AS non_null_{{{{ loop.index }}}},
+      COUNT(DISTINCT "{{{ col.name }}}") AS distinct_{{{{ loop.index }}}}
+      {{% if not loop.last %}},{{% endif %}}
+      {{% endfor %}}
+    FROM {{{{ ref('{model}') }}}}
+    """
+    # Simpler approach: ask dbt to show the model with a higher limit and
+    # compute stats from sample rows in the prompt. The LLM has database
+    # access and can run profiling queries itself. We just nudge it.
+    return ""
+
+
+def render_template(template, replacements):
+    """Replace template placeholders, handling conditional {{#if}}/{{^if}} blocks."""
+    for key, value in replacements.items():
+        # Handle {{#if key}}...{{/if}} blocks
+        if_pattern = re.compile(
+            r"\{\{#if " + re.escape(key) + r"\}\}(.*?)\{\{/if\}\}",
+            re.DOTALL,
+        )
+        not_pattern = re.compile(
+            r"\{\{\^if " + re.escape(key) + r"\}\}(.*?)\{\{/if\}\}",
+            re.DOTALL,
+        )
+        if value:
+            template = if_pattern.sub(r"\1", template)
+            template = not_pattern.sub("", template)
+        else:
+            template = if_pattern.sub("", template)
+            template = not_pattern.sub(r"\1", template)
+        # Replace the simple placeholder
+        template = template.replace("{{" + key + "}}", value)
+    return template
 
 
 @click.command()
@@ -65,18 +169,8 @@ def main(model, root, filepath, prompt, limit, model_flag):
     click.echo(f"Fetching sample rows (limit={limit})...")
     result = run(
         [
-            "uv",
-            "run",
-            "dbt",
-            "show",
-            "-s",
-            model,
-            "--limit",
-            str(limit),
-            "--output",
-            "json",
-            "--log-format",
-            "json",
+            "uv", "run", "dbt", "show", "-s", model,
+            "--limit", str(limit), "--output", "json", "--log-format", "json",
         ],
         cwd=root,
         capture=True,
@@ -98,21 +192,30 @@ def main(model, root, filepath, prompt, limit, model_flag):
     with open(filepath) as f:
         source_sql = f.read()
 
-    # --- 5. build prompt ---
+    # --- 5. gather lineage and existing tests ---
+    click.echo("Gathering model lineage...")
+    lineage = get_lineage(model, root)
+
+    click.echo("Scanning for existing dbt tests...")
+    existing_tests = get_existing_tests(model, root)
+
+    # --- 6. build prompt ---
     if not os.path.exists(prompt):
         click.echo(f"ERROR: prompt template not found: {prompt}", err=True)
         sys.exit(1)
     with open(prompt) as f:
         template = f.read()
-    # Substitute compiled_sql first; use a sentinel to avoid the compiled SQL
-    # accidentally containing the {{sample_rows}} placeholder.
-    full_prompt = template.replace("{{compiled_sql}}", compiled_sql)
-    full_prompt = full_prompt.replace("{{sample_rows}}", sample_rows)
+
+    full_prompt = render_template(template, {
+        "compiled_sql": compiled_sql,
+        "sample_rows": sample_rows,
+        "existing_tests": existing_tests,
+        "lineage": lineage,
+        "data_profile": "",
+    })
     full_prompt += f"\n\nSource SQL:\n{source_sql}"
 
-    # --- 6. write context to a temp file & launch cursor-agent ---
-    # Avoids OS arg-length limits (ARG_MAX) when compiled SQL + sample rows
-    # are large.
+    # --- 7. write context to a temp file & launch cursor-agent ---
     ctx = tempfile.NamedTemporaryFile(
         mode="w", suffix=".md", prefix=f"dbt_audit_{model}_", delete=False,
     )

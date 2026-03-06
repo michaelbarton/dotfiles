@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # /// script
 # requires-python = ">=3.10"
-# dependencies = ["click", "mdformat"]
+# dependencies = ["click", "mdformat", "pyyaml"]
 # ///
 """
 dbt_batch_audit: run dbt model audits across multiple models and LLMs in
@@ -33,6 +33,7 @@ import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import click
+import yaml
 
 
 def run(cmd, cwd=None, capture=False, check=True):
@@ -78,15 +79,90 @@ def get_sample_rows(model_name, root, limit):
     return result.stdout.strip() or "(no rows returned)"
 
 
-def write_context_file(output_dir, model_name, template, compiled_sql, sample_rows, source_sql):
+def get_lineage(model_name, root):
+    """Return a summary of immediate parents and children from dbt ls."""
+    lines = []
+    for direction, selector in [("parents", f"+{model_name},1+{model_name}"), ("children", f"{model_name}+,{model_name}1+")]:
+        result = subprocess.run(
+            ["uv", "run", "dbt", "ls", "-s", selector, "--output", "name", "--quiet"],
+            capture_output=True, text=True, cwd=root,
+        )
+        if result.returncode == 0:
+            names = [n.strip() for n in result.stdout.strip().splitlines() if n.strip() and n.strip() != model_name]
+            if names:
+                lines.append(f"**{direction.title()}:** {', '.join(names)}")
+    return "\n".join(lines) if lines else ""
+
+
+def get_existing_tests(model_name, root):
+    """Extract test definitions for a model from schema.yml files."""
+    schema_files = glob.glob(os.path.join(root, "**", "*.yml"), recursive=True)
+    seen = set()
+    unique_files = []
+    for f in schema_files:
+        if f not in seen:
+            seen.add(f)
+            unique_files.append(f)
+
+    tests = []
+    for schema_path in unique_files:
+        try:
+            with open(schema_path) as f:
+                doc = yaml.safe_load(f)
+        except (yaml.YAMLError, OSError):
+            continue
+        if not isinstance(doc, dict):
+            continue
+        for m in doc.get("models", []):
+            if not isinstance(m, dict) or m.get("name") != model_name:
+                continue
+            for t in m.get("tests", []):
+                tests.append(f"- model-level: {t}")
+            for col in m.get("columns", []):
+                if not isinstance(col, dict):
+                    continue
+                col_name = col.get("name", "?")
+                for t in col.get("tests", []):
+                    if isinstance(t, str):
+                        tests.append(f"- {col_name}: {t}")
+                    elif isinstance(t, dict):
+                        tests.append(f"- {col_name}: {t}")
+    return "\n".join(tests) if tests else ""
+
+
+def render_template(template, replacements):
+    """Replace template placeholders, handling conditional {{#if}}/{{^if}} blocks."""
+    for key, value in replacements.items():
+        if_pattern = re.compile(
+            r"\{\{#if " + re.escape(key) + r"\}\}(.*?)\{\{/if\}\}",
+            re.DOTALL,
+        )
+        not_pattern = re.compile(
+            r"\{\{\^if " + re.escape(key) + r"\}\}(.*?)\{\{/if\}\}",
+            re.DOTALL,
+        )
+        if value:
+            template = if_pattern.sub(r"\1", template)
+            template = not_pattern.sub("", template)
+        else:
+            template = if_pattern.sub("", template)
+            template = not_pattern.sub(r"\1", template)
+        template = template.replace("{{" + key + "}}", value)
+    return template
+
+
+def write_context_file(output_dir, model_name, template, compiled_sql, sample_rows, source_sql, lineage="", existing_tests=""):
     """Write the full audit context to a file so cursor-agent can read it."""
     ctx_dir = os.path.join(output_dir, ".context")
     os.makedirs(ctx_dir, exist_ok=True)
 
-    # Substitute compiled_sql first to avoid the compiled SQL accidentally
-    # containing the {{sample_rows}} placeholder.
-    content = template.replace("{{compiled_sql}}", compiled_sql)
-    content = content.replace("{{sample_rows}}", sample_rows)
+    content = render_template(template, {
+        "compiled_sql": compiled_sql,
+        "sample_rows": sample_rows,
+        "existing_tests": existing_tests,
+        "lineage": lineage,
+        "data_profile": "",
+    })
     content += f"\n\nSource SQL:\n{source_sql}"
 
     ctx_path = os.path.join(ctx_dir, f"{model_name}__context.md")
@@ -375,8 +451,13 @@ def main(paths, llms, root, prompt, output_dir, limit, synthesis_model, concurre
         sample_rows = get_sample_rows(name, root, limit)
         with open(filepath) as f:
             source_sql = f.read()
+        click.echo(f"  Gathering lineage for {name}...")
+        lineage = get_lineage(name, root)
+        click.echo(f"  Scanning tests for {name}...")
+        existing_tests = get_existing_tests(name, root)
         context_paths[name] = write_context_file(
             output_dir, name, template, compiled_sql, sample_rows, source_sql,
+            lineage=lineage, existing_tests=existing_tests,
         )
 
     click.echo(f"\nAll models compiled. Launching {total} audit(s)...\n")
