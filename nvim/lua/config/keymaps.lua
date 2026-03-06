@@ -368,9 +368,9 @@ for line in raw.splitlines():
     :toggle()
 end, { desc = "[D]bt [V]isidata preview" })
 
--- dbt: read a prompt template from nvim/prompts/ and substitute {{key}} placeholders
+-- dbt: read a prompt template from the llm/ directory and substitute {{key}} placeholders
 local function dbt_load_prompt(name, vars)
-  local prompt_dir = vim.fn.stdpath("config") .. "/prompts/"
+  local prompt_dir = vim.fn.stdpath("config") .. "/dbt/"
   local path = prompt_dir .. name .. ".md"
   local lines = vim.fn.readfile(path)
   if #lines == 0 then
@@ -384,7 +384,7 @@ local function dbt_load_prompt(name, vars)
   return prompt
 end
 
--- dbt: run claude agent on current model (quick analysis with sonnet)
+-- dbt: run cursor-agent on current model (quick analysis with sonnet)
 -- Replaces buffer contents with the file + inline SQL comments
 vim.keymap.set("n", "<leader>da", function()
   local filepath = vim.fn.expand("%:p")
@@ -400,7 +400,9 @@ vim.keymap.set("n", "<leader>da", function()
 
   vim.notify("Running quick analysis...", vim.log.levels.INFO)
 
-  local cmd = { "claude", "-p", prompt, "--model", "claude-sonnet-4-6", filepath }
+  local file_content = table.concat(vim.fn.readfile(filepath), "\n")
+  local full_prompt = prompt .. "\n\nFile: " .. filepath .. "\n```sql\n" .. file_content .. "\n```"
+  local cmd = { "cursor-agent", "--print", "--model", "sonnet-4.6", full_prompt }
   local output = {}
   vim.fn.jobstart(cmd, {
     stdout_buffered = true,
@@ -412,7 +414,7 @@ vim.keymap.set("n", "<leader>da", function()
     on_exit = function(_, exit_code)
       vim.schedule(function()
         if exit_code ~= 0 then
-          vim.notify("claude exited with code " .. exit_code, vim.log.levels.ERROR)
+          vim.notify("cursor-agent exited with code " .. exit_code, vim.log.levels.ERROR)
           return
         end
         -- Remove trailing empty strings from jobstart output
@@ -420,7 +422,7 @@ vim.keymap.set("n", "<leader>da", function()
           table.remove(output)
         end
         if #output == 0 then
-          vim.notify("No output from claude", vim.log.levels.WARN)
+          vim.notify("No output from cursor-agent", vim.log.levels.WARN)
           return
         end
         vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, output)
@@ -430,7 +432,7 @@ vim.keymap.set("n", "<leader>da", function()
   })
 end, { desc = "[D]bt [A]nalyse model (quick)" })
 
--- dbt: open interactive claude session in a new tmux window with compiled SQL + sample rows as context
+-- dbt: open interactive cursor-agent session in a new tmux window with compiled SQL + sample rows as context
 vim.keymap.set("n", "<leader>dA", function()
   local filepath = vim.fn.expand("%:p")
   if filepath == "" then
@@ -447,24 +449,13 @@ vim.keymap.set("n", "<leader>dA", function()
     return
   end
 
-  -- Open a new tmux window that compiles, gathers context, then starts interactive claude
-  local prompt_path = vim.fn.stdpath("config") .. "/prompts/dbt_deep_analysis.md"
-  local cmd = string.format(
-    [[tmux new-window -n 'dbt:%s' ']]
-      .. [[uv run dbt compile -s %s --quiet ]]
-      .. [[&& compiled_sql=$(cat $(find %s/target/compiled -name "%s.sql" | head -1) 2>/dev/null) ]]
-      .. [[&& sample_rows=$(uv run dbt show -s %s --limit 20 2>/dev/null) ]]
-      .. [[&& prompt=$(sed -e "s|{{compiled_sql}}|${compiled_sql}|g" -e "s|{{sample_rows}}|${sample_rows}|g" %s) ]]
-      .. [[&& claude --model claude-sonnet-4-6 --thinking --prompt "${prompt}" %s ]]
-      .. [[|| read -p "Press enter to close..."']],
-    model,
-    model,
-    vim.fn.shellescape(root),
-    model,
-    model,
-    vim.fn.shellescape(prompt_path),
-    vim.fn.shellescape(filepath)
+  -- Open a new tmux window running the standalone dbt_analyse.py script
+  local prompt_path = vim.fn.stdpath("config") .. "/dbt/dbt_deep_analysis.md"
+  local script_path = vim.fn.stdpath("config") .. "/dbt/dbt_analyse.py"
+  local shell_script = string.format(
+    [[cd %s && uv run python3 %s --model %s --root %s --filepath %s --prompt %s || (echo "Press enter to close..." && read)]],
+    root, script_path, model, root, filepath, prompt_path
   )
-  vim.fn.system(cmd)
-  vim.notify("Opened interactive claude session in tmux window 'dbt:" .. model .. "'", vim.log.levels.INFO)
+  vim.fn.jobstart({ "tmux", "new-window", "-n", "dbt:" .. model, shell_script }, { detach = true })
+  vim.notify("Opened interactive cursor-agent session in tmux window 'dbt:" .. model .. "'", vim.log.levels.INFO)
 end, { desc = "[D]bt [A]nalyse model (interactive)" })
