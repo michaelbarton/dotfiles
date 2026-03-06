@@ -92,8 +92,7 @@
 
 - Added script to create the 'today' wiki file using a jinja template.
 - Add bash shortcut to jump to temporary directory.
-- Removed `convert_daily_log.py`. Use dedicated python package for this
-  instead.
+- Removed `convert_daily_log.py`. Use dedicated python package for this instead.
 - Process today script also deletes the source file afterward.
 
 ## 2023-01-12
@@ -218,7 +217,7 @@
 
 - Add rc for nvim at nvim/init.vim
 - Update markdown filetype settings to use the vim-markdown plugin.
-- Remove old `shell_settings` directory instead use `.bashrc` for common functions
-  between shells.
+- Remove old `shell_settings` directory instead use `.bashrc` for common
+  functions between shells.
 - Use ansible to install all dotfiles
 - Add a script to create markdown pages from pubmed entries.
