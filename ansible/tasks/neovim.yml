@@ -15,13 +15,15 @@
       - ruff
       - yamllint
 
-- name: Remove existing ftplugin directory if it exists (to allow symlinking)
+- name: Remove existing directories that need to be replaced with symlinks
   ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/.config/nvim/ftplugin"
+    path: "{{ ansible_env.HOME }}/.config/nvim/{{ item }}"
     state: absent
+  loop:
+    - ftplugin
+    - dbt
 
 - name: Link specific configuration files
-
   ansible.builtin.file:
     src: "{{ playbook_dir }}/../{{ item.src }}"
     dest: "{{ ansible_env.HOME }}/{{ item.dest }}"
@@ -30,6 +32,7 @@
     - { src: "nvim/init.lua", dest: ".config/nvim/init.lua" }
     - { src: "nvim/lua", dest: ".config/nvim/lua" }
     - { src: "nvim/ftplugin", dest: ".config/nvim/ftplugin" }
+    - { src: "dbt", dest: ".config/nvim/dbt" }
 
 - name: Install jsonlint node.js package.
   community.general.npm:
