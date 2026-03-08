@@ -17,8 +17,7 @@ end, { desc = "[I]nsert [D]ate" })
 
 -- Shortcut for searching the wiki
 vim.keymap.set("n", "<leader>ws", function()
-  local fzf = require("fzf-lua")
-  fzf.files({ prompt = "wiki  ", cwd = vim.g.wiki_root })
+  require("telescope.builtin").find_files({ prompt_title = "Wiki", cwd = vim.g.wiki_root })
 end, { desc = "[W]iki [S]earch" })
 
 -- Create a new page in the wiki
@@ -33,27 +32,25 @@ vim.keymap.set("n", "<leader>wn", function()
 end, { desc = "[W]iki [N]ew Page" })
 
 vim.keymap.set("n", "<leader>wi", function()
-  local fzf = require("fzf-lua")
-  fzf.files({
-    prompt = "Wiki Files",
+  local actions = require("telescope.actions")
+  local action_state = require("telescope.actions.state")
+  require("telescope.builtin").find_files({
+    prompt_title = "Wiki Insert Link",
     cwd = vim.g.wiki_root,
-    actions = {
-      -- Override the default selection action
-      ["default"] = function(selected)
-        -- Get the selected file (should be just one)
-        if selected and #selected > 0 then
-          local full_path = selected[1]
-
-          -- Extract just the filename from the path
-          local filename = full_path:match("([^/\\]+)$")
-
-          -- Create a wiki link format [[filename]] without the file extension
+    attach_mappings = function(prompt_bufnr, map)
+      actions.select_default:replace(function()
+        local entry = action_state.get_selected_entry()
+        actions.close(prompt_bufnr)
+        if entry then
+          local filename = entry[1]:match("([^/\\]+)$")
           local link = string.format("[[%s]]", filename:gsub("%.%w+$", ""))
-
-          -- Insert the wiki link at the current cursor position
           vim.api.nvim_put({ link }, "c", true, true)
         end
-      end,
-    },
+      end)
+      return true
+    end,
   })
 end, { noremap = true, silent = true, desc = "[W]iki [I]nsert Link" })
+
+-- dbt keymaps (loaded from separate file)
+require("config.dbt")
