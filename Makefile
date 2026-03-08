@@ -15,7 +15,7 @@ fmt_check:
 	uvx mdformat --check --wrap 80 --number *.md
 	uvx ruff format --check --line-length=100 **/*.py
 	uvx ruff check --line-length=100 **/*.py
-	npx --yes @johnnymorganz/stylua-bin -- --check **/*.lua
+	npx --yes @johnnymorganz/stylua-bin --check -- **/*.lua
 
 nvim-health:
 	nvim --headless "+checkhealth" +qa
