@@ -58,6 +58,12 @@
         - tmux
         - setup
 
+    - name: Include skills deployment tasks
+      include_tasks: tasks/skills.yml
+      tags:
+        - skills
+        - setup
+
     - name: Include dotfile linking tasks
       include_tasks: tasks/link_files.yml
       tags:

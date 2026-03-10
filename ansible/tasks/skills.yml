@@ -1,0 +1,22 @@
+---
+- name: Create user agents skills directory
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.agents/skills"
+    state: directory
+    mode: "0755"
+
+- name: Find skill files
+  ansible.builtin.find:
+    paths: "{{ dotfiles_dir }}/skills"
+    file_type: file
+    excludes:
+      - ".gitkeep"
+  register: skill_files
+
+- name: Link skill files to user agents directory
+  ansible.builtin.file:
+    src: "{{ item.path }}"
+    dest: "{{ ansible_user_dir }}/.agents/skills/{{ item.path | basename }}"
+    state: link
+    force: true
+  loop: "{{ skill_files.files }}"
