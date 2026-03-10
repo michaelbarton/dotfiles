@@ -42,13 +42,22 @@ def run(cmd, cwd=None, capture=False, check=True):
 def get_lineage(model, root):
     """Return a summary of immediate parents and children from dbt ls."""
     lines = []
-    for direction, selector in [("parents", f"+{model},1+{model}"), ("children", f"{model}+,{model}1+")]:
+    for direction, selector in [
+        ("parents", f"+{model},1+{model}"),
+        ("children", f"{model}+,{model}1+"),
+    ]:
         result = subprocess.run(
             ["uv", "run", "dbt", "ls", "-s", selector, "--output", "name", "--quiet"],
-            capture_output=True, text=True, cwd=root,
+            capture_output=True,
+            text=True,
+            cwd=root,
         )
         if result.returncode == 0:
-            names = [n.strip() for n in result.stdout.strip().splitlines() if n.strip() and n.strip() != model]
+            names = [
+                n.strip()
+                for n in result.stdout.strip().splitlines()
+                if n.strip() and n.strip() != model
+            ]
             if names:
                 lines.append(f"**{direction.title()}:** {', '.join(names)}")
     return "\n".join(lines) if lines else ""
@@ -84,7 +93,6 @@ def get_existing_tests(model, root):
                     elif isinstance(t, dict):
                         tests.append(f"- {col_name}: {t}")
     return "\n".join(tests) if tests else ""
-
 
 
 def render_template(template, replacements):
@@ -138,8 +146,18 @@ def main(model, root, filepath, prompt, limit, model_flag):
     click.echo(f"Fetching sample rows (limit={limit})...")
     result = run(
         [
-            "uv", "run", "dbt", "show", "-s", model,
-            "--limit", str(limit), "--output", "json", "--log-format", "json",
+            "uv",
+            "run",
+            "dbt",
+            "show",
+            "-s",
+            model,
+            "--limit",
+            str(limit),
+            "--output",
+            "json",
+            "--log-format",
+            "json",
         ],
         cwd=root,
         capture=True,
@@ -175,18 +193,24 @@ def main(model, root, filepath, prompt, limit, model_flag):
     with open(prompt) as f:
         template = f.read()
 
-    full_prompt = render_template(template, {
-        "compiled_sql": compiled_sql,
-        "sample_rows": sample_rows,
-        "existing_tests": existing_tests,
-        "lineage": lineage,
-        "data_profile": "",
-    })
+    full_prompt = render_template(
+        template,
+        {
+            "compiled_sql": compiled_sql,
+            "sample_rows": sample_rows,
+            "existing_tests": existing_tests,
+            "lineage": lineage,
+            "data_profile": "",
+        },
+    )
     full_prompt += f"\n\nSource SQL:\n{source_sql}"
 
     # --- 7. write context to a temp file & launch cursor-agent ---
     ctx = tempfile.NamedTemporaryFile(
-        mode="w", suffix=".md", prefix=f"dbt_audit_{model}_", delete=False,
+        mode="w",
+        suffix=".md",
+        prefix=f"dbt_audit_{model}_",
+        delete=False,
     )
     ctx.write(full_prompt)
     ctx.close()

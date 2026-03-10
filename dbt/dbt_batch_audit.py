@@ -66,8 +66,18 @@ def get_sample_rows(model_name, root, limit):
     click.echo(f"  Fetching sample rows for {model_name} (limit={limit})...")
     result = run(
         [
-            "uv", "run", "dbt", "show", "-s", model_name,
-            "--limit", str(limit), "--output", "json", "--log-format", "json",
+            "uv",
+            "run",
+            "dbt",
+            "show",
+            "-s",
+            model_name,
+            "--limit",
+            str(limit),
+            "--output",
+            "json",
+            "--log-format",
+            "json",
         ],
         cwd=root,
         capture=True,
@@ -82,13 +92,22 @@ def get_sample_rows(model_name, root, limit):
 def get_lineage(model_name, root):
     """Return a summary of immediate parents and children from dbt ls."""
     lines = []
-    for direction, selector in [("parents", f"+{model_name},1+{model_name}"), ("children", f"{model_name}+,{model_name}1+")]:
+    for direction, selector in [
+        ("parents", f"+{model_name},1+{model_name}"),
+        ("children", f"{model_name}+,{model_name}1+"),
+    ]:
         result = subprocess.run(
             ["uv", "run", "dbt", "ls", "-s", selector, "--output", "name", "--quiet"],
-            capture_output=True, text=True, cwd=root,
+            capture_output=True,
+            text=True,
+            cwd=root,
         )
         if result.returncode == 0:
-            names = [n.strip() for n in result.stdout.strip().splitlines() if n.strip() and n.strip() != model_name]
+            names = [
+                n.strip()
+                for n in result.stdout.strip().splitlines()
+                if n.strip() and n.strip() != model_name
+            ]
             if names:
                 lines.append(f"**{direction.title()}:** {', '.join(names)}")
     return "\n".join(lines) if lines else ""
@@ -151,18 +170,30 @@ def render_template(template, replacements):
     return template
 
 
-def write_context_file(output_dir, model_name, template, compiled_sql, sample_rows, source_sql, lineage="", existing_tests=""):
+def write_context_file(
+    output_dir,
+    model_name,
+    template,
+    compiled_sql,
+    sample_rows,
+    source_sql,
+    lineage="",
+    existing_tests="",
+):
     """Write the full audit context to a file so cursor-agent can read it."""
     ctx_dir = os.path.join(output_dir, ".context")
     os.makedirs(ctx_dir, exist_ok=True)
 
-    content = render_template(template, {
-        "compiled_sql": compiled_sql,
-        "sample_rows": sample_rows,
-        "existing_tests": existing_tests,
-        "lineage": lineage,
-        "data_profile": "",
-    })
+    content = render_template(
+        template,
+        {
+            "compiled_sql": compiled_sql,
+            "sample_rows": sample_rows,
+            "existing_tests": existing_tests,
+            "lineage": lineage,
+            "data_profile": "",
+        },
+    )
     content += f"\n\nSource SQL:\n{source_sql}"
 
     ctx_path = os.path.join(ctx_dir, f"{model_name}__context.md")
@@ -205,7 +236,8 @@ def validate_llms(llms):
         click.echo(
             f"ERROR: the following model(s) are not available in cursor-agent:\n"
             + "\n".join(f"  - {m}" for m in invalid)
-            + f"\n\nAvailable models:\n  " + "\n  ".join(sorted(available)),
+            + f"\n\nAvailable models:\n  "
+            + "\n  ".join(sorted(available)),
             err=True,
         )
         sys.exit(1)
@@ -262,9 +294,7 @@ def synthesize_reports(reports, synthesis_model, output_dir, root):
 
     combined_parts = []
     for model_name, llm, report in reports:
-        combined_parts.append(
-            f"---\n## Model: {model_name} | Reviewer: {llm}\n\n{report}\n"
-        )
+        combined_parts.append(f"---\n## Model: {model_name} | Reviewer: {llm}\n\n{report}\n")
     combined_text = "\n".join(combined_parts)
 
     combined_path = os.path.join(output_dir, "all_individual_reports.md")
@@ -274,9 +304,7 @@ def synthesize_reports(reports, synthesis_model, output_dir, root):
     # Write synthesis context to a file to avoid command-line length limits
     ctx_dir = os.path.join(output_dir, ".context")
     os.makedirs(ctx_dir, exist_ok=True)
-    synthesis_ctx_path = os.path.abspath(
-        os.path.join(ctx_dir, "synthesis_context.md")
-    )
+    synthesis_ctx_path = os.path.abspath(os.path.join(ctx_dir, "synthesis_context.md"))
 
     synthesis_instructions = f"""\
 You are a senior analytics engineer reviewing multiple dbt model audit reports.
@@ -341,9 +369,7 @@ Individual audit reports:
     if result.returncode == 0:
         synthesis = result.stdout.strip()
     else:
-        synthesis = (
-            f"(synthesis failed: exit {result.returncode})\n{result.stderr}"
-        )
+        synthesis = f"(synthesis failed: exit {result.returncode})\n{result.stderr}"
 
     synthesis_path = os.path.join(output_dir, "final_synthesis.md")
     with open(synthesis_path, "w") as f:
@@ -361,9 +387,7 @@ def resolve_sql_paths(paths):
     for p in paths:
         p = os.path.abspath(p)
         if os.path.isdir(p):
-            children = sorted(
-                f for f in glob.glob(os.path.join(p, "**", "*.sql"), recursive=True)
-            )
+            children = sorted(f for f in glob.glob(os.path.join(p, "**", "*.sql"), recursive=True))
             if not children:
                 click.echo(f"WARNING: no .sql files found in {p}", err=True)
             resolved.extend(children)
@@ -385,22 +409,31 @@ def model_name_from_path(filepath):
 @click.command()
 @click.argument("paths", nargs=-1, required=True)
 @click.option(
-    "--llm", "llms", required=True, multiple=True,
+    "--llm",
+    "llms",
+    required=True,
+    multiple=True,
     help="LLM model name for cursor-agent (repeatable)",
 )
 @click.option("--root", required=True, help="Path to dbt project root")
 @click.option("--prompt", required=True, help="Path to the prompt template .md file")
 @click.option(
-    "--output-dir", default="./audit_reports", show_default=True,
+    "--output-dir",
+    default="./audit_reports",
+    show_default=True,
     help="Directory for output reports",
 )
 @click.option("--limit", default=20, show_default=True, help="Row limit for dbt show")
 @click.option(
-    "--synthesis-model", default="sonnet-4.6-thinking", show_default=True,
+    "--synthesis-model",
+    default="sonnet-4.6-thinking",
+    show_default=True,
     help="LLM for the final synthesis step",
 )
 @click.option(
-    "--concurrency", default=3, show_default=True,
+    "--concurrency",
+    default=3,
+    show_default=True,
     help="Max parallel cursor-agent invocations",
 )
 def main(paths, llms, root, prompt, output_dir, limit, synthesis_model, concurrency):
@@ -422,7 +455,8 @@ def main(paths, llms, root, prompt, output_dir, limit, synthesis_model, concurre
         name = model_name_from_path(filepath)
         if name in seen:
             click.echo(
-                f"ERROR: duplicate model name '{name}' from {filepath}", err=True,
+                f"ERROR: duplicate model name '{name}' from {filepath}",
+                err=True,
             )
             sys.exit(1)
         seen.add(name)
@@ -439,9 +473,7 @@ def main(paths, llms, root, prompt, output_dir, limit, synthesis_model, concurre
     os.makedirs(output_dir, exist_ok=True)
 
     total = len(model_specs) * len(llms)
-    click.echo(
-        f"Auditing {len(model_specs)} model(s) × {len(llms)} LLM(s) = {total} audit(s)"
-    )
+    click.echo(f"Auditing {len(model_specs)} model(s) × {len(llms)} LLM(s) = {total} audit(s)")
     click.echo(f"Concurrency: {concurrency} | Synthesis model: {synthesis_model}\n")
 
     context_paths = {}
@@ -456,8 +488,14 @@ def main(paths, llms, root, prompt, output_dir, limit, synthesis_model, concurre
         click.echo(f"  Scanning tests for {name}...")
         existing_tests = get_existing_tests(name, root)
         context_paths[name] = write_context_file(
-            output_dir, name, template, compiled_sql, sample_rows, source_sql,
-            lineage=lineage, existing_tests=existing_tests,
+            output_dir,
+            name,
+            template,
+            compiled_sql,
+            sample_rows,
+            source_sql,
+            lineage=lineage,
+            existing_tests=existing_tests,
         )
 
     click.echo(f"\nAll models compiled. Launching {total} audit(s)...\n")
@@ -468,7 +506,12 @@ def main(paths, llms, root, prompt, output_dir, limit, synthesis_model, concurre
         for name, _ in model_specs:
             for llm in llms:
                 fut = pool.submit(
-                    run_audit, name, context_paths[name], llm, output_dir, root,
+                    run_audit,
+                    name,
+                    context_paths[name],
+                    llm,
+                    output_dir,
+                    root,
                 )
                 futures[fut] = (name, llm)
 
