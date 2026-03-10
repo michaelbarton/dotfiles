@@ -4,18 +4,18 @@ apply:
 	uv run ansible-playbook -i ~/.dotfiles/ansible/inventory.ini ~/.dotfiles/ansible/dotfiles.yml
 
 fmt:
-	npx --yes prettier --write **/*.yml
+	npx --loglevel error --yes prettier --write **/*.yml
 	uvx mdformat --wrap 80 --number *.md
 	uvx ruff format --line-length=100 **/*.py
 	uvx ruff check --fix --line-length=100 **/*.py
-	npx --yes @johnnymorganz/stylua-bin -- **/*.lua
+	npx --loglevel error --yes @johnnymorganz/stylua-bin -- **/*.lua
 
 fmt_check:
-	npx --yes prettier --check **/*.yml
+	npx --loglevel error --yes prettier --check **/*.yml
 	uvx mdformat --check --wrap 80 --number *.md
 	uvx ruff format --check --line-length=100 **/*.py
 	uvx ruff check --line-length=100 **/*.py
-	npx --yes @johnnymorganz/stylua-bin --check -- **/*.lua
+	npx --loglevel error --yes @johnnymorganz/stylua-bin --check -- **/*.lua
 
 nvim-health:
 	nvim --headless "+checkhealth" +qa
