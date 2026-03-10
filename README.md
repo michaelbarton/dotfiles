@@ -35,6 +35,7 @@ fish -c "fisher update"
    ```
 
 3. Set up automated email sync:
+
    ```bash
    launchctl load -w ~/Library/LaunchAgents/uk.me.michaelbarton.offlineimap.plist
    ```

@@ -6,7 +6,6 @@
 """Convert a parquet file to CSV."""
 
 import pandas
-import io
 import sys
 
 IN_FILE, OUT_FILE = sys.argv[1], sys.argv[2]
