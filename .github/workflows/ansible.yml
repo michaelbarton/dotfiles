@@ -41,7 +41,7 @@ jobs:
 
       - name: Check playbook syntax
         run: >
-          uv run ansible-playbook
+          uvx --from ansible-core ansible-playbook
           -i "localhost,"
           -c local
           "$HOME/.dotfiles/ansible/dotfiles.yml"
@@ -49,7 +49,7 @@ jobs:
 
       - name: Run playbook (skip macOS-only tasks)
         run: >
-          uv run ansible-playbook
+          uvx --from ansible-core ansible-playbook
           -i "localhost,"
           -c local
           "$HOME/.dotfiles/ansible/dotfiles.yml"
