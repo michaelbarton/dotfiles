@@ -17,9 +17,6 @@ jobs:
 
       - name: Create stubs for files excluded from version control
         run: |
-          touch "$HOME/.dotfiles/.mise.toml"
-          mkdir -p "$HOME/.dotfiles/ssh"
-          touch "$HOME/.dotfiles/ssh/config"
           mkdir -p "$HOME/.config/fish/completions"
 
       - name: Install uv
