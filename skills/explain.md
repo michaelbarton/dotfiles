@@ -1,6 +1,13 @@
 ---
 name: explain
-description: "Produce a two-part explanation of a given file: an intuitive overview followed by a detailed technical breakdown."
+description: >
+  Use this skill when the user wants to understand a file — whether they ask
+  to "explain," "walk me through," "what does this do," or simply point at a
+  file and ask about it. Produces a two-part report: an intuitive overview of
+  what the file does and why, followed by a precise technical breakdown of how
+  it works. Useful for onboarding, code review, or building context on
+  unfamiliar code, even if the user doesn't explicitly ask for both levels
+  of detail.
 ---
 
 # Explain
