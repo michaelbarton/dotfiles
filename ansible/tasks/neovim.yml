@@ -2,7 +2,7 @@
 - name: Create virtual environment
   ansible.builtin.pip:
     virtualenv: "{{ venv_path }}/nvim"
-    virtualenv_python: "python{{ python_version }}"
+    virtualenv_command: "python{{ python_version }} -m venv"
     name:
       - codespell
       - dap-python

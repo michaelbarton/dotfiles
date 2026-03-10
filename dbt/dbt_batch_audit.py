@@ -234,9 +234,9 @@ def validate_llms(llms):
     invalid = [llm for llm in llms if llm not in available]
     if invalid:
         click.echo(
-            f"ERROR: the following model(s) are not available in cursor-agent:\n"
+            "ERROR: the following model(s) are not available in cursor-agent:\n"
             + "\n".join(f"  - {m}" for m in invalid)
-            + f"\n\nAvailable models:\n  "
+            + "\n\nAvailable models:\n  "
             + "\n  ".join(sorted(available)),
             err=True,
         )
