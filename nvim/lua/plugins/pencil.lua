@@ -6,4 +6,7 @@ return {
     vim.g["pencil#wrapModeDefault"] = "hard"
     vim.g["pencil#autoformat"] = 1
   end,
+  config = function()
+    vim.cmd("PencilHard")
+  end,
 }
