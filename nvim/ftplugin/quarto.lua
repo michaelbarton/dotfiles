@@ -5,15 +5,8 @@ local api = vim.api
 local ts = vim.treesitter
 
 vim.b.slime_cell_delimiter = "```"
-vim.b["quarto_is_r_mode"] = nil
-vim.b["reticulate_running"] = false
 
--- wrap text, but by word not character
--- indent the wrappped line
-vim.wo.wrap = true
-vim.wo.linebreak = true
-vim.wo.breakindent = true
-vim.wo.showbreak = "|"
+vim.cmd("PencilHard")
 
 -- don't run vim ftplugin on top
 vim.api.nvim_buf_set_var(0, "did_ftplugin", true)
