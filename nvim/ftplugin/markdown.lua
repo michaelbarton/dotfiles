@@ -1,12 +1,7 @@
--- https://www.reddit.com/r/neovim/comments/1av26kw/i_tried_to_figure_it_out_but_i_give_up_how_do_i/
-
-vim.api.nvim_create_autocmd("BufWinEnter", {
-  command = "set formatoptions+=cqln",
-})
 vim.opt_local.textwidth = 80
 
 -- auto format text as it's being edited
--- n=format lists
+-- c=auto-wrap comments, q=allow gq, l=don't break existing long lines, n=format lists
 vim.opt_local.formatoptions:append("cqln")
 
 -- recognize asterisk as bullets
@@ -21,16 +16,6 @@ vim.opt_local.shiftwidth = 2
 vim.opt_local.tabstop = 2
 vim.opt_local.expandtab = true
 
--- support front matter of various format
-vim.g.vim_markdown_frontmatter = 1 -- for YAML format
-vim.g.vim_markdown_toml_frontmatter = 1 -- for TOML format
-vim.g.vim_markdown_json_frontmatter = 1 -- for JSON format
-
--- disable header folding
-vim.g.vim_markdown_folding_disabled = 1
-
--- do not use conceal feature
-vim.g.vim_markdown_conceal = 0
-
-vim.g.vim_markdown_auto_insert_bullets = 0
-vim.g.vim_markdown_new_list_item_indent = 0
+-- disable folding and conceal (LazyVim markdown extra uses render-markdown.nvim)
+vim.opt_local.foldenable = false
+vim.opt_local.conceallevel = 0

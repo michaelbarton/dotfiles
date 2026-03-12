@@ -5,7 +5,6 @@ return {
       ensure_installed = {
         "bash",
         "fish",
-        "html",
         "json",
         "latex",
         "lua",
