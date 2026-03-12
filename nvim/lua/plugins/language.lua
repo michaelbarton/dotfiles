@@ -6,7 +6,6 @@ return {
         "bash",
         "fish",
         "html",
-        "javascript",
         "json",
         "latex",
         "lua",
@@ -55,11 +54,9 @@ return {
           -- because some formatters care about the filename.
           lang_to_ext = {
             bash = "sh",
-            javascript = "js",
             latex = "tex",
             markdown = "md",
             python = "py",
-            typescript = "ts",
             vimwiki = "md",
           },
           -- Map of treesitter language to formatters to use
