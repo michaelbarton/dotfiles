@@ -156,15 +156,6 @@ end
 #
 ###################################################################
 
-# Use mosh when connecting to a simple hostname with no extra arguments
-function ssh
-    if test (count $argv) -eq 1; and string match -qr '^[a-zA-Z0-9._-]+$' -- $argv[1]
-        mosh $argv
-    else
-        command ssh $argv
-    end
-end
-
 function sp
     aspell -c $argv[1]; and ~/.dotfiles/aspell/sort_dictionary
 end
