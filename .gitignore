@@ -13,3 +13,4 @@ offlineimap/Repository*
 docker
 __pycache__
 .DS_Store
+paperless-ngx/docker-compose.env
