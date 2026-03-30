@@ -2,9 +2,7 @@
 return {
   "folke/trouble.nvim",
   cmd = { "Trouble" },
-  opts = {
-    use_diagnostic_signs = true,
-  },
+  opts = {},
   keys = {
     { "<leader>xx", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Document Diagnostics (Trouble)" },
     { "<leader>xX", "<cmd>Trouble diagnostics toggle<cr>", desc = "Workspace Diagnostics (Trouble)" },
