@@ -64,6 +64,12 @@
         - skills
         - setup
 
+    - name: Include paperless setup tasks
+      include_tasks: tasks/paperless.yml
+      tags:
+        - paperless
+        - setup
+
     - name: Include dotfile linking tasks
       include_tasks: tasks/link_files.yml
       tags:
