@@ -1,0 +1,31 @@
+---
+- name: Create paperless data directory
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.paperless"
+    state: directory
+    mode: "0755"
+
+- name: Create paperless consume directory
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/Documents/consume"
+    state: directory
+    mode: "0755"
+
+- name: Check if paperless env file exists
+  ansible.builtin.stat:
+    path: "{{ ansible_user_dir }}/.dotfiles/paperless-ngx/docker-compose.env"
+  register: paperless_env_stat
+
+- name: Generate paperless secret key
+  ansible.builtin.command:
+    cmd: python3 -c "import secrets; print(secrets.token_urlsafe(50))"
+  register: paperless_secret_key
+  when: not paperless_env_stat.stat.exists
+  changed_when: false
+
+- name: Create paperless env file from template
+  ansible.builtin.template:
+    src: "{{ ansible_user_dir }}/.dotfiles/paperless-ngx/docker-compose.env.j2"
+    dest: "{{ ansible_user_dir }}/.dotfiles/paperless-ngx/docker-compose.env"
+    mode: "0600"
+  when: not paperless_env_stat.stat.exists
