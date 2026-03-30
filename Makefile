@@ -23,7 +23,7 @@ nvim-health:
 # Smoke test: boot nvim with representative filetypes and fail on startup errors/warnings.
 # Catches plugin misconfigurations (e.g. missing tree-sitter parsers, broken submodules)
 # that produce warnings in :messages but pass :checkhealth.
-NVIM_CHECK_FILETYPES := R py lua md
+NVIM_CHECK_FILETYPES := R py lua md qmd
 NVIM_CHECK_TMPDIR := /tmp/_nvim_check
 NVIM_CHECK_TIMEOUT := 30
 
