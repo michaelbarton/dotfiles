@@ -9,6 +9,10 @@ gui:
   commitLength:
     show: true
 
+os:
+  # Open files in existing nvim instance when inside a nvim terminal
+  editPreset: "nvim-remote"
+
 git:
   # Auto-fetch every 60 seconds
   autoFetch: true
@@ -16,6 +20,8 @@ git:
   # Use delta for diffs with correct panel width for side-by-side
   pagers:
     - pager: delta --paging=never --width={{columnWidth}}
+  # Use difftastic when pressing 'd' on a file (respects diff.external in gitconfig)
+  useExternalDiffGitConfig: true
   # Better merge behavior
   merging:
     args: "--no-ff"

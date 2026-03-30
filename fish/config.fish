@@ -54,7 +54,7 @@ alias tmp='cd $(mktemp -d)'
 alias wiki='vim ~/Dropbox/wiki/zettel/index.md'
 alias g='git'
 alias lg='lazygit'
-alias y='yazi'
+# yazi: see y function below (cd-on-exit)
 
 # Use coreutils alternatives
 alias ls='eza --classify --oneline --git'
@@ -95,7 +95,26 @@ fish_add_path $PYTHON_BIN
 
 # FZF configuration with better preview
 set -x FZF_DEFAULT_COMMAND 'fd --type f --hidden --follow --exclude .git'
-set -x FZF_DEFAULT_OPTS '--height 60% --border --layout=reverse --preview "bat --style=numbers --color=always --line-range :500 {}" --preview-window=right:60%:wrap'
+# --tmux opens fzf as a tmux popup (silently ignored outside tmux)
+# bat --paging=never prevents bat spawning a nested pager in fzf preview
+set -x FZF_DEFAULT_OPTS '--tmux center,80%,70% --layout=reverse --preview "bat --style=numbers --color=always --paging=never --line-range :500 {}" --preview-window=right:60%:wrap'
+
+# bat theme: auto-select dark/light based on terminal background
+set -x BAT_THEME_DARK "Catppuccin Frappe"
+set -x BAT_THEME_LIGHT "Catppuccin Latte"
+
+# bat as man pager
+set -x MANPAGER "bat -plman"
+
+# Suppress bat's pager and git's pager when inside a nvim terminal
+# ($NVIM is set automatically by neovim in any terminal it spawns)
+if set -q NVIM
+    set -x BAT_PAGER ""
+    set -x GIT_PAGER "delta --paging=never"
+end
+
+# ripgrep config
+set -x RIPGREP_CONFIG_PATH "$HOME/.config/ripgrep/rc"
 
 # Editor settings
 set -x MANWIDTH 80
@@ -177,19 +196,42 @@ end
 # Use ctrl+s to fzf search the current directory
 fzf_configure_bindings --directory=\cs
 
-# Search for all files with matching name in path
+# Search for all files with matching name in wiki
 function wiki_file
     fd . --base-directory="$HOME/Dropbox/wiki/" --type=file \
-        | fzf --preview "bat --style=numbers --color=always $HOME/Dropbox/wiki/{}" --preview-window="right:65%" --height="70%" \
-        | xargs -I {} -o nvim ~/Dropbox/wiki/{}
+        | fzf --tmux center,85%,75% \
+              --preview "bat --style=numbers --color=always --paging=never $HOME/Dropbox/wiki/{}" \
+              --preview-window="right:65%" \
+              --bind "enter:become(nvim $HOME/Dropbox/wiki/{})"
 end
 bind \cg wiki_file
 
 # Search for all files *containing* text
 function wt
     rg $argv[1] --files-with-matches ~/Dropbox/wiki/zettel/ \
-        | fzf --preview "bat --style=numbers --color=always {}" --preview-window="right:65%" --height="70%" \
-        | xargs -I {} -o nvim {}
+        | fzf --tmux center,85%,75% \
+              --preview "bat --style=numbers --color=always --paging=never {}" \
+              --preview-window="right:65%" \
+              --bind "enter:become(nvim {})"
+end
+
+# Open file in existing nvim instance if inside nvim terminal, otherwise new nvim
+function e
+    if set -q NVIM
+        nvim --server "$NVIM" --remote-tab $argv
+    else
+        nvim $argv
+    end
+end
+
+# Yazi with cd-on-exit: navigating in yazi changes the shell's working directory
+function y
+    set tmp (mktemp -t "yazi-cwd.XXXXX")
+    yazi $argv --cwd-file="$tmp"
+    if set cwd (command cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
+        builtin cd -- "$cwd"
+    end
+    rm -f -- "$tmp"
 end
 
 # LESS colors for man pages

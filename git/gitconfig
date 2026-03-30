@@ -132,6 +132,11 @@
     side-by-side = true
     line-numbers = true
     detect-dark-light = always
+    # OSC8 hyperlinks: file paths in diffs become clickable in Ghostty
+    hyperlinks = true
+    hyperlinks-file-link-format = "file://{path}:{line}"
+    # ripgrep-compatible output for grep integration
+    grep-output-type = ripgrep
     # Remove all line backgrounds; use terminal background
     zero-style = normal
     minus-style = normal
