@@ -7,8 +7,6 @@ local ts = vim.treesitter
 vim.b.slime_cell_delimiter = "```"
 vim.b.completion = false
 
-vim.cmd("PencilHard")
-
 -- don't run vim ftplugin on top
 vim.api.nvim_buf_set_var(0, "did_ftplugin", true)
 
