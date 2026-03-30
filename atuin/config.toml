@@ -89,3 +89,9 @@ common_subcommands = [
 
 # Update check
 update_check = false
+
+# Daemon mode: background process manages history sync/writes for better performance
+[daemon]
+enabled = true
+# Use socket for IPC (faster than TCP for local daemon)
+socket_path = "/tmp/atuin.sock"

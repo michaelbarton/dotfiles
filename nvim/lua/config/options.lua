@@ -9,6 +9,10 @@
 -- These are managed by ansible in the dotfiles setup
 vim.env.PATH = vim.env.PATH .. ":" .. vim.fn.expand("~/.venvs/nvim/bin")
 
+-- Mise shims: ensures LSP servers installed via mise are found when nvim is
+-- launched outside a fish shell (e.g. from a desktop launcher or bare tmux)
+vim.env.PATH = vim.fn.expand("~/.local/share/mise/shims") .. ":" .. vim.env.PATH
+
 -- Location of wiki files
 vim.g.wiki_root = "~/Dropbox/wiki/zettel/"
 
