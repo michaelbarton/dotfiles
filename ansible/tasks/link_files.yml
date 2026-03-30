@@ -41,6 +41,7 @@
     - { src: "hammerspoon/init.lua", dest: ".hammerspoon/init.lua" }
     - { src: "ghostty/config", dest: ".config/ghostty/config" }
     - { src: "tmux/tmux.conf", dest: ".tmux.conf" }
+    - { src: "ripgrep/rc", dest: ".config/ripgrep/rc" }
     - {
         src: "python/scratch_python_project.sh",
         dest: ".bin/scratch_python_project",

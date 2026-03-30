@@ -1,0 +1,26 @@
+# ripgrep config file
+# Set RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/rc to activate
+# (set in fish/config.fish)
+
+# Smart case: case-insensitive unless pattern has uppercase
+--smart-case
+
+# Follow symbolic links
+--follow
+
+# Search hidden files by default
+--hidden
+
+# Exclude common noise directories
+--glob=!.git/
+--glob=!node_modules/
+--glob=!__pycache__/
+--glob=!*.pyc
+--glob=!.venv/
+
+# Limit line length for readability; show truncation marker beyond this
+--max-columns=150
+--max-columns-preview
+
+# Custom filetypes for dbt projects
+--type-add=dbt:*.{sql,yml,yaml}
