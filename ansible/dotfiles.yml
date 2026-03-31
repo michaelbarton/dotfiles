@@ -69,7 +69,7 @@
       include_tasks: tasks/paperless.yml
       tags:
         - paperless
-        - setup
+        - never
 
     - name: Include dotfile linking tasks
       include_tasks: tasks/link_files.yml
