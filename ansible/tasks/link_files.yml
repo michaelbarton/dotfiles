@@ -37,7 +37,6 @@
         src: "poetry/update_poetry_dependencies.py",
         dest: ".bin/update_poetry_dependencies",
       }
-    - { src: "github/create_pr.bash", dest: ".bin/pr" }
     - { src: "hammerspoon/init.lua", dest: ".hammerspoon/init.lua" }
     - { src: "ghostty/config", dest: ".config/ghostty/config" }
     - { src: "tmux/tmux.conf", dest: ".tmux.conf" }

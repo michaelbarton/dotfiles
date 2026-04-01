@@ -73,6 +73,34 @@ return {
       require("toggleterm").send_lines_to_terminal("visual_selection", true, { args = term_id })
     end, { desc = "[T]erminal [S]end visual selection" })
 
+    -- Run a just target via a picker
+    vim.keymap.set("n", "<leader>tj", function()
+      local output = vim.fn.systemlist("just --list --unsorted 2>/dev/null")
+      if vim.v.shell_error ~= 0 or #output == 0 then
+        vim.notify("No justfile found or no targets available", vim.log.levels.WARN)
+        return
+      end
+
+      -- Skip the header line ("Available recipes:") and parse target names
+      local targets = {}
+      for i, line in ipairs(output) do
+        if i > 1 then
+          local target = line:match("^%s+(%S+)")
+          if target then
+            table.insert(targets, target)
+          end
+        end
+      end
+
+      vim.ui.select(targets, { prompt = "just target> " }, function(choice)
+        if choice then
+          require("toggleterm.terminal").Terminal
+            :new({ cmd = "just " .. choice, close_on_exit = false, direction = "horizontal" })
+            :toggle()
+        end
+      end)
+    end, { desc = "[T]oggle [J]ust target" })
+
     -- Terminal navigation keymaps
     function _G.set_terminal_keymaps()
       local opts = { buffer = 0 }
@@ -96,5 +124,6 @@ return {
     { "<leader>th", desc = "Toggle horizontal terminal" },
     { "<leader>ts", desc = "Send visual selection to terminal", mode = "v" },
     { "<leader>tl", desc = "Send line to terminal" },
+    { "<leader>tj", desc = "Run just target" },
   },
 }
