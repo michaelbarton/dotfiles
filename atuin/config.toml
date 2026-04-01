@@ -22,8 +22,17 @@ show_preview = true
 max_preview_height = 4
 show_help = true
 
-# Don't record commands that start with a space
-history_filter = []
+secrets_filter = true
+
+history_filter = [
+    "^node -e",
+    "^/usr/bin/python3.*/printEnvVariablesToFile",
+    "^source.*/shellIntegration",
+    "^from [a-z_]",
+    "^limit [0-9]",
+    "^select$",
+    "^;$",
+]
 
 # Store more history
 max_history_length = 100000
@@ -55,12 +64,6 @@ keymap_mode = "vim-insert"  # vim-insert, vim-normal, emacs, auto
 
 # UI customization
 enter_accept = true
-
-# Exclude patterns
-history_filter_patterns = [
-    "^secret-command",
-    "^password",
-]
 
 # Stats
 common_subcommands = [
