@@ -48,3 +48,6 @@ setlocal breakat=\ ^I!@*-+;:,./?
 
 " Enable better list formatting for vimwiki
 setlocal comments=b:*,b:-,b:+,b:1.,b:a.
+
+" Disable blink.cmp completion for prose
+let b:completion = v:false
