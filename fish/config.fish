@@ -183,6 +183,52 @@ function wt
         | xargs -I {} -o nvim {}
 end
 
+# Wrapper around `just` that sends a macOS notification on completion.
+# Useful for long-running builds where you switch context.
+function jn
+    just $argv
+    set -l code $status
+    set -l label (string join " " -- just $argv)
+    if test $code -eq 0
+        osascript -e "display notification \"$label succeeded\" with title \"just\" sound name \"Glass\""
+    else
+        osascript -e "display notification \"$label FAILED (exit $code)\" with title \"just\" sound name \"Sosumi\""
+    end
+    return $code
+end
+
+# Watch a qmd file and its partials for changes, re-rendering on save.
+# Quarto preview only watches the main file; this also watches _*.qmd
+# partials and helpers (*.py, *.yml) in the same directory. When any of
+# them change, it touches the main file to trigger quarto's re-render.
+# Requires: fswatch (brew install fswatch)
+function qwatch
+    set -l qmd $argv[1]
+    if test -z "$qmd"
+        echo "usage: qwatch <file.qmd>"
+        return 1
+    end
+
+    if not command -v fswatch &>/dev/null
+        echo "qwatch requires fswatch: brew install fswatch"
+        return 1
+    end
+
+    set -l dir (path dirname $qmd)
+    echo "Watching $qmd + partials in $dir/"
+
+    uv run quarto preview $qmd --to html &
+    set -l quarto_pid $last_pid
+
+    fswatch -i '_.*\.qmd$' -i '\.py$' -i '\.yml$' -e '.*' $dir \
+        | while read -l changed
+            echo "Changed: "(path basename $changed)" → re-rendering"
+            command touch $qmd
+        end
+
+    kill $quarto_pid 2>/dev/null
+end
+
 # LESS colors for man pages
 set -gx LESS_TERMCAP_us \e\[1\;32m
 set -gx LESS_TERMCAP_md \e\[1\;31m
