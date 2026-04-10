@@ -24,6 +24,20 @@ return {
     opts = { ensure_installed = { "prettier", "prettierd" } },
   },
   {
+    "neovim/nvim-lspconfig",
+    opts = {
+      servers = {
+        -- Prevent r_language_server from attaching to quarto files that don't
+        -- have an R project root, since mason-lspconfig maps it to quarto by
+        -- default and it errors on Python-only .qmd files.
+        r_language_server = {
+          root_markers = { "DESCRIPTION", "NAMESPACE", ".Rbuildignore", "*.Rproj" },
+          filetypes = { "r", "rmd" },
+        },
+      },
+    },
+  },
+  {
     "stevearc/conform.nvim",
     opts = {
       formatters_by_ft = {
