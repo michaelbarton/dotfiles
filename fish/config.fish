@@ -35,9 +35,8 @@ if command -v mise &>/dev/null
 end
 
 # Initialize atuin for enhanced shell history (if installed)
-# Filter out `bind -k up` which is invalid in fish 4.0 (atuin upstream bug)
 if command -v atuin &>/dev/null
-    atuin init fish | grep -v 'bind -M insert -k up' | source
+    atuin init fish | source
 end
 
 # Disable fish greeting
