@@ -6,7 +6,7 @@ theme = Catppuccin Frappe
 command = /opt/homebrew/bin/fish
 
 # Desktop notification when a long-running command finishes
-notify-on-command-finish = true
+notify-on-command-finish = unfocused
 
 # Let tmux handle all window/tab management
 keybind = super+t=unbind
