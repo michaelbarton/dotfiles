@@ -5,9 +5,6 @@ shell-integration = fish
 theme = Catppuccin Frappe
 command = /opt/homebrew/bin/fish
 
-# Auto-copy Ghostty terminfo to SSH remote hosts (prevents "unknown terminal" errors)
-auto-install-terminfo = true
-
 # Desktop notification when a long-running command finishes
 notify-on-command-finish = true
 
