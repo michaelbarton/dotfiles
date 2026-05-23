@@ -1,0 +1,38 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(uv run *)",
+      "Bash(just *)",
+      "Bash(duckdb *)"
+    ],
+    "defaultMode": "auto"
+  },
+  "model": "sonnet[1m]",
+  "theme": "auto",
+  "skipAutoPermissionPrompt": true,
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.dotfiles/claude/hooks/plan-review.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.dotfiles/claude/hooks/stop-check.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}
