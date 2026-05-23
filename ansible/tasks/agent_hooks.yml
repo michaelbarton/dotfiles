@@ -1,0 +1,32 @@
+---
+- name: Ensure agent config directories exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - "{{ ansible_user_dir }}/.claude"
+    - "{{ ansible_user_dir }}/.cursor"
+  tags:
+    - hooks
+    - setup
+
+- name: Link Claude settings (global prompt hooks)
+  ansible.builtin.file:
+    src: "{{ dotfiles_dir }}/claude/settings.json"
+    dest: "{{ ansible_user_dir }}/.claude/settings.json"
+    state: link
+    force: true
+  tags:
+    - hooks
+    - setup
+
+- name: Link Cursor rules
+  ansible.builtin.file:
+    src: "{{ dotfiles_dir }}/cursor/rules"
+    dest: "{{ ansible_user_dir }}/.cursor/rules"
+    state: link
+    force: true
+  tags:
+    - hooks
+    - setup

@@ -1,0 +1,59 @@
+---
+description: Planning and task execution rules
+alwaysApply: true
+---
+
+## Planning
+
+Every plan MUST include these sections (bullets, reviewable in under 60 seconds):
+
+- **Exit criteria**: How we know the task is done. Always includes:
+  - Build succeeds (e.g. `just build`, `dbt build`)
+  - Rendered output is correct if applicable (e.g. `quarto render`)
+  - For refactors: before/after data snapshots with expected zero-row diffs
+- **Invariants**: What must not change. Examples:
+  - "row counts in table X unchanged"
+  - "no new test failures"
+  - "downstream consumers produce identical output"
+- **Failure modes**: What could go wrong. Examples:
+  - "join fan-out from a 1:N relationship"
+  - "grain change in intermediate breaks downstream"
+  - "database lock from stale process"
+  - **Premortem** (one line): "It is 3 months later and this failed because …" (top 2–3 concrete reasons)
+- **Assumptions & unknowns**: What we treat as true but have not verified; what this plan does *not* cover; what would invalidate the plan ("if X is wrong, we stop")
+- **Outside view**: Reference class — how similar work in this repo/class usually goes; what typically breaks; buffer vs best-case estimate (e.g. "add 2× for grain changes")
+
+For plans that change **grain, schema, deletes, or production data**, also include:
+
+- **Reversibility**: Rollback path, feature flag, or migration back-out
+- **System 2 triggers**: Steps that need explicit human approval before the agent runs them (see "Ask first" below)
+
+### Three-tier boundaries for actions
+
+- **Always do**: run builds after SQL changes, add schema tests for new
+  models, verify renders after document changes.
+- **Ask first**: adding new models, changing a model's grain, modifying mart
+  schema, adding dependencies.
+- **Never do**: intermediate referencing a mart, hardcoded numeric
+  thresholds, `SELECT DISTINCT` to mask a grain problem.
+
+### Minimal viable change
+
+Propose the simplest design that works. One new column on an existing table
+before a new table. One new table before a new model chain. Let the operator
+request more complexity.
+
+### Confirm before building visualizations
+
+Before writing code for any figure, state and confirm:
+  (a) chart type,
+  (b) data universe / source table,
+  (c) x-axis metric,
+  (d) y-axis metric,
+  (e) grouping / faceting.
+If uncertain about any of these, ask. Do not guess.
+
+### Plan format
+
+Plans should be concise and scannable. Use bullet points, not paragraphs.
+The operator should be able to review a plan in under 60 seconds.
