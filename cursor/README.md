@@ -38,7 +38,7 @@ dbt layer boundaries and other SQL conventions are enforced via **rules** (`dbt.
 
 | Rule | Scope | What it does |
 |------|-------|--------------|
-| `planning.mdc` | Always applied | Plan structure (including TFaS-inspired sections), minimal viable change, three-tier boundaries, visualization confirmation |
+| `planning.mdc` | Always applied | Plan structure (exit criteria, invariants, failure modes + premortem, assumptions & unknowns, outside view), minimal viable change, visualization confirmation |
 | `dbt.mdc` | `*.sql`, `*.yml` | Layer boundaries, grain docstrings, testing conventions, anti-patterns |
 
 ## Project-specific extensions

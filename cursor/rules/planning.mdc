@@ -23,20 +23,6 @@ Every plan MUST include these sections (bullets, reviewable in under 60 seconds)
 - **Assumptions & unknowns**: What we treat as true but have not verified; what this plan does *not* cover; what would invalidate the plan ("if X is wrong, we stop")
 - **Outside view**: Reference class — how similar work in this repo/class usually goes; what typically breaks; buffer vs best-case estimate (e.g. "add 2× for grain changes")
 
-For plans that change **grain, schema, deletes, or production data**, also include:
-
-- **Reversibility**: Rollback path, feature flag, or migration back-out
-- **System 2 triggers**: Steps that need explicit human approval before the agent runs them (see "Ask first" below)
-
-### Three-tier boundaries for actions
-
-- **Always do**: run builds after SQL changes, add schema tests for new
-  models, verify renders after document changes.
-- **Ask first**: adding new models, changing a model's grain, modifying mart
-  schema, adding dependencies.
-- **Never do**: intermediate referencing a mart, hardcoded numeric
-  thresholds, `SELECT DISTINCT` to mask a grain problem.
-
 ### Minimal viable change
 
 Propose the simplest design that works. One new column on an existing table
