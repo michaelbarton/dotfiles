@@ -29,7 +29,7 @@ Project-level `.cursor/hooks.json` in a repo can still add project-specific hook
 
 | Hook | Event | What it does |
 |------|-------|--------------|
-| Plan quality gate | `PostToolUse` (Write/Edit) | When a plan under `.cursor/plans/` or `.claude/plans/` is edited, audits it against the gates defined in `planning.mdc` (single source of truth). The hook script materializes the prompt from `claude/prompts/plan-review.md` with `planning.mdc` inlined. |
+| Plan quality gate | `PostToolUse` (Write/Edit) | When a plan under `.cursor/plans/` or `.claude/plans/` is edited, audits it against the gates defined in `planning.mdc` (single source of truth). The hook script inlines the rule body and wraps it with audit framing + `PLAN OK` / gap-list output contract. |
 | Verify build | `Stop` | Reminds the agent to run build/render if `.sql`, `.yml`, or `.qmd` files were modified |
 
 dbt layer boundaries and other SQL conventions are enforced via **rules** (`dbt.mdc`), not hooks.

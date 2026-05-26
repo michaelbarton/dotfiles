@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 # PostToolUse(Write|Edit) hook: review plan documents.
-# Path-gates first so non-plan edits exit silently, then assembles the prompt
-# from ../prompts/plan-review.md with {{PLANNING_RULE}} substituted by the
-# body of cursor/rules/planning.mdc (the canonical gate definitions).
+# Path-gates first so non-plan edits exit silently, then prints an audit
+# prompt that wraps the canonical planning rule (cursor/rules/planning.mdc).
 
 set -euo pipefail
 
@@ -15,24 +14,34 @@ case "$file_path" in
 esac
 
 script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
-prompt_file="$script_dir/../prompts/plan-review.md"
 planning_rule="$script_dir/../../cursor/rules/planning.mdc"
 
-for f in "$prompt_file" "$planning_rule"; do
-  if [ ! -f "$f" ]; then
-    echo "plan-review hook: missing file $f" >&2
-    exit 1
-  fi
-done
+if [ ! -f "$planning_rule" ]; then
+  echo "plan-review hook: missing planning rule at $planning_rule" >&2
+  exit 1
+fi
 
-# Strip the YAML frontmatter (between the first two `---` lines) from the
-# planning rule so only the rule body is injected.
-planning_body=$(awk 'BEGIN{f=0} /^---$/{f++; next} f>=2{print}' "$planning_rule")
+cat <<'PREAMBLE'
+You just edited a plan document. Before any implementation, audit it
+against the planning rule below (the canonical gate definitions). Be
+strict: a gate passes ONLY if you can quote the line(s) that satisfy it.
+Paraphrases, "implied somewhere," or "this is obvious" do NOT count.
 
-while IFS= read -r line || [ -n "$line" ]; do
-  if [ "$line" = "{{PLANNING_RULE}}" ]; then
-    printf '%s\n' "$planning_body"
-  else
-    printf '%s\n' "$line"
-  fi
-done < "$prompt_file"
+---
+PREAMBLE
+
+# Strip the YAML frontmatter (between the first two `---` lines).
+awk 'BEGIN{f=0} /^---$/{f++; next} f>=2{print}' "$planning_rule"
+
+cat <<'POSTAMBLE'
+---
+
+## Audit output
+
+If every applicable gate passes: output exactly `PLAN OK` on a single
+line and nothing else.
+
+Otherwise: output a bulleted gap list. Each bullet:
+`Gate <name>: <specific gap>`. Then stop and ask the user to fill the
+gaps before implementing.
+POSTAMBLE
