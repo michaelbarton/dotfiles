@@ -1,4 +1,4 @@
-name: Formatting checks
+name: Config checks
 
 on: [push]
 
@@ -6,16 +6,59 @@ env:
   TERM: xterm
 
 jobs:
-  test:
+  formatting:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
-        with:
-          fetch-depth: 1
+      - uses: actions/checkout@v4
 
       - name: Install uv
         uses: astral-sh/setup-uv@v5
 
       - name: Check formatting
         run: make fmt_check
+
+  shell-syntax:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install fish and zsh
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends fish zsh
+
+      - name: Syntax-check fish files
+        run: find fish -name '*.fish' -print0 | xargs -0 -n1 fish --no-execute
+
+      - name: Syntax-check zsh files
+        run: zsh -n zsh/zshrc
+
+      - name: Syntax-check bash files
+        run: |
+          bash -n bash/bashrc
+          find . -path ./.git -prune -o \( -name '*.sh' -o -name '*.bash' \) -print0 \
+            | xargs -0 -n1 bash -n
+
+  ghostty-config:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # Ghostty has no official Ubuntu package; the ghostty-ubuntu PPA
+      # repackages the official releases and tracks upstream versions closely.
+      - name: Install Ghostty
+        run: |
+          sudo add-apt-repository -y ppa:mkasberg/ghostty-ubuntu
+          sudo apt-get update
+          sudo apt-get install -y ghostty
+
+      # Validate the config from its default location, mirroring how the
+      # Ansible playbook links it on a real machine.
+      - name: Validate Ghostty config
+        run: |
+          mkdir -p ~/.config/ghostty
+          ln -s "$GITHUB_WORKSPACE/ghostty/config" ~/.config/ghostty/config
+          ghostty +validate-config

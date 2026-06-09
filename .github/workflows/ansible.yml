@@ -48,3 +48,10 @@ jobs:
           -c local
           "$HOME/.dotfiles/ansible/dotfiles.yml"
           --skip-tags agents
+
+      # The playbook above linked the nvim config and synced plugins, so this
+      # runs against the same setup a real machine would have. Catches startup
+      # errors and warnings (deprecated options, broken plugin config) before
+      # they reach an interactive session.
+      - name: Run Neovim startup smoke test
+        run: make nvim-check
