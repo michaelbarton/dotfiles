@@ -62,12 +62,19 @@
   tags:
     - nvim
 
-- name: Update treesitter parsers
+# Synchronously install the parsers from ensure_installed (read from the
+# merged plugin opts, so the list lives only in nvim/lua/plugins/language.lua).
+# The nvim-treesitter main branch removed :TSUpdateSync and installs parsers
+# asynchronously on FileType, which leaves first-time file opens racing
+# half-finished compiles; installing them here avoids that.
+- name: Install treesitter parsers
   ansible.builtin.command:
     argv:
       - nvim
       - --headless
-      - "+TSUpdateSync"
+      - "+lua local plugin = require('lazy.core.config').plugins['nvim-treesitter'];
+        local opts = require('lazy.core.plugin').values(plugin, 'opts', false);
+        require('nvim-treesitter').install(opts.ensure_installed):wait(600000)"
       - "+qa"
   tags:
     - nvim
