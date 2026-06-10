@@ -1,0 +1,40 @@
+---
+- name: Install restic via Homebrew
+  community.general.homebrew:
+    name: restic
+    state: present
+
+- name: Create paperless backup staging directory
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.paperless-backup-staging"
+    state: directory
+    mode: "0700"
+
+- name: Copy paperless backup launchd plist
+  ansible.builtin.copy:
+    src: "{{ ansible_user_dir }}/.dotfiles/paperless-ngx/uk.me.michaelbarton.paperless-backup.plist"
+    dest: "{{ ansible_user_dir }}/Library/LaunchAgents/uk.me.michaelbarton.paperless-backup.plist"
+    mode: "0644"
+
+- name: Load paperless backup launch agent
+  ansible.builtin.command:
+    cmd: launchctl load "{{ ansible_user_dir }}/Library/LaunchAgents/uk.me.michaelbarton.paperless-backup.plist"
+  args:
+    creates: "{{ ansible_user_dir }}/Library/LaunchAgents/uk.me.michaelbarton.paperless-backup.plist"
+
+# One-time manual setup required (run these once before first backup):
+#
+#   security add-generic-password -a $USER -s paperless-backup-b2-id -w '<keyID>'
+#   security add-generic-password -a $USER -s paperless-backup-b2-key -w '<applicationKey>'
+#   security add-generic-password -a $USER -s paperless-backup-restic-pw -w '<strong-random-password>'
+#
+# IMPORTANT: Also save the restic password in 1Password — lose it and backups are unrecoverable.
+#
+# Then initialise the restic repo once:
+#   set -x B2_ACCOUNT_ID (security find-generic-password -a $USER -s paperless-backup-b2-id -w)
+#   set -x B2_ACCOUNT_KEY (security find-generic-password -a $USER -s paperless-backup-b2-key -w)
+#   set -x RESTIC_PASSWORD (security find-generic-password -a $USER -s paperless-backup-restic-pw -w)
+#   restic -r b2:mb-paperless-backup:paperless init
+#
+# Also restart the paperless stack to pick up the new volume mount:
+#   docker compose -f ~/.dotfiles/paperless-ngx/docker-compose.yml up -d

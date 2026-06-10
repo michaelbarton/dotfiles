@@ -51,6 +51,7 @@ services:
       - /Users/michaelbarton/.paperless:/usr/src/paperless/media:rw
       - /Users/michaelbarton/Downloads:/usr/src/paperless/export:rw
       - /Users/michaelbarton/Documents/consume:/usr/src/paperless/consume:rw
+      - /Users/michaelbarton/.paperless-backup-staging:/usr/src/paperless/backup:rw
     env_file: docker-compose.env
     environment:
       PAPERLESS_REDIS: redis://broker:6379
