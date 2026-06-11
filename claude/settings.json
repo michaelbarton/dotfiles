@@ -7,9 +7,6 @@
     ],
     "defaultMode": "auto"
   },
-  "model": "sonnet[1m]",
-  "theme": "auto",
-  "skipAutoPermissionPrompt": true,
   "hooks": {
     "PostToolUse": [
       {
@@ -34,5 +31,9 @@
         ]
       }
     ]
-  }
+  },
+  "effortLevel": "xhigh",
+  "tui": "fullscreen",
+  "theme": "auto",
+  "skipAutoPermissionPrompt": true
 }
