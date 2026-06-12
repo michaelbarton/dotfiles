@@ -11,10 +11,15 @@ Every plan MUST include these sections (bullets, reviewable in under 60 seconds)
   - Build succeeds (e.g. `just build`, `dbt build`)
   - Rendered output is correct if applicable (e.g. `quarto render`)
   - For refactors: before/after data snapshots with expected zero-row diffs
+  - For new/changed dbt models: a uniqueness test on the declared grain passes
 - **Invariants**: What must not change. Examples:
   - "row counts in table X unchanged"
   - "no new test failures"
   - "downstream consumers produce identical output"
+  - For every new or changed dbt model: its grain, stated as "one row per …".
+    The grain is a spec the operator reviews, not something the implementation
+    discovers — if the built model disagrees with the declared grain, the
+    declaration wins and the implementation is wrong.
 - **Failure modes**: What could go wrong. Examples:
   - "join fan-out from a 1:N relationship"
   - "grain change in intermediate breaks downstream"

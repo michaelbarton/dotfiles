@@ -23,12 +23,25 @@ staging -> intermediate -> mart/core (fct/dim) -> mart/ (consumer views)
 
 - Each model's SQL docstring starts with `Grain: ...` describing what one
   row represents.
+- The grain comes from the plan (operator-reviewed), not from inspecting
+  what the SQL happens to produce. Docstring, uniqueness test, and plan
+  must all state the same grain.
 - Avoid stating implementation details obvious from the SQL itself.
 
 ## Testing
 
 - Models should always have data tests: at minimum `not_null` and `unique`
   on columns where expected.
+- Every model has a uniqueness test on its declared grain (single-column
+  `unique` or `dbt_utils.unique_combination_of_columns`).
+- A failing grain/uniqueness test is a finding, not a bug to fix. NEVER
+  make it pass by widening the key, adding `DISTINCT`/`QUALIFY`, or
+  deduplicating. Stop, identify which join produced the duplicates, and
+  report it to the operator.
+- Marts should carry at least one reconciliation test tying a row count or
+  total to a number the model does not control: an upstream entity count
+  (e.g. rows == `count(distinct sample_id)` in the source) or a known
+  external figure.
 - Use `dbt_utils` and `dbt_expectations` for integrity tests.
 - When an ID column is a hash of dimension columns, add
   `dbt_expectations.expect_column_distinct_count_to_equal` with `value: 1`
@@ -41,6 +54,9 @@ staging -> intermediate -> mart/core (fct/dim) -> mart/ (consumer views)
   data or reference upstream constants.
 - `SELECT DISTINCT` as a band-aid for duplicates is a code smell. Fix the
   grain or join that produced them.
+- All deduplication (`DISTINCT`, `QUALIFY`, `row_number() = 1`) must be
+  called for in the plan. Unplanned dedup is treated as hidden join
+  fan-out until shown otherwise.
 - `SELECT *` should be avoided (redundant in DuckDB, hides column changes
   elsewhere).
 - Avoid unnecessary `CROSS JOIN`s that produce redundant zero-filled rows.

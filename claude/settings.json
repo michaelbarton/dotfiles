@@ -16,6 +16,11 @@
             "type": "command",
             "command": "$HOME/.dotfiles/claude/hooks/plan-review.sh",
             "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "$HOME/.dotfiles/claude/hooks/dbt-rules.sh",
+            "timeout": 5
           }
         ]
       },
