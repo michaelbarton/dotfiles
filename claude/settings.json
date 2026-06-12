@@ -1,0 +1,53 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(uv *)",
+      "Bash(just *)",
+      "Bash(duckdb *)"
+    ],
+    "defaultMode": "auto"
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.dotfiles/claude/hooks/plan-review.sh",
+            "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "$HOME/.dotfiles/claude/hooks/dbt-rules.sh",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.dotfiles/claude/hooks/track-tool-use.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.dotfiles/claude/hooks/stop-check.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  },
+  "tui": "fullscreen",
+  "theme": "auto",
+  "skipAutoPermissionPrompt": true
+}

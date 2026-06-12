@@ -9,6 +9,7 @@
       - debugpy
       - isort
       - mdformat
+      - mdformat-frontmatter
       - neovim
       - pynvim
       - ruff

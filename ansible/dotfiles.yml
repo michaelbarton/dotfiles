@@ -65,6 +65,17 @@
         - skills
         - setup
 
+    - name: Include agent hooks and Cursor rules deployment
+      ansible.builtin.include_tasks:
+        file: tasks/agent_hooks.yml
+        apply:
+          tags:
+            - hooks
+            - setup
+      tags:
+        - hooks
+        - setup
+
     - name: Include paperless setup tasks
       include_tasks: tasks/paperless.yml
       tags:
