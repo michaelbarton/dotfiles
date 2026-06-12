@@ -29,10 +29,13 @@ Project-level `.cursor/hooks.json` in a repo can still add project-specific hook
 
 | Hook | Event | What it does |
 |------|-------|--------------|
-| Plan quality gate | `PostToolUse` (Write/Edit) | When a plan under `.cursor/plans/` or `.claude/plans/` is edited, audits it against the gates defined in `planning.mdc` (single source of truth). The hook script inlines the rule body and wraps it with audit framing + `PLAN OK` / gap-list output contract. |
-| Verify build | `Stop` | Reminds the agent to run build/render if `.sql`, `.yml`, or `.qmd` files were modified |
+| Plan quality gate (`plan-review.sh`) | `PostToolUse` (Write/Edit) | When a plan under `.cursor/plans/` or `.claude/plans/` is edited, injects an audit prompt (via `additionalContext`) wrapping the gates defined in `planning.mdc` (single source of truth), with a per-gate PASS/FAIL/N-A verdict contract ending in `PLAN OK` when clean. The full rule is injected on every plan edit — a once-per-session marker would go stale after context compaction. |
+| Turn tracker (`track-tool-use.sh`) | `PostToolUse` (Write/Edit/Bash) | Appends edited file paths and Bash commands to a per-session state file in `$TMPDIR` so the Stop hook knows what happened this turn without parsing the transcript. No output. |
+| Verify build (`stop-check.sh`) | `Stop` | If `.sql` files inside a dbt project or `.qmd` files were edited this turn and no build/render command ran, blocks the stop once (`decision: block`) with a reminder to run `dbt build` / `quarto render`. Loop-safe by design: allows the stop unconditionally when `stop_hook_active` is set (max one nag per turn) and fails open on any error. |
 
 dbt layer boundaries and other SQL conventions are enforced via **rules** (`dbt.mdc`), not hooks.
+
+Hook output follows the **Claude Code** JSON contract (`hookSpecificOutput.additionalContext`, `decision: block`); plain stdout from a hook never reaches the model. Cursor's own hook protocol differs — these scripts are written against Claude Code semantics.
 
 ### Rules (`~/.cursor/rules/`)
 

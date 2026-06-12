@@ -18,6 +18,16 @@
             "timeout": 5
           }
         ]
+      },
+      {
+        "matcher": "Write|Edit|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.dotfiles/claude/hooks/track-tool-use.sh",
+            "timeout": 5
+          }
+        ]
       }
     ],
     "Stop": [
@@ -35,5 +45,6 @@
   "effortLevel": "xhigh",
   "tui": "fullscreen",
   "theme": "auto",
-  "skipAutoPermissionPrompt": true
+  "skipAutoPermissionPrompt": true,
+  "model": "claude-fable-5[1m]"
 }
