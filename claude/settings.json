@@ -1,7 +1,7 @@
 {
   "permissions": {
     "allow": [
-      "Bash(uv run *)",
+      "Bash(uv *)",
       "Bash(just *)",
       "Bash(duckdb *)"
     ],
@@ -47,9 +47,7 @@
       }
     ]
   },
-  "effortLevel": "xhigh",
   "tui": "fullscreen",
   "theme": "auto",
-  "skipAutoPermissionPrompt": true,
-  "model": "claude-fable-5[1m]"
+  "skipAutoPermissionPrompt": true
 }
