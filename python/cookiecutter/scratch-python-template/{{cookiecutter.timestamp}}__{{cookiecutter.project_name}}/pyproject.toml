@@ -14,7 +14,7 @@ edx-lint = "^5.3.6"
 mypy = "^1.8.0"
 pandas-stubs = "^2.2.0.240218"
 pydocstyle = "^6.3.0"
-pytest = "^8.0.0"
+pytest = "^9.0.3"
 ruff = "^0.8.0"
 
 [build-system]
