@@ -185,9 +185,7 @@ function pbcat
 end
 
 # Use ctrl+s to fzf search the current directory
-if status is-interactive
-    fzf_configure_bindings --directory=\cs
-end
+fzf_configure_bindings --directory=\cs
 
 # Search for all files with matching name in wiki
 function wiki_file
@@ -197,9 +195,7 @@ function wiki_file
               --preview-window="right:65%" \
               --bind "enter:become(nvim $HOME/Dropbox/wiki/{})"
 end
-if status is-interactive
-    bind \cg wiki_file
-end
+bind \cg wiki_file
 
 # Search for all files *containing* text
 function wt

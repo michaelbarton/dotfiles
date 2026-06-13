@@ -6,7 +6,8 @@
     depth: 1
 
 - name: Install tmux plugins via TPM
-  ansible.builtin.command:
-    cmd: "{{ ansible_user_dir }}/.tmux/plugins/tpm/bin/install_plugins"
-  environment:
-    TMUX_PLUGIN_MANAGER_PATH: "{{ ansible_user_dir }}/.tmux/plugins"
+  ansible.builtin.shell:
+    cmd: >
+      tmux start-server\;
+      set-environment -g TMUX_PLUGIN_MANAGER_PATH "{{ ansible_user_dir }}/.tmux/plugins/" &&
+      {{ ansible_user_dir }}/.tmux/plugins/tpm/bin/install_plugins
