@@ -1,0 +1,67 @@
+---
+description: dbt modelling conventions
+globs: "*.sql,*.yml"
+alwaysApply: false
+---
+
+## Layer boundaries
+
+```
+staging -> intermediate -> mart/core (fct/dim) -> mart/ (consumer views)
+```
+
+- Staging models do minimal transformation (type casting, renaming).
+- Intermediate models contain business logic. They reference staging or
+  other intermediates. **Intermediates NEVER reference mart models.**
+- mart/core models (`fct_`, `dim_`) assemble intermediates into
+  business-facing tables with minimal additional logic.
+- mart/ (top-level) models are thin views joining core models for specific
+  consumers. Consumers should reference these, not core tables directly.
+- If a staging model is getting complex, push logic to an intermediate.
+
+## Grain and docstrings
+
+- Each model's SQL docstring starts with `Grain: ...` describing what one
+  row represents.
+- The grain comes from the plan (operator-reviewed), not from inspecting
+  what the SQL happens to produce. Docstring, uniqueness test, and plan
+  must all state the same grain.
+- Avoid stating implementation details obvious from the SQL itself.
+
+## Testing
+
+- Models should always have data tests: at minimum `not_null` and `unique`
+  on columns where expected.
+- Every model has a uniqueness test on its declared grain (single-column
+  `unique` or `dbt_utils.unique_combination_of_columns`).
+- A failing grain/uniqueness test is a finding, not a bug to fix. NEVER
+  make it pass by widening the key, adding `DISTINCT`/`QUALIFY`, or
+  deduplicating. Stop, identify which join produced the duplicates, and
+  report it to the operator.
+- Marts should carry at least one reconciliation test tying a row count or
+  total to a number the model does not control: an upstream entity count
+  (e.g. rows == `count(distinct sample_id)` in the source) or a known
+  external figure.
+- Use `dbt_utils` and `dbt_expectations` for integrity tests.
+- When an ID column is a hash of dimension columns, add
+  `dbt_expectations.expect_column_distinct_count_to_equal` with `value: 1`
+  and `group_by` on those dimension columns.
+- Catch data integrity issues as early as possible in the DAG.
+
+## Anti-patterns
+
+- Never hardcode thresholds as magic numbers. Compute dynamically from the
+  data or reference upstream constants.
+- `SELECT DISTINCT` as a band-aid for duplicates is a code smell. Fix the
+  grain or join that produced them.
+- All deduplication (`DISTINCT`, `QUALIFY`, `row_number() = 1`) must be
+  called for in the plan. Unplanned dedup is treated as hidden join
+  fan-out until shown otherwise.
+- `SELECT *` should be avoided (redundant in DuckDB, hides column changes
+  elsewhere).
+- Avoid unnecessary `CROSS JOIN`s that produce redundant zero-filled rows.
+
+## Verification
+
+- After modifying any `.sql` or `.yml` model file, run the project's build
+  command and confirm success before reporting completion.

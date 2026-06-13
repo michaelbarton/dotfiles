@@ -10,6 +10,15 @@ vim.b.completion = false
 -- don't run vim ftplugin on top
 vim.api.nvim_buf_set_var(0, "did_ftplugin", true)
 
+-- LSP attaches after the ftplugin and re-sets formatexpr; clear it again so
+-- gq uses vim's built-in paragraph reflower instead of the LSP code formatter.
+vim.api.nvim_create_autocmd("LspAttach", {
+  buffer = 0,
+  callback = function()
+    vim.opt_local.formatexpr = ""
+  end,
+})
+
 -- markdown vs. quarto hacks
 local ns = vim.api.nvim_create_namespace("QuartoHighlight")
 vim.api.nvim_set_hl(ns, "@markup.strikethrough", { strikethrough = false })

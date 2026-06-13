@@ -5,14 +5,14 @@ apply:
 
 fmt:
 	npx --loglevel error --yes prettier --write **/*.yml
-	uvx mdformat --wrap 80 --number *.md
+	uvx --with mdformat-gfm --with mdformat-frontmatter mdformat --wrap 80 --number **/*.md
 	uvx ruff format --line-length=100 **/*.py
 	uvx ruff check --fix --line-length=100 **/*.py
 	npx --loglevel error --yes @johnnymorganz/stylua-bin -- **/*.lua
 
 fmt_check:
 	npx --loglevel error --yes prettier --check **/*.yml
-	uvx mdformat --check --wrap 80 --number *.md
+	uvx --with mdformat-gfm --with mdformat-frontmatter mdformat --check --wrap 80 --number **/*.md
 	uvx ruff format --check --line-length=100 **/*.py
 	uvx ruff check --line-length=100 **/*.py
 	npx --loglevel error --yes @johnnymorganz/stylua-bin --check -- **/*.lua
