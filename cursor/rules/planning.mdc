@@ -7,7 +7,7 @@ alwaysApply: true
 
 Every plan MUST include these sections (bullets, reviewable in under 60 seconds):
 
-- **Exit criteria**: How we know the task is done. Always includes:
+- **Success & exit criteria**: One sentence on the desired end state (user-visible or system-observable outcome), followed by the done checklist:
   - Build succeeds (e.g. `just build`, `dbt build`)
   - Rendered output is correct if applicable (e.g. `quarto render`)
   - For refactors: before/after data snapshots with expected zero-row diffs
@@ -16,17 +16,16 @@ Every plan MUST include these sections (bullets, reviewable in under 60 seconds)
   - "row counts in table X unchanged"
   - "no new test failures"
   - "downstream consumers produce identical output"
-  - For every new or changed dbt model: its grain, stated as "one row per …".
-    The grain is a spec the operator reviews, not something the implementation
-    discovers — if the built model disagrees with the declared grain, the
-    declaration wins and the implementation is wrong.
+- **What is the grain of the data**: For every new or changed model or table, state "one row per …". N/A for non-data work.
+  The grain is a spec the operator reviews, not something the implementation
+  discovers — if the built model disagrees with the declared grain, the
+  declaration wins and the implementation is wrong.
 - **Failure modes**: What could go wrong. Examples:
   - "join fan-out from a 1:N relationship"
   - "grain change in intermediate breaks downstream"
   - "database lock from stale process"
   - **Premortem** (one line): "It is 3 months later and this failed because …" (top 2–3 concrete reasons)
 - **Assumptions & unknowns**: What we treat as true but have not verified; what this plan does *not* cover; what would invalidate the plan ("if X is wrong, we stop")
-- **Outside view**: Reference class — how similar work in this repo/class usually goes; what typically breaks; buffer vs best-case estimate (e.g. "add 2× for grain changes")
 
 ### Minimal viable change
 
