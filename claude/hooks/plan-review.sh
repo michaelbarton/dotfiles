@@ -39,11 +39,11 @@ prompt=$(
 You just edited a plan document. Before any implementation, audit it
 against the planning rule in <planning_rule> below. The gates are:
 
-1. Exit criteria
+1. Success & exit criteria
 2. Invariants
-3. Failure modes (including the one-line premortem)
-4. Assumptions & unknowns
-5. Outside view
+3. What is the grain of the data
+4. Failure modes (including the one-line premortem)
+5. Assumptions & unknowns
 6. Minimal viable change
 7. Visualization confirmation (only when the plan involves figures)
 
