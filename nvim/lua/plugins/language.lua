@@ -54,8 +54,9 @@ return {
       formatters = {
         mdformat = {
           prepend_args = {
-            "--wrap", "80",    -- Wrap text at 80 characters
-            "--number",        -- Use numbered lists consistently
+            "--wrap",
+            "80", -- Wrap text at 80 characters
+            "--number", -- Use numbered lists consistently
           },
         },
         prettier = {

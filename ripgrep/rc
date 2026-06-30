@@ -1,6 +1,6 @@
 # ripgrep config file
 # Set RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep/rc to activate
-# (set in fish/config.fish)
+# (set in shell configs in this repo)
 
 # Smart case: case-insensitive unless pattern has uppercase
 --smart-case

@@ -6,8 +6,9 @@
 # - Configuring OS-specific launch agents
 # - Linking dotfiles to their proper locations
 #
-# To run only specific tags: ./apply_ansible [tag1,tag2]
-# Available tags: links, python, agents
+# To run only specific tags:
+#   uv run ansible-playbook -i ~/.dotfiles/ansible/inventory.ini ~/.dotfiles/ansible/dotfiles.yml --tags "hooks,setup"
+# Common tags: links, nvim, tmux, skills, hooks, setup, agents, paperless, paperless-backup
 
 - name: Playbook to manage dotfiles
   hosts: localhost

@@ -32,6 +32,7 @@
     # Misc. scripts and config
     - { src: "zettel/today.sh", dest: ".bin/today" }
     - { src: "git/gitconfig", dest: ".gitconfig" }
+    - { src: "gitignore", dest: ".gitignore" }
     - { src: "markdown/md2docx.sh", dest: ".bin/md2docx" }
     - {
         src: "poetry/update_poetry_dependencies.py",

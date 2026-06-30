@@ -48,6 +48,28 @@ are unbound to avoid conflicts.
 | `y`  | Yank selection  |
 | `q`  | Exit copy mode  |
 
+## Neovim ToggleTerm (`<leader>t`)
+
+Fixed terminal roles make it easier to keep context:
+
+| Keys         | Action                                                   |
+| ------------ | -------------------------------------------------------- |
+| `<leader>tr` | Focus run terminal (slot 1)                              |
+| `<leader>te` | Focus test terminal (slot 2)                             |
+| `<leader>ts` | Focus scratch terminal (slot 3)                          |
+| `<leader>ta` | Toggle last-focused terminal                             |
+| `<leader>tx` | Close current terminal                                   |
+| `<leader>tX` | Close all managed terminals                              |
+| `<leader>tl` | Send line (or visual selection) to last-focused terminal |
+| `<leader>tj` | Pick and run a `just` target in the run terminal         |
+
+Inside ToggleTerm buffers:
+
+| Keys           | Action                                |
+| -------------- | ------------------------------------- |
+| `<Esc>` / `jk` | Leave terminal insert mode            |
+| `Ctrl-h/j/k/l` | Navigate panes via vim-tmux-navigator |
+
 ## Ghostty
 
 | Keys              | Action        |

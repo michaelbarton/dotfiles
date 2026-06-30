@@ -16,7 +16,7 @@ return {
       pattern = "vimwiki",
       group = group,
       callback = function()
-        pcall(vim.keymap.del, 'n', '<leader>wn')
+        pcall(vim.keymap.del, "n", "<leader>wn")
       end,
     })
   end,
