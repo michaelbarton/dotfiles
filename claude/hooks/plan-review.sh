@@ -39,13 +39,15 @@ prompt=$(
 You just edited a plan document. Before any implementation, audit it
 against the planning rule in <planning_rule> below. The gates are:
 
-1. Success & exit criteria
-2. Invariants
-3. What is the grain of the data
-4. Failure modes (including the one-line premortem)
-5. Assumptions & unknowns
-6. Minimal viable change
-7. Visualization confirmation (only when the plan involves figures)
+1. Context
+2. Success & exit criteria
+3. Invariants
+4. What is the grain of the data
+5. Failure modes (including the one-line premortem)
+6. Assumptions & unknowns
+7. Verification
+8. Minimal viable change
+9. Visualization confirmation (only when the plan involves figures)
 
 A gate passes ONLY if you can quote the plan line(s) that satisfy it.
 Paraphrases, "implied somewhere," or "this is obvious" do NOT count.
