@@ -3,6 +3,18 @@ description: Planning and task execution rules
 alwaysApply: true
 ---
 
+<!-- gates
+1. Context
+2. Success & exit criteria
+3. Invariants
+4. What is the grain of the data
+5. Failure modes (including the one-line premortem)
+6. Assumptions & unknowns
+7. Verification
+8. Minimal viable change
+9. Visualization confirmation (only when the plan involves figures)
+-->
+
 ## Planning
 
 Every plan MUST include these sections (bullets, reviewable in under 60 seconds):
