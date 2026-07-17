@@ -1,0 +1,2 @@
+options.motd_url = ''
+options.disp_date_fmt = '%Y-%m-%d'

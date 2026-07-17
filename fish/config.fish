@@ -156,22 +156,16 @@ set -x LANG 'en_GB.UTF-8'
 #
 ###################################################################
 
-# Only create aliases if coreutils is installed
-# Check for coreutils by looking for one of its binaries instead of running brew list
-if test -x /opt/homebrew/bin/gcat
-    # Use hardcoded path for M1/M2 Macs (adjust if on Intel Mac)
-    set brew_prefix /opt/homebrew
-
-    # Only alias the most commonly used commands to reduce startup time
-    alias cp="$brew_prefix/bin/gcp"
-    alias date="$brew_prefix/bin/gdate"
-    alias echo="$brew_prefix/bin/gecho"
-    alias mv="$brew_prefix/bin/gmv"
-    alias rm="$brew_prefix/bin/grm"
-    alias sed="$brew_prefix/bin/gsed"
-    alias sort="$brew_prefix/bin/gsort"
-    alias tail="$brew_prefix/bin/gtail"
-
+# Only alias the most commonly used commands to reduce startup time.
+# Check each g* binary individually (rather than gating on gcat alone) so a
+# partial coreutils install doesn't silently skip every alias below it.
+# Use hardcoded path for M1/M2 Macs (adjust if on Intel Mac)
+set brew_prefix /opt/homebrew
+for pair in cp:gcp date:gdate echo:gecho mv:gmv rm:grm sed:gsed sort:gsort tail:gtail
+    set -l parts (string split ":" $pair)
+    if test -x "$brew_prefix/bin/$parts[2]"
+        alias $parts[1]="$brew_prefix/bin/$parts[2]"
+    end
 end
 
 ###################################################################
@@ -274,6 +268,24 @@ function qwatch
         end
 
     kill $quarto_pid 2>/dev/null
+end
+
+# Run tmp/scratch.sql against duckdb (default: in-memory, or pass a db path)
+function dq
+    if not test -f tmp/scratch.sql
+        echo "dq: tmp/scratch.sql not found"
+        return 1
+    end
+    duckdb $argv[1] < tmp/scratch.sql
+end
+
+# Same as dq, but pipe CSV output into visidata
+function dv
+    if not test -f tmp/scratch.sql
+        echo "dv: tmp/scratch.sql not found"
+        return 1
+    end
+    duckdb -csv $argv[1] < tmp/scratch.sql | vd -f csv -
 end
 
 # LESS colors for man pages

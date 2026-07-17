@@ -33,6 +33,7 @@
         - { path: "{{ config_dir }}/atuin" }
         - { path: "{{ config_dir }}/lazygit" }
         - { path: "{{ config_dir }}/ripgrep" }
+        - { path: "{{ config_dir }}/uv" }
         - { path: "{{ ansible_user_dir }}/cache" }
         - { path: "{{ ansible_user_dir }}/.bin" }
         - { path: "{{ ansible_user_dir }}/.hammerspoon" }

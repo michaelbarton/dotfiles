@@ -36,9 +36,10 @@ return {
       run = { count = 1, direction = "horizontal" },
       test = { count = 2, direction = "horizontal" },
       scratch = { count = 3, direction = "float" },
+      sql = { count = 4, direction = "horizontal", cmd = "duckdb" },
     }
 
-    local role_order = { "run", "test", "scratch" }
+    local role_order = { "run", "test", "scratch", "sql" }
     local managed_terminals = {}
     local last_role = "run"
 
@@ -52,6 +53,7 @@ return {
         managed_terminals[role] = Terminal:new({
           count = cfg.count,
           direction = cfg.direction,
+          cmd = cfg.cmd,
           hidden = true,
           close_on_exit = false,
         })
@@ -190,6 +192,10 @@ return {
       open_role("scratch")
     end, { desc = "[T]erminal [S]cratch" })
 
+    vim.keymap.set("n", "<leader>tq", function()
+      open_role("sql")
+    end, { desc = "[T]erminal [Q]uery (duckdb)" })
+
     vim.keymap.set("n", "<leader>ta", toggle_last_role, { desc = "[T]erminal toggle l[A]st" })
     vim.keymap.set("n", "<leader>tx", close_current_terminal, { desc = "[T]erminal close current" })
     vim.keymap.set("n", "<leader>tX", close_all_terminals, { desc = "[T]erminal close all" })
@@ -206,6 +212,7 @@ return {
     { "<leader>tr", desc = "Open run terminal" },
     { "<leader>te", desc = "Open test terminal" },
     { "<leader>ts", desc = "Open scratch terminal" },
+    { "<leader>tq", desc = "Open duckdb query terminal" },
     { "<leader>ta", desc = "Toggle last terminal" },
     { "<leader>tx", desc = "Close current terminal" },
     { "<leader>tX", desc = "Close all terminals" },
