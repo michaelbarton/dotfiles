@@ -31,21 +31,32 @@ if [ ! -f "$planning_rule" ]; then
   exit 1
 fi
 
-# Strip the YAML frontmatter (between the first two `---` lines).
-rule_body=$(awk 'BEGIN{f=0} /^---$/{f++; next} f>=2{print}' "$planning_rule")
+# The gate list is the single source of truth: it lives in the rule as a
+# `<!-- gates ... -->` comment (invisible in Cursor's rendered view) and is
+# extracted here rather than duplicated, so the two can never drift.
+gates=$(awk '/^<!-- gates$/{f=1; next} /^-->$/{f=0} f' "$planning_rule")
+if [ -z "$gates" ]; then
+  echo "plan-review hook: no gate manifest (<!-- gates ... -->) in $planning_rule" >&2
+  exit 1
+fi
+
+# Strip the YAML frontmatter (between the first two `---` lines) and the gate
+# manifest comment, leaving the human-readable rule to inject verbatim.
+rule_body=$(awk '
+  BEGIN{f=0}
+  /^---$/{f++; next}
+  f<2{next}
+  /^<!-- gates$/{s=1; next}
+  /^-->$/{if(s){s=0; next}}
+  !s{print}
+' "$planning_rule")
 
 prompt=$(
   cat <<PROMPT
 You just edited a plan document. Before any implementation, audit it
 against the planning rule in <planning_rule> below. The gates are:
 
-1. Success & exit criteria
-2. Invariants
-3. What is the grain of the data
-4. Failure modes (including the one-line premortem)
-5. Assumptions & unknowns
-6. Minimal viable change
-7. Visualization confirmation (only when the plan involves figures)
+$gates
 
 A gate passes ONLY if you can quote the plan line(s) that satisfy it.
 Paraphrases, "implied somewhere," or "this is obvious" do NOT count.

@@ -1,25 +1,26 @@
-[tool.poetry]
-name = "karius_taxonomy_mapping"
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "{{ cookiecutter.package_name }}"
 version = "0.1.0"
 description = ""
-authors = ["Your Name <your@email.com>"]
+requires-python = ">=3.10"
+dependencies = [
+    "jupyter>=1.0.0",
+]
 
-[tool.poetry.dependencies]
-python = "^3.10"
-jupyter = "^1.0.0"
+[dependency-groups]
+dev = [
+    "mypy>=1.8.0",
+    "pandas-stubs>=2.2.0.240218",
+    "pytest>=9.0.3",
+    "ruff>=0.8.0",
+]
 
-[tool.poetry.dev-dependencies]
-bump2version = "^1.0.1"
-edx-lint = "^5.3.6"
-mypy = "^1.8.0"
-pandas-stubs = "^2.2.0.240218"
-pydocstyle = "^6.3.0"
-pytest = "^9.0.3"
-ruff = "^0.8.0"
-
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+[tool.setuptools.packages.find]
+include = ["{{ cookiecutter.package_name }}*"]
 
 [tool.ruff]
 line-length = 100
@@ -37,8 +38,15 @@ select = [
     "RUF",  # ruff-specific rules
 ]
 
-[[tool.poetry.source]]
-name = 'jfrog'
-url  = 'https://karius.jfrog.io/artifactory/api/pypi/karius-pypi-virtual/simple/'
-secondary = true
+# Private packages: CodeArtifact index `karius`. `aws@` in the URL is required
+# for CodeArtifact basic auth + keyrings.codeartifact. User-level:
+# `keyring-provider = "subprocess"` in ~/.config/uv/uv.toml, `uv tool install
+# keyring --with keyrings.codeartifact`. See:
+# https://docs.astral.sh/uv/guides/integration/aws/
+[[tool.uv.index]]
+name = "karius"
+url = "https://aws@karius-573640641260.d.codeartifact.us-east-1.amazonaws.com/pypi/karius-pypi/simple/"
+explicit = true
 
+# [tool.uv.sources]
+# kli = { index = "karius" }

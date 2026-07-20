@@ -21,7 +21,6 @@
     cmd: launchctl load "{{ ansible_user_dir }}/Library/LaunchAgents/uk.me.michaelbarton.paperless-backup.plist"
   args:
     creates: "{{ ansible_user_dir }}/Library/LaunchAgents/uk.me.michaelbarton.paperless-backup.plist"
-
 # One-time manual setup required (run these once before first backup):
 #
 #   security add-generic-password -a $USER -s paperless-backup-b2-id -w '<keyID>'

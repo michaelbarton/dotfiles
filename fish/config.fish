@@ -4,20 +4,22 @@ set -x XDG_DATA_HOME $HOME/.local/share
 set -x XDG_CACHE_HOME $HOME/.cache
 set -x XDG_STATE_HOME $HOME/.local/state
 
-# --- Cursor Terminal Fix ---
-# The complex prompt from starship can cause the terminal in Cursor (which is
-# based on VS Code) to hang, as it has trouble determining when a command
-# has finished executing.
-# To fix this, we detect if we are running inside Cursor's terminal by
-# checking if TERM_PROGRAM is "vscode". If it is, we use a simple, minimal
-# prompt. Otherwise, we use the full starship prompt.
-# This ensures a stable experience in Cursor without sacrificing the rich
-# prompt in other terminal emulators.
-#
-
-#
+# --- Cursor terminal prompt safety ---
+# Keep Cursor terminals stable by avoiding starship there, but still load the
+# rest of the fish environment (aliases, PATH, functions, etc).
 if test "$TERM_PROGRAM" = vscode
-    exit 0
+    function fish_prompt
+        set_color cyan
+        echo -n (prompt_pwd) " > "
+        set_color normal
+    end
+
+    function fish_right_prompt
+    end
+else
+    if command -v starship &>/dev/null
+        starship init fish | source
+    end
 end
 
 # Auto-attach to tmux in Ghostty (but not inside nvim, scripts, or existing tmux)
@@ -25,9 +27,10 @@ if test "$TERM_PROGRAM" = ghostty; and not set -q TMUX; and not set -q NVIM; and
     tmux new-session -A -s main
 end
 
-# Initialize starship and zoxide
-starship init fish | source
-zoxide init fish | source
+# Initialize zoxide if installed
+if command -v zoxide &>/dev/null
+    zoxide init fish | source
+end
 
 # Initialize mise for runtime version management (if installed)
 if command -v mise &>/dev/null
@@ -81,20 +84,22 @@ alias grep='grep --color=auto'
 set -x PYTHON_BIN $HOME/.venv/bin
 set -x USER_BIN $HOME/.bin
 set -x LOCAL_BIN $HOME/.local/bin
-set -x DOTFILES_BIN $HOME/.dotfiles/bin
 set -x HOMEBREW_BIN /opt/homebrew/bin
 set -x NPM_BIN $HOME/.npm-global/bin
 
 # Prepend paths to PATH (fish uses fish_add_path for this)
 fish_add_path $NPM_BIN
 fish_add_path $HOMEBREW_BIN
-fish_add_path $DOTFILES_BIN
 fish_add_path $USER_BIN
 fish_add_path $LOCAL_BIN
 fish_add_path $PYTHON_BIN
 
 # FZF configuration with better preview
-set -x FZF_DEFAULT_COMMAND 'fd --type f --hidden --follow --exclude .git'
+if command -v fd &>/dev/null
+    set -x FZF_DEFAULT_COMMAND 'fd --type f --hidden --follow --exclude .git'
+else
+    set -x FZF_DEFAULT_COMMAND 'rg --files --hidden --glob !.git'
+end
 # --tmux opens fzf as a tmux popup (silently ignored outside tmux)
 # bat --paging=never prevents bat spawning a nested pager in fzf preview
 set -x FZF_DEFAULT_OPTS '--tmux center,80%,70% --layout=reverse --preview "bat --style=numbers --color=always --paging=never --line-range :500 {}" --preview-window=right:60%:wrap'
@@ -151,22 +156,16 @@ set -x LANG 'en_GB.UTF-8'
 #
 ###################################################################
 
-# Only create aliases if coreutils is installed
-# Check for coreutils by looking for one of its binaries instead of running brew list
-if test -x /opt/homebrew/bin/gcat
-    # Use hardcoded path for M1/M2 Macs (adjust if on Intel Mac)
-    set brew_prefix /opt/homebrew
-
-    # Only alias the most commonly used commands to reduce startup time
-    alias cp="$brew_prefix/bin/gcp"
-    alias date="$brew_prefix/bin/gdate"
-    alias echo="$brew_prefix/bin/gecho"
-    alias mv="$brew_prefix/bin/gmv"
-    alias rm="$brew_prefix/bin/grm"
-    alias sed="$brew_prefix/bin/gsed"
-    alias sort="$brew_prefix/bin/gsort"
-    alias tail="$brew_prefix/bin/gtail"
-
+# Only alias the most commonly used commands to reduce startup time.
+# Check each g* binary individually (rather than gating on gcat alone) so a
+# partial coreutils install doesn't silently skip every alias below it.
+# Use hardcoded path for M1/M2 Macs (adjust if on Intel Mac)
+set brew_prefix /opt/homebrew
+for pair in cp:gcp date:gdate echo:gecho mv:gmv rm:grm sed:gsed sort:gsort tail:gtail
+    set -l parts (string split ":" $pair)
+    if test -x "$brew_prefix/bin/$parts[2]"
+        alias $parts[1]="$brew_prefix/bin/$parts[2]"
+    end
 end
 
 ###################################################################
@@ -269,6 +268,24 @@ function qwatch
         end
 
     kill $quarto_pid 2>/dev/null
+end
+
+# Run tmp/scratch.sql against duckdb (default: in-memory, or pass a db path)
+function dq
+    if not test -f tmp/scratch.sql
+        echo "dq: tmp/scratch.sql not found"
+        return 1
+    end
+    duckdb $argv[1] < tmp/scratch.sql
+end
+
+# Same as dq, but pipe CSV output into visidata
+function dv
+    if not test -f tmp/scratch.sql
+        echo "dv: tmp/scratch.sql not found"
+        return 1
+    end
+    duckdb -csv $argv[1] < tmp/scratch.sql | vd -f csv -
 end
 
 # LESS colors for man pages

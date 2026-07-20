@@ -260,3 +260,4 @@ coverage/
 *.pid
 *.seed
 *.pid.lock
+**/.claude/settings.local.json

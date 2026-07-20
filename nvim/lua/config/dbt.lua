@@ -82,7 +82,7 @@ vim.keymap.set("n", "<leader>dg", function()
 
   -- Try to find ref('model') or ref("model") around cursor
   local ref_model = nil
-  for start_pos, name, end_pos in line:gmatch("()ref%(['\"]([^'\"]+)['\"]%)()" ) do
+  for start_pos, name, end_pos in line:gmatch("()ref%(['\"]([^'\"]+)['\"]%)()") do
     if col >= start_pos and col <= end_pos then
       ref_model = name
       break
@@ -92,7 +92,7 @@ vim.keymap.set("n", "<leader>dg", function()
   -- Try source('source_name', 'table_name') if no ref found
   local source_name, source_table = nil, nil
   if not ref_model then
-    for start_pos, src, tbl, end_pos in line:gmatch("()source%(['\"]([^'\"]+)['\"]%s*,%s*['\"]([^'\"]+)['\"]%)()" ) do
+    for start_pos, src, tbl, end_pos in line:gmatch("()source%(['\"]([^'\"]+)['\"]%s*,%s*['\"]([^'\"]+)['\"]%)()") do
       if col >= start_pos and col <= end_pos then
         source_name, source_table = src, tbl
         break
@@ -157,17 +157,23 @@ vim.keymap.set("n", "<leader>df", function()
       map("i", "<C-r>", function()
         local name = get_model_name()
         actions.close(prompt_bufnr)
-        if name then dbt_cmd_raw("uv run dbt run -s " .. name) end
+        if name then
+          dbt_cmd_raw("uv run dbt run -s " .. name)
+        end
       end)
       map("i", "<C-b>", function()
         local name = get_model_name()
         actions.close(prompt_bufnr)
-        if name then dbt_cmd_raw("uv run dbt build -s " .. name) end
+        if name then
+          dbt_cmd_raw("uv run dbt build -s " .. name)
+        end
       end)
       map("i", "<C-t>", function()
         local name = get_model_name()
         actions.close(prompt_bufnr)
-        if name then dbt_cmd_raw("uv run dbt test -s " .. name) end
+        if name then
+          dbt_cmd_raw("uv run dbt test -s " .. name)
+        end
       end)
       return true
     end,
@@ -317,7 +323,13 @@ for line in raw.splitlines():
         w.writerows(preview)
         break
 "]]
-  local cmd = "cd " .. root .. " && uv run dbt show -s " .. model .. " --limit 500 --output json --log-format json | " .. json_to_csv .. " | vd -f csv"
+  local cmd = "cd "
+    .. root
+    .. " && uv run dbt show -s "
+    .. model
+    .. " --limit 500 --output json --log-format json | "
+    .. json_to_csv
+    .. " | vd -f csv"
   require("toggleterm.terminal").Terminal
     :new({
       cmd = cmd,
@@ -402,7 +414,12 @@ vim.keymap.set("n", "<leader>dA", function()
   local script_path = vim.fn.stdpath("config") .. "/dbt/dbt_analyse.py"
   local shell_script = string.format(
     [[cd %s && uv run python3 %s --model %s --root %s --filepath %s --prompt %s || (echo "Press enter to close..." && read)]],
-    root, script_path, model, root, filepath, prompt_path
+    root,
+    script_path,
+    model,
+    root,
+    filepath,
+    prompt_path
   )
   vim.fn.jobstart({ "tmux", "new-window", "-n", "dbt:" .. model, shell_script }, { detach = true })
   vim.notify("Opened interactive cursor-agent session in tmux window 'dbt:" .. model .. "'", vim.log.levels.INFO)

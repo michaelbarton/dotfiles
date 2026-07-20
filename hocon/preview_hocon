@@ -1,6 +1,0 @@
-#!/bin/bash
-
-set -o nounset
-SRC=$1
-
-cat $SRC | pyhocon -f json | jq

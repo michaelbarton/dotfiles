@@ -1,6 +1,8 @@
 #!/bin/bash
 
-set -o nounset
+if [ -n "${BASH_VERSION:-}" ]; then
+    set -o nounset
+fi
 
 ###################################################################
 #
@@ -57,11 +59,10 @@ alias grep='grep --color=auto'
 PYTHON_BIN=${HOME}/.venv/bin
 USER_BIN=${HOME}/.bin
 LOCAL_BIN=${HOME}/.local/bin
-DOTFILES_BIN=${HOME}/.dotfiles/bin
 HOMEBREW_BIN=/opt/homebrew/bin
 NPM_BIN=${HOME}/.npm-global/bin
 
-export PATH=${NPM_BIN}:${HOMEBREW_BIN}:${DOTFILES_BIN}:${USER_BIN}:${LOCAL_BIN}:${PATH}
+export PATH=${NPM_BIN}:${HOMEBREW_BIN}:${USER_BIN}:${LOCAL_BIN}:${PATH}
 
 ###################################################################
 #
@@ -69,9 +70,14 @@ export PATH=${NPM_BIN}:${HOMEBREW_BIN}:${DOTFILES_BIN}:${USER_BIN}:${LOCAL_BIN}:
 #
 ###################################################################
 
-# fzf should use ripgrep for search
-export FZF_DEFAULT_COMMAND='rg --files'
-export FZF_DEFAULT_OPTS='-m --height 50% --border'
+# fzf and ripgrep search defaults
+if command -v fd >/dev/null 2>&1; then
+    export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+else
+    export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
+fi
+export FZF_DEFAULT_OPTS='--height 50% --border'
+export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/rc"
 
 export MANWIDTH=80
 export EDITOR=nvim
@@ -107,7 +113,7 @@ export LANG='en_GB.UTF-8'
 #
 ###################################################################
 
-if [ -n "$BASH_VERSION" ]; then
+if [ -n "${BASH_VERSION:-}" ]; then
     # Shell history improvements
     export HISTSIZE=50000
     export HISTFILESIZE=100000

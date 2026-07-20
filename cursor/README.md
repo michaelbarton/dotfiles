@@ -15,7 +15,7 @@ ln -sf ~/.dotfiles/cursor/rules ~/.cursor/rules
 Or run Ansible with the `hooks` or `setup` tag:
 
 ```bash
-./apply_ansible hooks
+uv run ansible-playbook -i ~/.dotfiles/ansible/inventory.ini ~/.dotfiles/ansible/dotfiles.yml --tags hooks
 ```
 
 ### Cursor: enable third-party hooks

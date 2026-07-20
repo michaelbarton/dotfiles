@@ -6,8 +6,9 @@
 # - Configuring OS-specific launch agents
 # - Linking dotfiles to their proper locations
 #
-# To run only specific tags: ./apply_ansible [tag1,tag2]
-# Available tags: links, python, agents
+# To run only specific tags:
+#   uv run ansible-playbook -i ~/.dotfiles/ansible/inventory.ini ~/.dotfiles/ansible/dotfiles.yml --tags "hooks,setup"
+# Common tags: links, nvim, tmux, skills, hooks, setup, agents, paperless, paperless-backup
 
 - name: Playbook to manage dotfiles
   hosts: localhost
@@ -32,6 +33,7 @@
         - { path: "{{ config_dir }}/atuin" }
         - { path: "{{ config_dir }}/lazygit" }
         - { path: "{{ config_dir }}/ripgrep" }
+        - { path: "{{ config_dir }}/uv" }
         - { path: "{{ ansible_user_dir }}/cache" }
         - { path: "{{ ansible_user_dir }}/.bin" }
         - { path: "{{ ansible_user_dir }}/.hammerspoon" }

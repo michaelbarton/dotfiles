@@ -1,21 +1,28 @@
+YAML_FILES := $(shell git ls-files '*.yml' '*.yaml' | while IFS= read -r file; do [ -f "$$file" ] && printf "%s " "$$file"; done)
+MARKDOWN_FILES := $(shell git ls-files '*.md' | while IFS= read -r file; do [ -f "$$file" ] && printf "%s " "$$file"; done)
+PYTHON_FILES := $(shell git ls-files '*.py' | while IFS= read -r file; do [ -f "$$file" ] && printf "%s " "$$file"; done)
+LUA_FILES := $(shell git ls-files '*.lua' | while IFS= read -r file; do [ -f "$$file" ] && printf "%s " "$$file"; done)
+
+.PHONY: all apply fmt fmt_check nvim-health nvim-check
+
 all: fmt apply nvim-check
 
 apply:
 	uv run ansible-playbook -i ~/.dotfiles/ansible/inventory.ini ~/.dotfiles/ansible/dotfiles.yml
 
 fmt:
-	npx --loglevel error --yes prettier --write **/*.yml
-	uvx --with mdformat-gfm --with mdformat-frontmatter mdformat --wrap 80 --number **/*.md
-	uvx ruff format --line-length=100 **/*.py
-	uvx ruff check --fix --line-length=100 **/*.py
-	npx --loglevel error --yes @johnnymorganz/stylua-bin -- **/*.lua
+	@if [ -n "$(YAML_FILES)" ]; then npx --loglevel error --yes prettier --write $(YAML_FILES); fi
+	@if [ -n "$(MARKDOWN_FILES)" ]; then uvx --with mdformat-gfm --with mdformat-frontmatter mdformat --wrap 80 --number $(MARKDOWN_FILES); fi
+	@if [ -n "$(PYTHON_FILES)" ]; then uvx ruff format --line-length=100 $(PYTHON_FILES); fi
+	@if [ -n "$(PYTHON_FILES)" ]; then uvx ruff check --fix --line-length=100 $(PYTHON_FILES); fi
+	@if [ -n "$(LUA_FILES)" ]; then npx --loglevel error --yes @johnnymorganz/stylua-bin -- $(LUA_FILES); fi
 
 fmt_check:
-	npx --loglevel error --yes prettier --check **/*.yml
-	uvx --with mdformat-gfm --with mdformat-frontmatter mdformat --check --wrap 80 --number **/*.md
-	uvx ruff format --check --line-length=100 **/*.py
-	uvx ruff check --line-length=100 **/*.py
-	npx --loglevel error --yes @johnnymorganz/stylua-bin --check -- **/*.lua
+	@if [ -n "$(YAML_FILES)" ]; then npx --loglevel error --yes prettier --check $(YAML_FILES); fi
+	@if [ -n "$(MARKDOWN_FILES)" ]; then uvx --with mdformat-gfm --with mdformat-frontmatter mdformat --check --wrap 80 --number $(MARKDOWN_FILES); fi
+	@if [ -n "$(PYTHON_FILES)" ]; then uvx ruff format --check --line-length=100 $(PYTHON_FILES); fi
+	@if [ -n "$(PYTHON_FILES)" ]; then uvx ruff check --line-length=100 $(PYTHON_FILES); fi
+	@if [ -n "$(LUA_FILES)" ]; then npx --loglevel error --yes @johnnymorganz/stylua-bin --check -- $(LUA_FILES); fi
 
 nvim-health:
 	nvim --headless "+checkhealth" +qa

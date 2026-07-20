@@ -1,17 +1,16 @@
 # Launch Jupyter Notebook
 notebook:
-    poetry run jupyter notebook notebooks/
+    uv run jupyter notebook notebooks/
 
-# Format the code using black
+# Format and lint the code using ruff
 fmt:
-    poetry run isort .
-    poetry run black .
+    uv run ruff format .
+    uv run ruff check --fix .
 
 # Run the tests using pytest
 test:
-    poetry run pytest tests/
+    uv run pytest tests/
 
 # Run the main script
 run:
-    poetry run python {{ cookiecutter.package_name }}/main.py
-
+    uv run python {{ cookiecutter.package_name }}/main.py
