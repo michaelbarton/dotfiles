@@ -34,6 +34,16 @@
             "timeout": 5
           }
         ]
+      },
+      {
+        "matcher": "ExitPlanMode",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.dotfiles/claude/hooks/plan-critique.sh",
+            "timeout": 5
+          }
+        ]
       }
     ],
     "Stop": [
@@ -42,6 +52,11 @@
           {
             "type": "command",
             "command": "$HOME/.dotfiles/claude/hooks/stop-check.sh",
+            "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "$HOME/.dotfiles/claude/hooks/plan-critique.sh",
             "timeout": 5
           }
         ]

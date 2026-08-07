@@ -9,6 +9,59 @@ Considered & rejected.
 
 ______________________________________________________________________
 
+## 2026-08-07 — Plan-critique Stop hook and rubric
+
+**What changed**
+
+- Added `cursor/rules/plan-critique.mdc` — a 7-gate skeptical critique rubric
+  (intelligibility, jargon, provenance, verified claims, traceability, scope,
+  progressive disclosure) with a `<!-- critique ... -->` manifest extracted at
+  runtime by the hook.
+- Added `claude/hooks/plan-critique.sh` — a `Stop` hook that blocks once per
+  plan path per session when the plan exceeds 150 lines, injecting the rubric
+  plus hedge-language grep hints. Also registered on
+  `PostToolUse(ExitPlanMode)`, where it sets the marker instead of blocking:
+  once a plan has been handed to the operator for approval, critiquing it is
+  waste, and without this guard the first `Stop` after approval (potentially
+  after implementation) would still fire.
+- `claude/hooks/plan-review.sh` now writes the plan path to a per-session
+  pointer file so the Stop hook can find it, and no longer tells the agent to
+  ask the user to fill gaps (close them by reading the code instead).
+- Registered the hook in `claude/settings.json`.
+
+**Why**
+
+- Evidence: the 2026-08-06 BAL-1.3 plan took four rounds of operator inline
+  notes to converge at 923 lines. The existing `plan-review.sh` PostToolUse hook
+  audited section *presence* and passed every round; none of the ~26 operator
+  notes were about a missing section. Three load-bearing claims were wrong and
+  checkable from source — all caught by the operator, not the agent. A blocking
+  skeptical pass before the operator sees the plan addresses the failure mode
+  the section-audit hook cannot.
+
+**Considered & rejected**
+
+- *`PreToolUse(ExitPlanMode)`* — rejected: the source conversation called
+  `ExitPlanMode` zero times; every turn ended with plain text, so this hook
+  would never fire.
+- *Extending `plan-review.sh`'s gates* — rejected: PostToolUse can only advise
+  via `additionalContext`; it cannot block. Blocking is the only mechanism that
+  forces a revision before the operator reads anything.
+- *Re-critique on substantial content change* — rejected: risks the nagging loop
+  the invariants forbid; marker is keyed on plan path, one critique per path.
+- *A separate script for the `ExitPlanMode` marker guard* — rejected: it would
+  duplicate the session-id validation, pointer read, and path hashing. The one
+  script branches on `hook_event_name` instead.
+- *Case-sensitive hedge grep* — fixed, not rejected. Sentence-initial hedges
+  ("Probably …", "Unclear whether …") are the common form in prose; a
+  case-sensitive match missed 7 of 8 realistic examples, leaving gate 4's
+  concrete hint effectively dead.
+- *Adding Glossary + Provenance to `planning.mdc`'s manifest* — rejected:
+  pushes every plan toward the heavy format; the critique rubric lives in its
+  own file (`alwaysApply: false`) so short plans stay short.
+
+______________________________________________________________________
+
 ## 2026-07-14 — Make the plan-review gate list single-source
 
 **What changed**

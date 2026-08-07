@@ -18,6 +18,12 @@ case "$file_path" in
   *) exit 0 ;;
 esac
 
+session_id=$(printf '%s' "$input" | jq -r '.session_id // empty' 2>/dev/null) || true
+case "$session_id" in
+  '' | *[!A-Za-z0-9_-]*) ;;
+  *) printf '%s' "$file_path" > "${TMPDIR:-/tmp}/claude-plan-${session_id}" 2>/dev/null || true ;;
+esac
+
 emit() {
   jq -n --arg ctx "$1" \
     '{hookSpecificOutput: {hookEventName: "PostToolUse", additionalContext: $ctx}}'
@@ -75,8 +81,9 @@ Output exactly one line per gate, in the order listed above:
 \`<gate>: N/A — <why this gate does not apply>\`
 
 If there are no FAIL lines, end with \`PLAN OK\` on its own line and
-begin implementing. Otherwise stop and ask the user to fill the gaps
-before implementing.
+begin implementing. Otherwise close the gaps yourself by reading the code;
+surface only genuine decisions (trade-offs, scope, operator judgement),
+naming the gate each came from.
 PROMPT
 )
 

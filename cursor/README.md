@@ -36,6 +36,7 @@ hooks; global hooks come from `~/.claude/settings.json`.
 | dbt rules (`dbt-rules.sh`)           | `PostToolUse` (Write/Edit)      | When a `.sql`/`.yml` file inside a dbt project (`dbt_project.yml` ancestor) is edited, injects `dbt.mdc` (via `additionalContext`) — Claude Code's equivalent of Cursor's glob-scoped rule loading. Full rule on the first qualifying edit per session; later edits get a one-line reminder of the load-bearing rules (grain test, no repair-loop, plan-sanctioned dedup, reconciliation).  |
 | Turn tracker (`track-tool-use.sh`)   | `PostToolUse` (Write/Edit/Bash) | Appends edited file paths and Bash commands to a per-session state file in `$TMPDIR` so the Stop hook knows what happened this turn without parsing the transcript. No output.                                                                                                                                                                                                              |
 | Verify build (`stop-check.sh`)       | `Stop`                          | If `.sql` files inside a dbt project or `.qmd` files were edited this turn and no build/render command ran, blocks the stop once (`decision: block`) with a reminder to run `dbt build` / `quarto render`. Loop-safe by design: allows the stop unconditionally when `stop_hook_active` is set (max one nag per turn) and fails open on any error.                                          |
+| Plan critique (`plan-critique.sh`)   | `Stop` + `PostToolUse` (ExitPlanMode) | When a plan file >150 lines was edited this session (path recorded by `plan-review.sh`), blocks the stop once with the 7-gate critique rubric from `plan-critique.mdc` plus hedge-language hints, so the agent revises before handing the plan back rather than ending the turn on a flawed draft. (`Stop` fires after the message has streamed, so the operator does see the first draft — the block buys the revision, not the concealment.) On `ExitPlanMode` it does the reverse: the plan has been presented for approval, so it sets the marker and retires the critique. Loop-safe: honours `stop_hook_active` unconditionally; marker keyed on plan path so each distinct plan gets one critique. Fails open on every error path. |
 
 dbt layer boundaries and other SQL conventions are enforced via **rules**
 (`dbt.mdc`), not hooks.
@@ -47,10 +48,11 @@ are written against Claude Code semantics.
 
 ### Rules (`~/.cursor/rules/`)
 
-| Rule           | Scope            | What it does                                                                                                                                                   |
-| -------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `planning.mdc` | Always applied   | Plan structure (exit criteria, invariants, failure modes + premortem, assumptions & unknowns, outside view), minimal viable change, visualization confirmation |
-| `dbt.mdc`      | `*.sql`, `*.yml` | Layer boundaries, grain docstrings, testing conventions, anti-patterns                                                                                         |
+| Rule                | Scope            | What it does                                                                                                                                                                                          |
+| ------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `planning.mdc`      | Always applied   | Plan structure (exit criteria, invariants, failure modes + premortem, assumptions & unknowns, outside view), minimal viable change, visualization confirmation                                        |
+| `plan-critique.mdc` | On request       | Skeptical 7-gate critique rubric (intelligibility, jargon, provenance, verified claims, traceability, scope, progressive disclosure) — enforced once per long plan via the `plan-critique.sh` Stop hook |
+| `dbt.mdc`           | `*.sql`, `*.yml` | Layer boundaries, grain docstrings, testing conventions, anti-patterns                                                                                                                                |
 
 ## Project-specific extensions
 
