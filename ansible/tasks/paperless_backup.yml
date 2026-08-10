@@ -29,6 +29,16 @@
 #
 # IMPORTANT: Also save the restic password in 1Password — lose it and backups are unrecoverable.
 #
+# Optional but recommended: a healthchecks.io dead-man's-switch so a silently
+# broken or unscheduled backup job (e.g. the LaunchAgent never getting loaded)
+# gets flagged, not just script errors. Create a free check at
+# https://healthchecks.io with a 24h period matching the daily 3am schedule
+# (a few hours of grace time), then store its ping URL:
+#
+#   security add-generic-password -a $USER -s paperless-backup-healthcheck-url -w 'https://hc-ping.com/<uuid>'
+#
+# If this isn't set, backup.sh just skips the ping and runs as before.
+#
 # Then initialise the restic repo once:
 #   set -x B2_ACCOUNT_ID (security find-generic-password -a $USER -s paperless-backup-b2-id -w)
 #   set -x B2_ACCOUNT_KEY (security find-generic-password -a $USER -s paperless-backup-b2-key -w)
