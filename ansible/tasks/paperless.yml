@@ -17,19 +17,20 @@
 # The paperless auto-start agent is host-specific: it must only run on this
 # personal machine, never on a work computer that happens to check out these
 # dotfiles.
-- name: Copy paperless start launchd plist
-  ansible.builtin.copy:
-    src: "{{ ansible_user_dir }}/.dotfiles/paperless-ngx/uk.me.michaelbarton.paperless-start.plist"
-    dest: "{{ ansible_user_dir }}/Library/LaunchAgents/uk.me.michaelbarton.paperless-start.plist"
-    mode: "0644"
-  when: ansible_hostname == "Michaels-MacBook-Air"
+- name: Install paperless start launch agent
+  when: ansible_hostname == personal_hostname
+  block:
+    - name: Copy paperless start launchd plist
+      ansible.builtin.copy:
+        src: "{{ ansible_user_dir }}/.dotfiles/paperless-ngx/uk.me.michaelbarton.paperless-start.plist"
+        dest: "{{ ansible_user_dir }}/Library/LaunchAgents/uk.me.michaelbarton.paperless-start.plist"
+        mode: "0644"
 
-- name: Load paperless start launch agent
-  ansible.builtin.command:
-    cmd: launchctl load "{{ ansible_user_dir }}/Library/LaunchAgents/uk.me.michaelbarton.paperless-start.plist"
-  args:
-    creates: "{{ ansible_user_dir }}/Library/LaunchAgents/uk.me.michaelbarton.paperless-start.plist"
-  when: ansible_hostname == "Michaels-MacBook-Air"
+    - name: Load paperless start launch agent
+      ansible.builtin.command:
+        cmd: launchctl load "{{ ansible_user_dir }}/Library/LaunchAgents/uk.me.michaelbarton.paperless-start.plist"
+      args:
+        creates: "{{ ansible_user_dir }}/Library/LaunchAgents/uk.me.michaelbarton.paperless-start.plist"
 
 - name: Check if paperless env file exists
   ansible.builtin.stat:
