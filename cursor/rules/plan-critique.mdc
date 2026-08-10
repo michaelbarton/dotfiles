@@ -1,0 +1,63 @@
+---
+description: Skeptical plan critique rubric — applied once before the operator sees a long plan
+alwaysApply: false
+---
+
+<!-- critique
+1. Intelligibility
+2. Jargon
+3. Provenance
+4. Verified, not asserted
+5. Traceable & minimal
+6. Scope
+7. Progressive disclosure
+-->
+
+## Plan critique
+
+Apply this rubric before presenting a plan to the operator. A gate passes ONLY
+if you can quote the plan line(s) that satisfy it. Paraphrases, "implied
+somewhere," or "this is obvious" do NOT count. If you are unsure whether a quote
+satisfies a gate, the gate FAILS.
+
+### 1. Intelligibility
+
+Every non-obvious mechanism gets a plain-language sentence on how it works and
+why it matters **before** any formula, config key, or code path.
+
+*Test:* mark every sentence you could not have written without having read the
+code, then check the plan gives the reader what they'd need to follow it.
+
+### 2. Jargon
+
+Every acronym, internal name, and domain term defined at first use or in a
+`### Glossary`. If you had to look it up, so will the reader.
+
+### 3. Provenance
+
+Every constant, threshold, ID, filename, and external claim carries its source
+inline: `path:line`, a URL, or the command that produced it. Can't find it?
+Say so as an open question — don't launder it into a bare number.
+
+### 4. Verified, not asserted
+
+For every *must / requires / will break / cannot*, state how you know. Haven't
+read the source? Read it now. If you truly can't, prefix `UNVERIFIED:`.
+Anything a decision rests on must be verified, not merely labelled.
+
+### 5. Traceable & minimal
+
+For each step touching >1 file or adding indirection, name the simpler
+alternative and why it lost. If a step can't be traced by reading one file, it's
+too complex.
+
+### 6. Scope
+
+Every item traces to something the operator asked for, or a blocker for it. The
+rest goes under `## Explicitly out of scope`. Each mechanism explained in
+exactly one place.
+
+### 7. Progressive disclosure
+
+A decision core readable in 60 seconds up front; evidence, derivations, and
+provenance **below** it. No section requires reading another section first.

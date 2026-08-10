@@ -37,16 +37,3 @@ select = [
     "SIM",  # flake8-simplify
     "RUF",  # ruff-specific rules
 ]
-
-# Private packages: CodeArtifact index `karius`. `aws@` in the URL is required
-# for CodeArtifact basic auth + keyrings.codeartifact. User-level:
-# `keyring-provider = "subprocess"` in ~/.config/uv/uv.toml, `uv tool install
-# keyring --with keyrings.codeartifact`. See:
-# https://docs.astral.sh/uv/guides/integration/aws/
-[[tool.uv.index]]
-name = "karius"
-url = "https://aws@karius-573640641260.d.codeartifact.us-east-1.amazonaws.com/pypi/karius-pypi/simple/"
-explicit = true
-
-# [tool.uv.sources]
-# kli = { index = "karius" }
