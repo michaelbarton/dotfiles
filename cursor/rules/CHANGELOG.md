@@ -56,9 +56,9 @@ ______________________________________________________________________
   ("Probably …", "Unclear whether …") are the common form in prose; a
   case-sensitive match missed 7 of 8 realistic examples, leaving gate 4's
   concrete hint effectively dead.
-- *Adding Glossary + Provenance to `planning.mdc`'s manifest* — rejected:
-  pushes every plan toward the heavy format; the critique rubric lives in its
-  own file (`alwaysApply: false`) so short plans stay short.
+- *Adding Glossary + Provenance to `planning.mdc`'s manifest* — rejected: pushes
+  every plan toward the heavy format; the critique rubric lives in its own file
+  (`alwaysApply: false`) so short plans stay short.
 
 ______________________________________________________________________
 
