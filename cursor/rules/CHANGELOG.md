@@ -31,7 +31,7 @@ ______________________________________________________________________
 
 **Why**
 
-- Evidence: the 2026-08-06 BAL-1.3 plan took four rounds of operator inline
+- Evidence: one 2026-08-06 planning session took four rounds of operator inline
   notes to converge at 923 lines. The existing `plan-review.sh` PostToolUse hook
   audited section *presence* and passed every round; none of the ~26 operator
   notes were about a missing section. Three load-bearing claims were wrong and
