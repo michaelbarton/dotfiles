@@ -11,6 +11,19 @@ log() {
     echo "[$(date '+%Y-%m-%dT%H:%M:%S')] $*" | tee -a "$LOG_FILE"
 }
 
+HEALTHCHECK_PING_URL=$(security find-generic-password -a "$USER" -s paperless-backup-healthcheck-url -w 2>/dev/null || true)
+
+ping_healthcheck() {
+    [ -z "$HEALTHCHECK_PING_URL" ] && return 0
+    curl -fsS -m 10 --retry 3 -o /dev/null "${HEALTHCHECK_PING_URL}${1:-}" || true
+}
+
+on_error() {
+    log "Paperless backup failed"
+    ping_healthcheck /fail
+}
+trap on_error ERR
+
 log "Starting paperless backup"
 
 export B2_ACCOUNT_ID
@@ -34,3 +47,4 @@ log "Pruning old snapshots"
 restic -r b2:mb-paperless-backup:paperless forget --keep-daily 7 --keep-weekly 2 --keep-monthly 2 --prune
 
 log "Paperless backup complete"
+ping_healthcheck
