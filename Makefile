@@ -13,15 +13,15 @@ apply:
 fmt:
 	@if [ -n "$(YAML_FILES)" ]; then npx --loglevel error --yes prettier --write $(YAML_FILES); fi
 	@if [ -n "$(MARKDOWN_FILES)" ]; then uvx --with mdformat-gfm --with mdformat-frontmatter mdformat --wrap 80 --number $(MARKDOWN_FILES); fi
-	@if [ -n "$(PYTHON_FILES)" ]; then uvx ruff format --line-length=100 $(PYTHON_FILES); fi
-	@if [ -n "$(PYTHON_FILES)" ]; then uvx ruff check --fix --line-length=100 $(PYTHON_FILES); fi
+	@if [ -n "$(PYTHON_FILES)" ]; then uvx ruff@0.15.5 format --line-length=100 $(PYTHON_FILES); fi
+	@if [ -n "$(PYTHON_FILES)" ]; then uvx ruff@0.15.5 check --fix --line-length=100 $(PYTHON_FILES); fi
 	@if [ -n "$(LUA_FILES)" ]; then npx --loglevel error --yes @johnnymorganz/stylua-bin -- $(LUA_FILES); fi
 
 fmt_check:
 	@if [ -n "$(YAML_FILES)" ]; then npx --loglevel error --yes prettier --check $(YAML_FILES); fi
 	@if [ -n "$(MARKDOWN_FILES)" ]; then uvx --with mdformat-gfm --with mdformat-frontmatter mdformat --check --wrap 80 --number $(MARKDOWN_FILES); fi
-	@if [ -n "$(PYTHON_FILES)" ]; then uvx ruff format --check --line-length=100 $(PYTHON_FILES); fi
-	@if [ -n "$(PYTHON_FILES)" ]; then uvx ruff check --line-length=100 $(PYTHON_FILES); fi
+	@if [ -n "$(PYTHON_FILES)" ]; then uvx ruff@0.15.5 format --check --line-length=100 $(PYTHON_FILES); fi
+	@if [ -n "$(PYTHON_FILES)" ]; then uvx ruff@0.15.5 check --line-length=100 $(PYTHON_FILES); fi
 	@if [ -n "$(LUA_FILES)" ]; then npx --loglevel error --yes @johnnymorganz/stylua-bin --check -- $(LUA_FILES); fi
 
 nvim-health:
