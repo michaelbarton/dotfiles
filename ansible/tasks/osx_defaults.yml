@@ -1,18 +1,19 @@
 ---
+# No `become` on the osx_defaults tasks: as root they write root's
+# preference domain, so the setting never reaches the logged-in user.
+# Only the /Library/Java symlink below genuinely needs root.
 - name: Configure Dock settings
   community.general.osx_defaults:
     domain: com.apple.dock
     key: orientation
     type: string
     value: left
-  become: true
 
 - name: Holding key down generates repeated key strokes
   community.general.osx_defaults:
     key: ApplePressAndHoldEnabled
     type: bool
     value: false
-  become: true
 
 - name: Pin system JDK to openjdk@17
   ansible.builtin.file:

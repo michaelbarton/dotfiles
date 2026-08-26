@@ -22,15 +22,16 @@
   block:
     - name: Copy paperless start launchd plist
       ansible.builtin.copy:
-        src: "{{ ansible_user_dir }}/.dotfiles/paperless-ngx/uk.me.michaelbarton.paperless-start.plist"
+        src: "{{ dotfiles_dir }}/paperless-ngx/uk.me.michaelbarton.paperless-start.plist"
         dest: "{{ ansible_user_dir }}/Library/LaunchAgents/uk.me.michaelbarton.paperless-start.plist"
         mode: "0644"
+      register: paperless_start_plist
 
-    - name: Load paperless start launch agent
+    - name: Bootstrap paperless start launch agent
       ansible.builtin.command:
-        cmd: launchctl load "{{ ansible_user_dir }}/Library/LaunchAgents/uk.me.michaelbarton.paperless-start.plist"
-      args:
-        creates: "{{ ansible_user_dir }}/Library/LaunchAgents/uk.me.michaelbarton.paperless-start.plist"
+        cmd: launchctl bootstrap gui/{{ ansible_user_uid }} "{{ ansible_user_dir }}/Library/LaunchAgents/uk.me.michaelbarton.paperless-start.plist"
+      when: paperless_start_plist.changed
+      changed_when: true
 
 - name: Check if paperless env file exists
   ansible.builtin.stat:
