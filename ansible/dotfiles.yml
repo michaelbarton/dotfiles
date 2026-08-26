@@ -30,6 +30,8 @@
         mode: "{{ item.mode | default('0755') }}"
       loop:
         - { path: "{{ config_dir }}/fish" }
+        # Parent of the fish_gh_completion.fish symlink in link_files.yml.
+        - { path: "{{ config_dir }}/fish/completions" }
         - { path: "{{ config_dir }}/nvim/autoload" }
         - { path: "{{ config_dir }}/plugged" }
         - { path: "{{ config_dir }}/ghostty" }
