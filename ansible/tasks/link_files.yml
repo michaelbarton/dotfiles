@@ -32,7 +32,6 @@
     - { src: "parquet/parquet_to_csv.py", dest: ".bin/parquet_to_csv" }
 
     # Misc. scripts and config
-    - { src: "zettel/today.sh", dest: ".bin/today" }
     - { src: "git/gitconfig", dest: ".gitconfig" }
     - { src: "ssh/config", dest: ".ssh/config" }
     - { src: "gitignore", dest: ".gitignore" }
