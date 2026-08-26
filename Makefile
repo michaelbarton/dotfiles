@@ -9,12 +9,15 @@ PRETTIER_VERSION := 3.5.3
 STYLUA_VERSION := 2.5.2
 RUFF_VERSION := 0.15.17
 
-.PHONY: all apply fmt fmt_check nvim-health nvim-check nvim-update packages-bio
+.PHONY: all apply fmt fmt_check nvim-health nvim-check nvim-update packages packages-bio
 
 all: fmt apply nvim-check
 
 apply:
 	uv run ansible-playbook -i ~/.dotfiles/ansible/inventory.ini ~/.dotfiles/ansible/dotfiles.yml
+
+packages:
+	brew bundle install --file=Brewfile --no-upgrade
 
 packages-bio:
 	brew bundle install --file=Brewfile.bio --no-upgrade

@@ -23,7 +23,7 @@ Tagged `never` tasks (run explicitly when needed):
 
 ```bash
 # Install Homebrew packages from Brewfile
-uv run ansible-playbook -i ~/.dotfiles/ansible/inventory.ini ~/.dotfiles/ansible/dotfiles.yml --tags packages
+make packages
 
 # Optional bioinformatics tools
 make packages-bio
