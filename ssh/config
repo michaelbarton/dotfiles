@@ -1,4 +1,17 @@
+# Karius hosts. The work key is not one of ssh's default identity filenames,
+# so without this block it is never offered — auth falls back to the personal
+# key and is denied. IdentitiesOnly stops the personal key being tried first
+# and burning an attempt against servers with a low MaxAuthTries.
+Host *.kariusdx.com
+  IdentityFile ~/.ssh/id_ed25519_karius
+  IdentitiesOnly yes
+
 Host *
   UseKeychain yes
   AddKeysToAgent yes
   IdentityFile ~/.ssh/id_ed25519
+  # Connection multiplexing. ~/.ssh/sockets is created (0700) by
+  # ansible/dotfiles.yml and is only meaningful with a ControlPath.
+  ControlMaster auto
+  ControlPath ~/.ssh/sockets/%r@%h-%p
+  ControlPersist 10m
