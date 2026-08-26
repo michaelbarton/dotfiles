@@ -51,6 +51,7 @@ brew "trash", link: true
 brew "tree"
 brew "urlview"
 brew "uv"
+brew "visidata"
 brew "w3m"
 brew "yazi"
 brew "zopfli"
