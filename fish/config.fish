@@ -248,38 +248,6 @@ function jn
     return $code
 end
 
-# Watch a qmd file and its partials for changes, re-rendering on save.
-# Quarto preview only watches the main file; this also watches _*.qmd
-# partials and helpers (*.py, *.yml) in the same directory. When any of
-# them change, it touches the main file to trigger quarto's re-render.
-# Requires: fswatch (brew install fswatch)
-function qwatch
-    set -l qmd $argv[1]
-    if test -z "$qmd"
-        echo "usage: qwatch <file.qmd>"
-        return 1
-    end
-
-    if not command -v fswatch &>/dev/null
-        echo "qwatch requires fswatch: brew install fswatch"
-        return 1
-    end
-
-    set -l dir (path dirname $qmd)
-    echo "Watching $qmd + partials in $dir/"
-
-    uv run quarto preview $qmd --to html &
-    set -l quarto_pid $last_pid
-
-    fswatch -i '_.*\.qmd$' -i '\.py$' -i '\.yml$' -e '.*' $dir \
-        | while read -l changed
-        echo "Changed: "(path basename $changed)" → re-rendering"
-        command touch $qmd
-    end
-
-    kill $quarto_pid 2>/dev/null
-end
-
 # Run tmp/scratch.sql against duckdb (default: in-memory, or pass a db path)
 function dq
     if not test -f tmp/scratch.sql
