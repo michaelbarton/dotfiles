@@ -11,4 +11,5 @@ vim/plugged
 docker
 __pycache__
 .DS_Store
+.ruff_cache/
 paperless-ngx/docker-compose.env

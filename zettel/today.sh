@@ -13,9 +13,9 @@ DST="${WIKI}/${DATE}.md"
 # Copy the file to the destination if it does not already exist
 if [ ! -s "${DST}" ]; then
   python3 ~/.dotfiles/zettel/template_today.py \
-  	--template-file=${SRC} \
-	--source-directory=${WIKI} \
-	--output-directory=${WIKI}
+  	--template-file="${SRC}" \
+	--source-directory="${WIKI}" \
+	--output-directory="${WIKI}"
 fi
 
 # Open the file in vim

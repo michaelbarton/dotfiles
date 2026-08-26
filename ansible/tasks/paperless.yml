@@ -13,7 +13,7 @@
 
 - name: Check if paperless env file exists
   ansible.builtin.stat:
-    path: "{{ ansible_user_dir }}/.dotfiles/paperless-ngx/docker-compose.env"
+    path: "{{ dotfiles_dir }}/paperless-ngx/docker-compose.env"
   register: paperless_env_stat
 
 - name: Generate paperless secret key
@@ -25,7 +25,7 @@
 
 - name: Create paperless env file from template
   ansible.builtin.template:
-    src: "{{ ansible_user_dir }}/.dotfiles/paperless-ngx/docker-compose.env.j2"
-    dest: "{{ ansible_user_dir }}/.dotfiles/paperless-ngx/docker-compose.env"
+    src: "{{ dotfiles_dir }}/paperless-ngx/docker-compose.env.j2"
+    dest: "{{ dotfiles_dir }}/paperless-ngx/docker-compose.env"
     mode: "0600"
   when: not paperless_env_stat.stat.exists

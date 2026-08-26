@@ -8,7 +8,7 @@
 #
 # To run only specific tags:
 #   uv run ansible-playbook -i ~/.dotfiles/ansible/inventory.ini ~/.dotfiles/ansible/dotfiles.yml --tags "hooks,setup"
-# Common tags: links, nvim, tmux, skills, hooks, setup, agents, paperless, paperless-backup
+# Common tags: links, nvim, tmux, skills, hooks, setup, agents, paperless, paperless-backup, packages, macos
 
 - name: Playbook to manage dotfiles
   hosts: localhost
@@ -34,6 +34,7 @@
         - { path: "{{ config_dir }}/lazygit" }
         - { path: "{{ config_dir }}/ripgrep" }
         - { path: "{{ config_dir }}/uv" }
+        - { path: "{{ config_dir }}/homebrew" }
         - { path: "{{ ansible_user_dir }}/cache" }
         - { path: "{{ ansible_user_dir }}/.bin" }
         - { path: "{{ ansible_user_dir }}/.hammerspoon" }
@@ -45,24 +46,31 @@
         - always
 
     - name: Include Neovim setup tasks
-      include_tasks: tasks/neovim.yml
+      ansible.builtin.include_tasks: tasks/neovim.yml
       tags:
         - python
         - nvim
 
-    - name: Include OS-specific launch agents
-      include_tasks: tasks/launch_agents.yml
+    - name: Include Homebrew package manifest tasks
+      ansible.builtin.include_tasks: tasks/homebrew.yml
       tags:
-        - agents
+        - packages
+        - never
+
+    - name: Include macOS defaults tasks
+      ansible.builtin.include_tasks: tasks/osx_defaults.yml
+      tags:
+        - macos
+        - never
 
     - name: Include tmux setup tasks
-      include_tasks: tasks/tmux.yml
+      ansible.builtin.include_tasks: tasks/tmux.yml
       tags:
         - tmux
         - setup
 
     - name: Include skills deployment tasks
-      include_tasks: tasks/skills.yml
+      ansible.builtin.include_tasks: tasks/skills.yml
       tags:
         - skills
         - setup
@@ -79,19 +87,25 @@
         - setup
 
     - name: Include paperless setup tasks
-      include_tasks: tasks/paperless.yml
+      ansible.builtin.include_tasks: tasks/paperless.yml
       tags:
         - paperless
         - never
 
     - name: Include paperless backup setup tasks
-      include_tasks: tasks/paperless_backup.yml
+      ansible.builtin.include_tasks: tasks/paperless_backup.yml
       tags:
         - paperless-backup
         - never
 
+    - name: Include bioinformatics Homebrew packages
+      ansible.builtin.include_tasks: tasks/homebrew_bio.yml
+      tags:
+        - bio
+        - never
+
     - name: Include dotfile linking tasks
-      include_tasks: tasks/link_files.yml
+      ansible.builtin.include_tasks: tasks/link_files.yml
       tags:
         - links
         - setup

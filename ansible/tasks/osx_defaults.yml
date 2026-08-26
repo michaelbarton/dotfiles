@@ -1,0 +1,54 @@
+---
+- name: Configure Dock settings
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: orientation
+    type: string
+    value: left
+  become: true
+
+- name: Holding key down generates repeated key strokes
+  community.general.osx_defaults:
+    key: ApplePressAndHoldEnabled
+    type: bool
+    value: false
+  become: true
+
+- name: Pin system JDK to openjdk@17
+  ansible.builtin.file:
+    src: /opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk
+    dest: /Library/Java/JavaVirtualMachines/openjdk.jdk
+    state: link
+    force: true
+  become: true
+
+- name: Configure Dock
+  ansible.builtin.include_role:
+    name: geerlingguy.mac.dock
+  vars:
+    configure_dock: true
+    dockitems_remove:
+      - Launchpad
+      - TV
+      - Safari
+      - Maps
+      - Mail
+      - Photos
+      - FaceTime
+      - Calendar
+      - Contacts
+      - Reminders
+      - Notes
+      - Spotify
+      - Podcasts
+      - News
+      - Keynote
+      - Numbers
+      - Pages
+      - App Store
+      - Music
+    dockitems_persist:
+      - name: Spotify
+        path: "/Applications/Spotify.app/"
+      - name: Ghostty
+        path: "/Applications/Ghostty.app/"

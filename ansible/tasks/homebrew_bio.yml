@@ -1,0 +1,6 @@
+---
+- name: Install bioinformatics Homebrew packages
+  ansible.builtin.command: brew bundle install --file={{ dotfiles_dir }}/Brewfile.bio --no-upgrade
+  register: bio_brew
+  changed_when: "'Installing' in bio_brew.stdout"
+  failed_when: bio_brew.rc != 0

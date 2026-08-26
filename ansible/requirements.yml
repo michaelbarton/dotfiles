@@ -1,0 +1,4 @@
+---
+roles:
+  - name: geerlingguy.mac.dock
+    version: 6.1.0

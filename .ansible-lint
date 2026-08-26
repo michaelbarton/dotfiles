@@ -1,0 +1,5 @@
+---
+profile: basic
+skip_list:
+  - no-handler
+  - yaml

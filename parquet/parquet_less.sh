@@ -20,7 +20,7 @@ fi
 # Check if the file is compressed with Zstd
 if file "$FILE_PATH" | grep -q "Zstandard compressed data"; then
   TMP=$(mktemp -d)/tmp.parquet
-  zstdcat ${FILE_PATH} > ${TMP}
+  zstdcat "${FILE_PATH}" > "${TMP}"
   FILE_PATH=${TMP}
 fi
 

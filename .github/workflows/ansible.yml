@@ -47,4 +47,4 @@ jobs:
           -i "localhost,"
           -c local
           "$HOME/.dotfiles/ansible/dotfiles.yml"
-          --skip-tags agents
+          --skip-tags never

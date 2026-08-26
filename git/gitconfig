@@ -1,7 +1,7 @@
 [user]
   email = mail@michaelbarton.me.uk
   name = Michael Barton
-  signingkey = 6EB517B0
+  signingkey = ~/.ssh/id_ed25519.pub
 [color]
   branch = auto
   diff = auto
@@ -71,17 +71,13 @@
   demote = !BRCH=$(git name) && git push origin :$BRCH
 
   # Tagging
-  t    = tag -u mail@michaelbarton.me.uk -s  # Create signed tag
-
-  # GitHub specific
-  hub  = !sh -c 'hub clone -p $1 $2' -        # Clone from GitHub with hub
-  me = !gitme                                  # Custom user command
+  t    = tag -s  # Create signed tag
 
   # Workflow helpers
   undo = reset HEAD~1                          # Undo last commit
   
   # Create a hotfix branch, commit changes, merge back to original branch, and clean up
-  hotfix = !git checkout -b hotfix && git commit -a --sign && git checkout - && git merge --no-ff --gpg-sign - && git branch -d hotfix
+  hotfix = !git checkout -b hotfix && git commit -a -S && git checkout - && git merge --no-ff -S - && git branch -d hotfix
 
   # Difftastic integration
   dft = difftool                              # Shorthand for difftool
@@ -115,8 +111,11 @@
 	updateRefs = true
 	missingCommitsCheck = error
 
+[gpg]
+	format = ssh
+
 [commit]
-	gpgsign = false
+	gpgsign = true
 
 [github]
   user = michaelbarton
@@ -177,10 +176,6 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-
-[maintenance]
-	auto = false
-	strategy = incremental
 
 [feature]
 	manyFiles = true

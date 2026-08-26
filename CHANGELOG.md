@@ -1,6 +1,130 @@
 # CHANGELOG
 
-## 2025-04-29
+## 2026-08-10
+
+### Agent tooling
+
+- Add plan-critique Stop hook and rubric (#100)
+- Deploy agent hooks: Claude PostToolUse/Stop + Cursor rules (#94)
+- Rename agents directory to claude for skills configuration (#83)
+- Add explain skill and deploy skills via Ansible (#81)
+
+### Formatting and CI
+
+- Pin ruff to 0.15.5 in Makefile to stop silent CI drift (#103)
+- Suppress npm verbose output in Makefile formatting commands (#82)
+- Add CI workflow for Ansible playbook validation (#79)
+- Add StyLua formatter to fmt targets (#77)
+- Replace black with ruff for Python formatting and linting (#75)
+
+## 2026-07-20
+
+- Clean up stale dotfiles and harden terminal workflow (#99)
+
+## 2026-06-28
+
+### Agent tooling
+
+- Replace Outside view with Success & grain gates in planning rule (#98)
+
+## 2026-06-13
+
+- Minor fixes (#97)
+
+## 2026-06-12
+
+- Bump template pytest to ^9.0.3 for tmpdir vulnerability (#96)
+- Add automated encrypted daily backup for paperless-ngx (#95)
+
+## 2026-04-20
+
+### Tmux and terminal
+
+- Fix Ghostty startup errors from deprecated config fields (#93)
+
+## 2026-04-10
+
+### Neovim and treesitter
+
+- Restrict r_language_server to r/rmd filetypes only (#92)
+
+## 2026-04-01
+
+- Disable atuin daemon to fix startup errors after reboot (#91)
+- Minor fixes: atuin, fish functions, and nvim prose config (#90)
+
+## 2026-03-31
+
+### Paperless
+
+- Add paperless-ngx local network access and secure configuration (#89)
+
+## 2026-03-30
+
+### dbt tooling
+
+- Enhance terminal tooling and improve editor integration (#88)
+
+## 2026-03-29
+
+### Paperless
+
+- Remove paperless secret key from git tracking (#87)
+
+### Neovim and treesitter
+
+- Update config for Neovim 0.12.0 compatibility and simplification (#86)
+
+## 2026-03-12
+
+### Neovim and treesitter
+
+- Move Pencil hard mode initialization to plugin config (#85)
+- Simplify markdown/quarto config with vim-pencil plugin (#84)
+
+## 2026-03-09
+
+### dbt tooling
+
+- Add data-audit specification and dbt tooling infrastructure (#80)
+
+## 2026-03-05
+
+### Tmux and terminal
+
+- Add Alt+h/l for quick tmux window cycling (#74)
+
+## 2026-03-04
+
+### Tmux and terminal
+
+- Add tmux configuration with vim-tmux-navigator integration (#72)
+
+## 2026-03-01
+
+- Fix lazygit diff pager width for delta (#70)
+- Add TSUpdateSync to ansible nvim recipe (#68)
+
+## 2026-02-27
+
+### Neovim and treesitter
+
+- Work around R.nvim cwd change on rout parser build failure (#69)
+
+## 2026-02-24
+
+### Neovim and treesitter
+
+- Pin nvim-treesitter to fix 'Invalid node type tab' error (#67)
+- Fix "Invalid node type 'tab'" treesitter error in nvim (#66)
+
+## 2026-02-21
+
+- Fix non-idiomatic config and bugs found during dotfiles review (#64)
+
+## 2026-02-20
+
+- Add filetype plugins (#63)
 
 ## 2025-04-29
 

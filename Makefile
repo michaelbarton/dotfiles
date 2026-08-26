@@ -2,27 +2,40 @@ YAML_FILES := $(shell git ls-files '*.yml' '*.yaml' | while IFS= read -r file; d
 MARKDOWN_FILES := $(shell git ls-files '*.md' | while IFS= read -r file; do [ -f "$$file" ] && printf "%s " "$$file"; done)
 PYTHON_FILES := $(shell git ls-files '*.py' | while IFS= read -r file; do [ -f "$$file" ] && printf "%s " "$$file"; done)
 LUA_FILES := $(shell git ls-files '*.lua' | while IFS= read -r file; do [ -f "$$file" ] && printf "%s " "$$file"; done)
+SHELL_FILES := $(shell git ls-files '*.sh' | while IFS= read -r file; do [ -f "$$file" ] && printf "%s " "$$file"; done)
+FISH_FILES := $(shell git ls-files '*.fish' | while IFS= read -r file; do [ -f "$$file" ] && printf "%s " "$$file"; done)
 
-.PHONY: all apply fmt fmt_check nvim-health nvim-check
+PRETTIER_VERSION := 3.5.3
+STYLUA_VERSION := 2.5.2
+RUFF_VERSION := 0.15.17
+
+.PHONY: all apply fmt fmt_check nvim-health nvim-check nvim-update packages-bio
 
 all: fmt apply nvim-check
 
 apply:
 	uv run ansible-playbook -i ~/.dotfiles/ansible/inventory.ini ~/.dotfiles/ansible/dotfiles.yml
 
+packages-bio:
+	brew bundle install --file=Brewfile.bio --no-upgrade
+
 fmt:
-	@if [ -n "$(YAML_FILES)" ]; then npx --loglevel error --yes prettier --write $(YAML_FILES); fi
+	@if [ -n "$(YAML_FILES)" ]; then npx --loglevel error --yes prettier@$(PRETTIER_VERSION) --write $(YAML_FILES); fi
 	@if [ -n "$(MARKDOWN_FILES)" ]; then uvx --with mdformat-gfm --with mdformat-frontmatter mdformat --wrap 80 --number $(MARKDOWN_FILES); fi
-	@if [ -n "$(PYTHON_FILES)" ]; then uvx ruff@0.15.5 format --line-length=100 $(PYTHON_FILES); fi
-	@if [ -n "$(PYTHON_FILES)" ]; then uvx ruff@0.15.5 check --fix --line-length=100 $(PYTHON_FILES); fi
-	@if [ -n "$(LUA_FILES)" ]; then npx --loglevel error --yes @johnnymorganz/stylua-bin -- $(LUA_FILES); fi
+	@if [ -n "$(PYTHON_FILES)" ]; then uvx ruff@$(RUFF_VERSION) format --line-length=100 $(PYTHON_FILES); fi
+	@if [ -n "$(PYTHON_FILES)" ]; then uvx ruff@$(RUFF_VERSION) check --fix --line-length=100 $(PYTHON_FILES); fi
+	@if [ -n "$(LUA_FILES)" ]; then npx --loglevel error --yes @johnnymorganz/stylua-bin@$(STYLUA_VERSION) -- $(LUA_FILES); fi
 
 fmt_check:
-	@if [ -n "$(YAML_FILES)" ]; then npx --loglevel error --yes prettier --check $(YAML_FILES); fi
+	@if [ -n "$(YAML_FILES)" ]; then npx --loglevel error --yes prettier@$(PRETTIER_VERSION) --check $(YAML_FILES); fi
 	@if [ -n "$(MARKDOWN_FILES)" ]; then uvx --with mdformat-gfm --with mdformat-frontmatter mdformat --check --wrap 80 --number $(MARKDOWN_FILES); fi
-	@if [ -n "$(PYTHON_FILES)" ]; then uvx ruff@0.15.5 format --check --line-length=100 $(PYTHON_FILES); fi
-	@if [ -n "$(PYTHON_FILES)" ]; then uvx ruff@0.15.5 check --line-length=100 $(PYTHON_FILES); fi
-	@if [ -n "$(LUA_FILES)" ]; then npx --loglevel error --yes @johnnymorganz/stylua-bin --check -- $(LUA_FILES); fi
+	@if [ -n "$(PYTHON_FILES)" ]; then uvx ruff@$(RUFF_VERSION) format --check --line-length=100 $(PYTHON_FILES); fi
+	@if [ -n "$(PYTHON_FILES)" ]; then uvx ruff@$(RUFF_VERSION) check --line-length=100 $(PYTHON_FILES); fi
+	@if [ -n "$(LUA_FILES)" ]; then npx --loglevel error --yes @johnnymorganz/stylua-bin@$(STYLUA_VERSION) --check -- $(LUA_FILES); fi
+	@if [ -n "$(SHELL_FILES)" ]; then shellcheck $(SHELL_FILES); fi
+	@for f in $(FISH_FILES); do fish --no-execute $$f; fish_indent --check $$f; done
+	@ansible-lint ansible/dotfiles.yml
+	@actionlint .github/workflows/*.yml
 
 nvim-health:
 	nvim --headless "+checkhealth" +qa
@@ -56,3 +69,7 @@ nvim-check:
 	done; \
 	rm -rf $(NVIM_CHECK_TMPDIR); \
 	[ "$$fail" -eq 0 ] || (echo "nvim-check: some filetypes had errors" && exit 1)
+
+nvim-update:
+	nvim --headless "+Lazy! sync" "+qa"
+	cp ~/.config/nvim/lazy-lock.json nvim/lazy-lock.json
