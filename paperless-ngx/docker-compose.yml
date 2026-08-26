@@ -47,8 +47,8 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ${HOME}/.paperless:/usr/src/paperless/data:rw
-      - ${HOME}/.paperless:/usr/src/paperless/media:rw
+      - ${HOME}/.paperless/data:/usr/src/paperless/data:rw
+      - ${HOME}/.paperless/media:/usr/src/paperless/media:rw
       - ${HOME}/Downloads:/usr/src/paperless/export:rw
       - ${HOME}/Documents/consume:/usr/src/paperless/consume:rw
       - ${HOME}/.paperless-backup-staging:/usr/src/paperless/backup:rw
