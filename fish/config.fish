@@ -4,6 +4,13 @@ set -x XDG_DATA_HOME $HOME/.local/share
 set -x XDG_CACHE_HOME $HOME/.cache
 set -x XDG_STATE_HOME $HOME/.local/state
 
+# fish >= 4.3: key bindings moved from universal to global scope.
+# The auto-migration file can leave fish_key_bindings empty; fix it here.
+set -e -U fish_key_bindings 2>/dev/null
+if test -z "$fish_key_bindings"; or not functions -q "$fish_key_bindings"
+    set -g fish_key_bindings fish_default_key_bindings
+end
+
 # --- Cursor terminal prompt safety ---
 # Keep Cursor terminals stable by avoiding starship there, but still load the
 # rest of the fish environment (aliases, PATH, functions, etc).
