@@ -18,6 +18,8 @@ apply:
 
 packages:
 	brew bundle install --file=Brewfile --no-upgrade
+	brew autoremove
+	brew cleanup
 
 packages-bio:
 	brew bundle install --file=Brewfile.bio --no-upgrade

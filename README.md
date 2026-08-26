@@ -22,7 +22,7 @@ uv run ansible-playbook -i ~/.dotfiles/ansible/inventory.ini ~/.dotfiles/ansible
 Tagged `never` tasks (run explicitly when needed):
 
 ```bash
-# Install Homebrew packages from Brewfile
+# Install Homebrew packages from Brewfile, prune orphans, clean caches
 make packages
 
 # Optional bioinformatics tools
