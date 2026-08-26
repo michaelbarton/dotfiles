@@ -2,7 +2,10 @@ YAML_FILES := $(shell git ls-files '*.yml' '*.yaml' | while IFS= read -r file; d
 MARKDOWN_FILES := $(shell git ls-files '*.md' | while IFS= read -r file; do [ -f "$$file" ] && printf "%s " "$$file"; done)
 PYTHON_FILES := $(shell git ls-files '*.py' | while IFS= read -r file; do [ -f "$$file" ] && printf "%s " "$$file"; done)
 LUA_FILES := $(shell git ls-files '*.lua' | while IFS= read -r file; do [ -f "$$file" ] && printf "%s " "$$file"; done)
-SHELL_FILES := $(shell git ls-files '*.sh' | while IFS= read -r file; do [ -f "$$file" ] && printf "%s " "$$file"; done)
+# Shell scripts: *.sh/*.bash plus any tracked file with an sh/bash/dash/ksh
+# shebang (catches aspell/sort_dictionary, osx/get-pass, bash/bashrc).
+# zsh is deliberately excluded: shellcheck rejects it outright with SC1071.
+SHELL_FILES := $(shell git ls-files | while IFS= read -r file; do [ -f "$$file" ] || continue; case "$$file" in (*.sh|*.bash) printf "%s " "$$file"; continue;; esac; head -1 "$$file" 2>/dev/null | grep -qE '^\#!.*/(env +)?(sh|bash|dash|ksh)$$' && printf "%s " "$$file"; done)
 FISH_FILES := $(shell git ls-files '*.fish' | while IFS= read -r file; do [ -f "$$file" ] && printf "%s " "$$file"; done)
 
 PRETTIER_VERSION := 3.5.3
@@ -37,7 +40,7 @@ fmt_check:
 	@if [ -n "$(PYTHON_FILES)" ]; then uvx ruff@$(RUFF_VERSION) format --check --line-length=100 $(PYTHON_FILES); fi
 	@if [ -n "$(PYTHON_FILES)" ]; then uvx ruff@$(RUFF_VERSION) check --line-length=100 $(PYTHON_FILES); fi
 	@if [ -n "$(LUA_FILES)" ]; then npx --loglevel error --yes @johnnymorganz/stylua-bin@$(STYLUA_VERSION) --check -- $(LUA_FILES); fi
-	@if [ -n "$(SHELL_FILES)" ]; then shellcheck $(SHELL_FILES); fi
+	@if [ -n "$(SHELL_FILES)" ]; then shellcheck -e SC1091 $(SHELL_FILES); fi
 	@for f in $(FISH_FILES); do fish --no-execute $$f; fish_indent --check $$f; done
 	@ansible-lint ansible/dotfiles.yml
 	@actionlint .github/workflows/*.yml
