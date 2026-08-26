@@ -114,8 +114,13 @@
 [gpg]
 	format = ssh
 
+# Commit signing is configured but off: enabling it requires registering
+# ~/.ssh/id_ed25519.pub on GitHub as a Signing Key (a separate entry from
+# the auth key) plus a gpg.ssh.allowedSignersFile for local verification.
+# Until then every signed commit shows "Unverified". Flip to true after
+# doing both. `git t` and `git hotfix` still sign explicitly via -S.
 [commit]
-	gpgsign = true
+	gpgsign = false
 
 [github]
   user = michaelbarton
