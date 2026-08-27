@@ -97,6 +97,10 @@ set -x HOMEBREW_SBIN /opt/homebrew/sbin
 set -x GHOSTTY_BIN /Applications/Ghostty.app/Contents/MacOS
 set -x NPM_BIN $HOME/.npm-global/bin
 
+# fish_add_path prepends, so the LAST call ends up FIRST in PATH. LOCAL_BIN is
+# therefore last on purpose: `keyring` exists in both ~/.local/bin and
+# /opt/homebrew/bin, and uv needs the uv-tool one (it carries
+# keyrings.codeartifact) for the private index. Reordering these breaks it.
 fish_add_path --path --global $NPM_BIN
 fish_add_path --path --global $HOMEBREW_BIN
 fish_add_path --path --global $HOMEBREW_SBIN
