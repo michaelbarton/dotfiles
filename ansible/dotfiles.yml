@@ -116,3 +116,12 @@
       tags:
         - links
         - setup
+
+    - name: Install lefthook git hooks
+      ansible.builtin.command:
+        cmd: lefthook install
+        chdir: "{{ dotfiles_dir }}"
+      changed_when: false
+      tags:
+        - lefthook
+        - setup
