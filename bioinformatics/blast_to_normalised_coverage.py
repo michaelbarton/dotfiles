@@ -6,14 +6,12 @@ coverage depth.
 
 import collections
 import csv
-from typing import Dict, List
+from pathlib import Path
 
 import click
-import pysam
 import pandas
 import pydantic
-
-from pathlib import Path
+import pysam
 
 BLAST_COLS = [
     "qseqid",
@@ -40,17 +38,17 @@ class Contig(pydantic.BaseModel):
 class Reference(pydantic.BaseModel):
     id: str
     src_file: Path
-    contigs: List[Contig]
+    contigs: list[Contig]
 
     def count(self) -> int:
-        return sum((1 for x in self.contigs))
+        return sum(1 for x in self.contigs)
 
     def length(self) -> int:
-        return sum((x.length for x in self.contigs))
+        return sum(x.length for x in self.contigs)
 
 
 def parse_fasta_file(src_file: Path) -> Reference:
-    contigs: List[Contig] = []
+    contigs: list[Contig] = []
     offset = 0
     for record in pysam.FastxFile(src_file):
         contigs.append(Contig(id=record.name, length=len(record.sequence), pseudo_offset=offset))
@@ -60,7 +58,7 @@ def parse_fasta_file(src_file: Path) -> Reference:
     )
 
 
-def parse_blast_file(input_file) -> Dict[str, Dict[int, int]]:
+def parse_blast_file(input_file) -> dict[str, dict[int, int]]:
     # Coverage dict
     coverage = collections.defaultdict(collections.Counter)
     blast_rows = pandas.read_csv(input_file, sep="\t", header=None, names=BLAST_COLS).iterrows()
@@ -93,15 +91,15 @@ def parse_blast_file(input_file) -> Dict[str, Dict[int, int]]:
     required=True,
 )
 def main(input_file: str, src_fasta: str, output_file: str):
-    references: Dict[str, Reference] = {}
+    references: dict[str, Reference] = {}
     for src_file in Path(src_fasta).glob("*"):
         if not (".fa" in src_file.suffixes or ".fna" in src_file.suffixes):
             continue
         reference = parse_fasta_file(src_file)
         references[reference.id] = reference
 
-    contig_lookup: Dict[str, Contig] = {}
-    reference_lookup: Dict[str, Reference] = {}
+    contig_lookup: dict[str, Contig] = {}
+    reference_lookup: dict[str, Reference] = {}
     for reference in references.values():
         for contig in reference.contigs:
             contig_lookup[contig.id] = contig

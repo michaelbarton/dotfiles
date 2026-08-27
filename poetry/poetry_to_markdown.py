@@ -24,13 +24,15 @@ Options:
     --help                      Show this message and exit.
 """
 
-import os
-import click
 import logging
-from typing import List, Optional
+import os
+
+import click
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+
+logger = logging.getLogger(__name__)
 
 
 def validate_directory(ctx: click.Context, param: click.Parameter, value: str) -> str:
@@ -71,7 +73,7 @@ def validate_file(ctx: click.Context, param: click.Parameter, value: str) -> str
     return value
 
 
-def validate_extensions(ctx: click.Context, param: click.Parameter, value: str) -> List[str]:
+def validate_extensions(ctx: click.Context, param: click.Parameter, value: str) -> list[str]:
     """Ensure extensions are provided correctly.
 
     Args:
@@ -94,7 +96,7 @@ def validate_extensions(ctx: click.Context, param: click.Parameter, value: str) 
     return extensions
 
 
-def validate_additional_paths(ctx: click.Context, param: click.Parameter, value: str) -> List[str]:
+def validate_additional_paths(ctx: click.Context, param: click.Parameter, value: str) -> list[str]:
     """Ensure additional paths exist.
 
     Args:
@@ -119,8 +121,8 @@ def extract_file_content(
     file_path: str,
     output_file: click.File,
     base_dir: str,
-    exclude_dirs: List[str],
-    exclude_files: List[str],
+    exclude_dirs: list[str],
+    exclude_files: list[str],
 ) -> None:
     """Extract the content of a single file and append it to the output file.
 
@@ -132,11 +134,11 @@ def extract_file_content(
         exclude_files: List of files to exclude from extraction.
     """
     if any(exclude_dir in file_path for exclude_dir in exclude_dirs):
-        logging.debug(f"Skipping excluded directory: {file_path}")
+        logger.debug(f"Skipping excluded directory: {file_path}")
         return
 
     if file_path in exclude_files:
-        logging.debug(f"Skipping excluded file: {file_path}")
+        logger.debug(f"Skipping excluded file: {file_path}")
         return
 
     try:
@@ -145,9 +147,9 @@ def extract_file_content(
             output_file.write(f"\n# File: {os.path.relpath(file_path, base_dir)}\n")
             output_file.write(code)
             output_file.write("\n\n")  # Ensure separation between files
-        logging.info(f"Successfully processed: {file_path}")
-    except Exception as e:
-        logging.error(f"Error reading {file_path}: {e}")
+        logger.info(f"Successfully processed: {file_path}")
+    except (OSError, UnicodeDecodeError) as e:
+        logger.error(f"Error reading {file_path}: {e}")
 
 
 @click.command()
@@ -197,11 +199,11 @@ def extract_code(
     include_extensions: str,
     additional_dirs: str,
     additional_files: str,
-    exclude_dirs: Optional[str],
-    exclude_files: Optional[str],
+    exclude_dirs: str | None,
+    exclude_files: str | None,
 ) -> None:
     """Extract code from a Dockerized Python Poetry project directory and save it into a single text file."""
-    logging.info("Starting code extraction")
+    logger.info("Starting code extraction")
 
     exclude_dirs_list = exclude_dirs.split(",") if exclude_dirs else []
     exclude_files_list = exclude_files.split(",") if exclude_files else []
@@ -212,7 +214,7 @@ def extract_code(
     with open(output_file, "w", encoding="utf-8") as outfile:
         # Process directories
         for dir in [root_dir] + additional_dirs:
-            logging.info(f"Processing directory: {dir}")
+            logger.info(f"Processing directory: {dir}")
             for subdir, dirs, files in os.walk(dir):
                 for file in files:
                     if any(file.endswith(ext) for ext in include_extensions if ext):
@@ -231,7 +233,7 @@ def extract_code(
                 exclude_files_list,
             )
 
-    logging.info("Code extraction completed.")
+    logger.info("Code extraction completed.")
 
 
 if __name__ == "__main__":

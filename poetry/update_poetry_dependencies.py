@@ -2,10 +2,9 @@
 
 import functools
 import logging
-from typing import Optional
 
-import toml
 import requests
+import toml
 from packaging import specifiers, version
 from rich.logging import RichHandler
 
@@ -17,7 +16,7 @@ logging.basicConfig(
 logger = logging.getLogger("rich")
 
 
-def get_specifier(version_specifier: str) -> Optional[specifiers.SpecifierSet]:
+def get_specifier(version_specifier: str) -> specifiers.SpecifierSet | None:
     """
     Parses a version specifier string into a SpecifierSet object.
 
@@ -36,7 +35,7 @@ def get_specifier(version_specifier: str) -> Optional[specifiers.SpecifierSet]:
         return None
 
 
-def get_latest_package_release(package_name: str) -> Optional[version.Version]:
+def get_latest_package_release(package_name: str) -> version.Version | None:
     """
     Fetches the latest non-pre-release version of a package from PyPI.
 
@@ -109,7 +108,7 @@ def update_dependencies(pyproject_path: str) -> None:
     try:
         with open(pyproject_path, "w") as f:
             toml.dump(pyproject_data, f)
-    except IOError as e:
+    except OSError as e:
         logger.error(f"Error writing to pyproject.toml: {e}")
 
 

@@ -10,9 +10,8 @@ and sorts them in descending order while preserving the preamble content.
 
 import os
 import re
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
-from typing import Optional
 
 import click
 from click.testing import CliRunner
@@ -50,7 +49,9 @@ def sort_markdown_entries(content: str) -> str:
     for entry in entries:
         date_match = date_header_pattern.match(entry[0])
         if date_match:
-            date = datetime.strptime(date_match.group(1), "%Y%m%d")
+            # Entry headers carry a bare calendar date; UTC is an arbitrary but
+            # consistent choice, and these datetimes are only compared to each other.
+            date = datetime.strptime(date_match.group(1), "%Y%m%d").replace(tzinfo=timezone.utc)
             entry_date_pairs.append((date, entry[0]))
         else:
             raise ValueError(f"No valid date found in entry: {entry[0]}")
@@ -98,7 +99,7 @@ def write_markdown_file(content: str, file_path: str) -> None:
 )
 def main(
     input_file: str,
-    output_file: Optional[str],
+    output_file: str | None,
     in_place: bool,
     dry_run: bool,
     backup: bool,
