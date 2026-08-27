@@ -1,4 +1,22 @@
 ---
+- name: Stat legacy dotfile locations superseded by XDG paths
+  ansible.builtin.stat:
+    path: "{{ ansible_user_dir }}/{{ item }}"
+  loop:
+    - .gitconfig
+    - .gitignore
+    - .tmux.conf
+  register: legacy_dotfile_paths
+
+- name: Remove legacy symlinks now that these live under XDG paths
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/{{ item.item }}"
+    state: absent
+  loop: "{{ legacy_dotfile_paths.results }}"
+  loop_control:
+    label: "{{ item.item }}"
+  when: item.stat.exists and item.stat.islnk
+
 - name: Link dotfiles
   ansible.builtin.file:
     src: "{{ dotfiles_dir }}/{{ item.src }}"
@@ -32,9 +50,9 @@
     - { src: "parquet/parquet_to_csv.py", dest: ".bin/parquet_to_csv" }
 
     # Misc. scripts and config
-    - { src: "git/gitconfig", dest: ".gitconfig" }
+    - { src: "git/gitconfig", dest: ".config/git/config" }
     - { src: "ssh/config", dest: ".ssh/config" }
-    - { src: "gitignore", dest: ".gitignore" }
+    - { src: "gitignore", dest: ".config/git/ignore" }
     - { src: "duckdb/duckdbrc", dest: ".duckdbrc" }
     - { src: "visidata/visidatarc", dest: ".visidatarc" }
     - { src: "markdown/md2docx.sh", dest: ".bin/md2docx" }
@@ -44,7 +62,7 @@
       }
     - { src: "hammerspoon/init.lua", dest: ".hammerspoon/init.lua" }
     - { src: "ghostty/config", dest: ".config/ghostty/config" }
-    - { src: "tmux/tmux.conf", dest: ".tmux.conf" }
+    - { src: "tmux/tmux.conf", dest: ".config/tmux/tmux.conf" }
     - { src: "ripgrep/rc", dest: ".config/ripgrep/rc" }
     - {
         src: "python/scratch_python_project.sh",

@@ -38,6 +38,8 @@
         - { path: "{{ config_dir }}/atuin" }
         - { path: "{{ config_dir }}/lazygit" }
         - { path: "{{ config_dir }}/ripgrep" }
+        - { path: "{{ config_dir }}/git" }
+        - { path: "{{ config_dir }}/tmux" }
         - { path: "{{ config_dir }}/uv" }
         - { path: "{{ config_dir }}/homebrew" }
         - { path: "{{ ansible_user_dir }}/cache" }

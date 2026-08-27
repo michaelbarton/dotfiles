@@ -88,12 +88,11 @@
   dft = difftool                              # Shorthand for difftool
 
 [core]
-  excludesfile = ~/.gitignore
-  autocrlf = input
+  # No excludesfile setting: git reads $XDG_CONFIG_HOME/git/ignore by default,
+  # which is where gitignore is linked (see link_files.yml).
   whitespace = trailing-space,space-before-tab
 	pager = delta
 [branch]
-	autosetupmerge = true
 	sort = -committerdate
 
 [tag]
@@ -189,7 +188,6 @@
 
 [feature]
 	manyFiles = true
-	experimental = true
 
 [worktree]
 	guessRemote = true
