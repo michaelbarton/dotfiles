@@ -10,7 +10,7 @@ FISH_FILES := $(shell git ls-files '*.fish' | while IFS= read -r file; do [ -f "
 
 PRETTIER_VERSION := 3.5.3
 STYLUA_VERSION := 2.5.2
-RUFF_VERSION := 0.15.17
+RUFF_VERSION := 0.16.5
 
 .PHONY: all apply fmt fmt_check nvim-health nvim-check nvim-update packages packages-bio
 

@@ -9,12 +9,13 @@
 
 """Convert a CSV file to parquet"""
 
-import pandas
 import sys
+
+import pandas
 
 if len(sys.argv) != 3:
     print("Usage: csv_to_parquet <input.csv> <output.parquet>")
-    exit(1)
+    sys.exit(1)
 
 IN_FILE, OUT_FILE = sys.argv[1], sys.argv[2]
 

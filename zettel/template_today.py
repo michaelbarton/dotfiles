@@ -5,7 +5,7 @@ import os
 import random
 import re
 import textwrap
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 import click
 import jinja2
@@ -34,7 +34,7 @@ def should_be_reviewed(src_dir: str, file: str) -> bool:
     return True
 
 
-def pick_random_files(directory: str, n: int = 3) -> List[str]:
+def pick_random_files(directory: str, n: int = 3) -> list[str]:
     """Randomly pick N files for review from the wiki."""
     all_md_files = [f for f in os.listdir(directory) if f.endswith(".md")]
     random.shuffle(all_md_files)
@@ -51,7 +51,7 @@ def pick_random_files(directory: str, n: int = 3) -> List[str]:
 
 def is_weekday() -> bool:
     """Returns True if today is a weekday."""
-    return datetime.datetime.today().weekday() < 5
+    return datetime.datetime.now().astimezone().weekday() < 5
 
 
 def generate_quote(source_quote_file: str) -> str:
@@ -73,8 +73,8 @@ def generate_quote(source_quote_file: str) -> str:
 
 
 def create_template_metadata(
-    src_dir: str, today: str, source_quote_file: Optional[str] = None
-) -> Dict[str, Any]:
+    src_dir: str, today: str, source_quote_file: str | None = None
+) -> dict[str, Any]:
     """Create a metadata dictionary used by the file template.
 
     Notes:
@@ -120,16 +120,16 @@ def main(
     template_file: str,
     source_directory: str,
     output_directory: str,
-    source_quote_file: Optional[str] = None,
+    source_quote_file: str | None = None,
 ) -> None:
     """Create a new file for today using the given jinja template."""
 
-    today = f"{datetime.date.today():%Y%m%d}"
+    today = f"{datetime.datetime.now().astimezone().date():%Y%m%d}"
     output_file = os.path.join(output_directory, f"{today}.md")
 
     # Create jinja template
-    with open(template_file, "r") as template_file:
-        template = jinja2.Template(template_file.read(), trim_blocks=True, lstrip_blocks=True)
+    with open(template_file, "r") as fh_template:
+        template = jinja2.Template(fh_template.read(), trim_blocks=True, lstrip_blocks=True)
 
     # Create today's daily file
     with open(output_file, "w") as fh_out:
@@ -138,8 +138,6 @@ def main(
         # Remove multiple blank lines
         content = re.sub(r"\n{3,}", "\n\n", content)
         fh_out.write(content)
-
-    return
 
 
 if __name__ == "__main__":

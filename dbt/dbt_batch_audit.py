@@ -24,11 +24,11 @@ Usage:
     dbt_batch_audit.py models/intermediate/ models/stg_special.sql
 """
 
+import glob
+import os
 import re
 import subprocess
 import sys
-import glob
-import os
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
@@ -37,7 +37,7 @@ import yaml
 
 
 def run(cmd, cwd=None, capture=False, check=True):
-    result = subprocess.run(cmd, cwd=cwd, capture_output=capture, text=True)
+    result = subprocess.run(cmd, cwd=cwd, capture_output=capture, text=True, check=False)
     if check and result.returncode != 0:
         stderr = result.stderr.strip() if result.stderr else ""
         click.echo(
@@ -101,6 +101,7 @@ def get_lineage(model_name, root):
             capture_output=True,
             text=True,
             cwd=root,
+            check=False,
         )
         if result.returncode == 0:
             names = [
@@ -142,9 +143,7 @@ def get_existing_tests(model_name, root):
                     continue
                 col_name = col.get("name", "?")
                 for t in col.get("tests", []):
-                    if isinstance(t, str):
-                        tests.append(f"- {col_name}: {t}")
-                    elif isinstance(t, dict):
+                    if isinstance(t, (str, dict)):
                         tests.append(f"- {col_name}: {t}")
     return "\n".join(tests) if tests else ""
 
@@ -208,6 +207,7 @@ def get_available_models():
         ["cursor-agent", "--list-models"],
         capture_output=True,
         text=True,
+        check=False,
     )
     # Strip ANSI escape codes, then extract the first token of each line that
     # looks like a model ID (alphanumeric + hyphens/dots, before the " - " separator).
@@ -261,6 +261,7 @@ def run_audit(model_name, context_path, llm, output_dir, root):
             text=True,
             cwd=root,
             timeout=900,
+            check=False,
         )
     except subprocess.TimeoutExpired:
         report = "(audit timed out after 900s)"
@@ -357,6 +358,7 @@ Individual audit reports:
             text=True,
             cwd=root,
             timeout=1200,
+            check=False,
         )
     except subprocess.TimeoutExpired:
         synthesis = "(synthesis timed out after 1200s)"
@@ -519,7 +521,9 @@ def main(paths, llms, root, prompt, output_dir, limit, synthesis_model, concurre
             name, llm = futures[fut]
             try:
                 reports.append(fut.result())
-            except Exception as e:
+            # fut.result() re-raises whatever the worker raised, so the catch-all is
+            # deliberate: one failed audit must not abort the remaining ones.
+            except Exception as e:  # noqa: BLE001
                 click.echo(f"  ERROR [{name} × {llm}]: {e}", err=True)
                 reports.append((name, llm, f"(error: {e})"))
 

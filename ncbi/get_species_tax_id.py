@@ -6,9 +6,10 @@
 # ]
 # ///
 
-import requests
-from xml.etree import ElementTree as ET
 import sys
+from xml.etree import ElementTree as ET
+
+import requests
 
 
 def species_to_id(species):
