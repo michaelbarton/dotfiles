@@ -1,0 +1,10 @@
+---
+collections:
+  # geerlingguy.mac is a collection; geerlingguy.mac.dock is a role inside it.
+  # There is no standalone role by that name on Galaxy.
+  - name: geerlingguy.mac
+    version: 4.0.1
+  # Used by tasks/osx_defaults.yml (osx_defaults) and
+  # tasks/paperless_backup.yml (homebrew).
+  - name: community.general
+    version: 9.0.1

@@ -15,10 +15,6 @@ jobs:
       - name: Symlink checkout to ~/.dotfiles
         run: ln -s "$GITHUB_WORKSPACE" "$HOME/.dotfiles"
 
-      - name: Create stubs for files excluded from version control
-        run: |
-          mkdir -p "$HOME/.config/fish/completions"
-
       - name: Install uv
         uses: astral-sh/setup-uv@v5
 
@@ -47,4 +43,4 @@ jobs:
           -i "localhost,"
           -c local
           "$HOME/.dotfiles/ansible/dotfiles.yml"
-          --skip-tags agents
+          --skip-tags never

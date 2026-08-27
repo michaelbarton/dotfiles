@@ -2,7 +2,6 @@
 ## Documentation: https://atuin.sh/docs
 
 # Sync disabled - local only mode (can enable later if you want)
-sync_address = ""
 sync_frequency = "0"
 auto_sync = false
 
@@ -32,32 +31,28 @@ history_filter = [
     "^limit [0-9]",
     "^select$",
     "^;$",
+    "^cd( |$)",
+    "^ls( |$)",
+    "^ll( |$)",
+    "^exit$",
+    "^clear$",
+    "^history",
+    "^pwd$",
+    "^which ",
+    "^type ",
+    "^command ",
+    "^hash ",
+    "^alias ",
+    "^unalias ",
+    "^set ",
+    "^unset ",
+    "^export ",
+    "^env$",
+    "^printenv",
 ]
 
 # Store more history
 max_history_length = 100000
-
-# Don't record these commands
-filter_commands = [
-    "cd",
-    "ls",
-    "ll",
-    "exit",
-    "clear",
-    "history",
-    "pwd",
-    "which",
-    "type",
-    "command",
-    "hash",
-    "alias",
-    "unalias",
-    "set",
-    "unset",
-    "export",
-    "env",
-    "printenv",
-]
 
 # Keys
 keymap_mode = "vim-insert"  # vim-insert, vim-normal, emacs, auto

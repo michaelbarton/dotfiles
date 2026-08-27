@@ -1,0 +1,12 @@
+---
+- name: Check Brewfile is satisfied
+  ansible.builtin.command: brew bundle check --file={{ dotfiles_dir }}/Brewfile --no-upgrade
+  register: brewfile
+  changed_when: false
+  failed_when: false
+
+- name: Install missing Homebrew packages
+  ansible.builtin.command: >
+    brew bundle install --file={{ dotfiles_dir }}/Brewfile --no-upgrade
+  when: brewfile.rc != 0
+  changed_when: true

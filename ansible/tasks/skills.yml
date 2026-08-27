@@ -5,18 +5,19 @@
     state: directory
     mode: "0755"
 
-- name: Find skill files
+- name: Find skill directories
   ansible.builtin.find:
     paths: "{{ dotfiles_dir }}/skills"
-    file_type: file
+    file_type: directory
+    depth: 1
     excludes:
       - ".gitkeep"
-  register: skill_files
+  register: skill_dirs
 
-- name: Link skill files to user claude skills directory
+- name: Link skill directories to user claude skills directory
   ansible.builtin.file:
     src: "{{ item.path }}"
     dest: "{{ ansible_user_dir }}/.claude/skills/{{ item.path | basename }}"
     state: link
     force: true
-  loop: "{{ skill_files.files }}"
+  loop: "{{ skill_dirs.files }}"

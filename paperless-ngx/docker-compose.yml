@@ -47,11 +47,11 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - /Users/michaelbarton/.paperless/data:/usr/src/paperless/data:rw
-      - /Users/michaelbarton/.paperless/media:/usr/src/paperless/media:rw
-      - /Users/michaelbarton/Downloads:/usr/src/paperless/export:rw
-      - /Users/michaelbarton/Documents/consume:/usr/src/paperless/consume:rw
-      - /Users/michaelbarton/.paperless-backup-staging:/usr/src/paperless/backup:rw
+      - ${HOME}/.paperless/data:/usr/src/paperless/data:rw
+      - ${HOME}/.paperless/media:/usr/src/paperless/media:rw
+      - ${HOME}/Downloads:/usr/src/paperless/export:rw
+      - ${HOME}/Documents/consume:/usr/src/paperless/consume:rw
+      - ${HOME}/.paperless-backup-staging:/usr/src/paperless/backup:rw
     env_file: docker-compose.env
     environment:
       PAPERLESS_REDIS: redis://broker:6379

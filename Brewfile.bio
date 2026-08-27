@@ -1,0 +1,8 @@
+tap "brewsci/bio"
+brew "bcftools"
+brew "bedtools"
+brew "blast"
+brew "bwa"
+brew "minimap2"
+brew "mmseqs2"
+brew "samtools"

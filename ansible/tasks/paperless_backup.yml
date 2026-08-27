@@ -12,15 +12,16 @@
 
 - name: Copy paperless backup launchd plist
   ansible.builtin.copy:
-    src: "{{ ansible_user_dir }}/.dotfiles/paperless-ngx/uk.me.michaelbarton.paperless-backup.plist"
+    src: "{{ dotfiles_dir }}/paperless-ngx/uk.me.michaelbarton.paperless-backup.plist"
     dest: "{{ ansible_user_dir }}/Library/LaunchAgents/uk.me.michaelbarton.paperless-backup.plist"
     mode: "0644"
+  register: paperless_backup_plist
 
-- name: Load paperless backup launch agent
+- name: Bootstrap paperless backup launch agent
   ansible.builtin.command:
-    cmd: launchctl load "{{ ansible_user_dir }}/Library/LaunchAgents/uk.me.michaelbarton.paperless-backup.plist"
-  args:
-    creates: "{{ ansible_user_dir }}/Library/LaunchAgents/uk.me.michaelbarton.paperless-backup.plist"
+    cmd: launchctl bootstrap gui/{{ ansible_user_uid }} "{{ ansible_user_dir }}/Library/LaunchAgents/uk.me.michaelbarton.paperless-backup.plist"
+  when: paperless_backup_plist.changed
+  changed_when: true
 # One-time manual setup required (run these once before first backup):
 #
 #   security add-generic-password -a $USER -s paperless-backup-b2-id -w '<keyID>'

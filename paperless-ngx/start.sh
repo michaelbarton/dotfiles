@@ -10,7 +10,7 @@ log() {
 }
 
 log "Waiting for Docker to be ready"
-for i in $(seq 1 60); do
+for _ in $(seq 1 60); do
     if "$DOCKER" info >/dev/null 2>&1; then
         break
     fi

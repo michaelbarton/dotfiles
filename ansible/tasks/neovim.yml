@@ -1,27 +1,32 @@
 ---
-- name: Create virtual environment
-  ansible.builtin.pip:
-    virtualenv: "{{ venv_path }}/nvim"
-    virtualenv_command: "python{{ python_version }} -m venv"
-    name:
-      - codespell
-      - dap-python
-      - debugpy
-      - isort
-      - mdformat
-      - mdformat-frontmatter
-      - neovim
-      - pynvim
-      - ruff
-      - yamllint
+- name: Create nvim virtual environment with uv
+  ansible.builtin.command:
+    cmd: uv venv {{ venv_path }}/nvim --python {{ python_version }}
+    creates: "{{ venv_path }}/nvim/bin/python"
 
-- name: Remove existing directories that need to be replaced with symlinks
-  ansible.builtin.file:
+- name: Install nvim Python dependencies with uv
+  ansible.builtin.command:
+    cmd: >
+      uv pip install --python {{ venv_path }}/nvim/bin/python
+      codespell dap-python debugpy isort mdformat mdformat-frontmatter
+      neovim pynvim "ruff==0.15.17" yamllint
+  register: nvim_uv_pip
+  changed_when: "'Installed' in nvim_uv_pip.stdout or 'Updated' in nvim_uv_pip.stdout"
+
+- name: Stat nvim paths before symlinking
+  ansible.builtin.stat:
     path: "{{ ansible_env.HOME }}/.config/nvim/{{ item }}"
-    state: absent
   loop:
     - ftplugin
     - dbt
+  register: nvim_paths
+
+- name: Remove existing directories that need to be replaced with symlinks
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config/nvim/{{ item.item }}"
+    state: absent
+  loop: "{{ nvim_paths.results }}"
+  when: item.stat.exists and item.stat.isdir and not item.stat.islnk
 
 - name: Link specific configuration files
   ansible.builtin.file:
@@ -42,14 +47,17 @@
       - --prefix
       - "{{ venv_path }}/nvim"
       - jsonlint
+  args:
+    creates: "{{ venv_path }}/nvim/node_modules/jsonlint"
 
-- name: Run Lazy sync for Neovim plugins
+- name: Restore Neovim plugins from lockfile
   ansible.builtin.command:
     argv:
       - nvim
       - --headless
-      - "+Lazy! sync"
+      - "+Lazy! restore"
       - "+qa"
+  changed_when: false
   tags:
     - nvim
 
@@ -60,6 +68,7 @@
       - --headless
       - "+Lazy! clean"
       - "+qa"
+  changed_when: false
   tags:
     - nvim
 
@@ -70,5 +79,6 @@
       - --headless
       - "+TSUpdateSync"
       - "+qa"
+  changed_when: false
   tags:
     - nvim

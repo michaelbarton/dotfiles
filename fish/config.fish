@@ -4,6 +4,13 @@ set -x XDG_DATA_HOME $HOME/.local/share
 set -x XDG_CACHE_HOME $HOME/.cache
 set -x XDG_STATE_HOME $HOME/.local/state
 
+# fish >= 4.3: key bindings moved from universal to global scope.
+# The auto-migration file can leave fish_key_bindings empty; fix it here.
+set -e -U fish_key_bindings 2>/dev/null
+if test -z "$fish_key_bindings"; or not functions -q "$fish_key_bindings"
+    set -g fish_key_bindings fish_default_key_bindings
+end
+
 # --- Cursor terminal prompt safety ---
 # Keep Cursor terminals stable by avoiding starship there, but still load the
 # rest of the fish environment (aliases, PATH, functions, etc).
@@ -33,8 +40,11 @@ if command -v zoxide &>/dev/null
 end
 
 # Initialize mise for runtime version management (if installed)
+# Homebrew also ships vendor_conf.d/mise-activate.fish; guard against double init.
 if command -v mise &>/dev/null
-    mise activate fish | source
+    if not functions -q __mise_env_eval
+        mise activate fish | source
+    end
 end
 
 # Initialize atuin for enhanced shell history (if installed)
@@ -51,13 +61,12 @@ set fish_greeting ""
 #
 ###################################################################
 
-alias dot='cd ~/.dotfiles'
-alias cache='cd ~/cache'
-alias tmp='cd $(mktemp -d)'
-alias wiki='vim ~/Dropbox/wiki/zettel/index.md'
-alias g='git'
-alias lg='lazygit'
-# yazi: see y function below (cd-on-exit)
+abbr -a -- dot 'cd ~/.dotfiles'
+abbr -a -- cache 'cd ~/cache'
+abbr -a -- tmp 'cd (mktemp -d)'
+abbr -a -- g git
+abbr -a -- lg lazygit
+abbr -a -- wiki 'vim ~/Dropbox/wiki/zettel/index.md'
 
 # Use coreutils alternatives
 alias ls='eza --classify --oneline --git'
@@ -80,19 +89,24 @@ alias grep='grep --color=auto'
 #
 ###################################################################
 
-# Paths
-set -x PYTHON_BIN $HOME/.venv/bin
+# Paths — declarative via fish_add_path --global (not fish_user_paths universal)
 set -x USER_BIN $HOME/.bin
 set -x LOCAL_BIN $HOME/.local/bin
 set -x HOMEBREW_BIN /opt/homebrew/bin
+set -x HOMEBREW_SBIN /opt/homebrew/sbin
+set -x GHOSTTY_BIN /Applications/Ghostty.app/Contents/MacOS
 set -x NPM_BIN $HOME/.npm-global/bin
 
-# Prepend paths to PATH (fish uses fish_add_path for this)
-fish_add_path $NPM_BIN
-fish_add_path $HOMEBREW_BIN
-fish_add_path $USER_BIN
-fish_add_path $LOCAL_BIN
-fish_add_path $PYTHON_BIN
+# fish_add_path prepends, so the LAST call ends up FIRST in PATH. LOCAL_BIN is
+# therefore last on purpose: `keyring` exists in both ~/.local/bin and
+# /opt/homebrew/bin, and uv needs the uv-tool one (it carries
+# keyrings.codeartifact) for the private index. Reordering these breaks it.
+fish_add_path --path --global $NPM_BIN
+fish_add_path --path --global $HOMEBREW_BIN
+fish_add_path --path --global $HOMEBREW_SBIN
+fish_add_path --path --global $GHOSTTY_BIN
+fish_add_path --path --global $USER_BIN
+fish_add_path --path --global $LOCAL_BIN
 
 # FZF configuration with better preview
 if command -v fd &>/dev/null
@@ -190,9 +204,9 @@ fzf_configure_bindings --directory=\cs
 function wiki_file
     fd . --base-directory="$HOME/Dropbox/wiki/" --type=file \
         | fzf --tmux center,85%,75% \
-              --preview "bat --style=numbers --color=always --paging=never $HOME/Dropbox/wiki/{}" \
-              --preview-window="right:65%" \
-              --bind "enter:become(nvim $HOME/Dropbox/wiki/{})"
+        --preview "bat --style=numbers --color=always --paging=never $HOME/Dropbox/wiki/{}" \
+        --preview-window="right:65%" \
+        --bind "enter:become(nvim $HOME/Dropbox/wiki/{})"
 end
 bind \cg wiki_file
 
@@ -200,9 +214,9 @@ bind \cg wiki_file
 function wt
     rg $argv[1] --files-with-matches ~/Dropbox/wiki/zettel/ \
         | fzf --tmux center,85%,75% \
-              --preview "bat --style=numbers --color=always --paging=never {}" \
-              --preview-window="right:65%" \
-              --bind "enter:become(nvim {})"
+        --preview "bat --style=numbers --color=always --paging=never {}" \
+        --preview-window="right:65%" \
+        --bind "enter:become(nvim {})"
 end
 
 # Open file in existing nvim instance if inside nvim terminal, otherwise new nvim
@@ -238,45 +252,13 @@ function jn
     return $code
 end
 
-# Watch a qmd file and its partials for changes, re-rendering on save.
-# Quarto preview only watches the main file; this also watches _*.qmd
-# partials and helpers (*.py, *.yml) in the same directory. When any of
-# them change, it touches the main file to trigger quarto's re-render.
-# Requires: fswatch (brew install fswatch)
-function qwatch
-    set -l qmd $argv[1]
-    if test -z "$qmd"
-        echo "usage: qwatch <file.qmd>"
-        return 1
-    end
-
-    if not command -v fswatch &>/dev/null
-        echo "qwatch requires fswatch: brew install fswatch"
-        return 1
-    end
-
-    set -l dir (path dirname $qmd)
-    echo "Watching $qmd + partials in $dir/"
-
-    uv run quarto preview $qmd --to html &
-    set -l quarto_pid $last_pid
-
-    fswatch -i '_.*\.qmd$' -i '\.py$' -i '\.yml$' -e '.*' $dir \
-        | while read -l changed
-            echo "Changed: "(path basename $changed)" → re-rendering"
-            command touch $qmd
-        end
-
-    kill $quarto_pid 2>/dev/null
-end
-
 # Run tmp/scratch.sql against duckdb (default: in-memory, or pass a db path)
 function dq
     if not test -f tmp/scratch.sql
         echo "dq: tmp/scratch.sql not found"
         return 1
     end
-    duckdb $argv[1] < tmp/scratch.sql
+    duckdb $argv[1] <tmp/scratch.sql
 end
 
 # Same as dq, but pipe CSV output into visidata
@@ -285,7 +267,7 @@ function dv
         echo "dv: tmp/scratch.sql not found"
         return 1
     end
-    duckdb -csv $argv[1] < tmp/scratch.sql | vd -f csv -
+    duckdb -csv $argv[1] <tmp/scratch.sql | vd -f csv -
 end
 
 # LESS colors for man pages

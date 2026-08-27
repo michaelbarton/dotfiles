@@ -1,5 +1,0 @@
-#!/bin/bash
-
-set -e
-
-~/.jira/bin/jira comment --issue $1
