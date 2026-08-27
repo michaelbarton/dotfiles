@@ -1,6 +1,10 @@
-#!/usr/bin/env python3
-
-
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#     "click",
+# ]
+# ///
 """
 A tool for sorting date entries in markdown reflection files.
 

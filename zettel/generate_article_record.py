@@ -1,4 +1,13 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#     "click",
+#     "funcy",
+#     "pydantic",
+#     "requests",
+# ]
+# ///
 """
 Take a pubmed ID and creates a markdown page with article metadata as the YAML
 front matter.

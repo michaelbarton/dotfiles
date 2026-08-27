@@ -43,6 +43,7 @@ fmt_check:
 	@for f in $(FISH_FILES); do fish --no-execute $$f; fish_indent --check $$f; done
 	@mise exec -- ansible-lint ansible/dotfiles.yml
 	@mise exec -- actionlint .github/workflows/*.yml
+	@./scripts/check_pep723.py
 
 nvim-health:
 	nvim --headless "+checkhealth" +qa

@@ -29,9 +29,7 @@ def top_level_imports(tree: ast.Module) -> set[str]:
 
 
 def main() -> None:
-    result = subprocess.run(
-        ["git", "ls-files", "*.py"], capture_output=True, text=True, check=True
-    )
+    result = subprocess.run(["git", "ls-files", "*.py"], capture_output=True, text=True, check=True)
     stdlib = sys.stdlib_module_names
 
     failures: list[tuple[str, list[str]]] = []
