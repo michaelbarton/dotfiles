@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2026-08-27
+
+### Formatting and CI
+
+- Bump ruff to 0.16.5 and fix the newly-flagged lints (#105)
+
 ## 2026-08-10
 
 ### Agent tooling
