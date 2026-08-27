@@ -141,12 +141,11 @@ set -x EDITOR nvim
 set -x VISUAL nvim
 
 # Git settings
+# GIT_AUTHOR_*/GIT_COMMITTER_* are deliberately NOT exported here: they sit
+# above all gitconfig levels (including includeIf), so exporting them would
+# make per-repo/work identity overrides impossible. See git/gitconfig.
 set -x EMAIL "mail@michaelbarton.me.uk"
 set -x FULLNAME "Michael Barton"
-set -x GIT_AUTHOR_NAME $FULLNAME
-set -x GIT_COMMITTER_NAME $FULLNAME
-set -x GIT_AUTHOR_EMAIL $EMAIL
-set -x GIT_COMMITTER_EMAIL $EMAIL
 
 # Pager settings
 set -x PAGER less

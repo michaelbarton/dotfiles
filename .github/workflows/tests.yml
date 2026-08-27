@@ -49,4 +49,5 @@ jobs:
           CI: true
         run: |
           ln -sfn "$GITHUB_WORKSPACE" "$HOME/.dotfiles"
+          ansible-galaxy install -r ansible/requirements.yml
           ansible-playbook -i ansible/inventory.ini ansible/dotfiles.yml

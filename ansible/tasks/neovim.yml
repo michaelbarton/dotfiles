@@ -77,8 +77,10 @@
     argv:
       - nvim
       - --headless
-      - "+TSUpdateSync"
+      - "+lua require('nvim-treesitter').update():wait(600000)"
       - "+qa"
+  register: treesitter_update
   changed_when: false
+  failed_when: "'E492' in treesitter_update.stderr or treesitter_update.rc != 0"
   tags:
     - nvim

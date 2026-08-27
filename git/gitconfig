@@ -2,6 +2,11 @@
   email = mail@michaelbarton.me.uk
   name = Michael Barton
   signingkey = ~/.ssh/id_ed25519.pub
+
+; Optional machine-local overrides (work identity, signing keys).
+; Absent on machines that don't need it; a missing include is not an error.
+[include]
+  path = ~/.config/git/config-local
 [color]
   branch = auto
   diff = auto

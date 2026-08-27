@@ -12,11 +12,14 @@ PRETTIER_VERSION := 3.5.3
 STYLUA_VERSION := 2.5.2
 RUFF_VERSION := 0.15.17
 
-.PHONY: all apply fmt fmt_check nvim-health nvim-check nvim-update packages packages-bio
+.PHONY: all apply galaxy fmt fmt_check nvim-health nvim-check nvim-update packages packages-bio
 
-all: fmt apply nvim-check
+all: fmt galaxy apply nvim-check
 
-apply:
+galaxy:
+	uv run ansible-galaxy install -r ansible/requirements.yml
+
+apply: galaxy
 	uv run ansible-playbook -i ~/.dotfiles/ansible/inventory.ini ~/.dotfiles/ansible/dotfiles.yml
 
 packages:
