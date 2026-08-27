@@ -29,6 +29,11 @@ jobs:
           sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
           echo "/opt/nvim-linux-x86_64/bin" >> "$GITHUB_PATH"
 
+      - name: Install mise
+        uses: jdx/mise-action@v2
+        with:
+          install: false
+
       - name: Install Galaxy requirements
         run: >
           uvx --from ansible-core ansible-galaxy
