@@ -15,8 +15,8 @@ These apply across projects unless a project's own CLAUDE.md says otherwise.
 ## Task runners
 
 - Projects with a `Justfile` use `just <target>`; from an interactive shell,
-  `jn <target>` (a fish function) runs it and sends a completion
-  notification — useful for long builds.
+  `jn <target>` (a fish function) runs it and sends a completion notification —
+  useful for long builds.
 - This dotfiles repo itself uses `make` (`make fmt`, `make fmt_check`,
   `make apply`) rather than `just`, since it predates that convention.
 
@@ -24,8 +24,8 @@ These apply across projects unless a project's own CLAUDE.md says otherwise.
 
 Run `make fmt` (formats) or `make fmt_check` (verifies, what CI runs) before
 committing in this repo. Other projects: use whatever the project's own
-formatter/lint target is — check for a `Justfile`, `Makefile`, or
-`package.json` scripts before assuming.
+formatter/lint target is — check for a `Justfile`, `Makefile`, or `package.json`
+scripts before assuming.
 
 ## Git
 

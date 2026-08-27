@@ -85,3 +85,13 @@ Requires git 2.36+ for `hasconfig:`. Verify with:
 cd <a work checkout> && git var GIT_AUTHOR_IDENT   # expect work address
 cd ~/.dotfiles && git var GIT_AUTHOR_IDENT          # expect personal address
 ```
+
+### Machine-local Claude config
+
+Tracked `claude/settings.json` holds only shareable defaults (hooks,
+permissions, `effortLevel`, `tui`, `theme`). Machine-local keys — `model`,
+`enabledPlugins`, `extraKnownMarketplaces` — live in
+`~/.claude/settings.local.json`, which is already gitignored. Claude Code writes
+those when you change model or theme via `/config`; keeping them out of the
+tracked file stops this public repo from churning with local state or publishing
+work-only marketplace entries.
