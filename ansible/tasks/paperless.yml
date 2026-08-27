@@ -16,9 +16,13 @@
 
 # The paperless auto-start agent is host-specific: it must only run on this
 # personal machine, never on a work computer that happens to check out these
-# dotfiles.
+# dotfiles. Gated on inventory group membership (ansible/inventory.ini)
+# rather than a hardcoded hostname string, which had silently stopped
+# matching after this machine was renamed — `ansible_hostname == "Michaels-
+# MacBook-Air"` was false here, so this block had never actually installed
+# the launch agent.
 - name: Install paperless start launch agent
-  when: ansible_hostname == personal_hostname
+  when: ansible_fqdn in (groups['personal'] | default([]))
   block:
     - name: Copy paperless start launchd plist
       ansible.builtin.copy:
