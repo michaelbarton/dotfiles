@@ -4,6 +4,14 @@ set -x XDG_DATA_HOME $HOME/.local/share
 set -x XDG_CACHE_HOME $HOME/.cache
 set -x XDG_STATE_HOME $HOME/.local/state
 
+# Homebrew's vendor_conf.d/mise-activate.fish (which runs before this file)
+# checks this exact variable and skips its own ~200ms `mise activate fish`
+# call when it's already "0". Exporting it here means every fish process
+# spawned as a child of this one (scripts, hooks, `fish -c`) inherits it from
+# the environment before fish's vendor conf.d even runs, skipping that cost.
+# The interactive shell that first sets it still pays it once.
+set -gx MISE_FISH_AUTO_ACTIVATE 0
+
 # fish >= 4.3: key bindings moved from universal to global scope.
 # The auto-migration file can leave fish_key_bindings empty; fix it here.
 set -e -U fish_key_bindings 2>/dev/null
@@ -11,49 +19,62 @@ if test -z "$fish_key_bindings"; or not functions -q "$fish_key_bindings"
     set -g fish_key_bindings fish_default_key_bindings
 end
 
-# --- Cursor terminal prompt safety ---
-# Keep Cursor terminals stable by avoiding starship there, but still load the
-# rest of the fish environment (aliases, PATH, functions, etc).
-if test "$TERM_PROGRAM" = vscode
-    function fish_prompt
-        set_color cyan
-        echo -n (prompt_pwd) " > "
-        set_color normal
-    end
-
-    function fish_right_prompt
-    end
-else
-    if command -v starship &>/dev/null
-        starship init fish | source
-    end
-end
-
-# Auto-attach to tmux in Ghostty (but not inside nvim, scripts, or existing tmux)
-if test "$TERM_PROGRAM" = ghostty; and not set -q TMUX; and not set -q NVIM; and status is-interactive
-    tmux new-session -A -s main
-end
-
-# Initialize zoxide if installed
-if command -v zoxide &>/dev/null
-    zoxide init fish | source
-end
-
-# Initialize mise for runtime version management (if installed)
-# Homebrew also ships vendor_conf.d/mise-activate.fish; guard against double init.
-if command -v mise &>/dev/null
-    if not functions -q __mise_env_eval
-        mise activate fish | source
-    end
-end
-
-# Initialize atuin for enhanced shell history (if installed)
-if command -v atuin &>/dev/null
-    atuin init fish | source
-end
-
 # Disable fish greeting
 set fish_greeting ""
+
+if status is-interactive
+    # --- Cursor terminal prompt safety ---
+    # Keep Cursor terminals stable by avoiding starship there, but still load
+    # the rest of the fish environment (aliases, PATH, functions, etc).
+    if test "$TERM_PROGRAM" = vscode
+        function fish_prompt
+            set_color cyan
+            echo -n (prompt_pwd) " > "
+            set_color normal
+        end
+
+        function fish_right_prompt
+        end
+    else
+        if command -v starship &>/dev/null
+            starship init fish | source
+        end
+    end
+
+    # Auto-attach to tmux in Ghostty (but not inside nvim or existing tmux)
+    if test "$TERM_PROGRAM" = ghostty; and not set -q TMUX; and not set -q NVIM
+        tmux new-session -A -s main
+    end
+
+    # Initialize zoxide if installed
+    if command -v zoxide &>/dev/null
+        zoxide init fish | source
+    end
+
+    # Initialize mise for runtime version management (if installed).
+    # Homebrew's vendor_conf.d/mise-activate.fish may already have run full
+    # activation before this file loads; __mise_env_eval existing means it
+    # did, so skip re-activating (avoids paying the ~200ms mise subprocess
+    # cost twice).
+    if command -v mise &>/dev/null
+        if not functions -q __mise_env_eval
+            mise activate fish | source
+        end
+    end
+
+    # Initialize atuin for enhanced shell history (if installed)
+    if command -v atuin &>/dev/null
+        atuin init fish | source
+    end
+else
+    # Non-interactive: per mise's own guidance, shims on PATH are enough for
+    # scripts — add the shims dir directly rather than invoking `mise
+    # activate`, since the `mise` binary itself costs ~180ms to start
+    # regardless of subcommand (confirmed: `mise --version` alone is ~180ms).
+    if test -d "$XDG_DATA_HOME/mise/shims"
+        fish_add_path --move --path --global "$XDG_DATA_HOME/mise/shims"
+    end
+end
 
 ###################################################################
 #
@@ -61,12 +82,14 @@ set fish_greeting ""
 #
 ###################################################################
 
-abbr -a -- dot 'cd ~/.dotfiles'
-abbr -a -- cache 'cd ~/cache'
-abbr -a -- tmp 'cd (mktemp -d)'
-abbr -a -- g git
-abbr -a -- lg lazygit
-abbr -a -- wiki 'vim ~/Dropbox/wiki/zettel/index.md'
+if status is-interactive
+    abbr -a -- dot 'cd ~/.dotfiles'
+    abbr -a -- cache 'cd ~/cache'
+    abbr -a -- tmp 'cd (mktemp -d)'
+    abbr -a -- g git
+    abbr -a -- lg lazygit
+    abbr -a -- wiki 'vim ~/Dropbox/wiki/zettel/index.md'
+end
 
 # Use coreutils alternatives
 alias ls='eza --classify --oneline --git'
@@ -90,23 +113,26 @@ alias grep='grep --color=auto'
 ###################################################################
 
 # Paths — declarative via fish_add_path --global (not fish_user_paths universal)
-set -x USER_BIN $HOME/.bin
-set -x LOCAL_BIN $HOME/.local/bin
-set -x HOMEBREW_BIN /opt/homebrew/bin
-set -x HOMEBREW_SBIN /opt/homebrew/sbin
-set -x GHOSTTY_BIN /Applications/Ghostty.app/Contents/MacOS
-set -x NPM_BIN $HOME/.npm-global/bin
+set -l USER_BIN $HOME/.bin
+set -l LOCAL_BIN $HOME/.local/bin
+set -l HOMEBREW_BIN /opt/homebrew/bin
+set -l HOMEBREW_SBIN /opt/homebrew/sbin
+set -l GHOSTTY_BIN /Applications/Ghostty.app/Contents/MacOS
+set -l NPM_BIN $HOME/.npm-global/bin
 
 # fish_add_path prepends, so the LAST call ends up FIRST in PATH. LOCAL_BIN is
 # therefore last on purpose: `keyring` exists in both ~/.local/bin and
 # /opt/homebrew/bin, and uv needs the uv-tool one (it carries
 # keyrings.codeartifact) for the private index. Reordering these breaks it.
-fish_add_path --path --global $NPM_BIN
-fish_add_path --path --global $HOMEBREW_BIN
-fish_add_path --path --global $HOMEBREW_SBIN
-fish_add_path --path --global $GHOSTTY_BIN
-fish_add_path --path --global $USER_BIN
-fish_add_path --path --global $LOCAL_BIN
+# --move additionally reorders any of these paths already inherited from a
+# parent environment (nested shells, agent processes) — without it,
+# fish_add_path is a no-op when the entry is already present anywhere in PATH.
+fish_add_path --move --path --global $NPM_BIN
+fish_add_path --move --path --global $HOMEBREW_BIN
+fish_add_path --move --path --global $HOMEBREW_SBIN
+fish_add_path --move --path --global $GHOSTTY_BIN
+fish_add_path --move --path --global $USER_BIN
+fish_add_path --move --path --global $LOCAL_BIN
 
 # FZF configuration with better preview
 if command -v fd &>/dev/null
@@ -196,9 +222,6 @@ function pbcat
     command cat $argv[1] | pbcopy
 end
 
-# Use ctrl+s to fzf search the current directory
-fzf_configure_bindings --directory=\cs
-
 # Search for all files with matching name in wiki
 function wiki_file
     fd . --base-directory="$HOME/Dropbox/wiki/" --type=file \
@@ -207,7 +230,12 @@ function wiki_file
         --preview-window="right:65%" \
         --bind "enter:become(nvim $HOME/Dropbox/wiki/{})"
 end
-bind \cg wiki_file
+
+if status is-interactive
+    # Use ctrl+s to fzf search the current directory
+    fzf_configure_bindings --directory=\cs
+    bind \cg wiki_file
+end
 
 # Search for all files *containing* text
 function wt

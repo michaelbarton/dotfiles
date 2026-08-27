@@ -5,6 +5,14 @@ shell-integration = fish
 theme = Catppuccin Frappe
 command = /opt/homebrew/bin/fish
 
+# Homebrew's vendor_conf.d/mise-activate.fish runs before fish/config.fish and
+# checks this exact variable, so it must already be in the environment before
+# fish starts to skip its ~200ms `mise activate fish` call. Setting it only
+# inside config.fish is too late for the first fish process of a session
+# (confirmed: without this, a fresh `fish -c true` costs ~460ms; with it,
+# ~100ms). See fish/config.fish for the interactive/non-interactive split.
+env = MISE_FISH_AUTO_ACTIVATE=0
+
 # Auto-copy Ghostty terminfo to SSH remote hosts (prevents "unknown terminal" errors)
 shell-integration-features = ssh-terminfo
 
