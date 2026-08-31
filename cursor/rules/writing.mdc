@@ -1,0 +1,114 @@
+---
+description: Readable prose in docstrings, docs and PRs — the failure modes PEP 257 does not cover because they are new
+alwaysApply: false
+---
+
+<!-- checks
+1. One idea per sentence
+2. Cases in a list
+3. Reasons only where needed
+4. No narration, quotation or history
+5. No rhetorical filler
+6. No talking about the document
+-->
+
+## Form is already settled; do not re-derive it
+
+- **[PEP 257](https://peps.python.org/pep-0257/)**, 2001 — the summary line is
+  a phrase ending in a period, in the imperative: *"It prescribes the function
+  or method's effect as a command ('Do this', 'Return that'), not as a
+  description; e.g. don't write 'Returns the pathname …'."* A summary must not
+  restate the signature.
+- **ruff's `D` rules** enforce most of that mechanically: `D401` imperative
+  mood, `D402` signature in docstring, `D404` starts-with-"This", `D205` blank
+  line after summary, `D400` trailing period.
+
+Where a linter checks something, the linter is the authority. Never flag it by
+hand.
+
+## What this rule is for
+
+PEP 257 addresses how people got docstrings wrong in 2001: writing a
+description instead of a command, restating the signature, omitting one
+entirely. It has nothing to say about the failure modes below, because they
+were not common enough to name.
+
+They are common in machine-written prose. The examples below are constructed
+to show each fault; every rewrite carries the same facts as the original.
+
+The test: read it aloud. If you run out of breath, or lose track of what the
+subject was, rewrite it.
+
+### 1. One idea per sentence
+
+A sentence with two subordinate clauses is two sentences. A semicolon joining
+two independent clauses is usually two sentences as well.
+
+> **No:** "It is the entry point to the two stages below it -- neither of those
+> is a thing a caller invokes, and until this landed nothing joined up what
+> they returned."
+>
+> **Yes:** "Neither stage below is called directly. This is."
+
+### 2. Cases in a list
+
+Where there are several cases, list them. Prose that rules each one out in turn
+forces the reader to hold the eliminated ones in their head.
+
+> **No:** "An empty value cannot occur here, because the caller already
+> rejected it; what is left is either a value the store has not loaded yet, or
+> one a later pass will compute."
+>
+> **Yes:** "There are two cases: the store has not loaded the value yet, or a
+> later pass computes it."
+
+### 3. Reasons only where needed
+
+Give a reason where it is not obvious, in its own short paragraph. A reason
+attached to every statement buries the one that mattered.
+
+> **No:** "Sorted after filtering, not before: two entries that differ only in
+> case are one entry, and only the folded key can say that they are."
+>
+> **Yes:** "Entries are sorted after filtering. Two that differ only in case
+> are one entry, and only the folded key shows that."
+
+### 4. No narration, quotation or history
+
+Do not restate the code underneath. Do not quote another docstring. Do not
+record what the code used to do — that is the commit message's job, and the
+commit message is where someone will look for it.
+
+> **No:** "Then the case the module docstring promises and this used to get
+> wrong: an empty result means the answer is unknown, never that it is zero."
+>
+> **Yes:** "An empty result means the answer is unknown, not that it is zero."
+
+### 5. No rhetorical filler
+
+Cut the shapes that sound like insight and carry none: "which is the point",
+"not X but Y", "and that is exactly", "it is worth noting", "worth keeping
+sharp", a second em-dash aside hung off the first.
+
+> **No:** "They are different altitudes, not competing names for one thing."
+>
+> **Yes:** "One is a stage, the other is what calls it."
+
+### 6. No talking about the document
+
+Do not describe what a section is doing, why it exists, or what it fixes. The
+reader wants the content, not an account of the content.
+
+> **No:** "Terms this document assumes. Defined here because they were used
+> before being defined, which is the gap this section closes."
+>
+> **Yes:** *(nothing — delete the sentence and start the glossary)*
+
+## What this is not
+
+Not a length limit. A long docstring a reader can follow is fine; a short one
+built from three nested clauses is not.
+
+Not a ban on explaining. Rule 3 asks for reasons where they are needed. A
+decision that took a day to reach, or an assumption nothing checks, is worth a
+paragraph. Restating the line below it is not.
