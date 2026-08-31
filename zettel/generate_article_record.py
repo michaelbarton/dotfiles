@@ -13,12 +13,12 @@ Take a pubmed ID and creates a markdown page with article metadata as the YAML
 front matter.
 """
 
-from urllib import parse
 import datetime
 import os
 import pathlib
 import subprocess
 import textwrap
+from urllib import parse
 
 import click
 import funcy
@@ -93,7 +93,7 @@ def parse_pubmed_response(response, pubmed_id: str) -> PubmedRecord:
 
 def create_article_file(record: PubmedRecord) -> None:
     """Create article record file with pubmed metadata."""
-    file_name = datetime.datetime.today().strftime("%Y%m%d%H%M") + f"_{record.key()}.md"
+    file_name = datetime.datetime.now().astimezone().strftime("%Y%m%d%H%M") + f"_{record.key()}.md"
     file_path = pathlib.Path.home() / "Dropbox/wiki/zettel" / file_name
     file_path.write_text(
         textwrap.dedent(

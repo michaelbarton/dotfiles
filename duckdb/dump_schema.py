@@ -7,6 +7,7 @@
 # ///
 
 import argparse
+
 import duckdb
 
 
@@ -19,8 +20,7 @@ def dump_schema(database_path, output_file):
 
     # Write the schema to the output file
     with open(output_file, "w") as file:
-        for table_schema in schema:
-            file.write(table_schema[0] + "\n\n")
+        file.writelines(table_schema[0] + "\n\n" for table_schema in schema)
 
     # Close the database connection
     con.close()

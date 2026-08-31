@@ -12,11 +12,11 @@ Usage:
                    --filepath <source_sql_path> --prompt <prompt_template_path>
 """
 
-import subprocess
-import sys
 import glob
 import os
 import re
+import subprocess
+import sys
 import tempfile
 
 import click
@@ -29,6 +29,7 @@ def run(cmd, cwd=None, capture=False, check=True):
         cwd=cwd,
         capture_output=capture,
         text=True,
+        check=False,
     )
     if check and result.returncode != 0:
         stderr = result.stderr.strip() if result.stderr else ""
@@ -51,6 +52,7 @@ def get_lineage(model, root):
             capture_output=True,
             text=True,
             cwd=root,
+            check=False,
         )
         if result.returncode == 0:
             names = [
@@ -88,9 +90,7 @@ def get_existing_tests(model, root):
                     continue
                 col_name = col.get("name", "?")
                 for t in col.get("tests", []):
-                    if isinstance(t, str):
-                        tests.append(f"- {col_name}: {t}")
-                    elif isinstance(t, dict):
+                    if isinstance(t, (str, dict)):
                         tests.append(f"- {col_name}: {t}")
     return "\n".join(tests) if tests else ""
 
@@ -206,14 +206,13 @@ def main(model, root, filepath, prompt, limit, model_flag):
     full_prompt += f"\n\nSource SQL:\n{source_sql}"
 
     # --- 7. write context to a temp file & launch cursor-agent ---
-    ctx = tempfile.NamedTemporaryFile(
+    with tempfile.NamedTemporaryFile(
         mode="w",
         suffix=".md",
         prefix=f"dbt_audit_{model}_",
         delete=False,
-    )
-    ctx.write(full_prompt)
-    ctx.close()
+    ) as ctx:
+        ctx.write(full_prompt)
     click.echo(f"Context written to {ctx.name}")
 
     click.echo(f"Launching cursor-agent ({model_flag})...")

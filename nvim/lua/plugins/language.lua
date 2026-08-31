@@ -69,7 +69,7 @@ return {
         -- Use the ansible-managed venv ruff rather than mason's, which sits
         -- first on PATH inside nvim but lags behind: preserving quarto's `#|`
         -- cell-option comments (instead of rewriting them to `# |`) needs
-        -- ruff >= 0.15.17.
+        -- ruff >= 0.16.5.
         ruff_format = {
           command = vim.fn.expand("~/.venvs/nvim/bin/ruff"),
         },

@@ -10,16 +10,15 @@
 Merge multiple BAM files into a single SAM file, preserving reads that map to more than one of the given references.
 """
 
-from typing import Optional
-
-import pysam
-import click
 import collections
 import sys
 
+import click
+import pysam
+
 
 def merge_headers(
-    header_list: list[pysam.AlignmentHeader], reference_id_whitelist: Optional[list[str]] = None
+    header_list: list[pysam.AlignmentHeader], reference_id_whitelist: list[str] | None = None
 ):
     """Merge multiple headers into a single header, removing duplicates while preserving order."""
 
@@ -29,15 +28,16 @@ def merge_headers(
         for header_type, header_values in header.to_dict().items():
             if header_type == "SQ":
                 for header_value in header_values:
-                    if not reference_id_whitelist or header_value["SN"] in reference_id_whitelist:
-                        if header_value not in merged_header[header_type]:
-                            merged_header[header_type].append(header_value)
+                    if (
+                        not reference_id_whitelist or header_value["SN"] in reference_id_whitelist
+                    ) and header_value not in merged_header[header_type]:
+                        merged_header[header_type].append(header_value)
 
     return pysam.AlignmentHeader.from_dict(merged_header)
 
 
 def get_alignments(
-    bam_files: list[str], reference_id_whitelist: Optional[list[str]] = None
+    bam_files: list[str], reference_id_whitelist: list[str] | None = None
 ) -> dict[str, list[pysam.AlignedSegment]]:
     """Get all alignments from the given BAM files, preserving reads that map to more than one of the given references.
 
