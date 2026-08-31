@@ -104,13 +104,12 @@ if printf '%s' "$cmd" | grep -q "git commit"; then
   ' 2>/dev/null) || staged=""
 fi
 
-prose=$(printf '%s\n%s\n' "$from_command" "$staged")
-words=$(printf '%s' "$prose" | wc -w | tr -d ' ')
-
-# Under ~40 words there is nothing worth a network round trip.
-[ "${words:-0}" -lt 40 ] && exit 0
-
-# --- block cap: at most twice for the same prose ---
+# --- session state, and skipping what was already reviewed clean ---
+# The message and the staged prose are hashed separately. Amending a commit
+# changes the message but not the diff, and re-reading an unchanged docstring
+# spends a model call on an answer already known. Judging the two parts
+# independently means each is reviewed once per session, however many times
+# the other changes around it.
 session_id=$(printf '%s' "$input" | jq -r '.session_id // empty' 2>/dev/null) || session_id=""
 state_file=""
 case "$session_id" in
@@ -118,9 +117,30 @@ case "$session_id" in
   *) state_file="${TMPDIR:-/tmp}/claude-writing-${session_id}" ;;
 esac
 
-prose_hash=$(printf '%s' "$prose" | cksum 2>/dev/null | cut -d' ' -f1) || prose_hash=""
-if [ -n "$state_file" ] && [ -n "$prose_hash" ] && [ -f "$state_file" ]; then
-  seen=$(grep -c "^${prose_hash}$" "$state_file" 2>/dev/null) || seen=0
+hash_of() { printf '%s' "$1" | cksum 2>/dev/null | cut -d' ' -f1; }
+
+recorded() {
+  [ -n "$state_file" ] || return 1
+  [ -f "$state_file" ] || return 1
+  grep -qx "$1" "$state_file" 2>/dev/null
+}
+
+msg_hash=$(hash_of "$from_command")
+staged_hash=$(hash_of "$staged")
+
+recorded "pass $msg_hash" && from_command=""
+recorded "pass $staged_hash" && staged=""
+
+prose=$(printf '%s\n%s\n' "$from_command" "$staged")
+words=$(printf '%s' "$prose" | wc -w | tr -d ' ')
+
+# Under ~40 words of unreviewed prose there is nothing worth a round trip.
+[ "${words:-0}" -lt 40 ] && exit 0
+
+# Block at most twice for the same prose; the third attempt goes through.
+prose_hash=$(hash_of "$prose")
+if [ -n "$prose_hash" ]; then
+  seen=$(grep -cx "block $prose_hash" "${state_file:-/dev/null}" 2>/dev/null) || seen=0
   [ "${seen:-0}" -ge 2 ] && exit 0
 fi
 
@@ -153,7 +173,15 @@ verdict=$(printf '%s' "$verdict" | tr '\n' ' ' | grep -o '{.*}' | head -1) || ex
 count=$(printf '%s' "$verdict" | jq -r '.blocks | length' 2>/dev/null) || exit 0
 case "$count" in
   '' | *[!0-9]*) exit 0 ;;
-  0) exit 0 ;;
+  0)
+    # Reviewed and clean. Record both parts so a later amend, or a second
+    # commit touching the same file, does not pay for the same answer twice.
+    if [ -n "$state_file" ]; then
+      [ -n "$msg_hash" ] && printf 'pass %s\n' "$msg_hash" >>"$state_file" 2>/dev/null
+      [ -n "$staged_hash" ] && printf 'pass %s\n' "$staged_hash" >>"$state_file" 2>/dev/null
+    fi
+    exit 0
+    ;;
 esac
 
 reason=$(
@@ -168,7 +196,7 @@ reason=$(
 ) || exit 0
 
 [ -n "$state_file" ] && [ -n "$prose_hash" ] &&
-  printf '%s\n' "$prose_hash" >>"$state_file" 2>/dev/null
+  printf 'block %s\n' "$prose_hash" >>"$state_file" 2>/dev/null
 
 jq -n --arg reason "$reason" '{
   hookSpecificOutput: {
