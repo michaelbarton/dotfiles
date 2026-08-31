@@ -125,12 +125,14 @@ if [ -n "$state_file" ] && [ -n "$prose_hash" ] && [ -f "$state_file" ]; then
 fi
 
 # --- ask a fresh model ---
-# The prompt lives in writing-review.prompt rather than in a heredoc here.
+# The prompt lives in writing-review.md rather than in a heredoc here.
 # A heredoc nested inside $( ) is still parsed for quotes, so one apostrophe
 # in the prompt text is a syntax error -- one that shellcheck does not report
 # and only `bash -n` catches. Keeping the prompt in a file removes that whole
-# class of breakage, and makes the prompt reviewable on its own.
-prompt_file="$script_dir/writing-review.prompt"
+# class of breakage, and makes the prompt reviewable on its own. It is `.md`
+# so `make fmt_check` covers it; the JSON examples are fenced because mdformat
+# would otherwise wrap and escape them.
+prompt_file="$script_dir/writing-review.md"
 [ -f "$prompt_file" ] || exit 0
 prompt_template=$(cat "$prompt_file" 2>/dev/null) || exit 0
 [ -n "$prompt_template" ] || exit 0

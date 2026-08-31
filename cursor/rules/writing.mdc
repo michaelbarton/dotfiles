@@ -12,29 +12,39 @@ alwaysApply: false
 6. No talking about the document
 -->
 
-## Form is already settled; do not re-derive it
+## Prior art, which this does not restate
 
-- **[PEP 257](https://peps.python.org/pep-0257/)**, 2001 — the summary line is
-  a phrase ending in a period, in the imperative: *"It prescribes the function
-  or method's effect as a command ('Do this', 'Return that'), not as a
-  description; e.g. don't write 'Returns the pathname …'."* A summary must not
-  restate the signature.
-- **ruff's `D` rules** enforce most of that mechanically: `D401` imperative
-  mood, `D402` signature in docstring, `D404` starts-with-"This", `D205` blank
-  line after summary, `D400` trailing period.
+Three layers already cover most of this. Where one applies, it is the authority.
 
-Where a linter checks something, the linter is the authority. Never flag it by
-hand.
+**[PEP 257](https://peps.python.org/pep-0257/) — docstring form.** The summary
+is a phrase ending in a period, in the imperative: *"It prescribes the function
+or method's effect as a command ('Do this', 'Return that'), not as a
+description."* It must not restate the signature. ruff enforces most of this as
+`D401`, `D402`, `D404`, `D205` and `D400`, so never flag it by hand.
 
-## What this rule is for
+**[ASD-STE100](https://www.asd-ste100.org/STE_faq.html) — Simplified Technical
+English.** A controlled language from aerospace maintenance documentation: 53
+writing rules and a dictionary of about 900 approved words, current edition
+January 2025. Rules 1 and 2 below are STE's, not this document's — one topic per
+sentence, and vertical lists for complex text. STE also caps sentences at
+roughly 20 words for procedures and 25 for description, and caps paragraphs at
+six sentences. Take those as guidance rather than as a gate; STE itself warns
+that dropping words to hit a limit creates ambiguity instead of clarity.
 
-PEP 257 addresses how people got docstrings wrong in 2001: writing a
-description instead of a command, restating the signature, omitting one
-entirely. It has nothing to say about the failure modes below, because they
-were not common enough to name.
+**Google or NumPy sections** for arguments, returns and raises, whichever the
+project configures.
 
-They are common in machine-written prose. The examples below are constructed
-to show each fault; every rewrite carries the same facts as the original.
+## What is left over
+
+Rules 4, 5 and 6 are the ones no existing standard names. PEP 257 describes how
+people got docstrings wrong in 2001. STE was written for human technical authors
+describing physical procedures. Neither anticipated prose that quotes another
+docstring back at the reader, narrates what the code used to do, builds
+rhetorical scaffolding that sounds like insight, or writes a sentence about what
+the section is doing.
+
+Those are common in machine-written prose, and they are the reason this file
+exists. Rules 1 to 3 are restated here only so the whole set reads in one place.
 
 The test: read it aloud. If you run out of breath, or lose track of what the
 subject was, rewrite it.
@@ -45,8 +55,8 @@ A sentence with two subordinate clauses is two sentences. A semicolon joining
 two independent clauses is usually two sentences as well.
 
 > **No:** "It is the entry point to the two stages below it -- neither of those
-> is a thing a caller invokes, and until this landed nothing joined up what
-> they returned."
+> is a thing a caller invokes, and until this landed nothing joined up what they
+> returned."
 >
 > **Yes:** "Neither stage below is called directly. This is."
 
@@ -55,9 +65,9 @@ two independent clauses is usually two sentences as well.
 Where there are several cases, list them. Prose that rules each one out in turn
 forces the reader to hold the eliminated ones in their head.
 
-> **No:** "An empty value cannot occur here, because the caller already
-> rejected it; what is left is either a value the store has not loaded yet, or
-> one a later pass will compute."
+> **No:** "An empty value cannot occur here, because the caller already rejected
+> it; what is left is either a value the store has not loaded yet, or one a
+> later pass will compute."
 >
 > **Yes:** "There are two cases: the store has not loaded the value yet, or a
 > later pass computes it."
@@ -70,8 +80,8 @@ attached to every statement buries the one that mattered.
 > **No:** "Sorted after filtering, not before: two entries that differ only in
 > case are one entry, and only the folded key can say that they are."
 >
-> **Yes:** "Entries are sorted after filtering. Two that differ only in case
-> are one entry, and only the folded key shows that."
+> **Yes:** "Entries are sorted after filtering. Two that differ only in case are
+> one entry, and only the folded key shows that."
 
 ### 4. No narration, quotation or history
 
