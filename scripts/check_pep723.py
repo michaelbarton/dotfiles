@@ -22,9 +22,8 @@ def top_level_imports(tree: ast.Module) -> set[str]:
         if isinstance(node, ast.Import):
             for alias in node.names:
                 modules.add(alias.name.split(".")[0])
-        elif isinstance(node, ast.ImportFrom):
-            if node.level == 0 and node.module:
-                modules.add(node.module.split(".")[0])
+        elif isinstance(node, ast.ImportFrom) and node.level == 0 and node.module:
+            modules.add(node.module.split(".")[0])
     return modules
 
 
