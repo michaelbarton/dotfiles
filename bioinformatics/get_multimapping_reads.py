@@ -1,4 +1,11 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#     "click",
+#     "pysam",
+# ]
+# ///
 """
 Merge multiple BAM files into a single SAM file, preserving reads that map to more than one of the given references.
 """

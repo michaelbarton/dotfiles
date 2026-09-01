@@ -1,0 +1,10 @@
+[tools]
+# Single source of truth for formatter/linter versions used by both
+# `make fmt`/`make fmt_check` and ansible/tasks/neovim.yml (which reads
+# tools.ruff back out via `mise config get`). Keeps local and CI tooling from
+# drifting apart — see commit #103 for what happens when it isn't.
+ruff = "0.16.5"
+stylua = "2.5.2"
+actionlint = "1.7.12"
+"npm:prettier" = "3.5.3"
+"pipx:ansible-lint" = "26.8.0"

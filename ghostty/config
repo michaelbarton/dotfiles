@@ -2,8 +2,19 @@ cursor-style = block
 font-family = FiraCode Nerd Font
 font-size = 16
 shell-integration = fish
-theme = Catppuccin Frappe
+# Follow the system appearance, matching the BAT_THEME_DARK/LIGHT pair in
+# fish/config.fish and delta's detect-dark-light — previously pinned to dark,
+# making the terminal the one thing that didn't follow a light desktop.
+theme = light:Catppuccin Latte,dark:Catppuccin Frappe
 command = /opt/homebrew/bin/fish
+
+# Homebrew's vendor_conf.d/mise-activate.fish runs before fish/config.fish and
+# checks this exact variable, so it must already be in the environment before
+# fish starts to skip its ~200ms `mise activate fish` call. Setting it only
+# inside config.fish is too late for the first fish process of a session
+# (confirmed: without this, a fresh `fish -c true` costs ~460ms; with it,
+# ~100ms). See fish/config.fish for the interactive/non-interactive split.
+env = MISE_FISH_AUTO_ACTIVATE=0
 
 # Auto-copy Ghostty terminfo to SSH remote hosts (prevents "unknown terminal" errors)
 shell-integration-features = ssh-terminfo
@@ -14,3 +25,19 @@ notify-on-command-finish = unfocused
 # Let tmux handle all window/tab management
 keybind = super+t=unbind
 keybind = super+n=unbind
+
+# Global hotkey dropdown terminal — the one Ghostty feature tmux can't
+# provide (a scratch shell over whatever app is focused, without touching
+# the tmux session). Requires Accessibility permission on macOS, granted on
+# first use. Was configured (quick-terminal-* all present) but had no keybind
+# to invoke it.
+keybind = global:cmd+grave_accent=toggle_quick_terminal
+quick-terminal-position = top
+quick-terminal-autohide = true
+
+# Ghostty is installed via the Brewfile cask; let Homebrew be the only
+# updater so `brew bundle check` stays authoritative on the installed version.
+auto-update = off
+
+# tmux persists every session, so this confirmation guards against nothing.
+confirm-close-surface = false

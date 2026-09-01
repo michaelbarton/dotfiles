@@ -1,4 +1,10 @@
-#!/opt/homebrew/bin/python3.10
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#     "duckdb",
+# ]
+# ///
 
 import argparse
 

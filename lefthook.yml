@@ -1,0 +1,4 @@
+pre-commit:
+  commands:
+    fmt-check:
+      run: make fmt_check

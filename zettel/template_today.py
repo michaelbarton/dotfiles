@@ -1,3 +1,12 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#     "click",
+#     "jinja2",
+#     "orjson",
+# ]
+# ///
 """Use the daily template to create a file for today."""
 
 import datetime

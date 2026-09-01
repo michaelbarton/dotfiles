@@ -29,15 +29,14 @@ brew "jq"
 brew "just"
 brew "kubernetes-cli"
 brew "lazygit"
+brew "lefthook"
 brew "mise"
 brew "neovim"
 brew "ollama"
 brew "openjdk@17"
-brew "openssl@1.1"
 brew "pandoc"
 brew "parallel"
 brew "pigz"
-brew "pipx"
 brew "pixz"
 brew "pngcrush"
 brew "prettierd"
@@ -60,23 +59,18 @@ brew "zoxide"
 cask "amethyst"
 cask "db-browser-for-sqlite"
 cask "docker-desktop", args: { appdir: "/Applications" }
-cask "dockutil"
-cask "font-fira-code", args: { appdir: "/Applications" }
-cask "font-fira-code-nerd-font", args: { appdir: "/Applications" }
-cask "font-fira-mono", args: { appdir: "/Applications" }
-cask "font-fira-mono-for-powerline", args: { appdir: "/Applications" }
-cask "font-fira-mono-nerd-font", args: { appdir: "/Applications" }
-cask "font-fira-sans", args: { appdir: "/Applications" }
-cask "font-fira-sans-condensed", args: { appdir: "/Applications" }
-cask "font-fira-sans-extra-condensed", args: { appdir: "/Applications" }
-cask "font-inconsolata-dz-for-powerline", args: { appdir: "/Applications" }
-cask "font-raleway", args: { appdir: "/Applications" }
+cask "font-fira-code"
+cask "font-fira-code-nerd-font"
+cask "font-fira-mono"
+cask "font-fira-mono-nerd-font"
+cask "font-fira-sans"
+cask "font-fira-sans-condensed"
+cask "font-fira-sans-extra-condensed"
+cask "font-raleway"
 cask "ghostty"
 cask "hammerspoon"
-cask "iterm2", args: { appdir: "/Applications" }
 cask "mactex"
 cask "quarto"
 cask "rectangle", args: { appdir: "/Applications" }
 cask "spotify"
 npm "@anthropic-ai/claude-code"
-npm "prettier"

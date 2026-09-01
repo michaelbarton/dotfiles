@@ -1,4 +1,14 @@
 ---
+- name: Read pinned ruff version from mise.toml
+  ansible.builtin.command:
+    cmd: mise config get tools.ruff -f {{ dotfiles_dir }}/mise.toml
+  register: ruff_version_result
+  changed_when: false
+
+- name: Set ruff_version fact
+  ansible.builtin.set_fact:
+    ruff_version: "{{ ruff_version_result.stdout | trim }}"
+
 - name: Create nvim virtual environment with uv
   ansible.builtin.command:
     cmd: uv venv {{ venv_path }}/nvim --python {{ python_version }}
@@ -9,7 +19,7 @@
     cmd: >
       uv pip install --python {{ venv_path }}/nvim/bin/python
       codespell dap-python debugpy isort mdformat mdformat-frontmatter
-      neovim pynvim "ruff==0.16.5" yamllint
+      neovim pynvim "ruff=={{ ruff_version }}" yamllint
   register: nvim_uv_pip
   changed_when: "'Installed' in nvim_uv_pip.stdout or 'Updated' in nvim_uv_pip.stdout"
 
@@ -77,8 +87,10 @@
     argv:
       - nvim
       - --headless
-      - "+TSUpdateSync"
+      - "+lua require('nvim-treesitter').update():wait(600000)"
       - "+qa"
+  register: treesitter_update
   changed_when: false
+  failed_when: "'E492' in treesitter_update.stderr or treesitter_update.rc != 0"
   tags:
     - nvim

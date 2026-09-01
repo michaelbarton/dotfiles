@@ -57,3 +57,41 @@ For machine-specific settings, create:
 
 - `~/.local/environment.bash` for Bash settings
 - `~/.local/environment.fish` for Fish settings
+
+### Work git identity
+
+`GIT_AUTHOR_*`/`GIT_COMMITTER_*` env vars are not set globally because they
+override every gitconfig level, making per-repo identity impossible. Instead,
+`git/gitconfig` includes `~/.config/git/config-local` if present. On a machine
+that needs a work identity, create it by hand (never committed — it names your
+employer):
+
+```gitconfig
+[includeIf "hasconfig:remote.*.url:git@github.com:<org>/**"]
+  path = ~/.config/git/config-work
+```
+
+And `~/.config/git/config-work`:
+
+```gitconfig
+[user]
+  email = you@work-example.com
+  name = Your Name
+```
+
+Requires git 2.36+ for `hasconfig:`. Verify with:
+
+```bash
+cd <a work checkout> && git var GIT_AUTHOR_IDENT   # expect work address
+cd ~/.dotfiles && git var GIT_AUTHOR_IDENT          # expect personal address
+```
+
+### Machine-local Claude config
+
+Tracked `claude/settings.json` holds only shareable defaults (hooks,
+permissions, `effortLevel`, `tui`, `theme`). Machine-local keys — `model`,
+`enabledPlugins`, `extraKnownMarketplaces` — live in
+`~/.claude/settings.local.json`, which is already gitignored. Claude Code writes
+those when you change model or theme via `/config`; keeping them out of the
+tracked file stops this public repo from churning with local state or publishing
+work-only marketplace entries.

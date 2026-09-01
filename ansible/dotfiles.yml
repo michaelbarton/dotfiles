@@ -18,9 +18,6 @@
     python_version: "3.11" # Adjust this to your preferred Python version
     dotfiles_dir: "{{ ansible_env.HOME }}/.dotfiles"
     config_dir: "{{ ansible_user_dir }}/.config"
-    # The one machine this repo treats as "home" — gates tasks that must
-    # never run on a work computer (e.g. paperless auto-start).
-    personal_hostname: Michaels-MacBook-Air
 
   tasks:
     - name: Create necessary directories
@@ -38,6 +35,8 @@
         - { path: "{{ config_dir }}/atuin" }
         - { path: "{{ config_dir }}/lazygit" }
         - { path: "{{ config_dir }}/ripgrep" }
+        - { path: "{{ config_dir }}/git" }
+        - { path: "{{ config_dir }}/tmux" }
         - { path: "{{ config_dir }}/uv" }
         - { path: "{{ config_dir }}/homebrew" }
         - { path: "{{ ansible_user_dir }}/cache" }
@@ -113,4 +112,27 @@
       ansible.builtin.include_tasks: tasks/link_files.yml
       tags:
         - links
+        - setup
+
+    # lefthook arrives via the Brewfile, which is tagged `never` and so is
+    # skipped in CI. Probe for it rather than hard-failing the whole run on a
+    # machine that has not installed the packages yet.
+    - name: Check whether lefthook is installed
+      ansible.builtin.command:
+        cmd: which lefthook
+      register: lefthook_binary
+      changed_when: false
+      failed_when: false
+      tags:
+        - lefthook
+        - setup
+
+    - name: Install lefthook git hooks
+      ansible.builtin.command:
+        cmd: lefthook install
+        chdir: "{{ dotfiles_dir }}"
+      when: lefthook_binary.rc == 0
+      changed_when: false
+      tags:
+        - lefthook
         - setup

@@ -21,6 +21,16 @@
     - hooks
     - setup
 
+- name: Link global Claude CLAUDE.md
+  ansible.builtin.file:
+    src: "{{ dotfiles_dir }}/claude/CLAUDE.md"
+    dest: "{{ ansible_user_dir }}/.claude/CLAUDE.md"
+    state: link
+    force: true
+  tags:
+    - hooks
+    - setup
+
 - name: Link Cursor rules
   ansible.builtin.file:
     src: "{{ dotfiles_dir }}/cursor/rules"

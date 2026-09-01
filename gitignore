@@ -1,5 +1,15 @@
-# Global gitignore for all repositories
-# Apply with: git config --global core.excludesfile ~/.gitignore
+# Global git ignore — deliberately narrow.
+#
+# This applies to every repository, including other people's, so it only
+# lists things no project ever wants tracked: OS/editor cruft and
+# secret-shaped filenames. Anything language-, build-, or data-shaped
+# (node_modules/, *.png, Gemfile.lock, dist/, coverage/, ...) belongs in a
+# per-project .gitignore or .git/info/exclude instead — a global rule for
+# those silently drops files in repos that legitimately track them, with no
+# indication anything was skipped.
+#
+# Linked to $XDG_CONFIG_HOME/git/ignore (git's default location when
+# core.excludesFile is unset — see git/gitconfig).
 
 ###################################################################
 # OS Files
@@ -40,6 +50,7 @@ $RECYCLE.BIN/
 .*.sw[a-z]
 Session.vim
 .netrwhist
+tags
 
 # VS Code
 .vscode/
@@ -52,94 +63,10 @@ Session.vim
 *.ipr
 .idea_modules/
 
-# Tags
-tags
-
 ###################################################################
-# Compiled Files
+# Secret-shaped filenames (safety net)
 ###################################################################
 
-# Python
-*.py[cod]
-*$py.class
-__pycache__/
-*.so
-*.egg
-*.egg-info/
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
-.coverage
-htmlcov/
-
-# C/C++
-*.o
-*.obj
-*.exe
-*.out
-*.app
-*.dylib
-*.dll
-
-# Java
-*.class
-*.jar
-*.war
-*.ear
-
-# Rust
-target/
-
-# Go
-*.test
-*.prof
-
-###################################################################
-# Package Management
-###################################################################
-
-# Node
-node_modules/
-.npm/
-.yarn/
-
-# Python
-.venv/
-venv/
-ENV/
-env/
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Ruby
-vendor/bundle/
-.bundle/
-.rake_tasks
-Gemfile.lock
-autotest
-.autotest
-cucumber.yml
-.rspec
-
-# PHP
-vendor/
-composer.lock
-
-###################################################################
-# Environment & Configuration
-###################################################################
-
-# Environment variables
-.env
-.env.local
-.env.*.local
-.envrc.local
-
-# mise/asdf
-.mise.local.toml
-.tool-versions.local
-
-# Secrets
 *.pem
 *.key
 *.p12
@@ -149,115 +76,17 @@ id_dsa
 id_ed25519
 
 ###################################################################
-# Logs & Temporary Files
-###################################################################
-
-# Logs
-*.log
-logs/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-lerna-debug.log*
-
-# Temporary files
-tmp/
-temp/
-*.tmp
-*.bak
-*.backup
-*.cache
-
-# Cache directories
-.cache/
-*.cache/
-
-###################################################################
-# Build & Generated Files
-###################################################################
-
-# Documentation builds
-_build/
-docs/_build/
-site/
-
-# Compiled output
-out/
-dist/
-build/
-
-# Coverage reports
-coverage/
-.nyc_output/
-
-###################################################################
-# Database Files
-###################################################################
-
-*.sqlite
-*.sqlite3
-*.db
-
-###################################################################
-# Archives
-###################################################################
-
-*.zip
-*.tar.gz
-*.rar
-*.7z
-
-###################################################################
-# Project-Specific (Common)
-###################################################################
-
-# Jupyter Notebooks
-.ipynb_checkpoints/
-*.ipynb_checkpoints
-
-# R
-.Rhistory
-.RData
-.Rapp.history
-
-# Terraform
-.terraform/
-*.tfstate
-*.tfstate.backup
-
-# Docker
-.dockerignore
-
-# LaTeX
-*.aux
-*.bbl
-*.blg
-*.dvi
-*.fdb_latexmk
-
-# Man pages
-*.[1-9]
-*.[1-9].html
-
-# Bioinformatics
-*.fasta
-*.fna
-*.fastq
-*.fnq
-*.sra
-
-# Data files
-*.tab
-*.png
-*.uploaded
-*.xz
-
-# Dropbox
-.dropbox
-
 # Misc
-.sass-cache/
-*.pid
-*.seed
-*.pid.lock
+###################################################################
+
 **/.claude/settings.local.json
+
+# Patterns removed from this global file in the 2026 dotfiles review (they
+# were too broad for a file applied to every repo — see README/plan): build
+# and dependency artifacts (__pycache__/, node_modules/, target/, vendor/,
+# dist/, build/, out/, coverage/), package lockfiles (Gemfile.lock,
+# composer.lock), env files (.env*), logs and temp files (*.log, tmp/,
+# *.bak), database files (*.sqlite, *.db), archives (*.zip, *.tar.gz),
+# data/media files (*.png, *.tab, *.xz), man pages (*.[1-9]), and
+# project-specific extras (Jupyter, R, Terraform, Docker, LaTeX, Dropbox,
+# bioinformatics file extensions).

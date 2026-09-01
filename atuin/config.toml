@@ -11,10 +11,6 @@ filter_mode = "global" # global, host, session, directory
 filter_mode_shell_up_key_binding = "directory" # When pressing up arrow
 style = "compact"  # compact, full, auto
 
-# Enhanced search options
-search_mode_auto = true  # Automatically switch between fuzzy and fulltext
-search_mode_auto_threshold = 10  # Switch to fulltext after 10 chars
-
 # History settings
 inline_height = 30  # Number of lines to show in search
 show_preview = true
@@ -90,4 +86,4 @@ update_check = false
 
 # Daemon mode: background process manages history sync/writes for better performance
 [daemon]
-enabled = false
+enabled = true

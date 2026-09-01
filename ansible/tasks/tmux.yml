@@ -3,8 +3,9 @@
   ansible.builtin.git:
     repo: https://github.com/tmux-plugins/tpm
     dest: "{{ ansible_user_dir }}/.tmux/plugins/tpm"
-    depth: 1
-    version: HEAD
+    # TPM has no release tags, so pin to the commit currently in use rather
+    # than floating HEAD.
+    version: e261deb1b47614eed3400089ce7197dc68acc4eb
 
 - name: Install tmux plugins via TPM
   ansible.builtin.shell:

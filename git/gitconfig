@@ -2,6 +2,11 @@
   email = mail@michaelbarton.me.uk
   name = Michael Barton
   signingkey = ~/.ssh/id_ed25519.pub
+
+; Optional machine-local overrides (work identity, signing keys).
+; Absent on machines that don't need it; a missing include is not an error.
+[include]
+  path = ~/.config/git/config-local
 [color]
   branch = auto
   diff = auto
@@ -83,16 +88,32 @@
   dft = difftool                              # Shorthand for difftool
 
 [core]
-  excludesfile = ~/.gitignore
-  autocrlf = input
+  # No excludesfile setting: git reads $XDG_CONFIG_HOME/git/ignore by default,
+  # which is where gitignore is linked (see link_files.yml).
   whitespace = trailing-space,space-before-tab
 	pager = delta
+	# Pairs with feature.manyFiles: a background daemon watches the working
+	# tree so `git status` skips a full filesystem scan.
+	fsmonitor = true
+	untrackedCache = true
 [branch]
-	autosetupmerge = true
 	sort = -committerdate
 
 [tag]
 	sort = version:refname
+
+[fetch]
+	prune = true
+	pruneTags = true
+
+[column]
+	ui = auto
+
+[submodule]
+	recurse = true
+
+[help]
+	autocorrect = prompt
 [rerere]
   enabled = true
   autoupdate = true
@@ -127,6 +148,7 @@
 [push]
 	default = current
 	autoSetupRemote = true
+	followTags = true
 
 [interactive]
 	diffFilter = delta --color-only
@@ -165,6 +187,7 @@
 	algorithm = histogram
 	indentHeuristic = true
 	colorMovedWS = allow-indentation-change
+	mnemonicPrefix = true
 
 [difftool]
 	prompt = false
@@ -184,7 +207,6 @@
 
 [feature]
 	manyFiles = true
-	experimental = true
 
 [worktree]
 	guessRemote = true

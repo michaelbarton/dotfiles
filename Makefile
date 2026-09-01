@@ -8,15 +8,14 @@ LUA_FILES := $(shell git ls-files '*.lua' | while IFS= read -r file; do [ -f "$$
 SHELL_FILES := $(shell git ls-files | while IFS= read -r file; do [ -f "$$file" ] || continue; case "$$file" in (*.sh|*.bash) printf "%s " "$$file"; continue;; esac; head -1 "$$file" 2>/dev/null | grep -qE '^\#!.*/(env +)?(sh|bash|dash|ksh)$$' && printf "%s " "$$file"; done)
 FISH_FILES := $(shell git ls-files '*.fish' | while IFS= read -r file; do [ -f "$$file" ] && printf "%s " "$$file"; done)
 
-PRETTIER_VERSION := 3.5.3
-STYLUA_VERSION := 2.5.2
-RUFF_VERSION := 0.16.5
+.PHONY: all apply galaxy fmt fmt_check nvim-health nvim-check nvim-update packages packages-bio
 
-.PHONY: all apply fmt fmt_check nvim-health nvim-check nvim-update packages packages-bio
+all: fmt galaxy apply nvim-check
 
-all: fmt apply nvim-check
+galaxy:
+	uv run ansible-galaxy install -r ansible/requirements.yml
 
-apply:
+apply: galaxy
 	uv run ansible-playbook -i ~/.dotfiles/ansible/inventory.ini ~/.dotfiles/ansible/dotfiles.yml
 
 packages:
@@ -28,22 +27,23 @@ packages-bio:
 	brew bundle install --file=Brewfile.bio --no-upgrade
 
 fmt:
-	@if [ -n "$(YAML_FILES)" ]; then npx --loglevel error --yes prettier@$(PRETTIER_VERSION) --write $(YAML_FILES); fi
+	@if [ -n "$(YAML_FILES)" ]; then mise exec -- prettier --write $(YAML_FILES); fi
 	@if [ -n "$(MARKDOWN_FILES)" ]; then uvx --with mdformat-gfm --with mdformat-frontmatter mdformat --wrap 80 --number $(MARKDOWN_FILES); fi
-	@if [ -n "$(PYTHON_FILES)" ]; then uvx ruff@$(RUFF_VERSION) format --line-length=100 $(PYTHON_FILES); fi
-	@if [ -n "$(PYTHON_FILES)" ]; then uvx ruff@$(RUFF_VERSION) check --fix --line-length=100 $(PYTHON_FILES); fi
-	@if [ -n "$(LUA_FILES)" ]; then npx --loglevel error --yes @johnnymorganz/stylua-bin@$(STYLUA_VERSION) -- $(LUA_FILES); fi
+	@if [ -n "$(PYTHON_FILES)" ]; then mise exec -- ruff format --line-length=100 $(PYTHON_FILES); fi
+	@if [ -n "$(PYTHON_FILES)" ]; then mise exec -- ruff check --fix --line-length=100 $(PYTHON_FILES); fi
+	@if [ -n "$(LUA_FILES)" ]; then mise exec -- stylua -- $(LUA_FILES); fi
 
 fmt_check:
-	@if [ -n "$(YAML_FILES)" ]; then npx --loglevel error --yes prettier@$(PRETTIER_VERSION) --check $(YAML_FILES); fi
+	@if [ -n "$(YAML_FILES)" ]; then mise exec -- prettier --check $(YAML_FILES); fi
 	@if [ -n "$(MARKDOWN_FILES)" ]; then uvx --with mdformat-gfm --with mdformat-frontmatter mdformat --check --wrap 80 --number $(MARKDOWN_FILES); fi
-	@if [ -n "$(PYTHON_FILES)" ]; then uvx ruff@$(RUFF_VERSION) format --check --line-length=100 $(PYTHON_FILES); fi
-	@if [ -n "$(PYTHON_FILES)" ]; then uvx ruff@$(RUFF_VERSION) check --line-length=100 $(PYTHON_FILES); fi
-	@if [ -n "$(LUA_FILES)" ]; then npx --loglevel error --yes @johnnymorganz/stylua-bin@$(STYLUA_VERSION) --check -- $(LUA_FILES); fi
+	@if [ -n "$(PYTHON_FILES)" ]; then mise exec -- ruff format --check --line-length=100 $(PYTHON_FILES); fi
+	@if [ -n "$(PYTHON_FILES)" ]; then mise exec -- ruff check --line-length=100 $(PYTHON_FILES); fi
+	@if [ -n "$(LUA_FILES)" ]; then mise exec -- stylua --check -- $(LUA_FILES); fi
 	@if [ -n "$(SHELL_FILES)" ]; then shellcheck -e SC1091 $(SHELL_FILES); fi
 	@for f in $(FISH_FILES); do fish --no-execute $$f; fish_indent --check $$f; done
-	@ansible-lint ansible/dotfiles.yml
-	@actionlint .github/workflows/*.yml
+	@mise exec -- ansible-lint ansible/dotfiles.yml
+	@mise exec -- actionlint .github/workflows/*.yml
+	@./scripts/check_pep723.py
 
 nvim-health:
 	nvim --headless "+checkhealth" +qa
