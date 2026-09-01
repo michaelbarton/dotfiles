@@ -19,7 +19,7 @@
     cmd: >
       uv pip install --python {{ venv_path }}/nvim/bin/python
       codespell dap-python debugpy isort mdformat mdformat-frontmatter
-      neovim pynvim "ruff=={{ ruff_version }}" yamllint
+      mdformat-gfm neovim pynvim "ruff=={{ ruff_version }}" yamllint
   register: nvim_uv_pip
   changed_when: "'Installed' in nvim_uv_pip.stdout or 'Updated' in nvim_uv_pip.stdout"
 
