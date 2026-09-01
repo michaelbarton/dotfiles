@@ -8,14 +8,21 @@ LUA_FILES := $(shell git ls-files '*.lua' | while IFS= read -r file; do [ -f "$$
 SHELL_FILES := $(shell git ls-files | while IFS= read -r file; do [ -f "$$file" ] || continue; case "$$file" in (*.sh|*.bash) printf "%s " "$$file"; continue;; esac; head -1 "$$file" 2>/dev/null | grep -qE '^\#!.*/(env +)?(sh|bash|dash|ksh)$$' && printf "%s " "$$file"; done)
 FISH_FILES := $(shell git ls-files '*.fish' | while IFS= read -r file; do [ -f "$$file" ] && printf "%s " "$$file"; done)
 
-.PHONY: all apply galaxy fmt fmt_check nvim-health nvim-check nvim-update packages packages-bio
+.PHONY: all apply galaxy fmt fmt_check nvim-health nvim-check nvim-update packages packages-bio check-mise
 
 all: fmt galaxy apply nvim-check
+
+check-mise:
+	@command -v mise >/dev/null 2>&1 || { \
+	  echo "error: mise not found on PATH." >&2; \
+	  echo "Run 'make packages' to install it via Homebrew, then retry." >&2; \
+	  exit 1; \
+	}
 
 galaxy:
 	uv run ansible-galaxy install -r ansible/requirements.yml
 
-apply: galaxy
+apply: check-mise galaxy
 	uv run ansible-playbook -i ~/.dotfiles/ansible/inventory.ini ~/.dotfiles/ansible/dotfiles.yml
 
 packages:
@@ -26,14 +33,14 @@ packages:
 packages-bio:
 	brew bundle install --file=Brewfile.bio --no-upgrade
 
-fmt:
+fmt: check-mise
 	@if [ -n "$(YAML_FILES)" ]; then mise exec -- prettier --write $(YAML_FILES); fi
 	@if [ -n "$(MARKDOWN_FILES)" ]; then uvx --with mdformat-gfm --with mdformat-frontmatter mdformat --wrap 80 --number $(MARKDOWN_FILES); fi
 	@if [ -n "$(PYTHON_FILES)" ]; then mise exec -- ruff format --line-length=100 $(PYTHON_FILES); fi
 	@if [ -n "$(PYTHON_FILES)" ]; then mise exec -- ruff check --fix --line-length=100 $(PYTHON_FILES); fi
 	@if [ -n "$(LUA_FILES)" ]; then mise exec -- stylua -- $(LUA_FILES); fi
 
-fmt_check:
+fmt_check: check-mise
 	@if [ -n "$(YAML_FILES)" ]; then mise exec -- prettier --check $(YAML_FILES); fi
 	@if [ -n "$(MARKDOWN_FILES)" ]; then uvx --with mdformat-gfm --with mdformat-frontmatter mdformat --check --wrap 80 --number $(MARKDOWN_FILES); fi
 	@if [ -n "$(PYTHON_FILES)" ]; then mise exec -- ruff format --check --line-length=100 $(PYTHON_FILES); fi
