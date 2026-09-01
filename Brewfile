@@ -57,6 +57,7 @@ brew "zopfli"
 brew "zoxide"
 
 cask "amethyst"
+cask "claude-code"
 cask "db-browser-for-sqlite"
 cask "docker-desktop", args: { appdir: "/Applications" }
 cask "font-fira-code"
@@ -73,4 +74,3 @@ cask "mactex"
 cask "quarto"
 cask "rectangle", args: { appdir: "/Applications" }
 cask "spotify"
-npm "@anthropic-ai/claude-code"
