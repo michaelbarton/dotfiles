@@ -155,7 +155,7 @@
 
 [delta]
     navigate = true
-    side-by-side = true
+    features = side-by-side
     line-numbers = true
     detect-dark-light = always
     # OSC8 hyperlinks: file paths in diffs become clickable in Ghostty
@@ -179,6 +179,12 @@
     hunk-header-style = yellow dim
     file-decoration-style = none
     commit-decoration-style = none
+
+# Named feature so it can be disabled per-invocation with --features=
+# (used by lazygit's diffRenderers, which finds side-by-side confusing
+# in its narrower panel)
+[delta "side-by-side"]
+    side-by-side = true
 
 [diff]
 	tool = difftastic
