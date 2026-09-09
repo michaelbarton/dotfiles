@@ -85,6 +85,8 @@ nvim-check:
 	rm -rf $(NVIM_CHECK_TMPDIR); \
 	[ "$$fail" -eq 0 ] || (echo "nvim-check: some filetypes had errors" && exit 1)
 
+# ~/.config/nvim/lazy-lock.json is symlinked to nvim/lazy-lock.json by
+# ansible/tasks/neovim.yml, so lazy.nvim writes the updated lockfile straight
+# into the repo -- no copy back needed.
 nvim-update:
 	nvim --headless "+Lazy! sync" "+qa"
-	cp ~/.config/nvim/lazy-lock.json nvim/lazy-lock.json
