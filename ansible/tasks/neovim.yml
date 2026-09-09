@@ -29,14 +29,15 @@
   loop:
     - ftplugin
     - dbt
+    - lazy-lock.json
   register: nvim_paths
 
-- name: Remove existing directories that need to be replaced with symlinks
+- name: Remove existing paths that need to be replaced with symlinks
   ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/.config/nvim/{{ item.item }}"
     state: absent
   loop: "{{ nvim_paths.results }}"
-  when: item.stat.exists and item.stat.isdir and not item.stat.islnk
+  when: item.stat.exists and not item.stat.islnk
 
 - name: Link specific configuration files
   ansible.builtin.file:
@@ -47,6 +48,7 @@
     - { src: "nvim/init.lua", dest: ".config/nvim/init.lua" }
     - { src: "nvim/lua", dest: ".config/nvim/lua" }
     - { src: "nvim/ftplugin", dest: ".config/nvim/ftplugin" }
+    - { src: "nvim/lazy-lock.json", dest: ".config/nvim/lazy-lock.json" }
     - { src: "dbt", dest: ".config/nvim/dbt" }
 
 - name: Install jsonlint node.js package
