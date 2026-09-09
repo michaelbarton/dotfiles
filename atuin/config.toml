@@ -84,6 +84,11 @@ common_subcommands = [
 # Update check
 update_check = false
 
-# Daemon mode: background process manages history sync/writes for better performance
+# Daemon mode requires a background process to actually run `atuin daemon`
+# (e.g. a launchd agent); nothing in this repo starts one, so enabling it
+# just makes every history write fail with "failed to connect to local
+# atuin daemon". Disabled once before for the same reason (#91), then
+# re-enabled in #104 without adding a way to start it. Keep it off until
+# a launchd agent is added alongside this.
 [daemon]
-enabled = true
+enabled = false
