@@ -7,6 +7,7 @@
   loop:
     - "{{ ansible_user_dir }}/.claude"
     - "{{ ansible_user_dir }}/.cursor"
+    - "{{ ansible_user_dir }}/.codex"
   tags:
     - hooks
     - setup
@@ -25,6 +26,16 @@
   ansible.builtin.file:
     src: "{{ dotfiles_dir }}/claude/CLAUDE.md"
     dest: "{{ ansible_user_dir }}/.claude/CLAUDE.md"
+    state: link
+    force: true
+  tags:
+    - hooks
+    - setup
+
+- name: Link Codex hooks
+  ansible.builtin.file:
+    src: "{{ dotfiles_dir }}/codex/hooks.json"
+    dest: "{{ ansible_user_dir }}/.codex/hooks.json"
     state: link
     force: true
   tags:

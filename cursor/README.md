@@ -1,7 +1,9 @@
-# Cursor and Claude agent configuration
+# Cursor, Claude Code and Codex agent configuration
 
-User-level **prompt hooks** (via Claude settings) and **Cursor rules** apply
-across all projects when deployed.
+User-level **prompt hooks** (via Claude settings and Codex `hooks.json`) and
+**Cursor rules** apply across all projects when deployed. One set of hook
+scripts under `claude/hooks/` serves all three agents; only the registration
+file differs.
 
 ## Deployment
 
@@ -9,6 +11,7 @@ Symlink into your home directory:
 
 ```bash
 ln -sf ~/.dotfiles/claude/settings.json ~/.claude/settings.json
+ln -sf ~/.dotfiles/codex/hooks.json ~/.codex/hooks.json
 ln -sf ~/.dotfiles/cursor/rules ~/.cursor/rules
 ```
 
@@ -26,13 +29,36 @@ when **Settings → Features → Third-party skills** is enabled.
 Project-level `.cursor/hooks.json` in a repo can still add project-specific
 hooks; global hooks come from `~/.claude/settings.json`.
 
+### Codex: a separate registration file
+
+Codex does not read `~/.claude/settings.json` — only Cursor does. It has its own
+hooks engine (`codex features list` → `hooks stable`) reading
+`~/.codex/hooks.json`, with the same event names, the same input field names
+(`session_id`, `cwd`, `tool_name`, `tool_input`, `stop_hook_active`) and the
+same output contract as Claude Code. `codex/hooks.json` registers the same
+scripts against that engine. Two differences are load-bearing:
+
+- **Matchers are `*`.** Codex has no `Write`, `Edit`, `Bash` or `ExitPlanMode`
+  tool, and its tool names shift with feature flags — with code mode enabled,
+  edits and commands both arrive as `exec` cells running JavaScript. Porting the
+  Claude matchers would silently match nothing, so each script gates on the
+  payload itself instead.
+- **`plan-critique.sh` is not registered on `PostToolUse`.** That registration
+  exists to retire a critique once `ExitPlanMode` has presented the plan for
+  approval, and Codex has no equivalent event. Under Codex the critique fires
+  once at `Stop` and is never retired early.
+
+Codex also gates hooks behind a trust prompt: its hooks panel tracks a hash per
+hook and shows *"Modified since last trusted — review required"*. Re-trust there
+after any `make apply` that changes `codex/hooks.json`.
+
 ## What's included
 
-### Hooks (`~/.claude/settings.json`)
+### Hooks (`~/.claude/settings.json`, `~/.codex/hooks.json`)
 
 | Hook                                 | Event                                 | What it does                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | ------------------------------------ | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Plan quality gate (`plan-review.sh`) | `PostToolUse` (Write/Edit)            | When a plan under `.cursor/plans/` or `.claude/plans/` is edited, injects an audit prompt (via `additionalContext`) wrapping the gates defined in `planning.mdc` (single source of truth), with a per-gate PASS/FAIL/N-A verdict contract ending in `PLAN OK` when clean. The full rule is injected on every plan edit — a once-per-session marker would go stale after context compaction.                                                                                                                                                                                                                                                                                                                                               |
+| Plan quality gate (`plan-review.sh`) | `PostToolUse`                         | When a plan under `.cursor/plans/` or `.claude/plans/` is edited, injects an audit prompt (via `additionalContext`) wrapping the gates defined in `planning.mdc` (single source of truth), with a per-gate PASS/FAIL/N-A verdict contract ending in `PLAN OK` when clean. The full rule is injected on every plan edit — a once-per-session marker would go stale after context compaction. Gates on `tool_input.file_path` where the agent supplies one; Codex supplies none, so it falls back to the plan directories under `cwd`, newest file modified in the last minute.                                                                                                                                                             |
 | dbt rules (`dbt-rules.sh`)           | `PostToolUse` (Write/Edit)            | When a `.sql`/`.yml` file inside a dbt project (`dbt_project.yml` ancestor) is edited, injects `dbt.mdc` (via `additionalContext`) — Claude Code's equivalent of Cursor's glob-scoped rule loading. Full rule on the first qualifying edit per session; later edits get a one-line reminder of the load-bearing rules (grain test, no repair-loop, plan-sanctioned dedup, reconciliation).                                                                                                                                                                                                                                                                                                                                                |
 | Turn tracker (`track-tool-use.sh`)   | `PostToolUse` (Write/Edit/Bash)       | Appends edited file paths and Bash commands to a per-session state file in `$TMPDIR` so the Stop hook knows what happened this turn without parsing the transcript. No output.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | Verify build (`stop-check.sh`)       | `Stop`                                | If `.sql` files inside a dbt project or `.qmd` files were edited this turn and no build/render command ran, blocks the stop once (`decision: block`) with a reminder to run `dbt build` / `quarto render`. Loop-safe by design: allows the stop unconditionally when `stop_hook_active` is set (max one nag per turn) and fails open on any error.                                                                                                                                                                                                                                                                                                                                                                                        |
@@ -43,8 +69,9 @@ dbt layer boundaries and other SQL conventions are enforced via **rules**
 
 Hook output follows the **Claude Code** JSON contract
 (`hookSpecificOutput.additionalContext`, `decision: block`); plain stdout from a
-hook never reaches the model. Cursor's own hook protocol differs — these scripts
-are written against Claude Code semantics.
+hook never reaches the model. Codex implements the same contract, so the scripts
+are shared verbatim. Cursor's own hook protocol differs — these scripts are
+written against Claude Code semantics.
 
 ### Rules (`~/.cursor/rules/`)
 

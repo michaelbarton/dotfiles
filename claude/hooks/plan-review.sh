@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# PostToolUse(Write|Edit) hook: review plan documents.
+# PostToolUse hook: review plan documents.
 # Path-gates first so non-plan edits exit silently, then emits an audit
 # prompt wrapping the canonical planning rule (cursor/rules/planning.mdc)
 # as PostToolUse additionalContext JSON — plain stdout at exit 0 never
@@ -12,6 +12,29 @@ set -euo pipefail
 
 input=$(cat)
 file_path=$(printf '%s' "$input" | jq -r '.tool_input.file_path // empty')
+
+# Codex reports no .tool_input.file_path: its edits arrive as an apply_patch
+# payload or as a shell heredoc inside a code-mode cell, neither of which
+# carries a path field. Without a fallback the gate below never matches under
+# Codex, so the pointer file is never written and plan-critique.sh never fires
+# either. Recover the path from the plan directories under the session cwd,
+# newest first; -mmin -1 keeps this to the edit that fired this hook.
+if [ -z "$file_path" ]; then
+  cwd=$(printf '%s' "$input" | jq -r '.cwd // empty')
+  # Collect the plan directories that exist rather than letting find report the
+  # missing one: find exits non-zero for an unreadable argument even when it
+  # matched elsewhere, and the `|| file_path=""` below would discard the match.
+  plan_dirs=()
+  for dir in "$cwd/.cursor/plans" "$cwd/.claude/plans"; do
+    if [ -n "$cwd" ] && [ -d "$dir" ]; then
+      plan_dirs+=("$dir")
+    fi
+  done
+  if [ ${#plan_dirs[@]} -gt 0 ]; then
+    file_path=$(find "${plan_dirs[@]}" -type f -name '*.md' -mmin -1 \
+      -exec ls -t {} + 2>/dev/null | head -1) || file_path=""
+  fi
+fi
 
 case "$file_path" in
   */.cursor/plans/* | */.claude/plans/*) ;;

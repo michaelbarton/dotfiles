@@ -1,0 +1,54 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.dotfiles/claude/hooks/writing-review.sh",
+            "timeout": 60
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.dotfiles/claude/hooks/plan-review.sh",
+            "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "$HOME/.dotfiles/claude/hooks/dbt-rules.sh",
+            "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "$HOME/.dotfiles/claude/hooks/track-tool-use.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.dotfiles/claude/hooks/stop-check.sh",
+            "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "$HOME/.dotfiles/claude/hooks/plan-critique.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}
