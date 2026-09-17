@@ -76,6 +76,6 @@
   },
   "effortLevel": "high",
   "tui": "fullscreen",
-  "theme": "auto",
+  "theme": "dark",
   "skipAutoPermissionPrompt": true
 }
