@@ -2,10 +2,8 @@ cursor-style = block
 font-family = FiraCode Nerd Font
 font-size = 16
 shell-integration = fish
-# Follow the system appearance, matching the BAT_THEME_DARK/LIGHT pair in
-# fish/config.fish and delta's detect-dark-light — previously pinned to dark,
-# making the terminal the one thing that didn't follow a light desktop.
-theme = light:Catppuccin Latte,dark:Catppuccin Frappe
+# Pinned to dark regardless of system appearance.
+theme = Catppuccin Frappe
 command = /opt/homebrew/bin/fish
 
 # Homebrew's vendor_conf.d/mise-activate.fish runs before fish/config.fish and
