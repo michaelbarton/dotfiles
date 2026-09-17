@@ -11,12 +11,42 @@
     - hooks
     - setup
 
-- name: Link Claude settings (global prompt hooks)
+- name: Check for a machine-local Claude settings overlay
+  ansible.builtin.stat:
+    path: "{{ ansible_user_dir }}/.config/claude/settings-local.json"
+  register: claude_settings_local
+  tags:
+    - hooks
+    - setup
+
+# Optional machine-local overlay (e.g. a work-only plugin/marketplace) merged
+# on top of the shared settings.json below. Absent on machines that don't
+# need it — same idea as git/gitconfig's [include] for work identity.
+- name: Link Claude settings (no machine-local overlay present)
   ansible.builtin.file:
     src: "{{ dotfiles_dir }}/claude/settings.json"
     dest: "{{ ansible_user_dir }}/.claude/settings.json"
     state: link
     force: true
+  when: not claude_settings_local.stat.exists
+  tags:
+    - hooks
+    - setup
+
+- name: Merge machine-local overlay into Claude settings
+  # Write to a temp file and rename it into place rather than redirecting
+  # straight to the destination: that destination is a symlink into the
+  # dotfiles repo (see the task above), and `>` truncates through a symlink
+  # before jq ever reads it — clobbering the tracked settings.json.
+  ansible.builtin.shell:
+    cmd: >
+      jq -s '.[0] * .[1]'
+      {{ dotfiles_dir }}/claude/settings.json
+      {{ ansible_user_dir }}/.config/claude/settings-local.json
+      > {{ ansible_user_dir }}/.claude/settings.json.tmp
+      && mv {{ ansible_user_dir }}/.claude/settings.json.tmp {{ ansible_user_dir }}/.claude/settings.json
+  when: claude_settings_local.stat.exists
+  changed_when: true
   tags:
     - hooks
     - setup
