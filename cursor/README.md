@@ -48,6 +48,10 @@ scripts against that engine. Two differences are load-bearing:
   approval, and Codex has no equivalent event. Under Codex the critique fires
   once at `Stop` and is never retired early.
 
+Each entry also carries a `statusMessage`, which Codex shows in the terminal
+while the hook runs. Claude Code has no equivalent field, so there a hook that
+gates a command is silent until it either passes or blocks.
+
 Codex also gates hooks behind a trust prompt: its hooks panel tracks a hash per
 hook and shows *"Modified since last trusted — review required"*. Re-trust there
 after any `make apply` that changes `codex/hooks.json`.

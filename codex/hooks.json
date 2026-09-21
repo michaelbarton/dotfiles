@@ -7,7 +7,8 @@
           {
             "type": "command",
             "command": "$HOME/.dotfiles/claude/hooks/writing-review.sh",
-            "timeout": 60
+            "timeout": 60,
+            "statusMessage": "Reviewing prose against writing.mdc"
           }
         ]
       }
@@ -19,17 +20,20 @@
           {
             "type": "command",
             "command": "$HOME/.dotfiles/claude/hooks/plan-review.sh",
-            "timeout": 5
+            "timeout": 5,
+            "statusMessage": "Auditing plan against planning.mdc"
           },
           {
             "type": "command",
             "command": "$HOME/.dotfiles/claude/hooks/dbt-rules.sh",
-            "timeout": 5
+            "timeout": 5,
+            "statusMessage": "Loading dbt rules"
           },
           {
             "type": "command",
             "command": "$HOME/.dotfiles/claude/hooks/track-tool-use.sh",
-            "timeout": 5
+            "timeout": 5,
+            "statusMessage": "Recording this turn's tool use"
           }
         ]
       }
@@ -40,12 +44,14 @@
           {
             "type": "command",
             "command": "$HOME/.dotfiles/claude/hooks/stop-check.sh",
-            "timeout": 5
+            "timeout": 5,
+            "statusMessage": "Checking for an unrun build"
           },
           {
             "type": "command",
             "command": "$HOME/.dotfiles/claude/hooks/plan-critique.sh",
-            "timeout": 5
+            "timeout": 5,
+            "statusMessage": "Critiquing plan against plan-critique.mdc"
           }
         ]
       }
