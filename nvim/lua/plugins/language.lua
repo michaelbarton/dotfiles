@@ -24,31 +24,6 @@ return {
     opts = { ensure_installed = { "prettier", "prettierd" } },
   },
   {
-    -- mason-lspconfig maps r_language_server to quarto by default and
-    -- auto-installs it (independent of nvim-lspconfig's filetypes below,
-    -- which only controls attaching). Its installer has repeatedly corrupted
-    -- unrelated projects' .git/index when the install job aborts mid-clone
-    -- with the project dir as cwd, so opt out of auto-install entirely.
-    "mason-org/mason-lspconfig.nvim",
-    opts = {
-      automatic_installation = { exclude = { "r_language_server" } },
-    },
-  },
-  {
-    "neovim/nvim-lspconfig",
-    opts = {
-      servers = {
-        -- Prevent r_language_server from attaching to quarto files that don't
-        -- have an R project root, since mason-lspconfig maps it to quarto by
-        -- default and it errors on Python-only .qmd files.
-        r_language_server = {
-          root_markers = { "DESCRIPTION", "NAMESPACE", ".Rbuildignore", "*.Rproj" },
-          filetypes = { "r", "rmd" },
-        },
-      },
-    },
-  },
-  {
     "stevearc/conform.nvim",
     opts = {
       formatters_by_ft = {
