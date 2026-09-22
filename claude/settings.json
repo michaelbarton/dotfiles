@@ -4,12 +4,13 @@
       "Bash(uv *)",
       "Bash(just *)",
       "Bash(duckdb *)",
-      "Bash(git fetch *)"
+      "Bash(git *)"
     ],
     "defaultMode": "auto",
     "blockReadsOutsideWorkingDirectories": false,
     "additionalDirectories": [
-      "~/.local/share/nvim"
+      "~/.local/",
+      "~/.dotfiles/"
     ]
   },
   "model": "opus[1m]",
