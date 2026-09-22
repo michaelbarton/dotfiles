@@ -3,12 +3,16 @@
     "allow": [
       "Bash(uv *)",
       "Bash(just *)",
-      "Bash(duckdb *)"
+      "Bash(duckdb *)",
+      "Bash(git fetch *)"
     ],
     "defaultMode": "auto",
-    "blockReadsOutsideWorkingDirectories": true
+    "blockReadsOutsideWorkingDirectories": false,
+    "additionalDirectories": [
+      "~/.local/share/nvim"
+    ]
   },
-  "model": "sonnet",
+  "model": "opus[1m]",
   "hooks": {
     "PreToolUse": [
       {
