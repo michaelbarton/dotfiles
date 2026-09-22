@@ -63,7 +63,9 @@ return {
 
     local function open_role(role)
       local term = ensure_terminal(role)
-      term:open()
+      if not term:is_open() then
+        term:open()
+      end
       last_role = role
       notify_role("Focused", role)
       return term
