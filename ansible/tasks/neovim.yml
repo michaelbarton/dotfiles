@@ -28,7 +28,6 @@
     path: "{{ ansible_env.HOME }}/.config/nvim/{{ item }}"
   loop:
     - ftplugin
-    - dbt
     - lazy-lock.json
   register: nvim_paths
 
@@ -49,7 +48,6 @@
     - { src: "nvim/lua", dest: ".config/nvim/lua" }
     - { src: "nvim/ftplugin", dest: ".config/nvim/ftplugin" }
     - { src: "nvim/lazy-lock.json", dest: ".config/nvim/lazy-lock.json" }
-    - { src: "dbt", dest: ".config/nvim/dbt" }
 
 - name: Install jsonlint node.js package
   ansible.builtin.command:
