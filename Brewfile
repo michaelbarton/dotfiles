@@ -73,4 +73,3 @@ cask "mactex"
 cask "quarto"
 cask "rectangle", args: { appdir: "/Applications" }
 cask "spotify"
-npm "@anthropic-ai/claude-code"
