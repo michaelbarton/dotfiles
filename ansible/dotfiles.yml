@@ -61,6 +61,12 @@
         - packages
         - never
 
+    - name: Include Claude Code native install tasks
+      ansible.builtin.include_tasks: tasks/claude_code.yml
+      tags:
+        - packages
+        - never
+
     - name: Include macOS defaults tasks
       ansible.builtin.include_tasks: tasks/osx_defaults.yml
       tags:

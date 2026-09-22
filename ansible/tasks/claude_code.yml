@@ -1,0 +1,14 @@
+---
+# Claude Code ships its own self-updater, so it is installed via the native
+# installer rather than the Brewfile/npm, both of which need a manual
+# `brew upgrade`/`npm update` to stay current.
+- name: Check whether Claude Code native install is present
+  ansible.builtin.stat:
+    path: "{{ ansible_user_dir }}/.local/bin/claude"
+  register: claude_code_binary
+
+- name: Install Claude Code via native installer
+  ansible.builtin.shell: # noqa: command-instead-of-module
+    cmd: curl -fsSL https://claude.ai/install.sh | bash
+  when: not claude_code_binary.stat.exists
+  changed_when: true
