@@ -13,7 +13,7 @@
       "~/.dotfiles/"
     ]
   },
-  "model": "opus[1m]",
+  "model": "opusplan",
   "hooks": {
     "PreToolUse": [
       {
@@ -92,7 +92,6 @@
       }
     }
   },
-  "effortLevel": "high",
   "tui": "fullscreen",
   "theme": "dark",
   "agentPushNotifEnabled": true,
@@ -120,9 +119,9 @@
       "**Protected IaC scopes**: IAM, RBAC, networking, quota, and node-pool resources; anything whose name or tag carries `prod` or `production` as a whole word or name segment",
       "### User-specific",
       "**Primary use of Claude Code**: personal dotfiles / macOS system configuration management (Ansible, Homebrew, shell tooling)",
-      "**Trusted repo**: /Users/michaelbarton/.dotfiles and its remote github.com:michaelbarton/dotfiles.git — PUBLIC repo, so only this repo's own work belongs in commits/pushes here; secrets and sensitive data (e.g. paperless-ngx/docker-compose.env contents) are never cleared into it regardless of visibility",
+      "**Trusted repo**: ~/.dotfiles and its remote github.com:michaelbarton/dotfiles.git — PUBLIC repo, so only this repo's own work belongs in commits/pushes here; secrets and sensitive data (e.g. paperless-ngx/docker-compose.env contents) are never cleared into it regardless of visibility",
       "**Org-specific CLIs**: None configured — routine personal tooling observed (uv, ansible-playbook, brew, make, gh) is not org-specific",
-      "routine under /Users/michaelbarton/.dotfiles/ prefix: Ansible playbook runs, Homebrew package management, macOS defaults/dotfile application are expected routine activity for this repo"
+      "routine under ~/.dotfiles/ prefix: Ansible playbook runs, Homebrew package management, macOS defaults/dotfile application are expected routine activity for this repo"
     ]
   }
 }

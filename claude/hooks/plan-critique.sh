@@ -139,5 +139,9 @@ Apply the fixes and continue."
 
 touch "$marker_file" 2>/dev/null || exit 0
 
+# Audit trail: review after a week to decide whether this hook earns its keep.
+printf '%s plan-critique block session=%s lines=%s\n' "$(date -u +%FT%TZ)" "$session_id" "$line_count" \
+  >>"$HOME/.claude/hook-fires.log" 2>/dev/null || true
+
 jq -n --arg reason "$reason" '{decision: "block", reason: $reason}' 2>/dev/null || true
 exit 0
