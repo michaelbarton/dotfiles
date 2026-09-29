@@ -107,5 +107,9 @@ reason=$(
   echo "If a build is genuinely not applicable (e.g. the edit was comment-only or the file was deleted later in the turn), say why in one line instead."
 )
 
+# Audit trail: review after a week to decide whether this hook earns its keep.
+printf '%s stop-check block session=%s\n' "$(date -u +%FT%TZ)" "$session_id" \
+  >>"$HOME/.claude/hook-fires.log" 2>/dev/null || true
+
 jq -n --arg reason "$reason" '{decision: "block", reason: $reason}' 2>/dev/null || true
 exit 0
