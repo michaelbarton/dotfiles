@@ -51,6 +51,3 @@ vim.keymap.set("n", "<leader>wi", function()
     end,
   })
 end, { noremap = true, silent = true, desc = "[W]iki [I]nsert Link" })
-
--- dbt keymaps (loaded from separate file)
-require("config.dbt")
