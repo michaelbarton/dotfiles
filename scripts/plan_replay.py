@@ -10,21 +10,24 @@ said next. This treats them as a small labelled regression set for plan-review c
 planning rubric, an adversarial reviewer prompt, a CLAUDE.md rule) so a change is tested before
 it is adopted:
 
-  should flag   plans followed by "check the assumptions" (unverified_checkable), a request to
-                simplify or summarise (not_reviewable), or missing context (missing_context)
-  should pass   plans followed by "ok, execute" (executed as-is)
+  should block  plans you complained about: "check the assumptions", a request to simplify or
+                summarise, missing context, or `NOTE:` lines left in the plan file
+  should pass   plans executed as-is: "ok, execute", or approved with no objection
 
-Reported per label: hit rate (did the reviewer raise the matching flag?) and, on executed
-plans, the false-alarm rate (any flag). Labels come from regexes in claude_transcripts.py and
-there are only a few dozen plans, so read the numbers as directional: this is better at ruling a
-change out than proving one in.
+The headline is a 2x2 confusion matrix on "did the reviewer set blocking?", set beside the
+trivial reviewer that blocks every plan. Most plans get complained about, so blocking everything
+already scores well; a reviewer is only useful if its precision clearly beats that base rate.
+Per-label rows show which flag it raised for the three typed complaints. Labels come from
+regexes in claude_transcripts.py and there are only a few dozen plans, so read the numbers as
+directional: this is better at ruling a change out than proving one in.
 
 Limits: the reviewer sees only the plan text, with no repository or ticket access. It can judge
 "lists unknowns it could have checked" and "not reviewable in a minute", but `missing_context`
 usually needs tools, so expect low recall there offline.
 
 Reviewers:
-  heuristic  free and deterministic (regexes on the plan text); the baseline to beat
+  heuristic  free and deterministic (regexes on the plan text); it flags almost every plan, so it
+             behaves like block-everything and is a sanity check, not the bar to beat
   claude     one `claude -p` call per plan (no tools, no session persisted); costs tokens
 
 Transcripts contain work content: results print locally and `--out` writes wherever you point
@@ -48,6 +51,7 @@ TARGETS = {
     "simplify": "not_reviewable",
     "context": "missing_context",
 }
+COMPLAINT_LABELS = (*TARGETS, "notes")
 MIN_PLAN_CHARS = 200
 SMALL_N = 10
 
@@ -123,34 +127,35 @@ def score(rows: list[dict]) -> dict:
     report: dict = {"errors": len(rows) - len(ok), "labels": {}}
     for label, flag in TARGETS.items():
         group = by_label.get(label, [])
-        hits = sum(flag in r["review"]["flags"] for r in group)
         report["labels"][label] = {
             "n": len(group),
             "flag": flag,
-            "hits": hits,
-            "blocking": sum(r["review"].get("blocking") is True for r in group),
+            "hits": sum(flag in r["review"]["flags"] for r in group),
         }
+    notes = by_label.get("notes", [])
+    report["notes"] = {"n": len(notes), "by_flag": flag_counts(notes)}
     executed = by_label.get("execute", [])
-    report["executed_as_is"] = {
-        "n": len(executed),
-        "any_flag": sum(bool(r["review"]["flags"]) for r in executed),
-        "blocking": sum(r["review"].get("blocking") is True for r in executed),
-        "by_flag": dict(Counter(f for r in executed for f in r["review"]["flags"])),
-    }
-    # The separation that matters: does a blocking flag land on plans you complained about more
-    # than on plans you executed as-is? (An executed plan can still have loose ends, so the
-    # executed set is a noisy negative.)
-    complaints = [r for label in TARGETS for r in by_label.get(label, [])]
-    report["separation"] = {
-        "complaint_plans": len(complaints),
-        "complaint_blocking": sum(r["review"].get("blocking") is True for r in complaints),
-        "executed_plans": len(executed),
-        "executed_blocking": report["executed_as_is"]["blocking"],
+    report["executed_as_is"] = {"n": len(executed), "by_flag": flag_counts(executed)}
+
+    complaints = [r for label in COMPLAINT_LABELS for r in by_label.get(label, [])]
+    blocked = lambda rs: sum(r["review"].get("blocking") is True for r in rs)
+    tp, fp = blocked(complaints), blocked(executed)
+    n_pos, n_neg = len(complaints), len(executed)
+    report["matrix"] = {
+        "tp": tp,
+        "fn": n_pos - tp,
+        "fp": fp,
+        "tn": n_neg - fp,
+        "base_rate": n_pos / (n_pos + n_neg) if n_pos + n_neg else None,
     }
     report["unscored"] = dict(
-        Counter(r["label"] for r in ok if r["label"] not in {*TARGETS, "execute"})
+        Counter(r["label"] for r in ok if r["label"] not in {*COMPLAINT_LABELS, "execute"})
     )
     return report
+
+
+def flag_counts(rows: list[dict]) -> dict:
+    return dict(Counter(f for r in rows for f in r["review"]["flags"]))
 
 
 def rate(k: int, n: int) -> str:
@@ -158,25 +163,31 @@ def rate(k: int, n: int) -> str:
 
 
 def print_report(report: dict, reviewer: str) -> None:
+    m = report["matrix"]
+    n_pos, n_neg = m["tp"] + m["fn"], m["fp"] + m["tn"]
     print(f"reviewer: {reviewer}   errors: {report['errors']}\n")
-    print("hit rate (should flag):")
-    for label, v in report["labels"].items():
-        note = "  (small n)" if v["n"] < SMALL_N else ""
-        print(
-            f"  {label:<12} -> {v['flag']:<21} {rate(v['hits'], v['n'])}"
-            f"   blocking {rate(v['blocking'], v['n'])}{note}"
-        )
-    ex = report["executed_as_is"]
-    note = "  (small n)" if ex["n"] < SMALL_N else ""
-    print(f"\nflags on plans executed as-is: {rate(ex['any_flag'], ex['n'])}{note}")
-    for flag, count in ex["by_flag"].items():
-        print(f"  {flag:<21} {count}")
-    sep = report["separation"]
+    print("did the reviewer block?                you complained    you executed as-is")
+    print(f"  blocked                              {m['tp']:>8}          {m['fp']:>8}")
+    print(f"  passed                               {m['fn']:>8}          {m['tn']:>8}")
+    base = m["base_rate"]
+    precision = m["tp"] / (m["tp"] + m["fp"]) if m["tp"] + m["fp"] else None
+    pct = lambda x: "n/a" if x is None else f"{x:.0%}"
     print(
-        "\nblocking flag rate: "
-        f"complaint plans {rate(sep['complaint_blocking'], sep['complaint_plans'])} vs "
-        f"executed as-is {rate(sep['executed_blocking'], sep['executed_plans'])}"
+        f"\n  recall (complaints caught)    {rate(m['tp'], n_pos)}"
+        f"\n  false alarms on executed      {rate(m['fp'], n_neg)}"
+        f"\n  precision when it blocks      {pct(precision)}"
+        f"\n  block-everything precision    {pct(base)}   <- the bar to beat"
     )
+    if n_pos < SMALL_N or n_neg < SMALL_N:
+        print(f"  (small n: {n_pos} complaints, {n_neg} executed)")
+
+    print("\nflag raised, by what you said:")
+    for label, v in report["labels"].items():
+        print(f"  {label:<12} -> {v['flag']:<21} {rate(v['hits'], v['n'])}")
+    notes = report["notes"]
+    print(f"  {'notes':<12} -> any flag: {notes['by_flag'] or '{}'}  (n={notes['n']})")
+    ex = report["executed_as_is"]
+    print(f"  executed     -> flags raised anyway: {ex['by_flag'] or '{}'}  (n={ex['n']})")
     print(f"\nunscored labels (ambiguous): {report['unscored']}")
 
 
@@ -224,6 +235,7 @@ def main() -> None:
             "label": p.label,
             "plan_chars": len(p.plan),
             "next_message": p.next_message[:160],
+            "notes": len(p.notes),
             "review": review,
         }
         for p, review in zip(plans, reviews)
