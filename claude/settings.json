@@ -23,6 +23,11 @@
             "type": "command",
             "command": "$HOME/.dotfiles/claude/hooks/writing-review.sh",
             "timeout": 60
+          },
+          {
+            "type": "command",
+            "command": "$HOME/.dotfiles/claude/hooks/infra-guard.py",
+            "timeout": 30
           }
         ]
       }
