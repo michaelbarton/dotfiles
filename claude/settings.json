@@ -26,7 +26,7 @@
           },
           {
             "type": "command",
-            "command": "$HOME/.dotfiles/claude/hooks/infra-guard.sh",
+            "command": "$HOME/.dotfiles/claude/hooks/infra-guard.py",
             "timeout": 30
           }
         ]
