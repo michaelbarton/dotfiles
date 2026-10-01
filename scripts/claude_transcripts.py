@@ -16,11 +16,14 @@ from __future__ import annotations
 
 import json
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 
 DEFAULT_ROOT = Path.home() / ".claude" / "projects"
 COMMAND_RE = re.compile(r"<command-name>/?([^<\s]+)</command-name>")
+# Case-sensitive on purpose: the harness's own "Note: The user's next message..." must not match.
+NOTE_RE = re.compile(r"^\s*(?:>\s*)?NOTE:\s*(.*)$")
+READ_LINE_PREFIX_RE = re.compile(r"^\s*\d+\t")
 FOLLOW_UP_WINDOW = 8  # user entries to scan after a plan result for the operator's next message
 
 # Heuristic classes for the operator's message after a plan, first match wins. These are coarse
@@ -70,6 +73,7 @@ class PlanCall:
     next_message: str = ""
     next_command: str = ""
     label: str = "none"
+    notes: list[str] = field(default_factory=list)  # operator `NOTE:` lines left in the plan file
 
 
 def find_transcripts(root: Path = DEFAULT_ROOT) -> list[Path]:
@@ -149,6 +153,58 @@ def _follow_up(entries: list[dict], start: int) -> tuple[str, str]:
     return "", command
 
 
+def _result_text(block: dict) -> str:
+    content = block.get("content")
+    if isinstance(content, str):
+        return content
+    if isinstance(content, list):
+        return "\n".join(b.get("text", "") for b in content if isinstance(b, dict))
+    return ""
+
+
+def _notes_after(entries: list[dict], start: int, plan: str) -> list[str]:
+    """`NOTE:` lines the operator wrote into the plan file, recovered from the model's re-read.
+
+    Notes are typed into the plan file in the editor (`/plan open`), so the transcript only holds
+    them when the model reads that file back before the next ExitPlanMode. A note runs on over
+    following lines that were not in the plan as presented, until a blank line or another note.
+    """
+    presented = {line.strip() for line in plan.splitlines()}
+    notes: list[str] = []
+    for entry in entries[start + 1 :]:
+        if entry.get("isSidechain"):
+            continue
+        entry_blocks = blocks(entry)
+        if entry.get("type") == "assistant" and any(
+            b.get("type") == "tool_use" and b.get("name") == "ExitPlanMode" for b in entry_blocks
+        ):
+            break
+        for block in entry_blocks:
+            if block.get("type") != "tool_result":
+                continue
+            lines = [READ_LINE_PREFIX_RE.sub("", ln) for ln in _result_text(block).splitlines()]
+            for i, line in enumerate(lines):
+                match = NOTE_RE.match(line)
+                if not match or line.strip() in presented:
+                    continue
+                parts = [match.group(1).strip()]
+                for follow in lines[i + 1 :]:
+                    stripped = follow.strip()
+                    if not stripped or stripped in presented or NOTE_RE.match(follow):
+                        break
+                    parts.append(stripped)
+                note = " ".join(p for p in parts if p)
+                if note and note not in notes:
+                    notes.append(note)
+    return notes
+
+
+def _has_tool_use(entry: dict, tool_use_id: str) -> bool:
+    return entry.get("type") == "assistant" and any(
+        b.get("type") == "tool_use" and b.get("id") == tool_use_id for b in blocks(entry)
+    )
+
+
 def plan_calls(entries: list[dict]) -> list[PlanCall]:
     """One PlanCall per unique ExitPlanMode tool_use id, with outcome and the operator's reply."""
     calls: dict[str, PlanCall] = {}
@@ -181,6 +237,13 @@ def plan_calls(entries: list[dict]) -> list[PlanCall]:
         call.outcome = "rejected" if is_error else "approved"
         call.next_message, call.next_command = _follow_up(entries, index)
         call.label = classify(call.next_message)
+        if is_error:
+            call_index = next(i for i, e in enumerate(entries) if _has_tool_use(e, tool_use_id))
+            call.notes = _notes_after(entries, call_index, call.plan)
+            if call.notes:
+                call.label = "notes"  # the notes are the reply; "left notes" is just the pointer
+        elif call.label in ("none", "other"):
+            call.label = "execute"  # approved with no objection: the plan was executed as-is
     return sorted(calls.values(), key=lambda c: c.timestamp)
 
 
