@@ -85,6 +85,17 @@
         - skills
         - setup
 
+    - name: Include agent definition deployment tasks
+      ansible.builtin.include_tasks:
+        file: tasks/agents.yml
+        apply:
+          tags:
+            - agents
+            - setup
+      tags:
+        - agents
+        - setup
+
     - name: Include agent hooks and Cursor rules deployment
       ansible.builtin.include_tasks:
         file: tasks/agent_hooks.yml
