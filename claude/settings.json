@@ -3,6 +3,18 @@
     "type": "command",
     "command": "$HOME/.dotfiles/claude/statusline.sh"
   },
+  "sandbox": {
+    "enabled": true,
+    "allowUnsandboxedCommands": false,
+    "credentials": {
+      "files": [{ "path": "~/.aws", "mode": "deny" }],
+      "envVars": [
+        { "name": "AWS_ACCESS_KEY_ID", "mode": "deny" },
+        { "name": "AWS_SECRET_ACCESS_KEY", "mode": "deny" },
+        { "name": "AWS_SESSION_TOKEN", "mode": "deny" }
+      ]
+    }
+  },
   "permissions": {
     "allow": [
       "Bash(uv *)",
@@ -17,7 +29,8 @@
       "Bash(git push * --force *)",
       "Bash(git push * -f)",
       "Bash(git push * -f *)",
-      "Bash(git reset --hard *)"
+      "Bash(git reset --hard *)",
+      "Read(~/.aws/**)"
     ],
     "defaultMode": "auto",
     "blockReadsOutsideWorkingDirectories": false,
