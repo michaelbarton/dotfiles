@@ -6,20 +6,20 @@
 
 - name: Create paperless backup staging directory
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.paperless-backup-staging"
+    path: "{{ ansible_facts['user_dir'] }}/.paperless-backup-staging"
     state: directory
     mode: "0700"
 
 - name: Copy paperless backup launchd plist
   ansible.builtin.copy:
     src: "{{ dotfiles_dir }}/paperless-ngx/uk.me.michaelbarton.paperless-backup.plist"
-    dest: "{{ ansible_user_dir }}/Library/LaunchAgents/uk.me.michaelbarton.paperless-backup.plist"
+    dest: "{{ ansible_facts['user_dir'] }}/Library/LaunchAgents/uk.me.michaelbarton.paperless-backup.plist"
     mode: "0644"
   register: paperless_backup_plist
 
 - name: Bootstrap paperless backup launch agent
   ansible.builtin.command:
-    cmd: launchctl bootstrap gui/{{ ansible_user_uid }} "{{ ansible_user_dir }}/Library/LaunchAgents/uk.me.michaelbarton.paperless-backup.plist"
+    cmd: launchctl bootstrap gui/{{ ansible_facts['user_uid'] }} "{{ ansible_facts['user_dir'] }}/Library/LaunchAgents/uk.me.michaelbarton.paperless-backup.plist"
   when: paperless_backup_plist.changed
   changed_when: true
 # One-time manual setup required (run these once before first backup):

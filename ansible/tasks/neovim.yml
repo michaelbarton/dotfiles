@@ -25,7 +25,7 @@
 
 - name: Stat nvim paths before symlinking
   ansible.builtin.stat:
-    path: "{{ ansible_env.HOME }}/.config/nvim/{{ item }}"
+    path: "{{ ansible_facts['env']['HOME'] }}/.config/nvim/{{ item }}"
   loop:
     - ftplugin
     - lazy-lock.json
@@ -33,7 +33,7 @@
 
 - name: Remove existing paths that need to be replaced with symlinks
   ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/.config/nvim/{{ item.item }}"
+    path: "{{ ansible_facts['env']['HOME'] }}/.config/nvim/{{ item.item }}"
     state: absent
   loop: "{{ nvim_paths.results }}"
   when: item.stat.exists and not item.stat.islnk
@@ -41,7 +41,7 @@
 - name: Link specific configuration files
   ansible.builtin.file:
     src: "{{ playbook_dir }}/../{{ item.src }}"
-    dest: "{{ ansible_env.HOME }}/{{ item.dest }}"
+    dest: "{{ ansible_facts['env']['HOME'] }}/{{ item.dest }}"
     state: link
   loop:
     - { src: "nvim/init.lua", dest: ".config/nvim/init.lua" }

@@ -48,6 +48,10 @@ jobs:
           --syntax-check
 
       - name: Run playbook (skip macOS-only tasks)
+        env:
+          # Fail on any top-level fact var (ansible_user_dir etc.) instead of
+          # warning; the default flips in ansible-core 2.24.
+          ANSIBLE_INJECT_FACT_VARS: "False"
         run: >
           uvx --from ansible-core ansible-playbook
           -i "localhost,"

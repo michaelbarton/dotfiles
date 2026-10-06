@@ -14,10 +14,10 @@
   hosts: localhost
   connection: local
   vars:
-    venv_path: "{{ ansible_env.HOME }}/.venvs"
+    venv_path: "{{ ansible_facts['env']['HOME'] }}/.venvs"
     python_version: "3.11" # Adjust this to your preferred Python version
-    dotfiles_dir: "{{ ansible_env.HOME }}/.dotfiles"
-    config_dir: "{{ ansible_user_dir }}/.config"
+    dotfiles_dir: "{{ ansible_facts['env']['HOME'] }}/.dotfiles"
+    config_dir: "{{ ansible_facts['user_dir'] }}/.config"
 
   tasks:
     - name: Create necessary directories
@@ -39,13 +39,13 @@
         - { path: "{{ config_dir }}/tmux" }
         - { path: "{{ config_dir }}/uv" }
         - { path: "{{ config_dir }}/homebrew" }
-        - { path: "{{ ansible_user_dir }}/cache" }
-        - { path: "{{ ansible_user_dir }}/.bin" }
-        - { path: "{{ ansible_user_dir }}/.hammerspoon" }
-        - { path: "{{ ansible_user_dir }}/.ssh/sockets", mode: "0700" }
-        - { path: "{{ ansible_user_dir }}/.local/share" }
-        - { path: "{{ ansible_user_dir }}/.cache" }
-        - { path: "{{ ansible_user_dir }}/.local/state" }
+        - { path: "{{ ansible_facts['user_dir'] }}/cache" }
+        - { path: "{{ ansible_facts['user_dir'] }}/.bin" }
+        - { path: "{{ ansible_facts['user_dir'] }}/.hammerspoon" }
+        - { path: "{{ ansible_facts['user_dir'] }}/.ssh/sockets", mode: "0700" }
+        - { path: "{{ ansible_facts['user_dir'] }}/.local/share" }
+        - { path: "{{ ansible_facts['user_dir'] }}/.cache" }
+        - { path: "{{ ansible_facts['user_dir'] }}/.local/state" }
       tags:
         - always
 

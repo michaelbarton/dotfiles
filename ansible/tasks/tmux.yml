@@ -2,7 +2,7 @@
 - name: Clone TPM (Tmux Plugin Manager)
   ansible.builtin.git:
     repo: https://github.com/tmux-plugins/tpm
-    dest: "{{ ansible_user_dir }}/.tmux/plugins/tpm"
+    dest: "{{ ansible_facts['user_dir'] }}/.tmux/plugins/tpm"
     # TPM has no release tags, so pin to the commit currently in use rather
     # than floating HEAD.
     version: e261deb1b47614eed3400089ce7197dc68acc4eb
@@ -11,7 +11,7 @@
   ansible.builtin.shell:
     cmd: >
       tmux start-server &&
-      {{ ansible_user_dir }}/.tmux/plugins/tpm/bin/install_plugins
+      {{ ansible_facts['user_dir'] }}/.tmux/plugins/tpm/bin/install_plugins
   environment:
-    TMUX_PLUGIN_MANAGER_PATH: "{{ ansible_user_dir }}/.tmux/plugins"
+    TMUX_PLUGIN_MANAGER_PATH: "{{ ansible_facts['user_dir'] }}/.tmux/plugins"
   changed_when: false

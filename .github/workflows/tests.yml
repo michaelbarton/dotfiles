@@ -47,6 +47,9 @@ jobs:
       - name: Run dotfiles playbook
         env:
           CI: true
+          # Fail on any top-level fact var (ansible_user_dir etc.) instead of
+          # warning; the default flips in ansible-core 2.24.
+          ANSIBLE_INJECT_FACT_VARS: "False"
         run: |
           ln -sfn "$GITHUB_WORKSPACE" "$HOME/.dotfiles"
           ansible-galaxy install -r ansible/requirements.yml

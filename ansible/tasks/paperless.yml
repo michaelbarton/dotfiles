@@ -1,7 +1,7 @@
 ---
 - name: Create paperless data directories
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.paperless/{{ item }}"
+    path: "{{ ansible_facts['user_dir'] }}/.paperless/{{ item }}"
     state: directory
     mode: "0755"
   loop:
@@ -10,7 +10,7 @@
 
 - name: Create paperless consume directory
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/Documents/consume"
+    path: "{{ ansible_facts['user_dir'] }}/Documents/consume"
     state: directory
     mode: "0755"
 
@@ -22,18 +22,18 @@
 # MacBook-Air"` was false here, so this block had never actually installed
 # the launch agent.
 - name: Install paperless start launch agent
-  when: ansible_fqdn in (groups['personal'] | default([]))
+  when: ansible_facts['fqdn'] in (groups['personal'] | default([]))
   block:
     - name: Copy paperless start launchd plist
       ansible.builtin.copy:
         src: "{{ dotfiles_dir }}/paperless-ngx/uk.me.michaelbarton.paperless-start.plist"
-        dest: "{{ ansible_user_dir }}/Library/LaunchAgents/uk.me.michaelbarton.paperless-start.plist"
+        dest: "{{ ansible_facts['user_dir'] }}/Library/LaunchAgents/uk.me.michaelbarton.paperless-start.plist"
         mode: "0644"
       register: paperless_start_plist
 
     - name: Bootstrap paperless start launch agent
       ansible.builtin.command:
-        cmd: launchctl bootstrap gui/{{ ansible_user_uid }} "{{ ansible_user_dir }}/Library/LaunchAgents/uk.me.michaelbarton.paperless-start.plist"
+        cmd: launchctl bootstrap gui/{{ ansible_facts['user_uid'] }} "{{ ansible_facts['user_dir'] }}/Library/LaunchAgents/uk.me.michaelbarton.paperless-start.plist"
       when: paperless_start_plist.changed
       changed_when: true
 
