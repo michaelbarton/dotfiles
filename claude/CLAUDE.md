@@ -2,9 +2,8 @@
 
 These apply across projects unless a project's own CLAUDE.md says otherwise.
 
-- Use `uv`, not `pip`/`poetry`/`pipx`. Standalone scripts declare their own
-  dependencies with PEP 723 inline metadata (`# /// script` block) and a
-  `#!/usr/bin/env -S uv run --script` shebang, so they run without a venv.
+- Use `uv`, not `pip`/`poetry`/`pipx`. For standalone Python scripts, see the
+  `uv-scripts` skill.
 - Run the project's own formatter/lint target before committing (check for a
   `Justfile`, `Makefile`, or `package.json` scripts).
 
