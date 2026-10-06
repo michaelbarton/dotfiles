@@ -67,3 +67,14 @@ The operator should be able to review a plan in under 60 seconds.
 Open with a plain-language summary of about 10 lines: what changes, why, and
 what the operator must decide. Put evidence and detail below it. Leave out work
 that is already done, and start from what is left.
+
+### Adversarial review
+
+Before presenting a plan that changes files or systems (Claude Code: before
+`ExitPlanMode`), spawn one fresh-context read-only reviewer (`Explore`). Give it
+the plan file path and the operator's original request, not your reasoning. Ask
+it to (1) try to verify every asserted or `UNVERIFIED:` claim, (2) find context
+the plan missed (open PRs, recent commits, linked tickets or threads, files
+never read), and (3) flag anything not reviewable in about a minute. It returns
+at most 15 lines, each with evidence. Fold the findings into the plan, and run it
+once per plan. Skip it for trivial single-file changes and for advisory answers.
