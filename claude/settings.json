@@ -6,6 +6,15 @@
       "Bash(duckdb *)",
       "Bash(git *)"
     ],
+    "deny": [
+      "Bash(git push --force *)",
+      "Bash(git push -f *)",
+      "Bash(git push * --force)",
+      "Bash(git push * --force *)",
+      "Bash(git push * -f)",
+      "Bash(git push * -f *)",
+      "Bash(git reset --hard *)"
+    ],
     "defaultMode": "auto",
     "blockReadsOutsideWorkingDirectories": false,
     "additionalDirectories": [
