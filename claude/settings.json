@@ -17,7 +17,16 @@
       "Bash(git push * --force *)",
       "Bash(git push * -f)",
       "Bash(git push * -f *)",
-      "Bash(git reset --hard *)"
+      "Bash(git reset --hard *)",
+      "Bash(aws batch submit-job *)",
+      "Bash(aws * batch submit-job *)",
+      "Bash(aws batch register-job-definition *)",
+      "Bash(aws * batch register-job-definition *)",
+      "Bash(aws ecs run-task *)",
+      "Bash(aws * ecs run-task *)",
+      "Bash(docker push *)",
+      "Bash(docker * push *)",
+      "Bash(nextflow run *)"
     ],
     "defaultMode": "auto",
     "blockReadsOutsideWorkingDirectories": false,
