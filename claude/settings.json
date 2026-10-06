@@ -1,4 +1,8 @@
 {
+  "statusLine": {
+    "type": "command",
+    "command": "$HOME/.dotfiles/claude/statusline.sh"
+  },
   "permissions": {
     "allow": [
       "Bash(uv *)",
