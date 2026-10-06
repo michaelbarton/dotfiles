@@ -1,0 +1,22 @@
+---
+- name: Create user claude agents directory
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.claude/agents"
+    state: directory
+    mode: "0755"
+
+- name: Find agent definition files
+  ansible.builtin.find:
+    paths: "{{ dotfiles_dir }}/claude/agents"
+    file_type: file
+    patterns: "*.md"
+  register: agent_files
+
+- name: Link agent definition files to user claude agents directory
+  ansible.builtin.file:
+    src: "{{ item.path }}"
+    dest: "{{ ansible_user_dir }}/.claude/agents/{{ item.path | basename }}"
+    state: link
+    force: true
+  loop: "{{ agent_files.files }}"
+  changed_when: true

@@ -67,3 +67,18 @@ The operator should be able to review a plan in under 60 seconds.
 Open with a plain-language summary of about 10 lines: what changes, why, and
 what the operator must decide. Put evidence and detail below it. Leave out work
 that is already done, and start from what is left.
+
+### Adversarial review
+
+Before presenting a plan that changes files or systems (Claude Code: before
+`ExitPlanMode`), spawn the `plan-reviewer` agent once. Give it the plan file path
+and the operator's original request, not your reasoning. Its output contract and
+method live in `claude/agents/plan-reviewer.md`; where that agent is not
+available (Cursor), spawn a fresh-context read-only reviewer and ask for the same
+typed findings.
+
+Handle each finding by type. `EVIDENCE` (it cites what contradicts the plan): fix
+the plan, or rebut it with a cited counter-source. `CONCERN` (no contradicting
+evidence found): verify it by reading and cite the result, otherwise drop it.
+Run the review once per plan. Skip it for trivial single-file changes and for
+advisory answers.
