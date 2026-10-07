@@ -4,7 +4,7 @@
 # `brew upgrade`/`npm update` to stay current.
 - name: Check whether Claude Code native install is present
   ansible.builtin.stat:
-    path: "{{ ansible_user_dir }}/.local/bin/claude"
+    path: "{{ ansible_facts['user_dir'] }}/.local/bin/claude"
   register: claude_code_binary
 
 - name: Install Claude Code via native installer

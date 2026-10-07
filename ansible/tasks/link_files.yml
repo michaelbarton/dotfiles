@@ -1,7 +1,7 @@
 ---
 - name: Stat legacy dotfile locations superseded by XDG paths
   ansible.builtin.stat:
-    path: "{{ ansible_user_dir }}/{{ item }}"
+    path: "{{ ansible_facts['user_dir'] }}/{{ item }}"
   loop:
     - .gitconfig
     - .gitignore
@@ -10,7 +10,7 @@
 
 - name: Remove legacy symlinks now that these live under XDG paths
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/{{ item.item }}"
+    path: "{{ ansible_facts['user_dir'] }}/{{ item.item }}"
     state: absent
   loop: "{{ legacy_dotfile_paths.results }}"
   loop_control:
@@ -20,7 +20,7 @@
 - name: Link dotfiles
   ansible.builtin.file:
     src: "{{ dotfiles_dir }}/{{ item.src }}"
-    dest: "{{ ansible_user_dir }}/{{ item.dest }}"
+    dest: "{{ ansible_facts['user_dir'] }}/{{ item.dest }}"
     state: link
     force: true
   loop:
